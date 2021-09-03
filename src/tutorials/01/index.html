@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Psychology as a Science" />
+
+
+<title>Introduction to computing</title>
+
+<script src="index_files/header-attrs-2.10/header-attrs.js"></script>
+<script src="index_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="index_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="index_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="index_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="index_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="index_files/navigation-1.1/tabsets.js"></script>
+<link href="index_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="index_files/highlightjs-9.12.0/highlight.js"></script>
+<meta name="description" content="Week 1 Tutorial"/>
+<meta content_type="tutorial" week="01"/>
+<script src="index_files/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="index_files/niceQuiz-0.0.1/styles.css" rel="stylesheet" />
+<script src="index_files/niceQuiz-0.0.1/lib.js"></script>
+<script src="index_files/quiz-binding-0.1.0/quiz.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="css/paas_learnr.css" type="text/css" />
+<link rel="stylesheet" href="css/katex.min.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Introduction to computing</h1>
+<h3 class="subtitle">Tutorial 01</h3>
+<h4 class="author">Psychology as a Science</h4>
+
+</div>
+
+
+<div id="paas-tutorials" class="section level2">
+<h2>PAAS tutorials</h2>
+<p>Welcome to the first Psychology as a Science tutorial!</p>
+<p>This series of interactive tutorials will gently guide you through the topics covered in the PAAS module. To get the best value out of this module, you should complete each week’s tutorial <strong>ahead of the practical session</strong>. These tutorials are designed to take about an hour to complete. Some of them include videos, some will guide you through the topic at hand with short exercises, and some will offer you the opportunity to test your understanding with quiz questions and tasks. It is in your best interest not to skip through these tutorials and complete them all in due course.</p>
+<p>We did our best to make the tutorials as fun as possible but that doesn’t mean you shouldn’t take them seriously. The PAAS module covers a lot of topics you might be completely unfamiliar with so making good use of all the resources provided to you really is the best thing you can do to get the most out of the module.</p>
+<p>Let’s get started!</p>
+<p>Lincoln, Danielle, and Milan</p>
+</div>
+<div id="exercises-and-quizzes" class="section level2">
+<h2>Exercises and quizzes</h2>
+<p>Before we start with this week’s topic, let’s have a look at some of the exercise and quiz formats you will encounter in these tutorials.</p>
+<div id="text-editor-boxes" class="section level3">
+<h3>Text editor boxes</h3>
+<p>From week 3 on, we will start learning how to write documents in RStudio using its text editor, called R Markdown. Unlike visual text editor that you might be used to, such as Google Docs or Microsoft Word, R Markdown doesn’t have any buttons or icons you can press to make a part of the text <strong>bold</strong> or <em>italicise</em> it. Instead, it uses plain text characters such as <code>*</code>, <code>_</code>, <code>#</code>, <code>^</code>, and others to format the final document.</p>
+<p>To help you get used to this way of writing documents, the tutorials will sometimes let you practice R Markdown in text editor boxes such as the one below. Anything you type in the box will get <em>rendered</em> underneath as it would if you generated a document from a R Markdown file.</p>
+<div class="container">
+## Markdown example
+
+This is **bold**.
+This is *italics*.
+
+- this is
+- an *unordered*
+- list
+
+1. this is
+1. an *ordered*
+1. list
+
+Even maths formulae! $\sum_{i = 1}^{n}(x_i - \bar{x})^2$
+</div>
+<script type="text/javascript">
+document.body.onload = build;
+function build (){
+  let scriptTag = document.createElement('script');
+  scriptTag.src = './js/main.js';
+  document.body.appendChild(scriptTag);
+}
+</script>
+<p> </p>
+<p>Don’t worry too much about what any of this means at this stage. We will go through all of it step-by-step in a couple of weeks.</p>
+</div>
+<div id="quiz-questions" class="section level3">
+<h3>Quiz questions</h3>
+<p>Many of the tutorials will also contain quiz questions that will allow you to check your understanding of the concepts covered in these tutorials. They include single best answer questions, where you only select one options:</p>
+<div id="htmlwidget-48afe691da188e8ac2fc" style="width:672px;height:100%;" class="quiz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-48afe691da188e8ac2fc">{"x":[{"question":"What is the name of the first module in the research methods and statistics block?","answers":[["Analysing Data","false"],["Qualitative and Quantitative methods","false"],["Psychology as a Science","true"],["Discovering Statistics","false"]]}],"evals":[],"jsHooks":[]}</script>
+<p>…and multiple choice questions, where your task is to check all correct options:</p>
+<div id="htmlwidget-0a1329576f858c41d145" style="width:672px;height:100%;" class="quiz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0a1329576f858c41d145">{"x":[{"question":"Which of these are the core components of this module?","answers":[["Practicals","true"],["Pub socials","false"],["Lectures","true"],["Tutorials","true"]]}],"evals":[],"jsHooks":[]}</script>
+<p>No, they are not marked. 😉</p>
+</div>
+</div>
+<div id="more-features" class="section level2">
+<h2>More features</h2>
+<p>The tutorials also have other features like code boxes, where you can practice writing <code>R</code>. We’ll come across these as the course progresses.</p>
+</div>
+<div id="setting-up-your-onedrive-folder" class="section level2">
+<h2>Setting up your OneDrive folder</h2>
+<p>Each University of Sussex student is given a OneDrive account. This account gives out quite a lot of cloud storage space (1TB). All you need to do to access this space is to install OneDrive, log in using your University of Sussex credentials and sync the folder with your computer.</p>
+<p> </p>
+<p><strong>Your <a id="task1">first task</a> is to get access to your OneDrive folder and sync it to your computer.</strong></p>
+<p>If you need help, the uni website has an <a href="http://www.sussex.ac.uk/its/onedrive">entire page on setting up and working with OneDrive</a>.</p>
+<div id="r-and-rstudio" class="section level3">
+<h3>R and RStudio</h3>
+<p>We will be using the RStudio software to write documents (<em>e.g.</em>, analysis reports) and to process, analyse, and visualise data. RStudio is the most popular software for programming in the <code>R</code> programming language. In order to use it, you first need to install both <code>R</code> and RStudio.</p>
+<p><strong>So, for your <a id="task2">second task</a>, install <code>R</code> and RStudio Desktop on your computer.</strong></p>
+<p>To install <code>R</code>, you’ll first need to download the correct version for your system. The links are listed below:</p>
+<ol style="list-style-type: decimal">
+<li><p><a href="https://cran.r-project.org/bin/windows/base/old/4.0.5/R-4.0.5-win.exe"><code>R</code> for Microsoft Windows</a></p></li>
+<li><p><a href="https://cloud.r-project.org/bin/macosx/base/R-4.0.5.pkg"><code>R</code> for an Intel Apple Mac</a></p></li>
+<li><p><a href=""><code>R</code> for an M1 Apple Mac</a></p></li>
+</ol>
+<p>You can install <code>R</code> from the (<code>R</code> project website)[<a href="https://cloud.r-project.org/" class="uri">https://cloud.r-project.org/</a>].</p>
+<p>Once you’ve installed <code>R</code>, to install RStudio go to the (RStudio website)[<a href="https://rstudio.com/products/rstudio/download/#download" class="uri">https://rstudio.com/products/rstudio/download/#download</a>] and download the free version of the RStudio Desktop software.</p>
+<div class="warn">
+<p>In both cases, it is important to install the latest version (at the time of writing, these were <code>R</code> 4.0.2, and RStudio Desktop 1.3.1073).</p>
+</div>
+<p>If you need help installing either of these, here’s a video guide on how to install both on Windows:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9-RrkJQQYqY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+picture-in-picture" allowfullscreen>
+</iframe>
+<p> </p>
+<p>And here is one for MacOS users:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/by5HyJX6H1I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+picture-in-picture" allowfullscreen>
+</iframe>
+<p>(Videos courtesy of helpful youtubers, <a href="https://www.youtube.com/channel/UCrEpGdiRBgj6-ru1Q7WKIBw">Xperimental Learning</a> and <a href="https://www.youtube.com/channel/UCPJIY0oU-CJRRdweKZ44UZw">thatRnerd</a>, respectively)</p>
+<p><br />
+</p>
+<p>If you feel like you’re just doing things and you don’t understand what exactly it is you’re doing and why you’re doing it, relax. We will start lifting the fog of war pretty soon!</p>
+</div>
+</div>
+<div id="computers" class="section level2">
+<h2>Computers</h2>
+<p><strong>Your <a id="task3">third task</a> is to watch/listen to this video tutorial.</strong></p>
+<p>It covers some basic principles of computer programming. We recommend you watch it in the HD resolution in a full screen mode.</p>
+<div class="accessible">
+<p>The video below contains a flowchart illustrating an important concept on the example of making a cup of tea. For screen reader users, below is the transcript of this flowchart.</p>
+<ol style="list-style-type: decimal">
+<li>Go to cupboard.</li>
+<li>Open cupboard.</li>
+<li>Search for mug.</li>
+<li>If there is mug go to 10.</li>
+<li>If no mug, search for glass.</li>
+<li>If no glass, go to 52.</li>
+<li>Get glass.</li>
+<li>Call glass “receptacle”.</li>
+<li>Go to 12.</li>
+<li>Get mug.</li>
+<li>Call mug “receptacle”.</li>
+<li>Go to tea cupboard.</li>
+<li>Open tea cupboard.</li>
+<li>Search for tea bag.</li>
+<li>If no tea, go to 52.</li>
+<li>Get tea bag.</li>
+<li>Put tea bag in receptacle.</li>
+<li>Go to kettle.</li>
+<li>If more than 500ml water in kettle, go to 30.</li>
+<li>Take kettle.</li>
+<li>Go to kitchen sink.</li>
+<li>Open kettle lid.</li>
+<li>Place kettle under tap.</li>
+<li>Open tap.</li>
+<li>If more than 500ml water in kettle, go to 27.</li>
+<li>Go to 25.</li>
+<li>Turn off tap.</li>
+<li>Close kettle lid.</li>
+<li>Go to kettle base.</li>
+<li>If kettle is on base go to 32.</li>
+<li>Place kettle on base.</li>
+<li>If kettle plugged in the mains, go to 34.</li>
+<li>Plug kettle in the mains.</li>
+<li>Switch on kettle.</li>
+<li>If kettle is off, go to 37.</li>
+<li>Go to 35.</li>
+<li>Take kettle.</li>
+<li>Go to receptacle.</li>
+<li>Pour water into receptacle.</li>
+<li>If more than 250ml of water in receptacle, go to 42.</li>
+<li>Go to 40.</li>
+<li>Stop pouring water.</li>
+<li>Start timer.</li>
+<li>Go to kettle base.</li>
+<li>Place kettle on kettle base.</li>
+<li>Go to receptacle.</li>
+<li>If timer shows more than 4 minutes, go to 49.</li>
+<li>Go to 47.</li>
+<li>Remove tea bag from receptacle.</li>
+<li>Go to bin.</li>
+<li>Discard tea bag.</li>
+<li>Exit.</li>
+</ol>
+</div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ockaUxLtc_c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+picture-in-picture" allowfullscreen>
+</iframe>
+<p>If you need it, there is also a <a href="https://docs.google.com/document/d/1yKTSaDoi-jacVGvMLBGKR52KCOEXkX8sG1oyD8mwR4s/edit?usp=sharing">transcript of the video available</a>.</p>
+<p><strong>Your <a id="task4">fourth and final task</a> is to set up your RStudio according to the instructions in the video.</strong></p>
+<p>Once you’ve finished installing RStudio, make sure you open it up and run the following command at the <strong>console</strong>. This command will install everything you need for this course.</p>
+<pre class="r copy"><code>source(&quot;https://paas.netlify.app/install.r&quot;)</code></pre>
+<p>You should now have performed all four tasks:</p>
+<ol style="list-style-type: decimal">
+<li><p><a href="#task1">Set up OneDrive on your computer</a></p></li>
+<li><p><a href="#task2">Installed <code>R</code> and RStudio Desktop on your computer</a></p></li>
+<li><p><a href="#task3">Wacthed the tutorial video</a></p></li>
+<li><p><a href="#task4">Set up RStudio according to the instructions in the video</a></p></li>
+</ol>
+<p>That is all for this week.</p>
+</div>
+
+<script src="./js/bundle.js"></script>
+
+<style>
+  .btn {
+    padding: 0;
+    margin-right: 1em;
+  }
+
+  .copy-button {
+    width: 7em;
+  }
+</style>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
