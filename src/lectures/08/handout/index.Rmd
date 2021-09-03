@@ -1,0 +1,655 @@
+---
+title: "Distributions, functions, transformations"
+subtitle: "Lecture 8"
+description: "In this lecture we will start thinking about variables in terms of distributions. We will see how we can perform simple arithmetic operations, such as addition and multiplication on entire variables to perform linear transformations. We'll discuss one transformation in particular, the <em>z</em>-transformation, and see how it's used to standardise the values of a variable. Finally, we will talk about how we can use simple maths to compare groups on a measured variable of interest."
+author:
+  - name: "Milan Val&aacute;&scaron;ek"
+    affiliation: "University of Sussex"
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    css: ../../handout.css
+    includes:
+      in_header: "../../mathJax_config.html"
+      after_body: "../../handout.js"
+    toc: true
+    toc_depth: 2
+---
+
+
+```{r setup, include=FALSE}
+library(metathis)
+meta() %>%
+  meta_tag("content_type" = "handout",
+           "week" = "08")
+
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(plotly)
+library(cowplot)
+
+options(scipen=999)
+
+set.seed(420)
+
+## source code for knitr_hooks, plot_theme, tasks, quizzes
+## after library(ggplot)!
+source("../../sheet_setup.R")
+source("../../quizzes.R")
+
+ggplot2::theme_set(
+  ggplot2::theme_get() +
+    theme(plot.title = ggtext::element_markdown(face = "plain", size = "13"))
+)
+xaringanExtra::use_panelset(in_xaringan = F)
+```
+
+# Introduction
+
+In the [previous lecture](https://paas.netlify.app/lectures/lec07/handout), we introduced the basic _descriptive statistics_, the measures of central tendency and spread, and talked about the concepts of the sampling distribution and the standard error.
+In this lecture, we start playing with the mean and standard deviation and see how we can manipulate them to create comparable distributions.
+
+Before we do that, we need to get used to thinking about things---variables---in terms of their distributions.
+
+# The shape of things
+
+For the purpose of this lecture, we will only be talking about _continuous_ variables.
+If you need a refresher on what these are, check out [Lecture\ 4](https://paas.netlify.app/lectures/lec04/handout/#variable-types).
+
+As we saw in previous lectures, we can plot an observed variable on a _histrogram_ to visualise the distribution of its values.
+For example, if we measure the height of 500 women and plot the values, we get something like Figure\ \@ref(fig:hist).
+
+```{r hist, fig.cap="Distribution of height on a sample of 500 women. This is not real data.", fig.height=4.5, panel=TRUE}
+x <- rnorm(500, mean = 164.8, sd = 6.2) # random normal; N = 500
+y <- rnorm(500, 171.1, 7.9)
+default_breaks <- seq(min(x), max(x), length=21)
+hist(x, breaks = default_breaks,
+     xlab = "Height in cm", ylab="Count",
+     border = "#003568", col = "#00356888", main = "")
+```
+
+As you can see, the vast majority of the measured heights were roughly in the 155-175 centimetre range, with only a few people in the sample being shorter than 155 cm or taller than 175 cm.
+You can also see that the distribution is roughly symmetrical around its mean and has the shape of a bell characteristic of a normal distribution.
+This is not a coincidence: height is a normally-distributed variable as you found out in [Lecture\ 6](https://paas.netlify.app/lectures/lec06/handout/describing-the-normal-distribution).
+Of course, the shape isn't as smooth as the normal curve you saw in the same lecture.
+This is because 500 observations is too few to smooth out any statistical fluctuations due to sampling.
+So, just by chance alone, we can end up with a few more 173-cm-tall people and a few fewer 172-cm-tall people than we would expect based on what we know about the normal distribution.
+
+Because height is a continuous variable and no two people are the **exact same** height, to plot the variable on a histogram, we have to assort the values into bins.
+Each bar on the histogram in Figure\ \@ref(fig:hist) represents the number of people whose height falls within a 1 cm range (150-151 cm, 151-152 cm, *etc.*).
+How wide we make the bins is an arbitrary decision but it's a good idea not to make them so wide that the distribution gets unrecognisable o so narrow as to have too many gaps in the histogram (see Figure\ \@ref(fig:bad-hist)).
+
+```{r bad-hist, fig.cap="Histograms with (A) too few bars to see the distribution in enough detail and (B) too many bars.", fig.height=3.5, panel=TRUE}
+par(mfrow = c(1, 2)) # two plots side by side
+hist(x, breaks = 5,
+     xlab = "Height in cm", ylab="Count",
+     border = "#3d755b", col = "#3d755b88", main = "A")
+hist(x, breaks = 200,
+     xlab = "Height in cm", ylab="",
+     border = "#003568", col = "#00356888", main = "B")
+par(mfrow = c(1, 1)) # back to one plot per row
+```
+
+Now, if we could collect an infinite number of observations, we could make the bins as narrow as we wanted, even _infinitely_ narrow.
+This would give us an idealised shape of the normal distribution: **the normal curve**.
+The process of making the bars narrower and narrower until each only represents a single point on a line is visualised in Figure\ \@ref(fig:hist-gif)
+
+```{r hist-gif, fig.cap="From a histogram of a variable to an ideal normal curve", fig.height=3.5}
+knitr::include_graphics(here::here("handout/assets/hist.gif"))
+```
+
+Because we will mostly be talking about continuous normal variables, we can visualise them as this kind of curve.
+This allows us to abstract from the individual values and talk about variables in terms of their means and standard deviations.
+**Everything that applies in general to this abstraction of a variable in the form of the curve, applies to the actual values.**
+The curve is just a tool that allows us to talk about variables without having to worry about details that are _not relevant_ for the topic at hand.
+
+OK, to reiterate what we said in the [previous lecture](https://paas.netlify.app/lectures/lec07/handout/), we can describe key properties of a variable using measures of _central tendency_ and _spread_.
+The mean tells us where the centre of a variable is and the standard deviation tells us the average distance between the mean and each value in the variable.
+
+:::{.warn}
+In a normally distributed variable, **the majority** -- about 68% -- of all the values are concentrated **within &pm;1 standard deviation to either side of the mean**.
+:::
+
+The larger the standard deviation, the more spread out the variable is.
+The interactive visualisation below shows a normal distribution with a $\mu=0$ and $\sigma=1$. This is called the **standard normal distribution**.
+Have a little play around with the it using the sliders to make sure the concepts of standard deviation and mean feel intuitive.
+
+<iframe id="norm-dist-viz" class="viz app" src="https://and.netlify.app/viz/norm_dist" data-external="1" style="height:509px;"></iframe>
+
+<aside>
+#### The standard normal distribution
+
+The standard normal distribution is a normal distribution with $\mu=0$ and $\sigma=1$. Use the top slider to shift the mean of the distribution along the x-axis and the bottom slider to change the standard deviation (possible range is between 0.5 and 3).
+
+The purple line shows the mean of the distribution and the green shading shows the distance of 1 standard deviation to either side of the mean. That means that _the shaded area is 2 standard deviations wide_.
+
+(You _really_ don't need to worry about what "[probability density](https://en.wikipedia.org/wiki/Probability_density_function)" means.
+It's a fairly complicated concept and it's on the y-axis label only so that the plot is technically correct)
+</aside>
+
+There are two important things here to notice.
+
+First, the mean and the standard deviation are **independent of one another**: You can change one and the other will stay the same.
+
+Second, neither shifting the mean, not changing the standard deviation of a distribution doesn't change its _fundamental shape_.
+Yes, changing the value of the standard deviation does make the distribution appear flatter or pointier but the **relative position of the individual points on the line with respect to each other does not change**!
+In other words, the distance between any two points may get larger or smaller but it gets so equally for any two points.
+For that reason, the shape of the curve remains the same: It is still true that about 68% of all the values are within &pm;1 standard deviation from the mean (in the shaded bit), **no matter how large or small the value of the standard deviation is.**
+
+To illustrate this, let's take our example of people's heights (Figure\ \@ref(fig:hist)).
+In this example, we measured height in centimetres.
+It should be pretty obvious that your height doesn't change depending on the units you measure it in: you're the same height whether you get measured in centimetres, metres, millimetres, or feet and inches.
+It's just the value that changes.
+
+So, if we measured the height of the sample of women in that example in metres, the shape of the data would remain the same.
+Figure\ \@ref(fig:scale) below shows exactly this.
+The distribution in panel A has a standard deviation of `r round(sd(x), 2)`, while the one in panel B has a standard deviation of `r round(sd(x)/100, 2)`.
+But as you can see, _it's the very same distribution_: it is just displayed on **different scales** (centimetres vs metres, respectively)
+
+```{r scale, fig.cap="Histograms of participants heights measured in (A) centimetres and (B) metres.", fig.height=3.5, panel=TRUE}
+par(mfrow = c(1, 2))
+hist(x, breaks = default_breaks,
+     xlab = "Height in cm", ylab="Count",
+     border = "#003568", col = "#00356888", main = "A")
+hist(x/100, breaks = default_breaks/100,
+     xlab = "Height in m", ylab="",
+     border = "#3d755b", col = "#3d755b88", main = "B")
+par(mfrow = c(1, 1))
+```
+
+:::{.warn}
+This is why the standard deviation is sometimes referred to as the **scale parameter** of a distribution, while the mean is the **location parameter**.
+
+Changing the mean shifts the location of a distribution to the left or right along the number line, while changing the standard deviation changes the scale of the distribution is displayed. 
+:::
+
+Of course, we haven't yet talked about _how_ we can change the mean or the standard deviation of a variable but it's important that you understand what effects these changes have.
+
+
+# Transformations
+
+So how _do_ we change things like the mean and the standard deviation of a variable?
+
+Since we're talking about observed variables, let's switch from talking about means and standard deviations in general to talking about the **sample mean** ($\bar{x}$) and **sample standard deviation** ($SD$). The only reason for doing this is so that we can use the symbols instead of having to write it all out every time.
+
+We know from the [previous lecture](https://paas.netlify.app/lectures/lec07/handout/) that both $\bar{x}$ and $SD$ are sensitive to outliers and that we can change their values to be arbitrarily small or large by moving a few points around.
+However, only changing the values of a selection of observations will alter the shape of the distribution.
+That is not good.
+We can decide to switch our measurement unit of height from centimetres to feet and inches but we have to do it **consistently for all observations**.
+We can't just take a few points and convert them.
+That would mess up _the relationships between individual observations_!
+
+The same principle applies to any **data transformations** we may want to perform.
+
+## Functions
+
+A transformation is just a mathematical function that takes an input and returns an output.
+Pretty much in the same way as functions in `R` do it.
+Take, for example the _second power_: 2^2^=4, 3^2^=9, 4^2^=16 and so on.
+
+We can think of this operation as a function that takes an input, $x$ and returns the output $x^2$.
+We would define the function as $f(x)$ (pronounced _f of x_ or _function of x_):
+
+$$f(x)=x^2$$
+The above is a general formulation of a function that takes any number and returns it's square.
+
+We can create a graph of the function by plotting $x$ on the, well, x-axis and $f(x)$ on the y-axis.
+Have a look at the [applet below](#transform-viz).
+It shows this kind of a graph.
+You can use the switches to show three functions:
+
+- one that _adds_ some number $a$ to $x$: $f(x) = x+a$,
+- one that _multiplies_ $x$ by some number $a$: $f(x) = x\times a$,
+- and one that _raises_ $x$ _to the power_ of some number $a$: $f(x) = x^a$
+
+The formula appears next to the switch when you flip it on.
+The default setting is $a = 0$ for addition and $a=1$ for multiplication and _exponentiation_
+You can drag the number in the formula left and right to change the value of $a$ that gets added to, multiplied by, or raises $x$.
+Finally, you can move the slider to change the value of $x$ and see how the graph of the function looks.
+
+Do spend a few minutes playing with the visualisation to develop intuition about these three functions.
+
+<iframe id="transform-viz" class="viz app" src="https://and.netlify.app/viz/transform" data-external="1" style="height:630px;"></iframe>
+
+Once again, notice a few interesting and important things:
+
+1. For the default settings, the functions are identical, because for any $x$, $x + 0 = x\times 1 = x^1$
+1. Subtraction is just _addition of a negative number_: $x-a = x + (-a)$
+1. Division is just _multiplication by a number between 0 and 1_: $x\div a = x\times \frac{1}{a})$
+1. Taking $a$^th^ root of a number is just _raising the number to the power of_ 1/$a$: $\sqrt[a]{x} = x^{\frac{1}{a}}$
+1. While the graphs of the addition and multiplication functions are **straight lines for all values of** $a$, the graph of the **exponentiation function is a curve for all but two values of** $a$, 0 and 1.
+1. All points along the individual lines are **evenly spaced** in the case of addition and multiplication but not exponentiation (except for $a$ equal to 0 or 1).
+
+The last two points are _really_ important!
+
+:::{.warn}
+Addition and multiplication **do not change the relative distances** between individual inputs. Their graphs are straight lines, which is why they are referred to as **linear transformations**.
+
+Some other functions, such as exponentiation, do change these relative distances and thus are **non-linear**: their graphs are not straight lines.
+:::
+
+Notice also what addition and multiplication do.
+Addition **shifts** the values of $x$ up and down along the y-axis, **while keeping the distances between points unchanged**.
+Multiplication, by contrast, **spreads or "squishes"** the values of $x$ along the y-axis.
+Perhaps things are now slowly clicking into place: We have two linear transformations, addition and multiplication, the former of which changes the location of a bunch of numbers and the latter of which changes their spread.
+
+When addition and multiplication are applied to variables, they are referred to as **centring** and **scaling**, respectively.
+
+## Centring
+
+Centring is the **subtraction** of a fixed value from each observation of a variable.
+(Remember, subtraction is just _addition of a negative number_.)
+This has the effect of shifting the entire variable to an _arbitrary location along the x-axis_.
+
+You can technically centre a variable by subtracting _any_ value from it but the most frequently used method is **mean-centring**:
+
+$$f(x) = x - \bar{x}$$
+
+:::{.warn}
+Applying this transformation results in shifting the variable so that it's mean is at the zero point and the individual values of the mean-centred variable tell us how far that observation is from the mean of the entire variable.
+:::
+
+Figure\ \@ref(fig:height-centred) shows our height variable in its original form next to its mean-centred form.
+
+```{r height-centred, fig.cap="Histograms of participants heights: (A) raw data (B) mean-centred.", fig.height=3.5, panel=TRUE}
+par(mfrow = c(1, 2))
+x_centred <- x - mean(x)
+hist(x, breaks = default_breaks,
+     xlab = "Height in cm", ylab="Count",
+     border = "#003568", col = "#00356888", main = "A")
+hist(x_centred,breaks = default_breaks-mean(x), 
+     xlab = "Deviation from mean height in cm",
+     ylab="", border = "#3d755b", col = "#3d755b88", main = "B")
+par(mfrow = c(1, 1))
+```
+
+:::{.warn}
+It's crucially important to understand that mean-centring **does not alter the shape of the variable, nor does it change the scale at which the variable is measured**.
+It only **changes the interpretation** of the values from the raw scores to differences from the mean.
+:::
+
+The variable in panel B in Figure\ \@ref(fig:height-centred) is still measured in centimetres and still has the same standard deviation as the original height variable (panel A).
+
+## Scaling
+
+Scaling is the **division** of each observation of a variable by a fixed value.
+(Remember, division by x is just _multiplication by the inverse 1/x_.)
+This has the effect of stretching or squishing the entire variable _in the direction of the x-axis_.
+
+Just like with centring, you can technically scale a variable by dividing it by _any_ value.
+For example, in Figure\ \@ref(fig:scale), panel B we scaled the height variable by 100 to transform it from height in centimetres to height in metres.
+The most frequent method of scaling variables, however, is by their **standard deviation**:
+
+$$f(x) = \frac{x}{SD(x)}$$
+
+Figure\ \@ref(fig:height-scaled) shows our height variable in its original form next to its form scaled by the standard deviation.
+
+```{r height-scaled, fig.cap="Histograms of participants heights: (A) raw data (B) scaled by *SD*.", fig.height=3.5, panel=TRUE}
+par(mfrow = c(1, 2))
+x_centred <- x / sd(x)
+hist(x, breaks = default_breaks,
+     xlab = "Height in cm", ylab="Count",
+     border = "#003568", col = "#00356888", main = "A")
+hist(x_centred,breaks = default_breaks/sd(x), 
+     xlab = "Height in ???", ylab="",
+     border = "#3d755b", col = "#3d755b88", main = "B")
+par(mfrow = c(1, 1))
+```
+
+
+Just like with centring, the fundamental shape of the variable's distribution did not change as a result of scaling.
+
+:::{.warn}
+Unlike centring, however, scaling does change the **scale** on which the variable is measured.
+After all, that's why it's called scaling...
+:::
+
+Unfortunately, the scale on which the variable in panel B of Figure\ \@ref(fig:height-scaled) is shown is not very interpretable: the individual numbers don't mean much.
+
+:::{.warn}
+To make scaling by standard deviation more useful, we need to make sure the variable is **mean-centred** first!
+:::
+
+To understand why, have a little play around with the [visualisation below](#z-transform-app).
+For the time being, leave the subtraction control (purple circle) alone.
+Instead, drag the division control (green circle) left and right to see what happens.
+
+<iframe id="z-transform-app" class="viz app" src="https://and.netlify.app/viz/standard" data-external="1" style="height:544px;"></iframe>
+
+<aside>
+#### Transforming variables
+
+Drag the controls (purple and green circles) left and right to change the value by which the variable plotted gets transformed.
+Pay attention to the order of operations: once you move the division control, you won't be able to change the subtraction control.
+
+Double-click on the control to reset it.
+
+Click <kbd>Reset</kbd> to get a new example.
+
+Dashed curve represents the **standard normal** distribution.
+</aside>
+
+As you can see, when you scale a variable that has not been mean-centred, the **mean of the variable is also affected by the scaling factor**.
+The mean of the resulting variable will thus be the original mean / the scaling factor.
+This is because the entire stretching/squishing operation happens with respect to the 0 point: everything moves further away/ closer to 0.
+This was quite useful when we were transforming height from the centimetre scale to the metre scale.
+We wanted the mean to change proportionally!
+If the mean height in the sample is 165 cm, we want the value to scale when converting to metres: it should be 1.65 m, not 165 m.
+
+But, if we're scaling the variable by it's standard deviation, the resulting mean of $\bar{x}/SD$ is not tremendously interpretable.
+This is what happened in panel B of Figure\ \@ref(fig:height-scaled)
+
+Go back to the [visualisation](#z-transform-app) and this time, mean-centre the variable before you start changing its scale.
+
+\ 
+
+Do it!
+
+\ 
+
+\ 
+
+In this scenario, it is still true that the scaling happens with respect to the 0 point on the x-axis.
+But now, the 0 is the centre of our variable and so, its mean does not get affected by scaling.
+That's because for a mean of 0, $\bar{x}/SD = 0$ irrespective of the value of $SD$.
+
+:::{.important}
+Remember to mean-centre a variable **before** you scale it by its _SD_!
+:::
+
+## The _z_-transform
+
+The combination of first mean-centring and then scaling a variable by its _SD_ is known as the **_z_-transform** or **standardisation**.
+The formula for this function, let's call it $z$, is:
+
+$$z(x) = \frac{x - \bar{x}}{SD(x)}$$
+Figure\ \@ref(fig:height-z) shows what a _z_-transformed height variable looks like compared to its original form.
+
+```{r height-z, fig.cap="Histograms of participants heights: (A) raw data (B) _z_-transformed data.", fig.height=3.5, panel=TRUE}
+par(mfrow = c(1, 2))
+hist(x, breaks = default_breaks,
+     xlab = "Height in cm", ylab="Count",
+     border = "#003568", col = "#00356888", main = "A")
+hist(scale(x), breaks = (default_breaks-mean(x))/sd(x),
+     xlab = expression(italic(z)-score), ylab="",
+     border = "#3d755b", col = "#3d755b88", main = "B")
+par(mfrow = c(1, 1))
+```
+
+Again, the shape of the variable remains intact and the relative differences between any two values in the variable are preserved.
+That's because **standardisation is a linear transformation**, just like addition and multiplication.
+
+:::{.warn}
+This time, however, the scores are interpretable.
+Standardisation (or _z_-transformation) converts values of a variable to numbers that can be interpreted in terms of **the number of [standard deviations from the mean](https://youtu.be/YZgoIGmwrs4?t=36){target="_blank"}**.
+:::
+
+Return to the [visualisation](#z-transform-app) once again and try _z_-transforming the variable.
+It should perfectly fit the dashed curve representing the _standard normal_ distribution (a normal distribution with $\mu = 0$ and $SD=1$).
+
+Try it now!
+
+### _z_-scores
+
+Values of a standardised/_z_-transformed variables are called _z_-scores.
+To repeat, they are interpreted as **the distance from the mean in units of standard deviation**.
+
+:::{.warn}
+This interpretation is **independent of the actual value of _SD_** in the original variable!
+:::
+
+So, for example, let's say that, in the sample of 500 women whose height we've been plotting over and over again, the mean height was `r round(mean(x), 2)` cm with a _SD_ of `r round(sd(x), 2)` cm.
+Let's say we standardised the variable.
+A person with a _z_-score of 1 will be _one_ SD _taller than average_: `r round(mean(x), 2)` + (1 &times; `r round(sd(x), 2)`) = `r round(mean(x) + sd(x), 2)` cm.
+Someone with a _z_-score of &mius;0.8 will be 0.8 _SD_ **shorter** than the average person in the sample: `r round(mean(x), 2)` + (&minus;0.8 &times; `r round(sd(x), 2)`) = `r round(mean(x) - .8 * sd(x), 2)` cm.
+
+:::{.r-box}
+To _z_-transform a vector of numbers, we can use the, somewhat unfortunately named, `scale()` function. This function does not return a vector, however: it returns a different data structure, called a matrix. Without going into much more detail than that, we can convert a matrix into a vector using the `as.vector()` function:
+
+```{r, echo = TRUE}
+height <- c(185, 178, 165, 175, 154, 148, 191, 177, 168)
+# raw scores
+height
+#z-scores as vector
+as.vector(scale(height))
+```
+:::
+
+:::{.important}
+The interpretation of _z_-scores **is the same no matter what variable we are working with**!
+This is very useful for comparing scores on different variables or across different groups.
+:::
+
+But before we can discuss this topic, we need to talk about comparing means.
+
+# Making comparisons
+
+## Apples and apples: Comparing groups
+
+When we talk about comparing groups on some variable in the context of quantitative research, we are talking about looking at the **average difference** in that variable between groups.
+In other words, we are asking, how different are the groups _on average_.
+
+Let's extend our, at this stage well-milked, height example and imagine that, in addition to the 500 women, we also measured the heights of 500 non-binary people.
+Suppose, we find that the mean height in the two groups is $\bar{x}_\text{w}$ = `r round(mean(x), 2)` and $\bar{x}_\text{nb}$ = `r round(mean(y), 2)`, respectively. Figure\ \@ref(fig:grp-hist) shows a grouped histogram of these data.
+
+```{r grp-hist, fig.cap="Distribution of height on samples of 500 women (blue) and 500 non-binary people (green) with group means indicated by vertical lines. This is not real data.", fig.height=4.5, panel=TRUE}
+hist(x, breaks = 35,
+     xlab = "Height in cm", ylab="Count",
+     border = "#003568", col = "#00356888", main = "", xlim=c(145, 195))
+hist(y, breaks = 35, border = "#3d755b",
+     col = "#3d755b88", main = "", add = T)
+abline(v = mean(x)-.1, lwd = 2, col = "#003568")
+abline(v = mean(y), lwd = 2, col = "#3d755b")
+text(x = mean(x), y = 38, labels = expression(italic(bar(x))[w]),
+     col = "#003568", cex = 2, pos = 2)
+text(x = mean(y), y = 38, labels = expression(italic(bar(x))[nb]),
+     col = "#3d755b", cex = 2, pos = 4)
+```
+
+In our simulated example data, there is a substantial overlap between the two distributions. However, you can also clearly see that there is a difference in _average_ heights of women and non-binary people.
+To quantify this difference, all we need to do is **subtract the mean of one group from the mean of the other**:
+
+$$\begin{aligned}diff_\text{height}&= \bar{x}_\text{w} - \bar{x}_\text{nb}\\&=`r round(mean(x), 2)` - `r round(mean(y), 2)`\\&=`r round(mean(x) - mean(y), 2)`\end{aligned}$$
+
+The sign indicates the direction of the difference.
+If the number is positive, that means that the first group's mean is larger than that of the second group.
+If the number is negative, the opposite is true.
+Of course, it is completely arbitrary which group is _first_ and which is _second_.
+
+:::{.box}
+### Differences between groups vs differences within groups
+
+People sometimes argue against the existence of meaningful differences between all kinds of groups of people by claiming that any differences observed between said groups are smaller than differences that exist _within_ each of the groups. Therefore, the argument goes, these between-group differences are irrelevant or actually non-existent.
+
+Regardless of how sympathetic we may or may not be towards the motivation behind these arguments, they are not statistically literate.
+Take another look at Figure\ \@ref(fig:grp-hist):
+Height of the people in our non-binary sample ranges from 150 cm to 195 cm.
+And that's just in our sample.
+The range in the population is bound to be wider than 45 cm.
+
+If we are to follow the argument above, the difference between the height of women and non-binary people would have to be about **half a metre** (that's about 20 in) to recognise that there's actually a difference.
+That's really not a reasonable criterion for what magnitude of differences should be considered _"real"_.
+
+There are better ways of tackling arguments of those who aim to divide people into fixed categories so let's chuck this one out!
+:::
+
+:::{.warn}
+**Remember:** To get the mean difference between two groups _on the same variable_, subtract the mean of one of the groups from the mean of the other.
+:::
+
+## Apples and oranges: Comparing across groups/variables
+
+Nyari is a 172 cm tall woman.
+Karim is a 179 cm tall non-binary person.
+Comparing their respective heights is trivial: we can easily tell that Karim is taller than Nyari.
+But what if we wanted to know how their heights compare **relative** to their groups/populations? Is Nyari taller as a woman than Karim is as [enby](https://en.wiktionary.org/wiki/enby)?
+
+To answer this question, we can use... you guessed it, _z_-scores. By standardising the height variable of each group, we get variables that are on the same scale: the scale of units of _SD_.
+
+Remember the formula for the _z_-transform: $z(x) = \frac{x - \bar{x}}{SD(x)}$.
+
+Let's use this formula to calculate Nyari's and Karim's height _z_-scores.
+To do that, all we need is to know the means and standard deviations of their respective groups.
+Here are the statistics in our pretend samples shown in Figure\ \@ref(fig:hist):
+
+```{r tab-1}
+tibble(grp = c("Women", "Non-binary"), mean = c(mean(x), mean(y)), sd = c(sd(x), sd(y))) %>%
+    kableExtra::kable(digits = 2, col.names = c("", "\\(\\bar{x}\\)", "\\(SD\\)"), align = "lcc") %>% kableExtra::kable_styling()
+```
+
+This is all the info we need to calculate the _z_-scores for our two guys.
+Why not do it in `R`?
+
+```{r, echo=TRUE}
+# brackets are important because of order of operations!
+z_nyari <- (172 - 164.94) / 5.99
+z_karim <- (179 - 170.73) / 7.74
+z_nyari
+z_karim
+```
+
+So now we know that Nyari's _z_-score of height is about `r round(z_nyari, 2)`, while Karim's is `r round(z_karim, 2)`.
+Nyari is `r round(z_nyari, 2)` standard deviations _taller than the average woman_ and Karim is `r round(z_karim, 2)` _taller than the average non-binary person_.
+That means, that Nyari, despite being shorter in absolute terms, is actually _relatively taller_ (relative to her population).
+
+We could use the same principle to compare values **of variables measured on any scale**.
+Imagine Nyari earns £38,400 per year here in the UK.
+She just got a job offer in Germany with an agreed salary of EUR 4,270 per month.
+Is she going to be relatively better off if she takes the job?
+
+Again, we can use _z_-scores to see how the two salaries fare with respect to what people in the UK and Germany make.
+Say, the average _annual_ wage in the UK is £37,428 (_SD_ = 4,266), while the average _monthly_ wage in Germany is EUR 3,880 (_SD_ = 351.6).
+Again, we can use `R` to calculate the _z_-scores:
+
+```{r, echo=TRUE}
+mean_annual_UK <- 37428
+sd_annual_UK <-  4266
+mean_monthly_GER <- 3880
+sd_monthly_GER <- 351.6
+
+z_nyari_UK <- (38400 - mean_annual_UK) / sd_annual_UK
+z_nyari_GER <- (4270 - mean_monthly_GER) / sd_monthly_GER
+z_nyari_UK
+z_nyari_GER
+```
+
+As you can see from the two _z_-scores, Nyari would make substantially more relative to what people in the country make if she took the job in Germany.
+
+:::{.warn}
+_z_-scores are very useful for comparing values of variables **measured on different scales or in different units**!
+
+:::
+
+```{r, quiz-setup}
+library(patchwork)
+df <- tibble(g1 = round(rnorm(10, 164, 5), 1), g2 = round(rnorm(10, 168, 6), 1))
+df_plot <- tibble(x = rnorm(256, 25, 3)) %>%
+  filter(x >= 18)
+bg_col2 <- "#e3e1dd"
+foo <- function(x, title) {
+  df_plot %>%
+    ggplot(aes_string(x)) +
+    geom_histogram(fill = second_col, alpha=.6, bins = 20) +
+    labs(x = "x", y = "*N*") + 
+    ggtitle(title) +
+    theme(
+      axis.title.y = ggtext::element_markdown(angle = 0, vjust = .5),
+      plot.background = element_rect(fill = bg_col2),
+      legend.background = element_rect(fill= bg_col2),
+      panel.background = element_rect(fill = bg_col2),
+    )
+}
+
+p1 <- foo("x", "A")
+p2 <- foo("scale(x, scale = F)", "B")
+p3 <- foo("x^4 / 1000", "C")
+p4 <- foo("scale(x)", "D")
+```
+
+```{r, quiz=TRUE}
+
+cat("<h3>Check your understanding</h3>\n\nHere is a set of plots of the same random normal variable after various transformations:")
+( p1 | p2 ) / ( p3 | p4 ) &  patchwork::plot_annotation(theme = theme(plot.background = element_rect(fill = bg_col2)))
+
+mcq(
+	q = "Which of the plots shows a <strong>standardised</strong> (<em>z</em>-transformed) variable?",
+	options = LETTERS[1:4],
+	correct = 4,
+	shuffle = FALSE
+)
+
+mcq(
+	q = "Which of the plots shows a <strong>non-linear</strong> transformeation?",
+	options = LETTERS[1:4],
+	correct = 3,
+	shuffle = FALSE
+)
+
+mcq(
+	q = "Assuming the variable in question is age and the sample is drawn from a population of university students, which of the plots shows the raw, untransformed, ages?",
+	options = LETTERS[1:4],
+	correct = 1,
+	shuffle = FALSE
+)
+
+mcq(
+	q = "What is the <em>approximate</em> standard deviation of the <strong>untransformed</strong> distribution?",
+	options = c(1, 3, 5, 7),
+	correct = 2,
+	shuffle = FALSE
+)
+
+cat("<br>Here are the data on the heights of two groups of people:")
+
+df %>%
+  kableExtra::kbl(row.names = TRUE, col.names = c("Group 1", "Group 2")) %>%
+  kableExtra::kable_styling()
+
+
+saq(
+	q = "What is the mean of Group&nbsp;1?\n\nGive answer to 2 decimal places.",
+	correct = round(mean(df$g1), 2),
+)
+
+saq(
+	q = "What is the standard deviation of Group&nbsp;1?\n\nGive answer to 2 decimal places.",
+	correct = round(sd(df$g1), 2),
+)
+
+saq(
+	q = "What is the mean difference between the two groups?\n\nGive answer to 2 decimal places.",
+	correct = (round(mean(df$g1) - mean(df$g2), 2)) * c(1, -1),
+)
+
+saq(
+	q = "What is the <em>z</em>-score of the data point in row&nbsp;9 with respect to Group 2?\n\nGive answer to 2 decimal places.",
+	correct = round(scale(df$g2)[9], 2),
+)
+
+saq(
+	q = "Without calculating anything, which row in Group&nbsp;1 has the largest <em>z</em>-score?",
+	correct = which.max(df$g1),
+)
+
+mcq(
+	q = "Without calculating, what number do we nead to <em>subtract</em> from the scores in Group&nbsp;2 in order for the data to have a mean of 0?",
+	options = round(mean(df$g2)* c(1, -1, -1.92, 2.4), 2)
+)
+```
+
+:::{.box}
+# Recap
+
+In this lecture, we talked about how we can think about the distributions of variables in terms of the normal curve and how the mean and _SD_ reflect the position and spread of this curve.
+
+We also introduced the concept of one kind of mathematical functions called **transformations**.
+We saw, how some transformations, such as centring or scaling don't change the relative distances between individual values of a variable.
+These are **linear** transformations.
+Others, such as _exponentiation_ (_e.g._, x^2^) do change the proportions of the transformed variables and are, therefore, **non-linear**.
+
+We then talked about the _z_-transform, also known as **standardisation** -- a two step transformation consisting of _first_ mean-centring the variable and then scaling it by its _SD_.
+This transformation converts the values of any variable into units of _how far the value is from the mean of the whole variable in terms of numbers of standard deviations_.
+
+Finally, we learned how we can compare group averages by _subtracting the means of the groups_ and how we can use _z_-scores to compare values of variables **measured on different scales or in different units**.
+:::

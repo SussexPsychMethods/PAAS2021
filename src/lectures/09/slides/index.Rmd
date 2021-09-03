@@ -1,0 +1,752 @@
+---
+title: "Lecture 9: Tables and plots"
+subtitle: "Concise data summary"
+author: "Dr Milan Val&aacute;&scaron;ek"
+date: "23 November 2020"
+output:
+  xaringan::moon_reader:
+    # css: slides.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "../../slides.js" # shows "Ask questions..." message when ?live=true & reads in CSS
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, global.par = TRUE, warning=FALSE, message=FALSE, fig.height = 3, dpi = 300)
+options(scipen=999)
+set.seed(420)
+
+knitr::opts_hooks$set(
+  panel = function(options) {
+    if (isTRUE(options$panel)) {
+      options$eval = TRUE
+      options$echo = TRUE
+      options
+    }
+  }
+)
+
+knitr::knit_hooks$set(
+  panel = function(before, options, envir){
+    if (isTRUE(options$panel)) {
+      options$echo=TRUE
+      if (before) {
+        '.codePanel['
+      } else ']'
+    }
+  }
+)
+
+library(tidyverse)
+
+bg_col <- "#fdfdfd"
+theme_col <- "#003568"
+default_col <- '#464b61'
+  second_col <- "#3d755b"
+
+par(mar = c(5, 2, 2, 1) + 0.1,
+    bg = bg_col)
+
+source("../../plot_theme.R")
+
+xaringanExtra::use_panelset()
+```
+
+
+```{js}
+<!-- message to display at the bottom of slides when ?live=true -->
+slideMessage = "<span>Ask questions at </span><a href = 'pollev.com/milanvalasek890'>pollev.com/milanvalasek890</a>"
+plotsToPanels()
+live()
+```
+
+```{r}
+# # edit of kableExtra::footnote_marker_symbol
+footnote_marker_symbol <- function (x, double_escape = FALSE) {
+  number_index <- read.csv(system.file("symbol_index.csv", package = "kableExtra"))
+  x <- number_index$symbol.html[x]
+  return(paste0("<sup class='symbol'>", x, "</sup>"))
+}
+
+big.num <- function (x, limit = 4) {
+  if (length(x) > 1) {
+    sapply(x, big.num)
+  } else {
+    if (x >= 10^limit) {
+      gsub("e\\+0+(\\d+)$",
+           "&times;10<sup>\\1</sup>",
+           formatC(x, format = "e", digits = 2))
+    } else round(x, 2)
+  }
+}
+```
+
+```{r}
+library(metathis)
+meta() %>% 
+  meta_description("In this lecture we will learn how to create neat tables and plots allowing us to convey a lot of information about data in a small space.") %>%
+  meta_tag("week" = "09") %>%
+  meta_tag("content_type" = "slides")
+```
+
+```{r data}
+df <- readr::read_csv("assets/movies_tidy.csv")
+df$cert <- car::recode(df$cert, "'N/C 12+' = '12'; 'G'='U'")
+df$cert <- ordered(df$cert, levels=c("U", "PG", "12", "12A", "15", "18", "Not Rated"))
+```
+
+## Overview
+
+[**Why use tables and plots?**](#why)
+
+[**Tables**](#tables)
+- What makes a good table?
+- Frequency tables
+- Summary tables
+
+[**Plotting basics**](#plots)
+- What makes a good plot?
+- Structure of a plot
+- Frequency plots
+- Summary plots
+
+<br>
+
+.center[**All plots and tables in the slides made in `R`**]
+
+---
+
+## Data
+
+```{r}
+df_freq <- df %>% 
+  distinct(title, continent) %>%
+  group_by(continent) %>%
+  summarise(n = n()) %>%
+  mutate(freq = n / length(unique(df$title)) * 100)
+
+df_smry <- df %>%
+  distinct(title, .keep_all = T) %>%
+  select(-year) %>%
+  summarise(across(
+    where(is.numeric),
+    list(n = function(x, na.rm=T) length(na.omit(x)),
+         min = min,
+         max = max,
+         mean = mean,
+         sd = sd,
+         se = function(x, na.rm=T) sqrt(var(x, na.rm=na.rm)/length(na.omit(x)))),
+    na.rm=T)) %>%
+  pivot_longer(cols = everything(), names_to=c("var", ".value"), names_pattern="(.*)_(.*)$") %>%
+  mutate(across(is.numeric, big.num)) %>%
+  mutate(var = stringr::str_to_sentence(var) %>% sub("_", " ", .))
+```
+
+- `r prettyNum(length(unique(df$title)), big.mark = ",")` films pulled from [IMDB.com](https://www.imdb.com)
+
+- **Inclusion criteria**
+  - Rated at least 5,000 times
+  - Released in 2010 or later
+
+- Data available [here](./assets/movies_tidy.csv)
+
+<small>
+Of the `r prettyNum(length(unique(df$title)), big.mark = ",")` titles, `r df_freq$n[1]` (`r round(df_freq$freq[1], 2)`%) were produced, or co-produced by at least one African country, `r prettyNum(df_freq$n[2], big.mark=",")` (`r round(df_freq$freq[2], 2)`%) by at least one country in the Americas, `r prettyNum(df_freq$n[3], big.mark=",")` (`r round(df_freq$freq[3], 2)`%) by a country in Asia, `r prettyNum(df_freq$n[4], big.mark=",")` (`r round(df_freq$freq[4], 2)`%) in Europe, and `r prettyNum(df_freq$n[5], big.mark=",")` (`r round(df_freq$freq[5], 2)`%) in Oceania.
+The sum of these numbers is necessarily higher than the total number of titles in the data set, as one title can have multiple production attributions and so can count towards several "Continent" categories.
+
+The number of IMDB ratings ranged from `r prettyNum(df_smry$min[2], big.mark=",")` to `r df_smry$max[2]`, with a mean of `r df_smry$mean[2]` and _SD_ of `r df_smry$sd[2]`. The average user rating for a given title spanned the range `r df_smry$min[1]`&ndash;`r df_smry$max[1]`; _M_=`r df_smry$mean[1]`, _SD_=`r df_smry$sd[1]`.
+
+Information on estimated budget was only available for `r prettyNum(df_smry$n[3], big.mark=",")` of the titles in the data set: `r df_smry$min[3]`&ndash;`r prettyNum(df_smry$max[3], big.mark=",")`, _M_=`r df_smry$mean[3]`, _SD_=`r df_smry$sd[3]`.
+</small>
+
+---
+
+name: why
+
+## Why and when to use tables and plots?
+
+### Why 
+
+- Plots and tables allow us to convey a lot of information using relatively small amounts of space
+- They structure the information we're communicating so that it's easier to understand than a wall of text
+- Good tables and plots are simply #aesthetic
+
+### When 
+
+- Tables and plot are not just for reports
+- They are a good way of exploring data before analysis in order for us to get to know them
+- Not all plots and table we create should be put in reports/papers
+- If we are including them in reports/papers, they should be used to convey important information that would be cumbersome to convey in body text
+
+---
+
+name: tables
+
+## Tables
+
+- Tidy way of presenting a lot of numbers
+- A good table should be **easy to read, well-organised, and clear**
+- Good for exploring and summarising data (this lecture), and presenting results (future modules)
+
+### Structural elements
+
+- **Number**: all tables should be numbered and the number should be referenced in paper/report
+- **Title**: should be descriptive
+- **Header**: clearly indicates what the data in each column mean
+- **Body**: logically organised into rows and columns
+- **Note**: optional, provides additional information necessary to correctly interpret data in the table
+
+---
+
+## Frequency tables
+
+```{r freq-tab, results='asis'}
+df_freq %>%
+  kableExtra::kable(
+    digits = 1, col.names = c(
+      "Continent", paste("<em>N</em>", footnote_marker_symbol(1)),  paste0("%", footnote_marker_symbol(2))),
+    caption ="Table 1<br><em>Distribution of film titles by continent with absolute and relative frequencies</em>",
+    format.args = list(big.mark=","), format = "html",
+    escape = F) %>%
+  kableExtra::kable_styling(full_width = F,) %>%
+  kableExtra::footnote(
+    general = paste0("Based on a sample of ", prettyNum(length(unique(df$title)), big.mark = ","),
+                     " full feature films released since 2010 with 5,000 or more ratings on IMDB.com."),
+    symbol = c("Column does not add up to total number of titles, as a single title can have multiple continent attributions.", "Percentage of total number of titles (does not add up to 100%)."), escape = F)
+```
+
+---
+
+## Grouped frequency tables
+
+.small[
+```{r grp-freq-tab, results='asis'}
+n_cont <- df %>%
+  distinct(title, continent) %>%
+  filter(continent %in% c("Americas", "Europe")) %>%
+  group_by(continent) %>%
+  tally()
+
+df_tab <- df %>%
+  distinct(title, continent, genre) %>%
+  mutate(genre = forcats::fct_infreq(genre) %>%
+           forcats::fct_lump_n(7, other_level = "Other")) %>%
+  filter(continent %in% c("Americas", "Europe")) %>%
+  group_by(continent, genre) %>%
+  summarise(n = n()) %>%
+  pivot_wider(id_cols = genre, names_from = continent, values_from = n)
+
+df_tab %>%
+  mutate(amer_perc = Americas/n_cont$n[1]*100,
+         eur_perc = Europe/n_cont$n[2]*100) %>%
+  `[`(c(1, 2, 4, 3, 5)) %>%
+  kableExtra::kable(
+    digits = 1, col.names = c(
+      "Continent", rep(c(paste("<em>N</em>", footnote_marker_symbol(1)),
+                         paste0("%", footnote_marker_symbol(2))), 2)),
+    caption ="Table 2<br><em>Distribution of film titles by genres for Europe and the Americas</em>",
+    format.args = list(big.mark=","), format = "html",
+    escape = F) %>%
+  kableExtra::add_header_above(c(" " = 1, "Americas" = 2, "Europe" = 2),
+                               line = F,
+                               extra_css = "border-bottom: solid 1px #644e48; padding-bottom: 3px") %>%
+  kableExtra::footnote(
+    general = paste0("Based on a sample of ", prettyNum(length(unique(df$title)), big.mark = ","),
+                     " full feature films released since 2010 with 5,000 or more ratings on IMDB.com."),
+    symbol = c("Column does not add up to total number of titles, as a single title can have multiple genre attributions.", "Percentage of total number of titles within given continent (does not add up to 100%)."), escape = F)
+```
+]
+
+---
+
+## Summary tables
+
+```{r summary-tab}
+df_smry$var <- c(
+  "Average IMDB rating",
+  "Number of IMDB ratings",
+  "Estimated budget (USD)",
+  "Opening week grossing (USD)",
+  "Runtime in minutes"
+)
+df_smry %>%
+  kableExtra::kable(
+    digits = 2, col.names = c(
+      "", "<em>N</am>", "Min", "Max", "<em>M</em>", "<em>SD</em>", "<em>SEM</em>"),
+    caption ="Table 3<br><em>Summary statistics of the measured continuous variables</em>",
+    format.args = list(big.mark=","), format = "html",
+    escape = F,
+    align = c("l", rep("r", ncol(df_smry) - 1))) %>%
+  kableExtra::kable_styling() %>%
+  kableExtra::row_spec(0, align = "c")
+
+```
+
+
+---
+
+exclude: ![:live]
+
+<iframe src="https://embed.polleverywhere.com/discourses/IXL29dEI4tgTYG0zH1Sef?controls=none&short_poll=true" width="800" height="600" frameBorder="0"></iframe>
+
+---
+
+name: plots
+
+## Plots
+
+- Sometimes, a picture is worth a thousand words
+- Great for communicating information about data that takes a lot of space to explain in writing
+- Good graphics should be both clear and packed full of information
+
+### Structural elements
+
+- **Number**: just like tables, all plots should be numbered and the number should be referenced
+- **Title**: should be descriptive
+- **Axes**: clearly labelled, with sensible ticks along them, and **units of measurement**
+- **Graphics**: clear, well designed, good size
+- **Legend**: if graphical elements are used to distinguish levels of variables, legend must be provided
+- **Note**: optional, provides additional information necessary to correctly interpret the plot
+
+
+---
+
+## Frequency plots
+
+- Good for exploring distributions of data
+
+- They are intended for you, the analyst, not for the readers of your paper/report
+
+- They can be nice but take up too much space, use up too much ink, and convey too little information
+
+---
+
+## Histogram
+
+- Useful for plotting distributions of **continuous** variables only (_interval_ and _ratio_)
+- Data need to be binned; width of individual bins is our decision, explicit or implicit
+
+Figure 1
+
+_A histogram of the distribution of average viewer ratings in the sample_
+
+```{r, panel=TRUE}
+df %>%
+  distinct(title, .keep_all = T) %>%
+  ggplot(aes(x = rating)) +
+  geom_bar(fill = "steelblue") +
+  labs(x = "Mean viewer rating", y = "Count") +
+  scale_x_continuous(breaks = 1:10)
+```
+
+---
+
+## Density plots
+
+- Also for continuous variables only
+- Simulate what a histogram with infinitely narrow bins would look like
+
+Figure 2
+
+_Density plots provide a smoother representation of the distribution of a variable_
+
+```{r, panel=TRUE}
+df %>%
+  distinct(title, .keep_all = T) %>%
+  ggplot(aes(x = rating)) +
+  geom_density(fill = "#3d755b88", colour = "#3d755b") +
+  labs(x = "Mean viewer rating", y = "Density") +
+  scale_x_continuous(breaks = 1:10)
+```
+
+---
+
+## Bar charts
+
+- Visualise distributions of **categorical** data (_nominal_ and _ordinal_)
+
+- They are still used for summarising data 
+
+- Even the APA website shows them in their [list of sample figures](https://apastyle.apa.org/style-grammar-guidelines/tables-figures/sample-figures#bar)
+
+- You shouldn't do it though - it's a waste of space!
+
+---
+
+## Simple bar chart
+
+Figure 3
+
+_A bar chart showing the number of films produced within a region_
+
+```{r, panel=TRUE, out.width="58%", fig.height=5.5}
+df %>%
+  distinct(title, country, .keep_all = T) %>%
+  mutate(region = factor(region)) %>%
+  ggplot(aes(x = region)) +
+  geom_bar(fill = "#00356888", colour="#003568") +
+  labs(x = "Region", y = "Count") +
+  theme(axis.text.x = element_text(angle = 30, vjust = 1, hjust=1))
+```
+
+<small>
+_Note._
+Categorisation of countries into regions is based on World Bank Development Indicators.
+</small>
+
+---
+
+## Bar charts
+
+.small[
+- Colour isn't necessary here but it's at least meaningful (British Board of Film Classification labels)
+
+Figure 4
+
+_Bar charts can also show distributions of ordinal variables_
+]
+  
+```{r, fig.height=3, out.width="80%", panel=TRUE}
+df %>%
+  distinct(title, .keep_all=T) %>%
+  mutate(cert = forcats::fct_explicit_na(cert)) %>%
+  ggplot(aes(x = cert, fill = cert, colour = cert)) +
+  geom_bar() +
+  labs(x = "BBFC Certificate", y = "Count") +
+  scale_fill_manual(values = c("#2aa832", "#fab900", "#ef7910",
+                               "#ef7910", "#ec5692", "#d8011e", "#007ec8", "#aaaaaa"),
+                    guide=F) +
+  scale_color_manual(values = c("#2aa832", "#fab900", "#ef7910",
+                                "#ef7910", "#ec5692", "#d8011e", "#007ec8", "#aaaaaa"),
+                     guide=F) +
+  geom_hline(yintercept = rep(seq(500, 2000, by = 500), 2), size = 2, colour = bg_col)
+```
+
+<small>
+*Note.* U: universally suitable; PG: parental guidance recommended; 12: suitable for children from 12 years of age; 12A: suitable for children from 12 years of age accompanied by adult; 15: suitable for 15-year-olds and older; 18: only suitable for adults.
+</small>
+
+---
+
+## Bar charts
+
+.small[
+- Sometimes it makes more sense to flip them horizontally
+- Grid lines can help comparing things in all kinds of plots
+
+Figure 5
+
+_An example of a horizontal bar chart with grid lines_
+]
+
+```{r, panel=TRUE, fig.height=4, out.width="80%"}
+df %>%
+  distinct(title, genre, .keep_all = T) %>%
+  mutate(genre = factor(genre) %>%
+           forcats::fct_infreq() %>%
+           forcats::fct_rev()) %>%
+  ggplot(aes(x = genre)) +
+  geom_bar(fill = "#3d755b88", colour = "#3d755b") +
+  coord_flip() +
+  labs(x = "Genre", y = "Count") +
+  theme(panel.grid.major.x = element_line(size=0.1, colour = "#00000044"),
+        panel.grid.minor.x = element_line(size=0.1, colour = "#00000022"))
+```
+
+
+---
+
+## Summary plots
+
+- Unlike frequency plots, their primary aim is to summarise the data in term of key statistics
+
+- They are often used to compare variables across groups
+
+- *Some of them* can be used to gauge **differences between groups** and **relationships between variables**
+
+- They are _not a substitute for data analysis!_
+
+---
+
+## Box plot
+
+- AKA box-and-whiskers plots
+
+Figure 6
+
+_A box plot gives a more detailed info about a variable's distribution and basic descriptive statistics_
+
+```{r, fig.height=2, panel=TRUE}
+df %>%
+  distinct(title, .keep_all = T) %>%
+  ggplot(aes(x = rating)) +
+  geom_boxplot(outlier.fill = "#e20000", outlier.shape = 21, width = 0.2) +
+  annotate("line", x = c(6.4, 6.4), y = c(-0.1, 0.1), colour = "#007ec8", size = 1.5) +
+  labs(x = "Mean viewer rating", y = "") +
+  coord_cartesian(ylim = c(-0.3, 0.3)) +
+  scale_x_continuous(breaks = 0:11) +
+  theme(axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(), axis.line.y = element_blank())
+```
+
+---
+
+## Box plot
+
+- AKA box-and-whiskers plots
+
+Figure 6
+
+_A box plot gives a more detailed info about a variable's distribution and basic descriptive statistics_
+
+```{r, fig.height=2, panel=TRUE}
+df %>%
+  distinct(title, .keep_all = T) %>%
+  ggplot(aes(x = rating)) +
+  geom_boxplot(outlier.fill = "#e20000", outlier.shape = 21, width = 0.2) +
+  labs(x = "Mean viewer rating", y = "") +
+  annotate("text", x = 6.4, y = -0.18, label="Median", size = 7, colour="#007ec8") +
+  annotate("text", x = 2.4, y = 0.12, label="Outliers", size = 7, colour = "#e20000") +
+  annotate("text", x = 6.5, y = 0.23, label="IQR", size = 6, colour=default_col) +
+  annotate("line", x = c(5.8, 7.1), y = c(0.15, 0.15), colour = default_col) +
+  annotate("line", x = c(5.8, 5.8), y = c(0.12, 0.15), colour = default_col) +
+  annotate("line", x = c(7.1, 7.1), y = c(0.12, 0.15), colour = default_col) +
+  annotate("line", x = c(6.4, 6.4), y = c(-0.1, 0.1), colour = "#007ec8", size = 1.5) +
+  coord_cartesian(ylim = c(-0.3, 0.3)) +
+  scale_x_continuous(breaks = 0:11) +
+  theme(axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(), axis.line.y = element_blank())
+```
+
+---
+
+## Grouped box plot
+
+Figure 7
+
+_Boxplots are useful to compare distributions of a variable between groups_
+
+```{r, panel=TRUE}
+df %>%
+  distinct(title, continent, .keep_all = T) %>%
+  ggplot(aes(x = continent, y = rating)) +
+  geom_boxplot(outlier.fill = "#e20000", outlier.shape = 21, varwidth = T) +
+  labs(x = "Continent", y = "Mean viewer rating") +
+  theme(panel.grid.major.y = element_line(colour = "#00000033"),
+        panel.grid.minor.y = element_line(colour = "#00000010"))
+```
+
+<small>
+*Note.* Width of boxes proportional to number of observation per category of the Continent variable
+</small>
+---
+
+## [Violin plot](https://xkcd.com/1967/)
+
+.small[
+Figure 8
+
+_Violin plots with inserted box plots showing mean viewer rating by different levels of BBFC certificate_
+]
+
+```{r, fig.height=3.5, out.width="80%", panel=TRUE}
+df %>%
+  distinct(title, .keep_all = T) %>%
+  mutate(cert = forcats::fct_explicit_na(cert)) %>%
+  ggplot(aes(x = cert, y = rating, fill = cert)) +
+  geom_violin(draw_quantiles = T, trim = F) +
+  geom_boxplot(width=0.1, outlier.size = 2, fill = "white") +
+  labs(x = "BBFC Certificate", y = "Mean viewer rating") +
+  scale_fill_manual(values = c("#2aa832", "#fab900", "#ef7910",
+                               "#ef7910", "#ec5692", "#d8011e", "#007ec8", "#aaaaaa"),
+                    guide=F) +
+  theme(panel.grid.major.y = element_line(colour = "#00000033"),
+        panel.grid.minor.y = element_line(colour = "#00000010"))
+```
+
+<small>
+*Note.* U: universally suitable; PG: parental guidance recommended; 12: suitable for children from 12 years of age; 12A: suitable for children from 12 years of age accompanied by adult; 15: suitable for 15-year-olds and older; 18: only suitable for adults.
+</small>
+
+---
+
+## Errorbar plot
+
+- Errorbar plots are great for showing means and spread/inferential statistics
+
+- Some of them can be used to gauge _statistical_ differences between groups
+
+- Error bars can show several things (*e.g,* standard deviations, standard errors, their multiples)
+
+- Plot should clearly indicate what they represent
+
+- Pay attention to what the error bars mean
+
+- Interpretation of plots changes based on what the bars show!
+
+---
+
+## Errorbar plot
+
+Figure 9
+
+_Errorbar plot showing mean estimated budget of movies by level of BBFC certificate_
+
+```{r, panel=TRUE}
+df %>%
+  distinct(title, .keep_all = T) %>%
+  mutate(cert = forcats::fct_explicit_na(cert)) %>%
+  ggplot(aes(x = cert, y = budget/1000000, fill = cert)) + 
+  stat_summary(fun.data = mean_se, geom = "errorbar", width=0.1, fun.args = 2) +
+  stat_summary(fun.y = mean, geom = "point", pch=23, size = 4) + 
+  labs(x = "BBFC Certificate", y = "Budget in millions of USD") +
+  scale_fill_manual(values = c("#2aa832", "#fab900", "#ef7910",
+                               "#ef7910", "#ec5692", "#d8011e", "#007ec8", "#aaaaaa"),
+                    guide=F) +
+  theme(panel.grid.major.y = element_line(colour = "#00000033"),
+        panel.grid.minor.y = element_line(colour = "#00000010"))
+```
+
+<small>
+*Note.* Error bars represent &pm;2 _SE_ from the mean.
+</small>
+
+---
+
+## Errorbar plot
+
+Figure 10
+
+_Errorbar plot showing mean estimated budget of movies by level of BBFC certificate_
+
+```{r, panel=TRUE}
+df %>%
+  distinct(title, .keep_all = T) %>%
+  mutate(cert = forcats::fct_explicit_na(cert)) %>%
+  ggplot(aes(x = cert, y = budget/1000000, fill = cert)) + 
+  stat_summary(fun.data = function (x, mult = 1) {
+    x <- stats::na.omit(x)
+    sd <- stats::sd(x)
+    mean <- mean(x)
+    ggplot2:::new_data_frame(list(y = mean, ymin = mean - sd, ymax = mean + 
+                                    sd), n = 1)},
+    geom = "errorbar", width=0.1) +
+  stat_summary(fun.y = mean, geom = "point", pch=23, size = 4) + 
+  labs(x = "BBFC Certificate", y = "Budget in millions of USD") +
+  scale_fill_manual(values = c("#2aa832", "#fab900", "#ef7910", 
+                               "#ef7910", "#ec5692", "#d8011e", "#007ec8", "#aaaaaa"),
+                    guide=F) +
+  scale_y_continuous(breaks = seq(0, 160, by = 20)) +
+  theme(panel.grid.major.y = element_line(colour = "#00000033"),
+        panel.grid.minor.y = element_line(colour = "#00000010"))
+```
+
+<small>
+*Note.* Error bars represent &pm;1 _SD_ from the mean.
+</small>
+
+---
+
+## Scatter plot
+
+- Best way to show **relationships between two continuous variables**.
+
+Figure 11
+
+_The relationship between a film's budget and its opening week box office performance_
+
+
+```{r, panel=TRUE}
+df %>%
+  distinct(title, .keep_all = T) %>%
+  ggplot(aes(x = budget/1000000, y = opening_week/1000000)) + 
+  geom_point(colour = "orangered", size = 2, alpha = .2,
+             position = position_jitter(width = 1, height = 1)) +
+  labs(x = "Budget in millions of USD", y = "Opening week grossing\n(millions of USD)")
+```
+
+---
+
+## Line plot
+
+.small[
+- Great for highlighting **repeated measures** and **within-subject structure** 
+
+Figure 12
+
+_Average film runtime over time in the second decade of the 21<sup>st</sup> century_
+]
+
+```{r, fig.height=3, panel=TRUE}
+df %>%
+  distinct(title, continent, .keep_all = T) %>%
+  ggplot(aes(x = ordered(year), y = runtime, group=1)) + 
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = 0, lty = 1) +
+  stat_summary(fun = mean, geom = "line") + 
+  stat_summary(fun = mean, geom = "point", size = 4, colour="steelblue") + 
+  labs(x = "Year of release", y = "Runtime in minutes") +
+  coord_cartesian(ylim=c(105, 115)) +
+  scale_y_continuous(breaks = 105:115)
+```
+
+<small>
+*Note.* Error bars represent &pm;1 _SE_ from the mean.
+</small>
+
+
+---
+
+## Lot of info!
+
+Figure 13
+
+_Mean number of IMDB viewer rating of films by continent over time_
+
+```{r, panel=TRUE}
+df %>%
+  distinct(title, continent, .keep_all = T) %>%
+  ggplot(aes(x = ordered(year), y = n_ratings/100000,
+             group = continent, fill = continent, shape = continent)) + 
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = 0, lty = 1) +
+  stat_summary(fun.y = mean, geom = "line") + 
+  stat_summary(fun.y = mean, geom = "point", size = 3) + 
+  labs(x = "Year of release", y = "Number of IMDB ratings\n(in 100k)") +
+  scale_shape_manual(values=21:25, name="Continent") +
+  scale_fill_brewer(palette = "Set1", name="Continent") +
+  theme(legend.position = c(.77, 0.74)) +
+  coord_cartesian(ylim = c(0, 4.1))
+```
+
+<small>
+*Note.* Error bars represent &pm;1 _SE_ from the mean.
+</small>
+
+
+---
+
+exclude: ![:live]
+
+<iframe src="https://embed.polleverywhere.com/discourses/IXL29dEI4tgTYG0zH1Sef?controls=none&short_poll=true" width="800" height="600" frameBorder="0"></iframe>
+
+---
+
+## Sometimes less is more!
+
+- Plots and tables should _supplement_ body text, not repeat what's already there
+
+- There's no need to show the same thing in a table AND in a plot at the same time!
+
+- Always make sure font size and size of graphics are big enough to be easily legible
+
+- For more detailed APA guidelines, see the [APA website](https://apastyle.apa.org/style-grammar-guidelines/tables-figures)
+
+  - They also provide sample [tables](https://apastyle.apa.org/style-grammar-guidelines/tables-figures/sample-tables) and [figures](https://apastyle.apa.org/style-grammar-guidelines/tables-figures/sample-figures). (But remember, not bar charts for summary stats! Not ever!)
+
+---
+
+class: last-slide weekend
+background-image: url("../../end.jpg")
+background-size: cover
