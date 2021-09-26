@@ -1,10 +1,10 @@
---- 
+---
 title: "Introduction to computing"
 subtitle: "Tutorial 01"
 author: "Psychology as a Science"
 output:
-  html_document:
-    css: ["./css/paas_learnr.css", "./css/katex.min.css"]
+  rmarkdown::html_document:
+    css: ["./css/paas_learnr.css", "./css/katex.min.css"] 
     includes: 
       js: "./js/setup.js"
       after_body: "./header.html"
@@ -137,22 +137,6 @@ No, they are not marked. &#128521;
 The tutorials also have other features like code boxes, where you can
 practice writing `R`. We'll come across these as the course progresses.
 
-## Setting up your OneDrive folder
-
-Each University of Sussex student is given a OneDrive account. This account
-gives out quite a lot of cloud storage space (1TB). All you need to do to
-access this space is to install OneDrive, log in using your University of
-Sussex credentials and sync the folder with your computer.
-
-\ 
-
-**Your <a id="task1">first task</a> is to get access to your OneDrive folder and sync it to your
-computer.**
-
-If you need help, the uni website has an [entire page on setting up and working
-with OneDrive](http://www.sussex.ac.uk/its/onedrive).
-
-
 ### R and RStudio
 
 We will be using the RStudio software to write documents (*e.g.*, analysis
@@ -160,27 +144,29 @@ reports) and to process, analyse, and visualise data. RStudio is the most
 popular software for programming in the `R` programming language. In order to
 use it, you first need to install both `R` and RStudio.
 
-**So, for your <a id="task2">second task</a>, install `R` and RStudio Desktop on your computer.**
+**Your <a id="task1">first task</a>, install `R` and RStudio Desktop on your computer.**
 
 To install `R`, you'll first need to download the correct version for your
 system. The links are listed below:
 
-1. [`R` for Microsoft Windows](https://cran.r-project.org/bin/windows/base/old/4.0.5/R-4.0.5-win.exe) 
+- [`R` for Microsoft Windows](https://cloud.r-project.org/bin/windows/base/R-4.1.1-win.exe) 
 
-2. [`R` for an Intel Apple Mac](https://cloud.r-project.org/bin/macosx/base/R-4.0.5.pkg)
+- [`R` for an Intel Apple Mac](https://cloud.r-project.org/bin/macosx/base/R-4.1.1.pkg)
 
-3. [`R` for an M1 Apple Mac]()
+- [`R` for an M1 Apple Mac](https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/R-4.1.1-arm64.pkg)
 
+Once you have downloaded the install file, double-click it and proceed through
+the install process (which will be similar to other software that you have
+installed).
 
-You can install `R` from the (`R` project website)[https://cloud.r-project.org/].
+Once you've downloaded and installed `R` you will need to download and install
+RStudio.
 
-Once you've installed `R`, to install RStudio go to the (RStudio
-website)[https://rstudio.com/products/rstudio/download/#download] and download
-the free version of the RStudio Desktop software.
+To download RStudio you can click the following links: 
 
-<div class="warn"> In both cases, it is important to install the latest version
-(at the time of writing, these were `R` 4.0.2, and RStudio Desktop 1.3.1073).
-</div>
+- For the [MacOS version](https://download1.rstudio.org/desktop/macos/RStudio-1.4.1717.dmg)
+
+- For the [Windows version](https://download1.rstudio.org/desktop/windows/RStudio-1.4.1717.exe)
 
 If you need help installing either of these, here's a video guide on how to
 install both on Windows:
@@ -210,6 +196,25 @@ If you feel like you're just doing things and you don't understand what exactly
 it is you're doing and why you're doing it, relax. We will start lifting the
 fog of war pretty soon!
 
+## Setting up your OneDrive folder (optional)
+
+Each University of Sussex student is given a OneDrive account. This account
+gives out quite a lot of cloud storage space (1TB).  If you want to access the
+same files in the computer labs and on your home computer then you'll need to 
+set up OneDrive on your home computer.
+
+To set up OneDrive, log in using your University of Sussex credentials and sync
+the folder with your computer.
+
+**Your <a id="task2">second task</a> is to get access to your OneDrive folder
+and sync it to your computer.** Only proceed with installing OneDrive if you
+managed to install R and RStudio successfully. Installing OneDrive **before**
+setting up R/RStudio can sometimes cause problems, particularly if you're using
+Windows. If you had trouble installing R/RStudio or couldn't install it
+correctly, then don't worry about installing OneDrive just yet. 
+
+If you need help, the uni website has an [entire page on setting up and working
+with OneDrive](http://www.sussex.ac.uk/its/onedrive).
 
 ## Computers
 
@@ -296,11 +301,15 @@ need for this course.
 source("https://paas.netlify.app/install.r")
 ```
 
+If you've had any problems installing anything from this tutorial then feel
+free to come to one of the drop-in sessions or bring your laptop to an
+in-person practical.
+
 You should now have performed all four tasks:
 
-1. [Set up OneDrive on your computer](#task1)
+1. [Installed `R` and RStudio Desktop on your computer](#task1)
 
-2. [Installed `R` and RStudio Desktop on your computer](#task2)
+2. [Set up OneDrive on your computer](#task2) (optional)
 
 3. [Wacthed the tutorial video](#task3)
 
@@ -308,5 +317,4 @@ You should now have performed all four tasks:
 
 That is all for this week.
 
-
-
+\

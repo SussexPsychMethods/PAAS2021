@@ -1,0 +1,41 @@
+.question {
+  width: 100%;
+  border: solid;
+  border-width: .5px;
+  padding: 10px;
+  margin-bottom: 2em;
+  border-color: #22222238;
+}
+.question > * {
+  flex-direction: column;
+  line-height: 180%;
+  font-family: sans-serif;
+  color: #222222;
+}
+
+label {
+  font-weight: 400;
+}
+
+.question > button {
+  background-color: #afc7e6;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  transition-duration: 0.2s;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+.question > button:hover {
+  color: #959ca3;
+}
+
+.correct {
+  color: red;
+}

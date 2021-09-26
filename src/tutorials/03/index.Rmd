@@ -1,0 +1,326 @@
+---
+title: "Introduction to R Markdown"
+subtitle: "Tutorial 03"
+author: "Psychology as a Science"
+output:
+  rmarkdown::html_document:
+    css: ["./css/paas_learnr.css", "./css/katex.min.css"] 
+    includes: 
+      js: "./js/setup.js"
+      after_body: "./header.html"
+    self_contained: false
+---
+ 
+
+
+```{r, include=FALSE}
+library(metathis)
+library(niceQuiz)
+
+knitr::opts_chunk$set(echo = FALSE)
+meta() %>%
+  meta_description("Week 3 Tutorial") %>%
+  meta_tag("content_type" = "tutorial",
+           "week" = "03")
+```
+
+```{css}
+.verbatim > * {word-break:break-word}
+````
+
+## Intro
+
+Welcome to the third PAAS tutorial, in which we will talk about text editors.
+We will contrast the word processing software that you are probably used to
+with markdown, a slightly geekier but way of writing documents. Finally, we
+will discover RStudio's own markdown editor and learn how to write documents
+using it.
+
+\ 
+
+Onwards!
+
+\ 
+
+## Text files
+
+Text files are simply computer files that contain text. To create or modify
+them, we need programs called text editors. Remember how we said that the .docx
+files require Microsoft Word (or similar) to be installed on the device in
+order to open them. Well, the .docx file is a text file and MS Word is the text
+editor program. There are two basic kinds of text, plain text and rich text.
+
+
+### Plain text
+
+Plain text is basically what it says on the tin: just text, without formatting.
+There is no **bold text**, no *italics*, no ^superscripts^, no
+<big>variable</big> <small>font sizes</small>, just plain text.
+
+A typical plain text file has the .txt file extension. This extension lets the
+computer know that the contents of the file are just text and should not
+necessarily be interpreted as anything else. However, .txt are not the only
+plain text files. Later on, when we are writing longer blocks of `R` code, we
+will be saving them into files with a .R extension. These are still plain text
+files but, when opened in the source pane of RStudio, the program will decorate
+the text with different colours for different bits of the code to make the code
+easier for us to read.
+
+
+### Rich text
+
+Rich text is text with all sorts of formatting. What you are reading now is
+rich text. You can see that there are headings, buttons, fonts of different
+colours and sizes, and so on...
+
+Rich text formatting is, however, just a visual representation that the program
+creates for us and shows it on the screen. Behind the scenes the program we are
+using is reading a plain text file written using one of several formatting
+systems. Every one of these systems has its own way to indicate, using plain
+text symbols and tags, how the displayed text should be formatted. For example,
+.docx files use a system called [Extensible Markup Language, or
+XML](https://en.wikipedia.org/wiki/XML), while Google Docs use [Hypertext
+Markup Language, or HTML](https://en.wikipedia.org/wiki/HTML).
+
+HTML is the system in which modern websites are written and all web browsers
+know how to turn HTML plain text into formatted rich text. These tutorials are
+also written in HTML and so can be opened in your web browser. To illustrate
+what we mean by indicating formatting using plain text, let's see what the HTML
+plain text behind the first paragraph of the "Plain text" section above looks
+like:
+
+<div class="verbatim">
+```
+<p>Plain text is basically what it says on the tin: just text, without formatting. There is no <strong>bold text</strong>, no <em>italics</em>, no <sup>superscirpts</sup>, no <big>variable</big> <small>font sizes</small>.</p>
+```
+</div>
+
+The browser reading this text knows that this is a new paragraph
+(`<p>...</p>`), the "bold text" bit should be bold because it's inside the
+`<strong>...</strong>` tag, *etc*.
+
+Again, there's no magic here, nothing mysterious is happening, just a set of
+instructions in plain text that the program (the browser, in this case) knows
+how to follow.
+
+\ 
+
+Now that we understand how text files work, let's see how we can create them.
+
+\ 
+
+## Text editors
+
+You are probably familiar with MS Word and Google Docs and maybe you use them
+to write documents. These two are examples of text editors, programs that cn
+create and modify text files. Because all text formatting and styling in these
+editors is done in real time using buttons, menus, or keyboard shortcuts so
+that you are always seeing the actual formatted version of the final document,
+these kinds of editors are called "WYSIWYG" editors (What You See Is What You
+Get).
+
+There is also a different kind of text editors that precedes WYSIWYG - plain
+text editors. As their name suggests, they only deal with plain text. Using
+this approach to creating and editing documents involves two steps:
+
+1. You write the plain text file, indicating the structure of the text using
+   symbols or tags.
+2. Once the plain text file is written, the editor converts it to a formatted
+   file, such as .docx, .html, or .pdf.
+
+There are several "markup languages" that can be used to write the plain text
+but the one we will be using is called R Markdown
+
+## R Markdown
+
+R Markdown is a markup language (confusing, isn't it?) that combines `R` with a
+plain text editor. There is a wealth of resources on how to use it and we will
+be learning a lot about it but, for now, it's best to just see some basics and
+play around with them.
+
+You've already seen the boxes below in the first tutorial but now you have more
+context to understand what they are all about. They show what R Markdown looks
+like and how it gets "rendered" into rich text. Compare the two to see how the
+markdown translates into formatting. As you will see, R Markdown makes it
+pretty easy to create nicely formatted text using just a few symbols here and
+there.
+
+The top box is editable so feel free to type in anything you want.
+
+```{r}
+text <- "
+# Level 1 heading
+
+## Level 2 heading
+
+### Level 3 heading, etc..
+
+This is **bold**.
+
+This is *italics*.
+
+If you really want, you can also do ~~strikethrough~~.
+
+One line break doesn't do anything.
+These two sentences are still in the same paragraph.
+
+For a new paragraph, we need two line breaks.
+
+- this is
+- an *unordered*
+- list
+    - it can have
+    - multiple levels
+
+1. this is
+1. an *ordered*
+1. list
+    1. also with
+    1. multiple levels
+
+You can even write maths formulae! $\\sum_{i = 1}^{n}(x_i - \\bar{x})^2$
+"
+div <- htmltools::tag("div", list(class = "container"))
+htmltools::tagAppendChild(div, text)
+```
+
+```{js}
+document.body.onload = build;
+function build (){
+  let scriptTag = document.createElement('script');
+  scriptTag.src = './js/main.js';
+  document.body.appendChild(scriptTag);
+}
+```
+
+```{css, include=TRUE}
+
+pre code * {
+ -ms-word-break: break-all;
+     word-break: break-all;
+
+     /* Non standard for WebKit */
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+        hyphens: auto;
+}
+
+.container {
+  width: 100%;
+}
+textarea {
+  overflow: hidden;
+  resize: none;
+  border: solid 1px rgb(50, 180, 70));
+  min-height: 10em;
+	font-family: monospace;
+	width: 99.7%;
+	padding: 1em;
+	display: block;
+	margin: auto;
+}
+
+textarea:focus {
+	outline: solid 1px rgb(50, 180, 70);
+}
+
+.md-editor {
+	padding: 3.5rem 0;
+	position: relative;
+}
+
+.md-editor::before {
+	font-family: 'Source Sans', sans-serif;
+	color: rgb(50, 180, 70);
+	content: 'Your markdown';
+	position: absolute;
+	margin-top: -18px;
+	font-size: 2em;
+	font-weight: bold;
+	right: 0;
+}
+
+.rendered-content{
+	position: relative;
+	width: 100%;
+  border: solid 1px rgb(67, 75, 117);
+	background: #fff;
+	padding: 1em;
+	overflow-wrap: break-word;
+}
+
+.rendered-content::before {
+	content: 'Rendered output';
+	position: absolute;
+	margin-top: -33px;
+	font-size: 2em;
+	font-weight: bold;
+	right: 0;
+}
+
+```
+ 
+
+Take a moment to play around with the editor to get used to the markdown. You
+don't need to understand the symbolic language for the maths formula; it's just
+to showcase what R Markdown can do. There is much more you can do in R
+Markdown, including automatic references, including `R` code, plots, tables,
+pictures, or even GIFs and videos. In fact, the vast majority of the teaching
+materials for PAAS was written in R Markdown!
+
+\ 
+
+## R Markdown files and output documents
+
+At this stage you are ready to learn how to write your own R Markdown-generated
+documents.
+
+As a first step towards this goal, watch the video below.
+
+<iframe width="672" height="378"
+src="https://www.youtube.com/embed/DDQxdxOAEXQ" frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+picture-in-picture" allowfullscreen></iframe>
+([As always, there's also a transcript of the video if you need it](https://docs.google.com/document/d/1S5CVpVD2KvnCCHeMDwp32oNV4D5gywfEIE2vYXPY4o8/edit#))
+
+\ 
+
+You will be using R Markdown to write all your assignments for the next three
+methods modules (PAAS, Analysing Data, Discovering Statistics) and we would
+encourage you to adopt it for basically all writing, especially your
+dissertation!
+
+So, to get some practice, here are some tasks for you:
+
+**1. Create a new RStudio project called `"week_03"` in your
+`uni/psych_methods/paas` folder.**
+
+**2. Create the minimal folder structure as discussed in the previous tutorial.**
+You need the `"data"` and `"r_docs"` folders.
+
+**3. Following the instructions in the video you just watched, create a new Rmd
+file.**
+
+**4. Change the author at the very top of the document to your name.**
+
+**5. Change the title to "Lecture 3 notes".**
+
+**6. Delete everything in the template file after the second set of `---`.**
+
+**7. In the main body of the file, transcribe your Lecture 3 notes, making sure
+they are nicely structured.** If you don't have notes, you are strongly advised
+to re-watch the lecture and take notes. The same goes for every lecture.
+
+**8. Save the file as `"lec_03_notes.Rmd"` in the `"r_docs"` folder.**
+
+**9. Knit the file into a HTML document.**
+
+**10. Admire how pretty the output is!**
+
+\ 
+
+That's all for this tutorial.
+
+\ 

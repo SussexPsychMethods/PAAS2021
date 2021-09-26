@@ -183,14 +183,14 @@ pre code {
 <p>Welcome to the second PAAS tutorial, in which we will learn a little more about computers and find out how to keep our files organised when working in <code>R</code>. The tutorial (just like every subsequent one) assumes that you have completed all tasks in the previous one and are familiar with the topics it covered.</p>
 <div id="section" class="section level3">
 <h3></h3>
-<p>In particular, before you start, you should have OneDrive, <code>R</code>, and RStudio installed on your computer and your OneDrive folder should be synced. If any of this sounds like gobbledygook, please go back to Tutorial 01.</p>
+<p>In particular, before you start, you should have <code>R</code>, and RStudio installed on your computer. Optionally, you should also have OneDrive installed. If any of this sounds like gobbledygook, please go back to Tutorial 01.</p>
 </div>
 </div>
 <div id="warm-up-quiz" class="section level2">
 <h2>Warm-up quiz</h2>
 <p>To get you warmed up for some nerd action, here’s a little quiz about the topics we’ve covered thus far.</p>
-<div id="htmlwidget-4f90e87598d6f090e8c1" style="width:672px;height:100%;" class="quiz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4f90e87598d6f090e8c1">{"x":[{"question":"What is the collective term for Windows, MacOS, Unix, <em>etc.<\/em>?","answers":[["Operating system","true"],["Graphical user interface","false"],["Integrated development environment","false"],["Secondary computing software","false"]]},{"question":"What is R?","answers":[["A high-level programming language","true"],["An IDE for Windows and MacOS","false"],["Machine code for RStudio","false"],["Baby don&#39;t hurt me.","false"]]},{"question":"How many panes does RStudio contain?","answers":[["1","false"],["2","false"],["3","false"],["4","true"]]},{"question":"Which one is NOT a feature of a good algorithm?","answers":[["There are no infinite loops.","false"],["Instructions are clearly explained.","false"],["Individual steps are simple.","false"],["It is linear.","true"]]}],"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0d540449026cbe616863" style="width:672px;height:100%;" class="quiz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0d540449026cbe616863">{"x":[{"question":"What is the collective term for Windows, MacOS, Unix, <em>etc.<\/em>?","answers":[["Operating system","true"],["Graphical user interface","false"],["Integrated development environment","false"],["Secondary computing software","false"]]},{"question":"What is R?","answers":[["A high-level programming language","true"],["An IDE for Windows and MacOS","false"],["Machine code for RStudio","false"],["Baby don&#39;t hurt me.","false"]]},{"question":"How many panes does RStudio contain?","answers":[["1","false"],["2","false"],["3","false"],["4","true"]]}],"evals":[],"jsHooks":[]}</script>
 <div id="section-1" class="section level3">
 <h3></h3>
 </div>
@@ -198,18 +198,21 @@ pre code {
 <div id="files-folders-extensions-and-paths" class="section level2">
 <h2>Files, folders, extensions, and paths</h2>
 <p>For starters, watch the video below. It discusses how computers store, organise, and use files.</p>
-<p><img src="https://youtu.be/fKHj_csJtsY" /> (Also available is a <a href="https://docs.google.com/document/d/1cf_oEpx6pQvL4eF28eWc9TalE-LkZYEBpdvQ3KZ0VUE/edit?usp=sharing">transcript of the video</a>)</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fKHj_csJtsY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+picture-in-picture" allowfullscreen>
+</iframe>
+<p>A <a href="https://docs.google.com/document/d/1cf_oEpx6pQvL4eF28eWc9TalE-LkZYEBpdvQ3KZ0VUE/edit?usp=sharing">transcript of the video</a> is also available.</p>
 <div id="section-2" class="section level3">
 <h3></h3>
 <p>After you’ve watched the video, test your knowledge of the topics with a short quiz.</p>
-<div id="htmlwidget-a80034dba6f9372a63c2" style="width:672px;height:100%;" class="quiz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a80034dba6f9372a63c2">{"x":[{"question":"What do we call files that can run themselves?","answers":[["Self-extracting","false"],["Recurrent","false"],["Applications","true"],["Programs","true"]]},{"question":"What is the difference between folders and directories","answers":[["There&#39;s no difference; they are synonyms.","true"],["Folders cannot contain other folders but directories can.","false"],["Folders cannot contain other folders but they can contain directories.","false"],["Directories can contain both folders and directories but folders cannot. ","false"]]},{"question":"Which one of these is <strong>NOT<\/strong> a valid file extension for pictures?","answers":[[".exe","true"],[".jpg","false"],[".png","false"],[".bmp","false"]]},{"question":"Reltive paths are independent on your current location?","answers":[["True","false"],["False","true"]]}],"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-838b329b8f6b542da518" style="width:672px;height:100%;" class="quiz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-838b329b8f6b542da518">{"x":[{"question":"What do we call files that can run themselves?","answers":[["Self-extracting","false"],["Recurrent","false"],["Applications","true"],["Programs","true"]]},{"question":"What is the difference between folders and directories","answers":[["There&#39;s no difference; they are synonyms.","true"],["Folders cannot contain other folders but directories can.","false"],["Folders cannot contain other folders but they can contain directories.","false"],["Directories can contain both folders and directories but folders cannot. ","false"]]},{"question":"Which one of these is <strong>NOT<\/strong> a valid file extension for pictures?","answers":[[".exe","true"],[".jpg","false"],[".png","false"],[".bmp","false"]]},{"question":"Reltive paths are independent on your current location?","answers":[["True","false"],["False","true"]]}],"evals":[],"jsHooks":[]}</script>
 <p>If you haven’t aced the quiz, maybe it would be worth going over the video again…</p>
 </div>
 <div id="your-folder-structure" class="section level3">
 <h3>Your folder structure</h3>
 <p>Now that you understand how computers organise files, it’s time to set up a neat folder structure for all your uni-related work.</p>
-<p><strong>1. Create a folder called <code>"uni"</code> in your OneDrive folder.</strong></p>
+<p><strong>1. Create a folder called <code>"uni"</code> in your Documents folder or your OneDrive folder (if you’re using OneDrive).</strong></p>
 <p>Here is where you will keep all files related to your study programme.</p>
 <p>It’s up to you how you organise most of your folders and files within the <code>"uni"</code> folder but we strongly encourage you to give it some thought and keep your file and folder structure tidy.</p>
 <p><strong>2. Inside the <code>"uni"</code> folder, create a <code>"psych_methods"</code> folder.</strong></p>
@@ -240,16 +243,19 @@ pre code {
 <div id="rstudio-projects" class="section level2">
 <h2>RStudio projects</h2>
 <p>Let’s take what we just learned about files and folders and apply it to working in RStudio. Watch this video to find out the best way to keep organised your <code>R</code>-related work.</p>
-<p><img src="https://youtu.be/kg5QATDSh_4" />(Again, you can check out the <a href="https://docs.google.com/document/d/1odQV96QUcwkrKslhMfYH2cThFX5U6tT99bfLjUcxKt8/edit?usp=sharing">transcript of the video</a>)</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kg5QATDSh_4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+picture-in-picture" allowfullscreen>
+</iframe>
+<p>Again, you can also check out the <a href="https://docs.google.com/document/d/1odQV96QUcwkrKslhMfYH2cThFX5U6tT99bfLjUcxKt8/edit?usp=sharing">transcript of the video</a></p>
 <p>Test your knowledge of RStudio projects with by answering a few questions.</p>
-<div id="htmlwidget-b8c2d6e907c3329070b5" style="width:672px;height:100%;" class="quiz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b8c2d6e907c3329070b5">{"x":[{"question":"What sets RStudio projects apart from other folders?","answers":[["Nothing, they&#39;re the same.","false"],["RStudio projects must be created in R.","false"],["RStudio projects contain a special file that the software recognises","true"],["Folders have both relative and absolute paths; RStudio projects have only relative paths.","false"]]},{"question":"What is the extension of the file that identifies an RStudio project","answers":[[".Rproj","true"],[".R","false"],[".Rmd","false"],[".RData ","false"]]},{"question":"What must you never do with the RStudio project file if you want RStudio to recognise the project?","answers":[["Move it or move the folder.","true"],["Rename it or rename the folder.","true"],["Open it.","false"],["Delete it.","true"]]},{"question":"Which of these folders should you create within every project at the very least?","answers":[["data","true"],["r_docs","true"],["pics","false"]]},{"question":"Where does an RStudio project set your current location to?","answers":[["Your OneDrive folder.","false"],["The given project folder.","true"],["Wherever RStudio is installed.","false"],["Your HOME directory.","false"]]}],"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0d8913486ad1753464a8" style="width:672px;height:100%;" class="quiz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0d8913486ad1753464a8">{"x":[{"question":"What sets RStudio projects apart from other folders?","answers":[["Nothing, they&#39;re the same.","false"],["RStudio projects must be created in R.","false"],["RStudio projects contain a special file that the software recognises","true"],["Folders have both relative and absolute paths; RStudio projects have only relative paths.","false"]]},{"question":"What is the extension of the file that identifies an RStudio project","answers":[[".Rproj","true"],[".R","false"],[".Rmd","false"],[".RData ","false"]]},{"question":"What must you never do with the RStudio project file if you want RStudio to recognise the project?","answers":[["Move it or move the folder.","true"],["Rename it or rename the folder.","true"],["Open it.","false"],["Delete it.","true"]]},{"question":"Which of these folders should you create within every project at the very least?","answers":[["data","true"],["r_docs","true"],["pics","false"]]},{"question":"Where does an RStudio project set your current location to?","answers":[["Your Documents folder.","false"],["The given project folder.","true"],["Wherever RStudio is installed.","false"],["Your HOME directory.","false"]]}],"evals":[],"jsHooks":[]}</script>
 <p>Again, if you didn’t get the answers right, consider re-watching the video.</p>
 <div id="section-3" class="section level3">
 <h3></h3>
 <p>Let’s conclude the tutorial with a few tasks.</p>
 <p><strong>1. In RStudio, create a new RStudio project inside your <code>"uni/psych_methods/01_paas"</code> folder.</strong></p>
-<p><strong>2. Call the project folder <code>"week_01"</code></strong>.</p>
+<p><strong>2. Call the project folder <code>"week_02"</code></strong>.</p>
 <p>We will be creating a new RStudio project every week to get some practice. The double digit numbering ensures that the folders will be sorted in the right order. Otherwise <code>"week_11"</code> would be between <code>"week_1"</code> and <code>"week_2"</code>.</p>
 <p><strong>3. Go to the location of the project in Windows File Explorer or MacOS Finder to see that the new folder is really there.</strong></p>
 <p><strong>4. Close the <code>"week_01"</code> project.</strong></p>

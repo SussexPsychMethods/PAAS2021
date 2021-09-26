@@ -1,4 +1,4 @@
---- 
+---
 title: "Files, paths, and RStudio projects"
 subtitle: "Tutorial 02"
 author: "Psychology as a Science"
@@ -31,10 +31,9 @@ tasks in the previous one and are familiar with the topics it covered.
 
 ###
 
-In particular, before you start, you should have OneDrive, `R`, and RStudio
-installed on your computer and your OneDrive folder should be synced. If any of
+In particular, before you start, you should have `R`, and RStudio installed on
+your computer. Optionally, you should also have OneDrive installed. If any of
 this sounds like gobbledygook, please go back to Tutorial 01.
-
 
 ## Warm-up quiz
 
@@ -61,14 +60,7 @@ quiz(caption = "",
     answer("2"),
     answer("3"),
     answer("4", correct = TRUE)
-  ),
-  question("Which one is NOT a feature of a good algorithm?",
-    answer("There are no infinite loops."),
-    answer("Instructions are clearly explained."),
-    answer("Individual steps are simple."),
-    answer("It is linear.", correct = TRUE)
-  )
-)
+  ))
 ```
 
 
@@ -79,8 +71,15 @@ quiz(caption = "",
 For starters, watch the video below.
 It discusses how computers store, organise, and use files.
 
-![](https://youtu.be/fKHj_csJtsY) (Also available is a [transcript of the
-video](https://docs.google.com/document/d/1cf_oEpx6pQvL4eF28eWc9TalE-LkZYEBpdvQ3KZ0VUE/edit?usp=sharing))
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/fKHj_csJtsY" frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+picture-in-picture" allowfullscreen></iframe>
+
+A [transcript of the
+video](https://docs.google.com/document/d/1cf_oEpx6pQvL4eF28eWc9TalE-LkZYEBpdvQ3KZ0VUE/edit?usp=sharing) 
+is also available. 
+
 
 ### 
 
@@ -126,7 +125,8 @@ again...
 Now that you understand how computers organise files, it's time to set up a
 neat folder structure for all your uni-related work.
 
-**1. Create a folder called `"uni"` in your OneDrive folder.**
+**1. Create a folder called `"uni"` in your Documents folder or your OneDrive
+folder (if you're using OneDrive).**
 
 Here is where you will keep all files related to your study programme.
 
@@ -144,8 +144,6 @@ folder and file names. Computers like it like that!
 
 Over the next two years, you will take four stats and methods modules. Let's
 create a folder for each one.
-
- 
 
 **3. Create four folders inside `"uni/psych_methods"`:**
 
@@ -168,7 +166,6 @@ take the modules.
 In this term, we will only be working with the `"01_paas"` folder but make sure
 you set up the structure now.
 
- 
 
 **4. Finally, if your computer hides file extensions, make sure you disable
 this setting.**
@@ -177,20 +174,15 @@ Because we will be working with quite a few different kinds of files, it is
 really important to know what the extension of any given one is. How to set
 your OS to show file extensions is shown in the video you just watched.
 
- 
-
 You can adopt the "termNumber_module_name" naming convention even for your
 non-methodsy modules, if you'd like. Alternatively, you can create one folder
 for each year of study (`"y01"`, `"y02"`, `"y03"`) -- each one hosting folders
 for individual modules -- and one separate folder for your dissertation. But
 like we said, we will leave that to you.
 
- 
-
 Just please, whatever structure you come up with, make sure it's logical and
 that you stick to it and keep your files organised. It will make your life a
 whole lot easier down the line!
-
 
 
 ## RStudio projects
@@ -199,8 +191,12 @@ Let's take what we just learned about files and folders and apply it to working
 in RStudio. Watch this video to find out the best way to keep organised your
 `R`-related work.
 
-![](https://youtu.be/kg5QATDSh_4)(Again, you can check out the [transcript of
-the video](https://docs.google.com/document/d/1odQV96QUcwkrKslhMfYH2cThFX5U6tT99bfLjUcxKt8/edit?usp=sharing))
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/kg5QATDSh_4" frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+picture-in-picture" allowfullscreen></iframe>
+
+Again, you can also check out the [transcript of the video](https://docs.google.com/document/d/1odQV96QUcwkrKslhMfYH2cThFX5U6tT99bfLjUcxKt8/edit?usp=sharing)
 
  
 
@@ -233,7 +229,7 @@ quiz(caption = "Quiz on RStudio projects",
     answer("pics")
   ),
   question("Where does an RStudio project set your current location to?",
-    answer("Your OneDrive folder."),
+    answer("Your Documents folder."),
     answer("The given project folder.", correct = TRUE),
     answer("Wherever RStudio is installed."),
     answer("Your HOME directory.")
@@ -253,31 +249,26 @@ Let's conclude the tutorial with a few tasks.
 
  
 
-**2. Call the project folder `"week_01"`**.
+**2. Call the project folder `"week_02"`**.
 
 We will be creating a new RStudio project every week to get some practice. The
 double digit numbering ensures that the folders will be sorted in the right
 order. Otherwise `"week_11"` would be between `"week_1"` and `"week_2"`.
 
-
 **3. Go to the location of the project in Windows File Explorer or MacOS Finder
 to see that the new folder is really there.**
 
- 
 
 **4. Close the `"week_01"` project.**
 
- 
 
 **5. Reopen it again by choosing it from the top-right menu of recently open
 projects.**
 
- 
 
 **6. Close the project again to go back to where you were when you first opened
 RStudio.**
 
- 
 
 That is it for this tutorial.
 
