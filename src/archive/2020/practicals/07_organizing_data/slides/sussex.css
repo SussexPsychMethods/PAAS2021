@@ -1,0 +1,36 @@
+.title-slide {
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/University_of_Sussex_Logo.svg/480px-University_of_Sussex_Logo.svg.png);
+  background-position: 95% 95%;
+  background-size: 180px;
+  border: 10px solid #013035;;
+}
+
+.title-slide h1 {
+  padding-top: 0px;
+  font-size: 60px;
+  text-align: left;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  margin-top: 0px;
+}
+
+.title-slide h2 {
+  font-size: 40px;
+  text-align: left;
+  padding-top: 10px;
+  margin-top: 0px;
+}
+
+.title-slide h3 {
+  font-size: 30px;
+  color: #26272A;
+  text-align: left;
+  text-shadow: none;
+  padding: 0px;
+  margin: 0px;
+  line-height: 1;
+}
+
+.title-slide .remark-slide-number {
+  display: none;
+}

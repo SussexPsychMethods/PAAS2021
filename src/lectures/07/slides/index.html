@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 7: Towards statistical models</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr Milan Valášek" />
+    <meta name="date" content="2020-11-09" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <meta name="description" content="In this lecture we will discuss basic descriptive statistics, viewing them not just as ways of summarising variables but also as simple models of the world. Then, we will &quot;go a little meta&quot; by talking about how these statistics are themselves variables with their own distributions and descriptive stats."/>
+    <meta week="07"/>
+    <meta content_type="slides"/>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Lecture 7: Towards statistical models
+## Descriptive statistics and the sampling distribution
+### Dr Milan Valášek
+### 9 November 2020
+
+---
+
+
+
+
+
+&lt;script type="text/javascript"&gt;
+&lt;!-- message to display at the bottom of slides when ?live=true --&gt;
+slideMessage = "&lt;span&gt;Ask questions at &lt;/span&gt;&lt;a href = 'pollev.com/milanvalasek890'&gt;pollev.com/milanvalasek890&lt;/a&gt;"
+plotsToPanels()
+live()
+&lt;/script&gt;
+
+
+
+## Overview
+
+[**Measures of central tendency**](#central)
+- Mode
+- Median
+- (arithmetic) Mean
+
+[**Measures of spread**](#spread)
+- Range
+- Interquartile range
+- Variance and standard deviation
+
+[**Going meta**](#meta)
+- Sampling distribution
+- Standard error
+
+---
+
+## Describing things with maths
+
+- Quantitative methodology deals with measurable things (variables)
+
+- It explains and predicts the world around us by modelling relationships between variables
+
+- These models are mathematical/statistical in nature and they are based on numeric descriptions of variables
+
+- Variables differ in their range and distribution and _from population to population_
+  - Air temperature on Earth ranges from about &amp;minus;90&amp;deg;C to about 60&amp;deg;C
+  - Temperature produced by humans under laboratory conditions: &lt;span class="no-break"&gt;&amp;minus;273&amp;deg;C - 5.5 trillion&amp;deg;C&lt;/span&gt;
+  - Distribution of height is _normal_, distribution of wealth is _skewed_
+
+- The term population **does not only refer to people**!
+
+- The most basic ways in which we can describe variables and their distributions is in terms of **central tendency** and **spread**
+
+---
+
+## Central tendency and spread
+
+- Distribution of the values in a variable can be described in terms of
+
+  - its "average" value, *i.e.*, where the _"most typical"_, or **central** value is located along the possible range of values
+  
+  - how much _variability_ there is in the individual values of the variable in the sample or population , *i.e.*, how much the values are **spread** along the range of values
+  
+- There are various measures of both central tendency and spread, each with its pros and cons
+
+- All of them are mathematical _abstractions_ - they provide useful information but they're not all there is to things
+
+---
+
+name: central
+
+## Measures of central tendency
+
+- Measures that tell us about the _"most typical"_ value of a variable
+
+- What does "most typical" mean though?
+
+- Different measures of central tendency have different answers
+
+.codePanel[
+
+```r
+salary &lt;- read.csv("assets/world_salary.csv")
+salary %&gt;%
+  ggplot(aes(x = yearly)) +
+  geom_histogram(binwidth = 5000) +
+  labs(x="Annual salary in USD", y = "Count")
+```
+
+![Average national annual salary](index_files/figure-html/unnamed-chunk-3-1.png)]
+.center[.smol[_Fig 1_ Average national annual salary on a sample of 78 countries]]
+
+---
+
+## Measures of central tendency
+
+- We'll talk about three of these measures
+
+  - the mode
+
+  - the median
+
+  - the arithmetic mean
+
+- They are all different kinds of _average_
+
+---
+
+## Mode
+
+- The most frequent value in the distribution
+
+- A distribution can have one or more modes
+
+.codePanel[
+
+```r
+set.seed(1234)
+tibble(var = c(rnorm(7000, 0, 1.8), 
+               c(rnorm(4000, -2), rnorm(4000, 1.5)), # bimodal
+               rep(seq(-7, 7, length.out = 40), each = 500)), # unif
+       group = rep(LETTERS[c(1:3)], c(7000, 8000, 20000))) %&gt;%
+  ggplot(aes(var)) +
+  geom_histogram(bins = 41) +
+  labs(x = "Variable", y = "Frequency") +
+  facet_wrap(~group)
+```
+
+![](index_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;]
+.center[.smol[_Fig 2_ Examples of a (A) unimodal, (B) bimodal, and (C) multimodal distribution]]
+
+---
+
+## Median
+
+- To find the median, first sort data
+- Then find the mid-point (average of two mid-points if the number of observations is even)
+
+
+
+&lt;iframe class="app" src="./assets/salary_plotly.html" height="300px"&gt;&lt;/iframe&gt;
+.center[.smol[_Fig 3_ Average national annual salary per country sorted from lowest to highest]]
+
+
+
+```r
+median(salary$yearly)
+```
+
+```
+## [1] 12855
+```
+
+---
+
+## Mean
+
+- What most people mean by *average*
+  - population mean `\(\mu\)`
+  - sample mean `\(\bar{x}\)`
+    `$$\bar{x}= \frac{\sum_{i=1}^N x_i}{N}$$`
+    
+- If there are *N* observations of variable *x* in our sample,
+  `$$\sum_{i=1}^N x_i = x_1+x_2+x_3+\cdots +x_N$$`
+
+
+```r
+mean(salary$yearly)
+```
+
+```
+## [1] 28685.77
+```
+
+---
+
+## Median
+
+- Not influenced by extreme values in sample (50% of sample is larger and 50% smaller, no matter what)
+- Does not have a proper algebraic formula
+- Medians of different samples from the same population can be relatively **different** from each other
+
+## Mean
+
+- Has a formula which allows us to do all sorts of maths (and stats) with it
+- Means of different samples from the same population are relatively **similar** to each other 
+- Sensitive to extreme values
+- Basis for some measures of spread
+ 
+---
+
+## Mean Vs Median
+
+&lt;br&gt;
+
+&lt;iframe class="app" src="https://and.netlify.app/viz/desc.html" height="520px"&gt;&lt;/iframe&gt;
+
+---
+
+exclude: ![:live]
+
+.pollEv[
+&lt;iframe src="https://embed.polleverywhere.com/discourses/IXL29dEI4tgTYG0zH1Sef?controls=none&amp;short_poll=true" width="800px" height="600px"&gt;&lt;/iframe&gt;
+]
+
+---
+
+## Variable types and central tendency
+
+**Mode**
+  - Mainly for discrete variables
+  - Doesn't make much sense for truly continuous variables
+
+**Median**
+  - For variables that can be measured on _at least the ordinal level_
+
+**Mean**
+  - For variables that can be measured on _at least the interval level_
+
+---
+
+name: spread
+
+## Measures of spread
+
+- Mode, median, and mean tell us about the central point of a variable
+
+- They don't tell us how spread the data are around this point, *e.g.*, how much **variability** there is in the variable
+
+.codePanel[
+
+```r
+df &lt;- tibble(x = c(rnorm(5000), rnorm(5000, 0, 3)),
+             dist = rep(1:2, each = 5000))
+df %&gt;%
+  ggplot(aes(x = x)) +
+  geom_histogram(data = filter(df, dist == 1),
+                 fill = "#3d755b", bins = 40, alpha = .5) +
+  geom_histogram(data = filter(df, dist == 2),
+                 fill = '#464b61', bins = 40, alpha = .5) +
+  labs(x = "Value", y = "Count")
+```
+
+![](index_files/figure-html/spread-hist-1.png)&lt;!-- --&gt;]
+
+.center[.smol[_Fig 3_ Histogram of two distributions with equal means but different spread. *N*=5,000 in each case.]]
+
+---
+
+## Measures of spread
+
+- Measures of spread (dispersion) tell us about the variability in the data
+
+- We will look at the following:
+
+  - Range
+
+  - Inter-quartile range
+
+  - Deviation
+  
+  - Variance
+  
+  - Standard deviation
+
+---
+
+## Range and Inter-quartile range
+
+&lt;br&gt;
+
+&lt;iframe class="app" src="https://and.netlify.app/viz/desc.html" height="520px"&gt;&lt;/iframe&gt;
+
+---
+
+## Range
+
+- Distance between smallest and largest value in sample
+- *Drawback:* Extremely sensitive to outliers
+
+
+```r
+max(salary$yearly) - min(salary$yearly)
+```
+
+```
+## [1] 185560
+```
+
+## IQR
+
+- Inter-quartile range - distance between 1&lt;sup&gt;st&lt;/sup&gt; and 3&lt;sup&gt;rd&lt;/sup&gt; quartile
+- *Drawback:* Ignores half of the data
+
+
+```r
+IQR(salary$yearly)
+```
+
+```
+## [1] 41820
+```
+
+---
+
+## Deviation
+
+- Distance from every single value in the data from some convenient point
+
+- Mean is a convenient point
+
+- `\(x_i - \bar{x}\)`, where `\(x_i\)` is every single data point
+
+- There are as many deviations as data points
+
+- To get a single measure of spread, how about we add up the deviations?
+
+-  *Problem:* More data points = more points to add up
+
+-  *BIG problem:* They always add up to zero
+
+---
+
+## Deviation and variance
+
+&lt;br&gt;
+
+&lt;iframe class="app" src="https://and.netlify.app/viz/desc.html" height="520px"&gt;&lt;/iframe&gt;
+
+---
+
+## Variance
+
+- We get around the *BIG problem* (deviations adding up to 0) by taking the square of the deviations
+  - The sum of these is called the _**S**um of **S**quares_
+
+- We can get around the *problem* by dividing the sum of squares by *N*
+  - This is the **variance**
+
+Population variance: `\(\sigma^2 = \frac{\sum_{i=1}^N (x_i - \mu)^2}{N}\)`
+
+Sample variance: `\(s^2 = \frac{\sum_{i=1}^N (x_i - \bar{x})^2}{N - 1}\)`
+
+- reason for the `\(N - 1\)` is quite technical (see [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction))
+
+
+```r
+var(salary$yearly)
+```
+
+```
+## [1] 1095256212
+```
+
+---
+
+## Standard deviation
+
+- Variance is a good measure of dispersion and is widely used
+- One minor inconvenience is that it's measured in *squared units*
+    - if salary is measured in years, *s&lt;sup&gt;2&lt;/sup&gt;*&lt;sub&gt;salary&lt;/sub&gt; is expressed in USD&lt;sup&gt;2&lt;/sup&gt;, whatever those are
+- Taking the square root of variance gives us a measure of spread in the original units
+- This is the standard deviation
+    - &amp;sigma; for population
+    - _s_ (or _SD_) for sample
+
+`$$s = \sqrt{s^2} = \sqrt{\frac{\sum_{i=1}^N (x_i - \bar{x})^2}{N - 1}}$$` 
+
+
+```r
+sd(salary$yearly)
+```
+
+```
+## [1] 33094.66
+```
+
+- If we measured salary in 1000s of USD, _s_&lt;sub&gt;salary1000&lt;/sub&gt; would be **proportional** to&amp;nbsp;_s_&lt;sub&gt;salary&lt;/sub&gt;&amp;nbsp;(33.09 as opposed to 33094.66)
+
+---
+
+## Standard deviation
+
+&lt;iframe class="app" src="https://and.netlify.app/viz/desc.html" height="520px"&gt;&lt;/iframe&gt;
+
+---
+
+exclude: ![:live]
+
+.pollEv[
+&lt;iframe src="https://embed.polleverywhere.com/discourses/IXL29dEI4tgTYG0zH1Sef?controls=none&amp;short_poll=true" width="800px" height="600px"&gt;&lt;/iframe&gt;
+]
+
+---
+
+name: meta
+
+## From sample to population
+
+- We want to make claims about the world
+
+- _We don't care about samples, we care about populations_
+
+- However, we cannot measure the entire population so we have to make do with samples
+
+- So we end up making claims about the world based on what we know from the sample
+
+- We _cannot be sure_ that our sample accurately represents the population
+
+- Because of that, there's always **uncertainty** associated with any empirical claims we make
+
+---
+
+exclude: ![:live]
+class: last-slide
+background-image: url("assets/scrabble.jpg")
+background-size: cover
+
+.rjust[
+.small[By &lt;a rel="nofollow" class="external text" href="https://www.flickr.com/people/48778414@N04"&gt;thebarrowboy&lt;/a&gt; - &lt;a rel="nofollow" class="external text" href="https://www.flickr.com/photos/48778414@N04/5933744655"&gt;Flickr&lt;/a&gt;, &lt;a href="https://creativecommons.org/licenses/by/2.0" title="Creative Commons Attribution 2.0"&gt;CC BY 2.0&lt;/a&gt;, &lt;a href="https://commons.wikimedia.org/w/index.php?curid=22817231"&gt;Link&lt;/a&gt;]
+]
+
+---
+
+## From sample to population
+
+
+
+A full set of Scrabble tiles contains 100 tiles with a mean tile value of 1.87 points and a _SD_ of 1.83.
+
+&lt;iframe class="app" src="./assets/scrabble_plotly.html" height="330px"&gt;&lt;/iframe&gt;
+.center[.smol[_Fig 4_ Distribution of Scrabble tiles by point value.]]
+
+You draw - **sample** - 7 tiles for your rack
+  - Sometimes you pick only vowels, sometimes you get only the Zs, Qs, Ks, or Ws due to _statistical fluctuation_ in **sampling**
+  - Most often, you pick a mix of low-score and high-score tiles
+  
+---
+
+&lt;br&gt;
+
+&lt;iframe class="app" src="https://mivalek.github.io/viz/scrabble.html" height="700px" scale="70%"&gt;&lt;/iframe&gt;
+
+---
+
+## Sampling distribution
+
+Sampling distribution is the distribution of a statistic (*e.g.*, the mean) based on **all possible samples of a given size taken from the same population**
+
+- In the Scrabble example it's the distribution of all possible means of 7-tile draws.
+
+- _Sampling distribution is_ **NOT** _the distribution of the sample!_
+
+- The centre (mean) of the sampling distribution is equal to the population value of the calculated statistic
+  - The mean of the sampling distribution of **the mean** _is equal to the population mean_
+  - The mean of the sampling distribution of **variance** _is equal to population variance_
+  
+- The standard deviation of the sampling distribution is called the&amp;nbsp;**standard&amp;nbsp;error&amp;nbsp;(_SE_)**
+  - Very important concept!
+  - Allows us to quantify the uncertainty about our estimates
+
+
+---
+
+## Standard error
+
+- **_SE_ is the standard deviation of the sampling distribution**
+
+- Quantifies the uncertainty about how similar the sample statistic (*e.g.*, the sample mean, `\(\bar{x}\)`) is likely to be to the population parameter (*e.g.*, population mean, `\(\mu\)`)
+
+`$$SE = \frac{\sigma}{\sqrt{N}}$$`
+
+- Related to **sample size** and **variability** in population
+  - If mean annual salary doesn't change much from country to country, _SE_ will be relatively small
+  - If our sample is large, _SE_ will be relatively small and _vice versa_
+  
+- **The concepts of the sampling distribution and standard error will be of crucial importance later, when we are talking about testing hypotheses and statistical modelling**
+
+---
+
+## Recap
+
+- We can describe distributions ("shapes of variables") using maths
+
+- Central tendency refers to the **mid-point** of a variable
+  - Mode
+  - Median
+  - Mean
+
+- Spread refers to the **amount variability** in the variable
+  - Range
+  - IQR
+  - Variance
+  - Standard deviation
+
+- Each measure has its properties and is useful in different situations
+
+---
+
+## Recap
+
+- We don't care about samples, we care about populations
+
+  - But we have to rely on on samples because we don't have access to populations
+  
+- Different samples have different properties (*e.g.*, means) even though they are sampled from the same population
+
+- The sampling distribution is the distribution of **a given statistic from all possible samples of the same size drawn from the same population**
+
+- The standard deviation of the sampling distribution is the **standard error**
+
+  - _SE_ quantifies the uncertainty about how similar the sample statistic is to the population parameter
+
+  - The larger the sample, the smaller the _SE_
+
+  - More variable populations lead to larger *SE*s
+
+
+---
+
+exclude: ![:live]
+
+.pollEv[
+&lt;iframe src="https://embed.polleverywhere.com/discourses/IXL29dEI4tgTYG0zH1Sef?controls=none&amp;short_poll=true" width="800px" height="600px"&gt;&lt;/iframe&gt;
+]
+
+---
+
+class: last-slide weekend
+background-image: url("../../end.jpg")
+background-size: cover
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="../../slides.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

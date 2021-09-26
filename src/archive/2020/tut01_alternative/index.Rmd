@@ -1,0 +1,220 @@
+--- 
+title: "Introduction to computing"
+subtitle: "Tutorial 01"
+author: "Psychology as a Science"
+output:
+  html_document:
+    css: ["./css/paas_learnr.css", "./css/katex.min.css"]
+    includes: 
+      js: "./js/setup.js"
+    self_contained: false
+---
+ 
+```{r, include=FALSE}
+library(metathis)
+meta() %>%
+  meta_description("Alternative version of Week 1 Tutorial") %>%
+  meta_tag("content_type" = "tutorial",
+           "week" = "01")
+```
+
+
+## PAAS tutorials
+
+Welcome to the first Psychology as a Science tutorial!
+
+This series of interactive tutorials will gently guide you through the topics covered in the PAAS module.
+To get the best value out of this module, you should complete each week's tutorial **ahead of the practical session**.
+These tutorials are designed to take about an hour to complete.
+Some of them include videos, some will guide you through the topic at hand with short exercises, and some will offer you the opportunity to test your understanding with quiz questions and tasks.
+It is in your best interest not to skip through these tutorials and complete them all in due course.
+
+We did our best to make the tutorials as fun as possible but that doesn't mean you shouldn't take them seriously.
+The PAAS module covers a lot of topics you might be completely unfamiliar with so making good use of all the resources provided to you really is the best thing you can do to get the most out of the module.
+
+Let's get started!
+
+\ 
+
+Lincoln and Milan
+
+\ 
+
+## Exercises and quizzes
+
+Before we start with this week's topic, let's have a look at some of the exercise and quiz formats you will encounter in these tutorials.
+
+### Text editor boxes
+
+From week 3 on, we will start learning how to write documents in RStudio using its text editor, called R Markdown.
+Unlike visual text editor that you might be used to, such as Google Docs or Microsoft Word, R Markdown doesn't have any buttons or icons you can press to make a part of the text **bold** or *italicise* it.
+Instead, it uses plain text characters such as `*`, `_`, `#`, `^`, and others to format the final document.
+
+
+To help you get used to this way of writing documents, the tutorials will sometimes let you practice R Markdown in text editor boxes such as the one below.
+Anything you type in the box will get *rendered* underneath as it would if you generated a document from a R Markdown file.
+
+```{r, echo=F}
+text <- "
+## Markdown example
+
+This is **bold**.
+This is *italics*.
+
+- this is
+- an *unordered*
+- list
+
+1. this is
+1. an *ordered*
+1. list
+
+Even maths formulae! $\\sum_{i = 1}^{n}(x_i - \\bar{x})^2$
+"
+div <- htmltools::tag("div", list(class = "container"))
+htmltools::tagAppendChild(div,text)
+```
+
+```{js, echo=F}
+document.body.onload = build;
+function build (){
+  let scriptTag = document.createElement('script');
+  scriptTag.src = './js/main.js';
+  document.body.appendChild(scriptTag);
+}
+```
+
+\ 
+
+Don't worry too much about what any of this means at this stage.
+We will go through all of it step-by-step in a couple of weeks.
+
+
+## More features
+
+Click this link to have a look at [other features that this environment offers](https://lcolling.shinyapps.io/01_intro/). You will encounter them in future tutorials so make sure you're familiar with them
+
+## Setting up your OneDrive folder
+
+Each University of Sussex student is given a OneDrive account.
+This account gives out quite a lot of cloud storage space (1TB).
+All you need to do to access this space is to install OneDrive, log in using your University of Sussex credentials and sync the folder with your computer.
+
+\ 
+
+**Your first task is to get access to your OneDrive folder and sync it to your computer.**
+
+If you need help, the uni website has an [entire page on setting up and working with OneDrive](http://www.sussex.ac.uk/its/onedrive).
+
+
+### R and RStudio
+
+We will be using the RStudio software to write documents (*e.g.*, analysis reports) and to process, analyse, and visualise data.
+RStudio is the most popular software for programming in the `R` programming language.
+In order to use it, you first need to install both `R` and RStudio.
+
+**So, for your second task, install `R` and RStudio Desktop on your computer.**
+
+You can install `R` from the (`R` project website)[https://cloud.r-project.org/].
+
+Once you've installed `R`, to install RStudio go to the (RStudio website)[https://rstudio.com/products/rstudio/download/#download] and download the free version of the RStudio Desktop software.
+
+<div class="warn">
+In both cases, it is important to install the latest version (at the time of writing, these were `R` 4.0.2, and RStudio Desktop 1.3.1073).
+</div>
+
+If you need help installing either of these, here's a video guide on how to install both on Windows:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9-RrkJQQYqY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+\ 
+
+And here is one for MacOS users:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/by5HyJX6H1I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+(Videos courtesy of helpful youtubers, [Xperimental Learning](https://www.youtube.com/channel/UCrEpGdiRBgj6-ru1Q7WKIBw) and [thatRnerd](https://www.youtube.com/channel/UCPJIY0oU-CJRRdweKZ44UZw), respectively)
+
+\
+
+If you feel like you're just doing things and you don't understand what exactly it is you're doing and why you're doing it, relax.
+We will start lifting the fog of war pretty soon!
+
+
+## Computers
+
+**Your second task is to watch/listen to this video tutorial.**
+
+It covers some basic principles of computer programming.
+We recommend you watch it in the HD resolution in a full screen mode.
+
+<div class="accessible">
+The video below contains a flowchart illustrating an important concept on the example of making a cup of tea. For screen reader users, below is the transcript of this flowchart.
+
+1. Go to cupboard.
+1. Open cupboard.
+1. Search for mug.
+1. If there is mug go to 10. 
+1. If no mug, search for glass.
+1. If no glass, go to 52.
+1. Get glass.
+1. Call glass “receptacle”.
+1. Go to 12.
+1. Get mug.
+1. Call mug “receptacle”.
+1. Go to tea cupboard.
+1. Open tea cupboard.
+1. Search for tea bag.
+1. If no tea, go to 52.
+1. Get tea bag.
+1. Put tea bag in receptacle.
+1. Go to kettle.
+1. If more than 500ml water in kettle, go to 30.
+1. Take kettle.
+1. Go to kitchen sink.
+1. Open kettle lid.
+1. Place kettle under tap.
+1. Open tap.
+1. If more than 500ml water in kettle, go to 27.
+1. Go to 25.
+1. Turn off tap.
+1. Close kettle lid.
+1. Go to kettle base.
+1. If kettle is on base go to 32.
+1. Place kettle on base.
+1. If kettle plugged in the mains, go to 34.
+1. Plug kettle in the mains.
+1. Switch on kettle.
+1. If kettle is off, go to 37.
+1. Go to 35.
+1. Take kettle.
+1. Go to receptacle.
+1. Pour water into receptacle.
+1. If more than 250ml of water in receptacle, go to 42.
+1. Go to 40.
+1. Stop pouring water.
+1. Start timer.
+1. Go to kettle base.
+1. Place kettle on kettle base.
+1. Go to receptacle.
+1. If timer shows more than 4 minutes, go to 49.
+1. Go to 47.
+1. Remove tea bag from receptacle.
+1. Go to bin.
+1. Discard tea bag.
+1. Exit.
+</div>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ockaUxLtc_c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+If you need it, there is also a [transcript of the video available](https://docs.google.com/document/d/1yKTSaDoi-jacVGvMLBGKR52KCOEXkX8sG1oyD8mwR4s/edit?usp=sharing).
+
+\ 
+
+**Your fourth and final task is to set up your RStudio according to the instructions in the video.**
+
+\ 
+
+That is all for this week.
+
+

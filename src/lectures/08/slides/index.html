@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 8: Distributions, functions, transformations</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr Milan Valášek" />
+    <meta name="date" content="2020-11-16" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <meta name="description" content="In this lecture we will start thinking about variables in terms of distributions. We will see how we can perform simple arithmetic operations, such as addition and multiplication on entire variables to perform linear transformations. We&#39;ll discuss one transformation in particular, the z-transformation, and see how it&#39;s used to standardise the values of a variable. Finally, we will talk about how we can use simple maths to compare groups on a measured variable of interest."/>
+    <meta week="08"/>
+    <meta content_type="slides"/>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Lecture 8: Distributions, functions, transformations
+## A little maths goes a long way
+### Dr Milan Valášek
+### 16 November 2020
+
+---
+
+
+
+
+
+&lt;script type="text/javascript"&gt;
+&lt;!-- message to display at the bottom of slides when ?live=true --&gt;
+slideMessage = "&lt;span&gt;Ask questions at &lt;/span&gt;&lt;a href = 'pollev.com/milanvalasek890'&gt;pollev.com/milanvalasek890&lt;/a&gt;"
+plotsToPanels()
+live()
+&lt;/script&gt;
+
+
+
+
+## Overview
+
+[**The shape of things**](#shape)
+- Histograms
+- The normal curve
+
+[**Transformations**](#transform)
+- Functions
+- The _z_-transform
+
+[**Comparing things with maths**](#compare)
+- Comparing groups
+- Comparing scores across groups
+- Comparing scores across variables
+
+---
+
+name: shape
+
+## The shape of things
+
+For the purpose of this lecture, we will only be talking about _continuous_ variables!
+
+- The vast majority of the measured heights are roughly in the 155-175 centimetre range
+- The distribution is roughly symmetrical around its mean and has the shape of a bell characteristic of a _normal distribution_
+  - The shape isn't perfectly smooth in a finite sample
+
+.codePanel[
+
+```r
+# data for plots
+df_plot &lt;- tibble(x = rnorm(500, 164.8, 6.2),
+                  y = rnorm(500, 171.1, 7.9))
+df_plot %&gt;%
+  ggplot(aes(x)) +
+  geom_histogram(colour = "#003568", fill = "#00356888") +
+  labs(x = "Heigh in cm", y = "Count")
+```
+
+&lt;img src="index_files/figure-html/hist-1.png" width="60%" /&gt;]
+.small[_Fig 1_ Distribution of height on a sample of 500 women. This is not real data.]
+
+---
+
+## Histograms
+
+- Height is a continuous variable so no two people are the **exact same** height
+- To plot the variable on a histogram, we have to assort the values into _bins_.
+  - Each bar on the histogram represents the number of people whose height falls within a given range
+
+.codePanel[
+
+```r
+# create plot and store in object p1
+p1 &lt;- df_plot %&gt;%
+  ggplot(aes(x)) +
+  geom_histogram(colour = "#3d755b", fill = "#3d755b88", bins = 5) +
+  labs(x = "Heigh in cm", y = "Count") +
+  ggtitle("A")
+p2 &lt;- df_plot %&gt;%
+  ggplot(aes(x)) +
+  geom_histogram(colour = "#003568", fill = "#00356888", bins = 200) +
+  labs(x = "Heigh in cm", y = "") +
+  ggtitle("B")
+library(patchwork)
+# put plots side by side
+p1 + p2 # requires patchwork
+```
+
+&lt;img src="index_files/figure-html/bad-hist-1.png" width="90%" /&gt;]
+
+.small[_Fig 2_ Histograms with (A) too few bars to see the distribution in enough detail and (B) too many bars.]
+
+---
+
+## Ideal curves
+
+- If we could collect an infinite number of observations, we could make the bins _infinitely_ narrow
+
+- This would give us an idealised shape of the normal distribution: **the normal curve**.
+
+- **Because we will mostly be talking about continuous normal variables, we can visualise them as this kind of curve**
+
+&lt;img src="./assets/hist.gif" width="70%" /&gt;
+.center[.small[_Fig 3_ From histogram to an idealised shape.]]
+
+---
+
+## The normal distribution
+
+- We can describe key properties of a variable using measures of _central tendency_ and _spread_
+
+- In a normally distributed variable, **the majority** (about 68%) of all the values are concentrated **within &amp;pm;1 standard deviation to either side of the mean**
+
+- The larger the standard deviation, the more spread out the variable is
+
+---
+
+## The normal distribution
+
+&lt;iframe class="app" src="https://and.netlify.app/viz/norm_dist.html" height=550px scale=70%&gt;&lt;/iframe&gt;
+
+---
+
+## The normal distribution
+
+- Mean and standard deviation are **independent of one another**
+
+- Neither shifting the mean, not changing the standard deviation of a distribution doesn't change its _fundamental shape_
+
+  - **Relative position of the individual points on the line with respect to each other does not change**!
+  
+  - It is still true that about 68% of values are within &amp;pm;1 standard deviation from the mean
+
+---
+
+## Same shape, different scale
+
+&lt;br&gt;
+
+.codePanel[
+
+```r
+p1 &lt;- df_plot %&gt;%
+  ggplot(aes(x/100)) +
+  geom_histogram(colour = "#3d755b", fill = "#3d755b88") +
+  labs(x = "Heigh in m", y = "") +
+  ggtitle("B")
+p2 &lt;- df_plot %&gt;%
+  ggplot(aes(x)) +
+  geom_histogram(colour = "#003568", fill = "#00356888") +
+  labs(x = "Heigh in cm", y = "Count") +
+  ggtitle("A")
+p2 + p1
+```
+
+![](index_files/figure-html/scale-1.png)&lt;!-- --&gt;]
+
+.small[_Fig 4_ Histograms of participants heights measured in (A) centimetres and (B) metres.]
+
+---
+
+name: transform
+
+## Transformations
+
+(From now on we'll be talking about **sample mean**, `\(\bar{x}\)`, and **sample standard deviation**, `\(SD\)`)
+
+- How do we change `\(\bar{x}\)` and `\(SD\)` without changing the shape of the variable?
+
+  - Only changing the values of a selection of observations will alter the shape of the distribution - _not good_!
+  
+- We can decide to switch our measurement unit of height from centimetres to feet and inches but we have to do it **consistently for all observations**
+
+- This _preserves the relationships between individual observations_!
+
+---
+
+## Functions
+
+Let's play a game!
+
+---
+
+## Functions
+
+- **CONGRATS!** You have just discovered the  _identity_ function: `\(f(x) = x\)`
+
+- A transformation is just a mathematical function that takes an input and returns an output (just like a function in `R`)
+
+- For example the _second power_: 2&lt;sup&gt;2&lt;/sup&gt; = 4, 3&lt;sup&gt;2&lt;/sup&gt; = 9, 4&lt;sup&gt;2&lt;/sup&gt; = 16 and so on
+
+- We can think of this operation as a function that takes an input, `\(x\)` and returns the output `\(x^2\)`.
+
+`$$f(x)=x^2$$`
+
+---
+
+## Graph of _f(x)_
+
+&lt;iframe id="transform" class="app" src="https://and.netlify.app/viz/transform.html" height=570px&gt;&lt;/iframe&gt;
+
+---
+
+## Centring and scaling
+
+- Addition **shifts** the values of `\(x\)` up and down along the y-axis, **while keeping the distances between points unchanged**
+
+- Multiplication, **spreads or "squishes"** the values of `\(x\)` along the y-axis
+
+- When addition and multiplication are applied to variables, they are referred to as **centring** and **scaling**, respectively.
+
+---
+
+## Centring
+
+.small[
+- Centring is the **subtraction** of a fixed value from each observation of a variable
+
+- You can technically centre a variable by subtracting _any_ value from it but the most frequently used method is **mean-centring**:
+
+`$$f(x) = x - \bar{x}$$`
+
+- Mean-centring **does not alter the shape of the variable, nor does it change the scale at which the variable is measured**
+]
+
+.codePanel[
+
+```r
+p1 &lt;- df_plot %&gt;%
+  ggplot(aes(scale(x, scale = FALSE))) +
+  geom_histogram(colour = "#3d755b", fill = "#3d755b88") +
+  labs(x = "Deviation from mean height in cm", y = "") +
+  ggtitle("B")
+p2 &lt;- df_plot %&gt;%
+  ggplot(aes(x)) +
+  geom_histogram(colour = "#003568", fill = "#00356888") +
+  labs(x = "Heigh in cm", y = "Count") +
+  ggtitle("A")
+p2 + p1
+```
+
+&lt;img src="index_files/figure-html/height-centred-1.png" width="90%" /&gt;]
+.small[_Fig 5_ Histograms of participants heights: (A) raw data (B) mean-centred.]
+
+---
+
+## Scaling
+
+.small[
+- Scaling is the **division** of each observation of a variable by a fixed value
+- This has the effect of stretching or squishing the entire variable _in the direction of the x-axis_
+- The most frequent method of scaling variables is by their **standard deviation**:
+
+`$$f(x) = \frac{x}{SD(x)}$$`
+]
+
+.codePanel[
+
+```r
+p1 &lt;- df_plot %&gt;%
+  ggplot(aes(x / sd(x))) +
+  geom_histogram(colour = "#3d755b", fill = "#3d755b88") +
+  labs(x = "Height in ???", y = "") +
+  ggtitle("B")
+p2 &lt;- df_plot %&gt;%
+  ggplot(aes(x)) +
+  geom_histogram(colour = "#003568", fill = "#00356888") +
+  labs(x = "Heigh in cm", y = "Count") +
+  ggtitle("A")
+p2 + p1
+```
+
+![](index_files/figure-html/height-scaled-1.png)&lt;!-- --&gt;]
+.small[_Fig 6_ Histograms of participants heights: (A) raw data (B) scaled by *SD*.]
+
+
+---
+
+## The _z_-transform
+
+&lt;iframe id="z-transform-app" class="app" src="https://and.netlify.app/viz/standard.html" height=570px&gt;&lt;/iframe&gt;
+
+---
+
+## The _z_-transform
+
+.small[
+- First mean-centring and then scaling a variable by its _SD_
+- AKA, **standardisation**.
+
+
+`$$z(x) = \frac{x - \bar{x}}{SD(x)}$$`
+- Shape of the variable remains intact and the relative differences between any two values in the variable are preserved
+  - **Standardisation is a linear transformation** (like addition and multiplication)
+]
+
+.codePanel[
+
+```r
+p1 &lt;- df_plot %&gt;%
+  ggplot(aes(scale(x))) +
+  geom_histogram(colour = "#3d755b", fill = "#3d755b88") +
+  labs(x = "*z*-score", y = "") + # R markdown syntax - *z*
+  ggtitle("B") +
+  # enable use of Rmd in labels
+  theme(axis.title.x = ggtext::element_markdown())
+p2 &lt;- df_plot %&gt;%
+  ggplot(aes(x)) +
+  geom_histogram(colour = "#003568", fill = "#00356888") +
+  labs(x = "Heigh in cm", y = "Count") +
+  ggtitle("A")
+p2 + p1
+```
+
+&lt;img src="index_files/figure-html/height-z-1.png" width="90%" /&gt;]
+
+.small[_Fig 7_ Histograms of participants heights: (A) raw data (B) _z_-transformed data.]
+
+---
+
+### _z_-scores
+
+
+
+- Values of a standardised/_z_-transformed variables
+
+- **Distance from the mean in units of standard deviation**.
+
+- This interpretation is **independent of the actual value of _SD_** in the original variable!
+
+- A person with a _z_-score of 1 will be _one_ SD _taller than average_: 164.98 + (1 &amp;times; 6) = 170.98 cm.
+
+- Someone with a _z_-score of -0.8 will be 0.8 _SD_ **shorter** than the average person in the sample: 164.98 + (&amp;minus;0.8 &amp;times; 6) = 160.17 cm.
+
+---
+
+exclude: ![:live]
+
+.pollEv[
+&lt;iframe src="https://embed.polleverywhere.com/discourses/IXL29dEI4tgTYG0zH1Sef?controls=none&amp;short_poll=true" width="800px" height="600px"&gt;&lt;/iframe&gt;
+]
+
+---
+
+name: compare
+
+## Comparing groups
+
+We can compare groups by asking how different are the groups _on average_.
+
+&lt;img src="./assets/hist_two_groups.png" width="65%" /&gt;
+.smol[_Fig 8_ Comparing distributions of heights in a sample of women (green) and non-binary people (brown). Data are not real.]
+
+`$$\begin{aligned}diff_\text{height}&amp;= \bar{x}_\text{w} - \bar{x}_\text{nb}\\&amp;=164.98 - 170.74\\&amp;=-5.77\end{aligned}$$`
+
+---
+
+## Comparing across groups
+
+Nyari is a 172 cm tall woman; Karim is a 179 cm tall non-binary person
+
+What if we wanted to know how their heights compare **relative** to their groups/populations?
+
+We can use _z_-scores: `\(z(x) = \frac{x - \bar{x}}{SD(x)}\)`
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;  &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; \(\bar{x}\) &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; \(SD\) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Women &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 164.98 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Non-binary &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 170.74 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7.74 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+```r
+(172 - 164.98) / 6 # Nyari
+```
+
+```
+## [1] 1.17
+```
+
+```r
+(179 - 170.74) / 7.74 # Karim
+```
+
+```
+## [1] 1.067183
+```
+
+
+---
+
+## Comparing across variables
+
+- We could use the same principle to compare values on **of variables measured on any scale**
+
+- Nyari earns £38,400 per year here in the UK
+- She just got a job offer in Germany with an agreed salary of EUR 4,270 per month.
+- Is she going to be relatively better off if she takes the job?
+
+- Average _annual_ wage in the UK is £37,428 (_SD_ = 4,266)
+- Average _monthly_ wage in Germany is EUR 3,880 (_SD_ = 351.6)
+
+
+```r
+(38400 - 37428) / 4266 # Nyari's UK salary z-score
+```
+
+```
+## [1] 0.2278481
+```
+
+```r
+(4270 - 3880) / 351.6  # Nyari's German salary z-score
+```
+
+```
+## [1] 1.109215
+```
+
+---
+
+exclude: ![:live]
+
+.pollEv[
+&lt;iframe src="https://embed.polleverywhere.com/discourses/IXL29dEI4tgTYG0zH1Sef?controls=none&amp;short_poll=true" width="800px" height="600px"&gt;&lt;/iframe&gt;
+]
+
+---
+
+## Recap
+
+- We often think about the distributions of variables in terms of the normal curve
+
+- Mean and _SD_ reflect the position and spread of this curve
+
+- **Transformations** are mathematical functions we can use to manipulate variables
+
+- Some transformations, such as centring or scaling, don't change the relative distances between individual values of a variable.
+
+  - These are **linear** transformations
+
+- Others, such as _exponentiation_ (_e.g._, x&lt;sup&gt;2&lt;/sup&gt;) do change the proportions of the transformed variables
+
+  - These are **non-linear** transformations
+
+---
+
+## Recap
+
+- The _z_-transform, AKA **standardisation**, is a two step transformation consisting of _first_ mean-centring the variable and then scaling it by its _SD_
+
+- It converts the values of any variable into units of _how far the value is from the mean of the whole variable in terms of numbers of standard deviations_
+
+- We can compare group averages by _subtracting the means of the groups_
+
+- We can use _z_-scores to compare values of variables **measured on different scales or in different units**
+
+---
+
+class: last-slide weekend
+background-image: url("../../end.jpg")
+background-size: cover
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="../../slides.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

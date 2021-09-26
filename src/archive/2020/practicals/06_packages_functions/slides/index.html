@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Functions and packages</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
+    <meta name="description" content="In this practical we&#39;ll learn how to extend `R` using packages and how to use functions"/>
+    <meta week="07"/>
+    <meta content_type="intro_slides"/>
+    <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+    <script src="libs/d3-3.3.8/d3.min.js"></script>
+    <script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
+    <link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
+    <script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+    <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+    <script src="libs/chromatography-0.1/chromatography.js"></script>
+    <script src="libs/DiagrammeR-binding-1.0.6.1/DiagrammeR.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Functions and packages
+## Practical 6
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+
+  kbd {
+      padding: 2px 4px;
+      font-size: 90%;
+      color: rgb(var(--font-col));
+          background-color: #efefef;
+      border-radius: 3px;
+      box-shadow: none;
+      border: solid 1px;
+  }
+&lt;/style&gt;
+
+
+
+## Plan for today
+
+- Questions about last weeks practical
+
+- Attendance pin
+
+- Introduction to this week's topic
+
+- This week's worksheet
+
+---
+
+
+# Attendance pin
+
+
+![:attend]
+
+---
+## Functions and Packages
+
+In the practical this week we will learn about **functions** and **packages** in `R`. 
+
+- We'll learn how to use **functions** in `R`
+
+- We'll learn how to install **packages** including:
+
+  - How to install packages from the **CRAN**
+
+  - How to install packages that are not on the **CRAN**
+
+  - And how to **update** packages
+
+- We'll learn how packages allow us to access new **functions**
+
+- And we'll learn a couple of useful packages
+
+---
+
+### Functions
+
+**Functions** are just rules (or algorithms) that turn **inputs** into **outputs**.
+
+<div id="htmlwidget-ef45fd3698f9f805f889" style="width:504px;height:150px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ef45fd3698f9f805f889">{"x":{"diagram":"\n                    graph LR\n    A[INPUT] --> B{FUNCTION}\n    B --> C[OUTPUT]"},"evals":[],"jsHooks":[]}</script>
+
+For example, we could have a simple function that implemented the following algorithm.
+
+```md
+1. Take input of a number
+2. Multiply number by 5
+3. Output result
+```
+---
+
+Running the function with different inputs will produce different results
+
+For example, if we used the number **5** as the **input** then our *function* would produce  **25** as the **output**
+
+<div id="htmlwidget-9019f9a2784c719086ee" style="width:504px;height:150px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9019f9a2784c719086ee">{"x":{"diagram":"\n                    graph LR\n    A[INPUT] -->|5| B{FUNCTION} \n    B -->|25| C[OUTPUT]"},"evals":[],"jsHooks":[]}</script>
+
+But if we changed the **input** to the number **2** then our *function* would produce **10** as the **ouput**
+
+<div id="htmlwidget-a4d05670efe27550edf8" style="width:504px;height:150px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a4d05670efe27550edf8">{"x":{"diagram":"\n                    graph LR\n    A[INPUT] -->|2| B{FUNCTION} \n    B -->|10| C[OUTPUT]"},"evals":[],"jsHooks":[]}</script>
+
+---
+
+### Multiple inputs, but only one output
+
+
+**Functions** in `R` can take many inputs. Each input is called a **parameter** or an **argument** or sometimes simply just an **input**
+
+But **Functions** in `R` can only produce **one** output. 
+
+For example, you might have a **function** that implements the following algorithm.
+
+```md
+1. Take an input of a number [Input1]
+2. Take an input of a numnber [Input2]
+3. Add Input1 and Input2
+4. Output result
+```
+
+<div id="htmlwidget-1c827f16672c3039a7c6" style="width:504px;height:150px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1c827f16672c3039a7c6">{"x":{"diagram":"\n                    graph LR\n    A[INPUT 1] -->|5| B{Add} \n    C[INPUT 2] -->|5| B{Add} \n    B -->|10| D[OUTPUT]"},"evals":[],"jsHooks":[]}</script>
+
+---
+
+### Functions in `R`
+
+Now that we understand **functions** at a conceptual level, let's take a look at what they look like in `R`.
+
+&lt;img src="assets/a_function.png" width="100%"&gt;&lt;/img&gt;
+
+
+---
+
+#### Inputs and Outputs
+
+**Inputs**
+
+- Functions can take lots of different kinds of inputs. Some functions take *character* vectors as inputs, some take *numbers*, and some take a combination
+
+- Functions can also take *objects* as inputs. In this case, the function will operate on the **content** of the object
+
+- Inputs usually have names. To find the names of the inputs to the function just hit the &lt;kbd&gt;Tab&lt;/kbd&gt; key when the cursor is inside the `()` 
+
+**Output**
+
+- If the *output* of a function **isn't** assigned to an *object* then the output will just be printed out. 
+
+- Usually you'll want to **use** the **output** of a function for something else, so you'll almost always be assigning it to an object
+
+---
+
+#### Working with inputs 
+
+- When you're just learning how to use a **function** it can sometimes be helpful to try it out at the **console**
+
+- After you've typed the function name you can add the `()` and then hit &lt;kbd&gt;Tab&lt;/kbd&gt;
+
+- This will show you the **names** of the inputs and will even tell you what the **inputs** are for
+
+&lt;img src="assets/tab.png" width="100%"&gt;&lt;/img&gt;
+
+
+---
+
+#### Working with multiple inputs
+
+- When a function takes **multiple** **inputs** then they have an **order** that is *specified* by the *programmer* that **made** the function.
+
+- But you **don't** have to use that order
+
+For example, if the programmer specified `number` first and `letter` second then you could run the function as follows:
+
+```r
+pretend_function(number = 1, letter = "A")
+```
+
+But you could also run it as follows:
+
+```r
+pretend_function(letter = "A", number = 1)
+```
+
+---
+
+#### Working with multiple inputs
+
+**So why does it matter?**  
+
+When you leave the **name** of the input out, then the inputs go into the *input slots* in the order **specified** by the programmer
+
+```r
+pretend_function("A",1)  #  number = "A",  letter = 1
+```
+
+To stay on the *safe side* it's a good habit to always specify the **input name**
+
+- However, in the coming weeks we'll learn about a family of functions that **always** take a **tibble** as their first input
+
+- With these functions we'll usually leave out the name of the first input, which is usually either `data` or `.data`
+
+
+---
+
+## Installing packages
+
+.center[&lt;img src="assets/packages.png" width="60%"&gt;&lt;/img&gt;]
+
+Most of the packages we'll be installing will come from the CRAN (The &lt;u&gt;C&lt;/u&gt;omprehensive &lt;u&gt;R&lt;/u&gt; &lt;u&gt;A&lt;/u&gt;rchive &lt;u&gt;N&lt;/u&gt;etwork)
+
+To install packages from the CRAN we'll use a function called `install.packages()`
+
+This function takes one input, which is a letter string with the name of the package.
+
+```r
+install.packages("pack") # install a package call pack
+```
+
+---
+
+## Installing non-CRAN packages
+
+Sometimes you'll want to install packages that aren't on the CRAN.
+
+To do this, you'll first need to install a package(!) called **remotes**
+
+**remotes** will allow you to access two functions
+
+- `remotes::install_github(repo = ...)` for installing packages from a repository called **GitHub**
+
+- `remotes::install_url(url = ...)` for installing packages from web addresses (called **URL**s)
+
+You've used these before when you installed the tutorials package 
+
+```r
+remotes::install_github("SussexPsychMethods/paas")
+```
+
+---
+
+## Using functions **from** packages
+
+- `R` comes with a lot of functions built in to it. Some of these include functions like: 
+
+  - `install.packages()` for installing packages
+
+  - `library()` for loading packages
+
+  - statistical functions like `mean()`, `sd()`, `min()`, `max()` for working out averages, standard deviations, minimum values, and maximum values
+
+  - various utility functions like `length()` (tells you the length of a vector), `class()` (tells you the class of a variable) etc
+
+But most of the **functions** we'll use will come from packages...
+
+---
+
+## Using functions **from** packages
+
+.center[&lt;img src="assets/install_library.png" width="55%"&gt;&lt;/img&gt;]
+
+- If you want to use functions from a **package** you need to first install the package using `install.packages()` (or the equivalent for non-CRAN packages)
+
+- You only need to **install** a package **once**
+
+- But whenever you use it you'll need to **load** the package using the `library()` function
+
+---
+
+### Where to install and load packages
+
+**Installing packages**
+
+- Installing packages are one-off commands, so you'll type the command to install the package into the console
+
+**Loading packages**
+
+-  You need to load a package every time you want to use a function from that package, so it's a good idea to load them in a code chunk in your  `.Rmd` file
+
+.pull-left[
+&lt;pre class="md"&gt;&lt;code&gt;&amp;#45;&amp;#45;&amp;#45;
+title: "Untitled"
+output: html_document
+&amp;#45;&amp;#45;&amp;#45;
+
+&amp;#96;&amp;#96;&amp;#96;{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("mypackage") 
+&amp;#96;&amp;#96;&amp;#96;
+&lt;/code&gt;&lt;/pre&gt;]
+
+.pull-right[
+ You can load your packages in the code chunk labelled **setup**
+
+ If you can't remember what makes the **setup** chunk special then check back to [practical 4](https://paas.netlify.app/practicals/04_writing_code/worksheets/)
+]
+
+---
+
+### Using functions from packages
+
+- When you use functions that are built in to `R`, like the `install.packages()` function, the `library()` function, or the `mean()` function etc then you can just use the function name by itself.
+
+- But when you use functions that are part of **packages** that you've installed then you should put the **package name** before the **function name** with `::` between them.
+
+- For example, to run a function called **function_name** from a package called **packagename** you'd type:
+
+```r
+packagename::function_name() 
+```
+
+---
+
+## Some helpful packages and functions
+
+We've spent a lot of time talking about file paths, because they can be tricky to understand. 
+
+We learned about how we can use **relative paths** to give directions to files using our project folder (**HERE**) as a starting point
+
+For example, if we had a file called `my_dog.png` in the `images` sub-folder of our **project folder** we'd write the directions as:
+
+```md
+images/my_dog.png
+```
+
+But that by itself isn't very useful... we need to **translate** that direction into something `R` can understand... 
+
+For this we'll use a package called **here** that contains a function called `here()`
+
+---
+
+### The **here** package 
+
+The `here()` function from the **here** package takes the directions to the file (as a character string) and **translates** it into something `R` can use (an **absolute** path)
+
+
+For example, 
+
+```r
+here::here("images/my_dog.png")
+```
+
+Would translate the relative path into something `R` can use
+
+- Importantly `here::here()` doesn't check whether the file actually exists, so it won't tell you if your directions are wrong. It just translates it **as if** they were correct
+
+Usually you'll want to use those translated instructions for some other purpose (e.g., to read in a data file or an image), so you'll usually save the output to an object
+
+```r
+my_dog_file &lt;- here::here("images/my_dog.png")
+```
+
+---
+
+### Images... the easy way!
+
+- In the **markdown** practical we learned about how to insert images into our **markdown** documents
+
+- But it was tricky because we couldn't use the relative paths we learned about 
+
+But there's an easier way!
+
+We can use the `include_graphics()` function from the **knitr** package
+
+- This function takes an input called **path** which is a file path to an image file
+
+```r
+knitr::include_graphics(path = ...)
+```
+
+- To generate that `path` input we can just use the `here::here()` function to translate our directions from **HERE** into a path that `R` can use
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

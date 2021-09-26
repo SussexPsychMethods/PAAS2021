@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 4: Quantitative research</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr Milan Valášek" />
+    <meta name="date" content="2020-10-19" />
+    <meta name="description" content="In an almost 60 slide-long lecturepalooza, we take you on a road trip through quantitative research design, measurement, and variables. That&#39;s value for money, that!"/>
+    <meta week="04"/>
+    <meta content_type="slides"/>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Lecture 4: Quantitative research
+## Whole lotta love
+### Dr Milan Valášek
+### 19 October 2020
+
+---
+
+
+
+
+
+
+
+
+## Overview
+
+[**Part 1: Quantitative research and design**](#3)
+- Theory as framework
+- Hypothesis as prediction
+
+[**Part 3: Measurement**](#33)
+- Levels of measurement
+- Validity and reliability
+
+[**Part 4: Variables**](#47)
+- What's a variable?
+- Types of variables
+
+---
+
+# &amp;nbsp;
+
+# Part 1
+
+## Quantitative research and design
+
+---
+
+## What's the point of quant research?
+
+- To obtain generalisable knowledge
+  - not only “true” for a given case
+  - with some abstraction, can be _generalised_
+
+- To test **hypotheses** and form **theories**
+
+- In contrast with _qualitative_ research, it relies on
+  - measurement
+  - mathematical modelling
+  - statistical testing
+  
+- It deals with questions that have _quantifiable_ answers
+
+---
+
+## Scientific theory
+
+- Not theory in the _colloquial sense_ (hunch, conjecture)
+- Logically coherent framework, _supported by observation_, that **describes**, **explains**, and **predicts** some aspect of the natural world
+- Predictions based on theory are **hypotheses**
+
+- Theory of evolution is a great example
+  - **Evolution** is an observed fact
+  - **Theory of evolution** is a framework that describes and explains this observation
+  - Predicts future findings, *e.g.*, evidence of fusion in the human chromosome 2
+  - For short intro into modern theory of evolution [see handout]()
+
+&lt;img style="position:absolute;bottom:30px;left:220px" width="50%" src="https://qph.fs.quoracdn.net/main-qimg-a002aa69ca99b16c6f3ae2c37d697e22-c" /&gt;
+
+---
+
+## Research design
+
+- The purpose of quantitative research studies is to **test hypotheses** using _measurement_, _quantification_, and _mathematical or statistical modelling_.
+
+- Different kinds of research design have been developed to answer different research questions
+
+- Which design to choose depends on
+  - The hypothesis to be tested
+  - Resources (time, money, facilities, personnel)
+  - Logistical considerations
+  - Ethical considerations
+
+- Study design can be categorised based on 3 criteria
+  - Presence or absence of manipulation
+  - Between/within-subjects measurement
+  - Time frame
+  
+---
+
+## Presence or absence of manipulation
+
+- _Manipulation_ is the careful changing of an aspect of the study to see whether or not it affects the study's outcome
+
+- Designes that contain manipulations are called **exprimental** (and **quasi-experimental**)
+- Designs that do not are called **observational** or _correlational_
+
+---
+
+## Experiments
+
+- You saw a poster advertising a psychological study about reading
+- They are looking for _native English speakers between 18 and 60 years of age, with normal or corrected-to-normal vision, and without dyslexia_
+- You respond and tell you to come to the lab tomorrow at 2pm but to get a good rest tonight and to have lunch around noon
+- You get to the lab, they lead you to a dark room and sit you down in front of a computer screen.
+- They type in a code and leave
+- Instructions appear telling you that your task will be to focus on the ‘+’ in the middle of the screen
+- You will be presented a series of words in different colours and your task is to say aloud the name of the colour in which the given word is displayed as quickly and accurately as you can.
+
+&lt;br&gt;
+
+.large.center[Here we go!]
+
+---
+
+&lt;script type="text/javascript"&gt;
+
+const colours = ["red", "blue", "green", "yellow", "white", "pink", "brown", "orange", "purple", "gray"],
+      text2 = [ "RED", "BLUE", "GREEN", "YELLOW", "WHITE", "PINK", "BROWN", "ORANGE", "PURPLE", "GRAY"],
+      text = ["BED", "DAME", "STAFF", "WILLOW", "BITES", "SINK", "STATS", "SCIENCE", "KETTLE", "TEA" ]
+let paused1 = true,
+    paused2 = true,
+    start1 = true,
+    start2 = true,
+    myVar1,
+    myVar2
+
+
+function stroop1() {
+  let stroop_div = document.getElementById("stim1"),
+      overlay = document.getElementById("overlay1")
+
+  if (start1) {
+    overlay.style.display = "none"
+    start1 = false
+  } else {
+    overlay.style.display = "block"
+    start1 = true
+  }
+
+  if (paused1) {
+      myVar1 = setInterval(myTimer, 1200)
+      paused1 = false
+  } else {
+    clearInterval(myVar1);
+    stroop_div.innerHTML = "+"
+    stroop_div.style.color = "white"
+    paused1 = true
+  }
+
+  function myTimer() {
+    const n_text = ~~(Math.random() * 10)
+    let n_colour = ~~(Math.random() * 10)
+    while (n_text == n_colour) {
+      n_colour = ~~(Math.random() * 10)
+    }
+    stroop_div.innerHTML = text[n_text]
+    stroop_div.style.color = colours[n_colour]
+  }
+}
+
+function stroop2() {
+  let stroop_div = document.getElementById("stim2"),
+      overlay = document.getElementById("overlay2")
+
+  if (start2) {
+    overlay.style.display = "none"
+    start2 = false
+  } else {
+    overlay.style.display = "block"
+    start2 = true
+  }
+
+  if (paused2) {
+      myVar2 = setInterval(myTimer, 1200)
+      paused2 = false
+  } else {
+    clearInterval(myVar2);
+    stroop_div.innerHTML = "+"
+    stroop_div.style.color = "white"
+    paused2 = true
+  }
+
+  function myTimer() {
+    const n_text = ~~(Math.random() * 10)
+    let n_colour = ~~(Math.random() * 10)
+    while (n_text == n_colour) {
+      n_colour = ~~(Math.random() * 10)
+    }
+    stroop_div.innerHTML = text2[n_text]
+    stroop_div.style.color = colours[n_colour]
+  }
+}
+
+&lt;/script&gt;
+
+
+## &amp;nbsp;
+
+&lt;div id="stroop1" class="stroop" onclick="stroop1()"&gt;
+  &lt;div id="overlay1" class="overlay"&gt;Task 1&lt;br&gt;Click to start/stop&lt;/div&gt;
+  &lt;div id="stim1"&gt;+&lt;/div&gt;
+&lt;/div&gt;
+
+---
+
+## &amp;nbsp;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.large.center[After a short break, there come more words...]
+
+---
+
+## &amp;nbsp;
+
+&lt;div id="stroop2" class="stroop" onclick="stroop2()"&gt;
+  &lt;div id="overlay2" class="overlay"&gt;Task 2&lt;br&gt;Click to start/stop&lt;/div&gt;
+  &lt;div id="stim2"&gt;+&lt;/div&gt;
+&lt;/div&gt;
+
+---
+
+## Experiment
+
+- With that, the study is over; after a short chat with the researcher, you leave
+
+- On your way home you meet a friend
+
+- They tell you they took part in a similar study but for them, the colour words were printed in a colour that matched the words
+
+&lt;br&gt;
+
+.large.center[This was an **experiment**]
+
+
+
+---
+
+## Experiment
+
+Let's break down what happened
+
+- The _research question_ is whether or not there is a difference in colour-naming performance when the colour words match the colours they are shown in versus when the words and colours do not match
+
+- The _hypothesis_ is that there is one
+
+- To _test the hypothesis_, an experimental study was designed
+
+- Participants completed a **task** (a version of the [Stroop task](https://en.wikipedia.org/wiki/Stroop_effect)).
+  - They were presented a sequence of **stimuli**: colourful words
+  - They were instructed to **respond** by naming the colour in which the given stimulus is presented
+  - One stimulus-response pair is a **trial**
+  
+.cener[_An experimental task consists of trials, where a stimulus is presented and a response is recorded_]
+
+---
+
+## Experiment
+
+- The **experimental manipulation** was showing some people words in matching colours and others words in non-matching colours
+  - The two versions of the task are called **conditions**
+  - We can call the conditions _congruent_ (matching) and _incongruent_ (clashing).
+
+- Putting participants in groups by condition allows the research to manipulate a single characteristic of the task while **controlling** everything else (keeping everything else equal)
+
+- Any difference in responses between participants in the congruent condition and the participants in the incongruent condition is _caused_ by the manipulation.
+
+---
+
+## Controls
+
+- In the example, there were multiple controls
+
+  - Participants screened for vision, age, native language, and dyslexia
+  
+  - They were instructed to get a good rest and come well fed but not too full
+  
+  - *Standardised* (dark room, position in front of the screen) to minimise distraction and variability
+  
+  - Standardised instructions
+
+---
+
+## Randomisation
+
+- Differences between participants can introduce unwanted **variability** into the experiment
+
+- To deal with this, participants should be sorted into the groups **randomly**
+  - If the group allocation is not _randomised_, groups can differ on some unknown characteristic
+  - This can skew the results of the study
+  - For instance, if we put all blue-eyed people into one group and all brown-eyed people into another group, this would introduce **systematic variability** in the design
+  - We don't have to have a good explanation for systemic variability would influence the results
+
+- Participant allocation is random if each participant has an _equal chance to be in any of the groups_
+
+- A well-designed experiment _randomises both participant allocation and stimulus presentation order_
+
+---
+
+## Blinding
+
+- Participants may, consciously or not, modify their behaviour in accordance with or contrary to the hypothesis
+
+- Because of that, it is crucial that they be kept unaware of what the hypothesis is
+
+- Also important that they don't know what conditions they have been allocated to
+
+- If participants are _na&amp;iuml;ve_ to group allocation, the study is said to be **single-blind**.
+
+- If neither the participants nor the researcher know which condition the participants are put in, the study design is known as **double-blind**
+
+  - Allocation is recorded but only revealed once the study is over and the data are being analysed
+  
+  - By giving up knowledge about group allocation, the researcher is ensuring that they will not unwittingly influence the results
+
+
+
+
+---
+
+## &amp;nbsp;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.large.center[**Randomised double-blind experiments are the gold standard of quantitative research in psychology!**]
+
+---
+
+## Experiment: summary
+
+- The researcher introduces an experimental **manipulation** of an aspect of the study
+- All other variables are **controlled** to prevent unwanted variability in the design
+- Participant allocation and stimulus presentation are **randomised**
+- Participants are na&amp;iuml;ve to the research hypothesis
+- Design is **double-blind**: neither participants nor researchers know which condition the participants is in before the data are analysed
+
+
+- The experimental setting with its tight controls is always at least somewhat **artificial**
+  - It presents an abstraction from reality
+  - Just because something is true in the lab, doesn't _necessarily_ mean it will be true in "the real world".
+- Experiments are **very effortful and time-consuming** for both the researcher and the participants
+- The experimental design provides the most rigorous methodology to investigate _causal relationships_
+- There are often methodological, logistic, and ethical obstacles to randomisation, manipulation, and controls that render designing an experiment infeasible.
+
+---
+
+## Quasi-experiment
+
+- Conforms to all the requirements of the experimental design **except for participant randomisation**
+
+- Used in situations where it is not possible to randomise the allocation of participants into group
+
+- Conditions should be **matched**
+  - Participants are allocated so that the groups don't differ on any relevant characteristics, other that the one being investigated
+
+---
+
+## Natural experiment
+
+- Manipulation and randomisation occur through some **natural or socio-political** means
+
+- A good example are **twin studies**
+  
+  - *Identical* twins share essentially 100% of their genes
+  
+  - *"Fraternal"* twins share on average 50% of human-specific genes
+  
+  - Both kinds of twins tend to share the same home environment (raised together)
+  
+  - Comparing similarities between identical twins and similarities between fraternal twins, we can estimate the role of genes and environment in all sorts of things (physical/mental health, personality, cognitive ability, *etc.*).
+  
+- Other kinds of natural experiments may be made possible due to policy changes (smoking ban, length of compulsory education...) or natural events.
+
+---
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.large[**Quasi-experiments and natural experiments are technically not experiments!**]
+
+&lt;br&gt;
+
+They can't provide evidence of causality of the same strength as experiments
+
+---
+
+## Observational design
+
+- Also called **correlational**
+
+- Rely on observed data, not manipulated conditions and their aim is to assess **relationships** between things without talking about causes and effects.
+
+- Observation doesn't just mean _looking_, there is still measurement, questionnaires, laboratory tasks, _etc._
+
+- What makes data observational is the lack of experimental manipulation
+
+- This makes it easier to collect large datasets
+  - There are studies with tens, even hundreds of thousands of participants.
+
+- They cannot provide strong evidence of a cause-and-effect relationship
+
+---
+
+## Causal or not?
+
+- There is a relationship between people who died by drowning in swimming pools every year between 1999 and 2009 and the number of movies starring Nicolas Cage
+
+![](index_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+---
+
+
+## Causal or not?
+
+- Does A cause B?
+
+- Does B cause A?
+
+- Does some unknown common thing C cause bothe A and B?
+
+- Is this relationship even causal at all?
+
+- Observational design cannot _really_ tell us
+  
+  - *"Correlation does not equal causation"*
+  
+  - Under certain circumstances it can _suggest_ causation (*e.g., a very strong relationship, a lot of additional information about potential confounding factors) but, in psychology, this is almost never the case
+
+---
+
+## Just because we can doesn't mean we should
+
+- There can be ethical obstacles to experimental manipulation
+
+- In those cases, observational design is the only feasible one
+
+- Is cannabis a gateway drug? Does it cause people to take other drugs?
+  - To establish a causal relationship, we would need to assign people of all ages to experimental conditions where they are either required to use marijuana or are prevented from doing so and then those people would need to be closely monitored to see who tries other drugs and who doesn't
+  - This would not be ethical
+
+---
+
+## Within/between subjects
+
+- Another criterion for categorising quantitative design is whether manipulation or measurement of interest occurs **between groups of participants** or **within each participant's** data
+
+- In the colour-naming experiment, one participant only saw either congruent or incongruent stimuli; no-one saw both
+  - This is a **between-subjects** manipulation
+  
+- The first block of stimuli didn't contain any colour words and this block was the same for everyone
+  - Everyone saw both colour words and this _control_ condition
+  - This is a **within-subjects** manipulation
+  - Within-subjects design is susceptible to **order effects** (training, fatigue...)
+  
+- One study can easily contain both between- and within-subjects design elements
+  - This is referred to as a **mixed-design** study
+
+---
+
+## Within/between subjects
+
+- Other examples
+  - Comparing people who haven't used cannabis and those who have (between-subjects)
+  - Administering a drug use questionnaire on _multiple occasions_, for instance every 2 years (within-subjects)
+  
+- Within-subject design, where several measurements of the same thing are taken several times, is also known as **repeated measures** design
+  - In the colour-naming study, we record multiple responses on the same kind of stimulus (multiple colour words): also a repeated measure
+
+---
+
+## Time frame
+
+- Study design can also be categorised by the time frame in which the study takes place
+
+- Two types
+
+  - **Cross-sectional** design
+
+  - **Longitudinal** design
+
+---
+
+## Cross-sectional
+
+- Hypothesis: _"Millenials like avocado toast more than other generations."_
+- Possible design:
+  - Ask people's year of birth and how much they like avocado toast, using an online questionnaire.
+  - Send this questionnaire out to a lot of people and collect their responses
+  - *Categorise* participants into generations according to their date of birth
+    &gt; - 1946-1964: Baby boomers
+    &gt; - 1965-1980: Generation X
+    &gt; - 1981-1996: Millenials (GenY)
+    &gt; - 1997-2012: Generation Z
+  - Look at whether millenials have a higher liking for avocado toast than other groups
+- This is a **cross-sectional** study
+  - It takes a "cross-section" of a sample of a population **at a single time point**
+  - There is no _temporal_ dimension: we are interested in looking at how things are _now_, not how they develop over time
+
+---
+
+## Potential isues with cross-sectional design
+
+- A temporal dimension may be _inherent_ to the research question
+
+- Even if millenials like avocado toast more than other generations, that doesn't necessarily mean that the liking is characteristic of that generation
+
+- Maybe people develop a particular taste for it in their mid-twenties but by the time they turn 40, they lose it
+
+- Cross-sectional design is not able to distinguish between these two hypotheses
+
+---
+
+## Longitudinal
+
+- Involves _repeated measurement_ of the same characteristic of the _same participants_ at **multiple different time points**
+
+- For example, a longitudinal study would track people throughout their lives and ask them in regular intervals how much they like avocado toast
+
+- After a few decades, it would be possible to tell whether or not the millenials' liking of avocado toast is due to something inherent to this particular generation or whether it's just people in their mid-20s to 40s who like it, irrespective of what generation they belong to.
+
+- **Logistically very complex** and take a lot of time, money, and effort to run
+
+- **Involves a coordinated team of people**
+
+- _Only way how to study any situation where time is a potentially important factor_
+
+- Used in topics of **ageing and development** but also others
+
+---
+
+# &amp;nbsp;
+
+# Part 2
+
+## Measurement
+
+---
+
+## Measurement
+
+- Not just gauging dimensions such as height, distance, weight, or time
+
+- Measurement is the _recording_ of any **quantifiable characteristic, behaviour, or attitude**
+
+- The object of measurement can be pretty much anything: participants, things, even aspects of a study
+
+- From the examples above:
+  - participants' birth year, generation, liking of avocado toast
+  - use of cannabis and other recreational drugs
+  - presence or absence of dyslexia
+  - number of yearly deaths by drowning in a swimming pool and the number of films starring Nicolas Cage per year
+  - reaction time and accuracy on the Stroop task
+  - between-subjects condition each participant was allocated to (congruent vs incongruent)
+  - trial number
+  - stimulus word and colour
+  - within-subject condition: control vs experimental trial
+
+---
+
+## Levels of measurement
+
+- Level of measurement refers to the kind of information we are working with when measuring attributes of interest
+
+- There are four levels:
+
+  - Nominal/categorical
+  
+  - Ordinal
+  
+  - Interval
+  
+  - Ratio
+
+---
+
+## Nominal/categorical
+
+- Simply names or labels
+
+- The only information at this level of measurement is group membership: which of the several possible categories the given observation belongs to
+
+- Examples:
+  - eye colour (*e.g.,* green, brown, blue)
+  - condition (*e.g.,* congruent, incongruent, control)
+  - cannabis use (yes/no)
+  - stimulus word (*e.g.,* TEA, STATS, PURPLE)
+
+- This level of measurement can be considered qualitative
+
+- There are no quantifiable comparisons between the individual categories
+
+  - It makes no sense to say that green is more than blue when it comes to eye colour
+
+---
+
+## Ordinal
+
+- Le Tour de France 2020 was won by the Slovenian cyclist Tadej Poga&amp;ccaron;ar: he finished _first_
+
+- Another Slovenian Primo&amp;zcaron; Rogli&amp;ccaron; came _second_
+
+- It's possible to take all competitors and sort them _in order_
+
+- At the **ordinal** level, individual observations of the measured attribute can be ordered in a meaningful way
+
+- However, it doesn't provide any information about the differences between individual points
+  - We don't know _how much faster_ the winner was compared to the runner-up
+  - The distance between the 1&lt;sup&gt;st&lt;/sup&gt; and 2&lt;sup&gt;nd&lt;/sup&gt; doesn't have to be the same as the distance between the 2&lt;sup&gt;nd&lt;/sup&gt; and 3&lt;sup&gt;rd&lt;/sup&gt;, or between any adjacent pair of riders
+
+---
+
+## Likert scale
+
+- A classic ordinal-level measure in psychology is the Likert scale used in questionnaires:
+
+  &gt; 1. Strongly disagree
+  &gt; 2. Disagree
+  &gt; 3. Neither agree nor disagree
+  &gt; 4. Agree
+  &gt; 5. Strongly agree
+
+- We can't say that the difference in agreement between "Agree" and "Neither agree nor disagree" is the same as the difference between "Disagree" and "Strongly disagree"
+
+---
+
+## Interval
+
+- At the interval level of measurement, the **differences between pairs of adjacent values** are the same
+
+- The difference in temperature between 20 and 21 degrees Celsius is the same as that between 35°C and 36°C
+
+- The **intervals** marked by the degrees are evenly spaced or _equidistant_
+
+- There is not an **absolute zero point** so we cannot say that 40°C is _twice as hot_ as 20°C.
+
+- In psychology, a good example is IQ
+  - Someone with an IQ of 200 is _not twice as smart_ as someone with an IQ of 100
+  - There is no such thing as an IQ of zero.
+
+---
+
+## Ratio
+
+- At the ratio level, there is a meaningful zero point
+  
+  - A person who is 36 years old _is three times as old_ as a person who is 12
+
+&lt;br&gt;
+
+- Examples of the ratio level of measurement in psychology
+
+  - Reaction time
+
+  - Number of correct responses
+
+  - Score on an exam
+
+  - Income
+
+---
+
+## Levels of measurement
+
+- **Measurement level is NOT an inherent characteristic of the measured attribute; it is the characteristic of the _measurement_**
+
+&lt;br&gt;
+
+- It is possible to measure a single thing at different levels
+  
+  - Age can be on the **interval** level: years, months, weeks, days...
+
+  - In the avocado toast example, age was measured as membership in one a generation
+  
+  - This can be seen as either a categorical or ordinal measurement
+
+---
+
+## Validity and reliability
+
+- All measurement involves the use of a tool (or _measure_)
+  
+  - Tape measure
+  
+  - Stopwatch
+  
+  - Questionnaire
+  
+  - Exam
+  
+  - Experimental task
+
+- Tools must be **valid** and **reliable**.
+
+---
+
+## Validity
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.large[A measurement tool is **valid** if it measures that which _it is supposed to measure_]
+
+---
+
+## Construct validity
+
+- Psychology often deals with concepts or _constructs_ that **cannot be observed directly**
+
+  - personality, cognitive ability, mental health, or attitudes
+
+- There are tools, such as questionnaires, cognitive tests, diagnostic methods, and experimental tasks to gather information about these unobservable things
+
+- **Construct validity** is the extent to which a tool can be justifiably trusted to actually measure the construct it is supposed to measure.
+
+- All tools are **informed by the theoretical underpinnings** behind the constructs that they are designed to measure
+
+  - *There is no such thing as an atheoretical measurement instrument*
+
+---
+
+## External validity
+
+- **feature of study design**, not measurement tool
+
+- A study has external validity if its findings can be applied to the entire population of people _with relevant characteristics_ and if they hold up in real-world conditions
+
+  - If study uses a sample of white women in western cultures, the findings may be true for _white women in western cultures **in general**_
+
+  - They may not apply - **generalise** to all people
+
+- The amount to which findings apply in the reasl world outside of the study is **ecological validity**
+
+  - Experiments can have low ecological validity
+
+  - Just because something is true in the lab doesn't mean it is going to be true in the real world
+
+---
+
+## Reliability
+
+- An instrument is reliable if it produces **accurate and stable** results
+
+- A score on a stats exam should be an _accurate_ reflection of a person's stats ability and not something else
+  
+  - Shouldn't be assessing other things, like anxiety, IT skills, _etc._
+  
+  - If two people take the test, the one with the better stats skills should have a higher score
+  
+- Score on test taken at two time points should give same results if nothing was learned or forgotten in the meantime
+  
+  - This stability over time is **test-retest** reliability.
+
+---
+
+# &amp;nbsp;
+
+# Part 3
+
+## Variables
+
+---
+
+## Variables
+
+- The point of measuring characteristics or attributes is to assess the value (*e.g.*, amount, number) of the given characteristic for each subject of interest (participant, trial...)
+
+  - This is a trivial statement: if we knew someone's height, we wouldn't need to measure it
+  
+- Why do we not know the value of the attribute for every subject?
+
+  - Because the value changes from case to case; it **varies**!
+
+- **A variable is a characteristic whose value varies within a set of subjects of interest**
+
+- Pretty much anything can be a variable
+  
+  - Prior experience of drug use
+  
+  - The group to which a participant belongs
+
+  - Time point of measurement in a longitudinal study
+  
+---
+
+## Variables
+
+- Whether or not something is a variable is _independent of whether or not it is being measured!_
+
+- Even things that are measured can be variables
+
+  - These are called *unobserved* or *external* variables
+  
+  - They need to be carefully considered when designing a study and interpreting findings
+
+---
+
+## Variable roles
+
+- In a study a variable can be a **predictor variables** or an **outcome variables**
+- Predictor variables are variables used to model or _predict_ outcome variables
+  - Cannabis use was the predictor variable in the gateway drug example
+  - Use of other illegal recreational drugs was the outcome
+  - In the avocado toast example, the generation to which a participant belonged was the predictor
+  - Liking of avocado toast was the outcome
+- In _experimental_ design predictors are manipulated and the outcome is assumed to change as a result
+ - Predictor is _independent_ of the outcome: It's an **independent variable (IV)**
+ - Outcome is _dependent_ on the predictor: It's a **dependent variable (DV)**
+ - The terms IV and DV are only used in experimental context
+
+---
+
+## Variable roles
+
+- _Predictor_ and _outcome_ are roles we assign to variables based on theory
+
+- A variable that is the predictor in one theoretical model can be the outcome in another
+
+- If a theoretical framework is missing, it may not even be clear which variable fulfils which "role"
+
+  - In the example of swimming pool drownings and Nicolas Case films, it's not clear which is which
+
+---
+
+## Variables of everyday
+
+- We often talk about variables in the context of maths, stats, and research
+- However, thinking about varying characteristics is just a way of systematising the world around us
+- We can apply it to most things, even books on your shelf:
+
+&lt;img style="position:absolute;bottom:50px;left:150px" width="65%" src="assets/books.png" /&gt;
+
+&lt;!-- ![](lec2/books.png){height=300} --&gt;
+
+---
+
+## Variables of everyday
+
+- These books can be assessed on many characteristics (variables):
+
+
+
+&lt;table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;text-align: left;"&gt; English title &lt;/th&gt;
+   &lt;th style="text-align:left;text-align: left;"&gt; Author's surname &lt;/th&gt;
+   &lt;th style="text-align:left;text-align: left;"&gt; Author's first name &lt;/th&gt;
+   &lt;th style="text-align:left;text-align: left;"&gt; Genre &lt;/th&gt;
+   &lt;th style="text-align:right;text-align: left;"&gt; Publication year &lt;/th&gt;
+   &lt;th style="text-align:right;text-align: left;"&gt; Number of pages &lt;/th&gt;
+   &lt;th style="text-align:left;text-align: left;"&gt; Original language &lt;/th&gt;
+   &lt;th style="text-align:left;text-align: left;"&gt; Language of copy &lt;/th&gt;
+   &lt;th style="text-align:left;text-align: left;"&gt; Rating &lt;/th&gt;
+   &lt;th style="text-align:left;text-align: left;"&gt; Read in original &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; The Dispossessed &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Kroeber Le Guin &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ursula &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Scifi novel &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1974 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 319 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; English &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; English &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Great &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Yes &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; The Unbearable Lightness of Being &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Kundera &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Milan &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Novel &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1984 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 344 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Czech &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Czech &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Very good &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Yes &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Kafka on the Shore &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Murakami &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Haruki &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Novel &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2002 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 505 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Japanese &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; English &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Very good &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; No &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Purge &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Oksanen &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Sofi &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Novel &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2008 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 390 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Finnish &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; English &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Superb &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; No &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; The Wall &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Sartre &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Jean-Paul &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Short stories &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1939 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 245 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; French &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; French &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Good &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Yes &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; The Seven Good Years &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Keret &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Etgar &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Memoir, Short stories &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 149 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; English &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Slovak &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Good &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; No &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Ancillary Justice &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Leckie &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ann &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Scifi novel &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 386 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; English &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; English &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Very good &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Yes &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Trainspotting &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Welsh &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Irvine &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Short stories, Novel &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1993 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 345 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Scottish English &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Scottish English &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Great &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Yes &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; The Painted Bird &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Kosinski &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Jerzy &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Novel &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1965 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 260 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; English &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Polish &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Written on the Body &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Winterson &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Jeanette &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Novel &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1992 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 190 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; English &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; English &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Very good &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Yes &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+
+## Variables
+
+- Some variables _vary_ a lot (they contain many different _values_)
+  - Author's surname or year of publication
+  
+- Others only change over a small number of values
+  - Rating or whether or not I read the book in its original language
+
+- Variables can **always be represented as number**
+  - *Superb* rating can be assigned the value 9, while a _Terrible_ rating the value 1
+  - The more I like the book, the higher the number it gets
+  - Even **categorical** variables can be assigned _arbitrary_ numeric values
+
+---
+
+## Missing data
+
+- Sometimes not all information can be recorded; There can be **missing data**
+
+- In the [table](#53), there is no rating for Look at the record for Jerzy Kosi&amp;nacute;ski's novel _The Painted Bird_
+  - I haven't read it!
+
+- Missing data are often assigned the value _NA_, for "**N**ot **A**pplicable"
+
+- Missing values are not uncommon and can result from different causes
+  - An answer doesn't get registered
+  - Participants skip a question or a task by accident
+  - Recording error
+  - Participants don't wish to disclose a piece of information
+
+- The presence of missing data and the patterns in them can sometimes provide valuable information so it's important to be aware of them and explore them
+
+---
+
+## Variable types
+
+- Variables come in different types based on the **values they can contain**.
+
+- **Continuous variables** can contain **any numerical value** within a certain range
+  - *E.g.*, time: You could zoom in to any level of precision with respect to time and measure what month, day, hour, minute, second, and so on something happened
+
+- **Discrete variables** can only contain **some values**
+  - *E.g.*, number of pages: Hypothetically you can have a book with any number of pages but it has to be a _whole number_
+  - There's no such thing as a book with 52.74 pages
+  - Page count is a **discrete variable** because there are only certain discrete values it can take: 1, 2, 3, 4...
+
+- **Binary variables** can only take one of two possible values
+  - A special case of discrete variables
+  - The "Read in original" column can only contain the values "Yes" and "No"; there is no other option
+  - Heads vs tails, pass/fail...
+
+---
+
+## Variable types vs levels of measurement
+
+- Variables are _independent of whether or not we observe/measure them_ and so the **type of variable is inherent to the characteristic** and not to the measurement
+
+- Observing of a variable involves measurement
+- Variables have to be measured on one of the [levels of measurement](#35)
+- Book title variable has been measured on the _nominal (or categorical)_ level
+- Publication year is measured on the _interval_ level
+  - Hypothetically, we _could_ measure when a book came out by measuring time since the big bang, in which case it would be measured on the _ratio_ level
+  - *The underlying variable* is continuous
+- Like or dislike of a book is probably also continuous but was measured on a 9-point _ordinal_ scale
+
+- As a shorthand it's common to say, for example, _"ordinal variable"_, when one means "variable measured on the ordinal level of measurement"
+
+---
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+# And that's it!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

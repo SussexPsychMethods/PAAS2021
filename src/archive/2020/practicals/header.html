@@ -1,0 +1,662 @@
+
+
+<script>
+const diff = [{name: "easy", label: "punk!"},
+              {name: "medium", label: "Prog-rocK"},
+              {name: "hard", label: "jazz..."},
+              {name: "death", label: "death metal"}]
+
+const sleep = (milliseconds) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+
+  
+let i
+for (i = 0; i < diff.length; i++) {
+  let x = document.querySelectorAll("."+diff[i].name+" > h2, ."+diff[i].name+" > h3")
+  for (j = 0; j < x.length; j++) {
+	let node = document.createElement("SPAN")
+	node.innerHTML = diff[i].label
+	node.classList.add(diff[i].name)
+	x[j].appendChild(node)
+  }
+}
+
+const hideMoreBox = () => { 
+let rBox = document.querySelectorAll(".more")
+
+for (i = 0; i < rBox.length; i++) {
+	let node = document.createElement("DIV")
+	node.innerHTML = "gimme mo<code>R</code>!"
+	node.classList.add("label")
+	rBox[i].insertBefore(node, rBox[i].firstChild);
+	rBox[i].style.height = rBox[i].scrollHeight + "px";
+	rBox[i].classList.add("collapsible")
+	rBox[i].addEventListener("click", function() {
+		this.classList.toggle("active");
+		var content = this;
+		if (content.style.maxHeight) {
+			content.style.maxHeight = null;
+		} else {
+			content.style.maxHeight = content.style.height
+		}
+		
+	});
+}
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+const isSol = urlParams.get('sol') === 'true';
+
+let solutionDivs = document.querySelectorAll(".solution")
+
+if (isSol) {
+	for (i = 0; i < solutionDivs.length; i++) {
+		let button = document.createElement("button")
+		button.classList.add("btn", "btn-primary", "sol-btn")
+		button.innerHTML = "Solution"
+		solutionDivs[i].before(button)
+		button.onclick = function() {	
+			const content = this.nextElementSibling		
+			content.classList.toggle("collapsed")
+			if (content.style.maxHeight) {
+				content.style.height = content.style.maxHeight
+				content.style.maxHeight = null;
+				sleep(500).then (() => content.classList.toggle("invisible"))
+			} else {
+				content.style.maxHeight = content.style.height
+				content.style.height = null
+				content.classList.toggle("invisible")
+			}
+		}
+		
+		let codeBlocks = solutionDivs[i].querySelectorAll("pre.r")
+		for (j = 0; j < codeBlocks.length; j++) {
+			codeBlocks[j].classList.add("copy")
+		}
+	}
+} else {
+	for (i = 0; i < solutionDivs.length; i++) {
+		solutionDivs[i].remove()
+	}	
+}
+
+function stopPropagation() {
+	let i
+	let codeCopy = document.querySelectorAll(".more button.copy-button")
+	for (i = 0; i < codeCopy.length; i++) {
+		codeCopy[i].addEventListener("click", function(event) {event.stopPropagation()})
+	}
+	let links = document.querySelectorAll("a")
+	for (i = 0; i < links.length; i++) {
+		links[i].addEventListener("click", function(event) {event.stopPropagation()})
+	}
+}
+
+var oldOnload=window.onload;
+window.onload = function(){
+  if (isSol) {
+	for (let i = 0; i < solutionDivs.length; i++) {
+		solutionDivs[i].style.height = solutionDivs[i].scrollHeight + 20 + "px"
+		solutionDivs[i].classList.add("invisible", "collapsed")
+	}
+  }
+  hideMoreBox()
+  oldOnload && oldOnload()
+  stopPropagation()
+}
+
+</script>
+
+<script src="../../bundle.js"></script>
+
+<style>
+	
+@import url('https://fonts.googleapis.com/css2?family=Saira+Stencil+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nosifer&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arizonia&display=swap');
+
+:root {
+	--alt-col: 1, 59, 73;
+}
+
+.pathquestion {
+            outline: none;
+            padding-bottom: 5px;
+          line-height: 1.5em;
+          height: 3em;
+
+        }
+
+.pathquestion input {
+  font-size: 1.2em;
+  outline: 0;
+  height: 2em;
+  border-width: 0 0 2px;
+  border-color: grey;
+  width: 25em;
+  font-family: 'Fira Mono', monospace;
+        }
+
+
+kbd {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: rgb(var(--font-col));
+	background-color: #EFEFEF;
+    border-radius: 3px;
+    box-shadow: none;
+    border: solid 1px;
+	white-space: nowrap;
+}
+
+#header {
+  flex: 0 0 50px;/*or just height:50px;*/
+  margin-top: 50px;
+  line-height:2em;
+  margin-top: 0em;
+  background-color:#F3F3F3;
+  width:100%;
+  margin-bottom:50px;
+  position:fixed;
+  left:0;
+  right:0;
+  top:0;
+  z-index:1030;
+}
+
+.big {
+	font-size: 2em;
+}
+
+h1, h2, h3, strong {
+	color: #003b49;
+}
+
+#header h1 {
+	padding-left: 75px;
+	padding-right: 15px;
+	padding-bottom: 10px;
+	max-width: 680px;
+	margin-right: auto;
+	margin-left: auto;
+	background-image: url(../../paas_logo.png);
+	background-repeat: no-repeat;
+	background-size: 50px;
+	background-position-y: 0;
+	position: relative;
+	left: -60px;
+	padding-top: 40px;
+	margin-top: 0;
+}
+
+.infobox .body {
+  display: block;
+  /* border: solid; */
+  padding: 1em;
+  /* border-width: 1px; */
+  /* background-color: #FBF8F8; */
+  /* border-radius: 5px; */
+  max-width: 680px;
+}
+
+mark {
+  font-weight: bold;
+}
+
+body {
+ margin-top: 140px;
+ background: #fdfdfd;
+}
+
+.main-container {
+      padding-left: 15px;
+      padding-right: 15px;
+      display: flex;
+      max-width: 680px;
+      margin-right: auto;
+      margin-left:  auto;	
+      flex-direction: column;}
+
+.btn {
+    padding: 0;
+    margin-right: 1em;
+}
+
+
+.copy-button {
+  width: 7em;
+}
+ 
+.btn-primary, .btn-primary:active, .btn-primary:focus, .btn-primary:active:focus {
+	background-color: rgb(var(--alt-col));
+	border-color: rgb(var(--alt-col));
+	padding-left: 1em;
+	padding-right: 1em;
+	z-index: -4;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.copy-button:hover {
+	color: rgb(var(--alt-col));
+	background-color: rgba(var(--alt-col), .1);
+	border-color: rgb(var(--alt-col));
+	border-bottom: solid 1px transparent;
+}
+
+.copy-button:active:focus:hover {
+	color: rgb(var(--alt-col));
+	background-color: rgba(var(--alt-col), .2);
+	border-bottom: solid 1px transparent;
+}
+
+pre {
+	border-radius: 0;
+	border-color: rgb(var(--alt-col));
+	background: #fff;
+}
+
+
+details.hint {
+	color: rgb(var(--alt-col));
+	position: relative;
+	width: max-content;
+	margin-bottom: 10px;
+}
+
+summary.hint {
+	font-weight: bold;
+	line-height: 1.5em;
+	font-size: 1.1em;
+	border: solid 1px rgb(var(--alt-col));
+	width: max-content;
+	padding: 0 5px;
+	border-radius: 5px;
+	color: #fff;
+	background: rgb(var(--alt-col));
+	cursor: pointer;
+}
+
+summary.hint:focus, .copy-button:focus, .copy-button:active:focus,
+.sol-btn:focus, .sol-btn:active:focus {
+	outline: none;
+}
+
+summary.hint:hover, .sol-btn:hover {
+	background-color: rgba(var(--alt-col), .1);
+	color: rgb(var(--alt-col));
+}
+
+.sol-btn:active:hover, .sol-btn:focus:hover, .sol-btn:active:focus:hover {
+	color: rgb(var(--alt-col));
+	background-color: rgba(var(--alt-col), .2);
+	border-bottom: solid 1px rgb(var(--alt-col));
+}
+
+details.hint[open] {
+    border: solid 1px rgb(var(--alt-col));
+    padding-left: 5px;
+	background: rgba(var(--alt-col), .1);
+	width: 100%;
+}
+
+
+.hint[open] summary {
+	margin-left: -5px;
+	border: none;
+	color: rgb(var(--alt-col));
+	background: none;
+}
+
+
+details > summary::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.hint pre {
+	border: none;
+	border-radius: 1px;
+	width: 99%;
+}
+
+.box {
+	background: #e3e1dd;
+	padding: 1em 1em 1px 1em;
+	margin: 1em 0 2em 0;
+	color: #3e2d05;
+	text-align: justify;
+}
+
+.box em, .box strong {
+	color: #126051;
+}
+
+.warn {
+	color: #bb1a1a;
+	border: solid 1px #bb1a1a;
+	padding: 1em 1em 0em 1em;
+	margin: 2em 0 3em 0;
+	text-align: justify;
+}
+
+.warn strong {
+	color: #bb1a1a;
+	background: #fff;
+}
+
+.hint .warn, .more .warn, .solution .warn {
+	margin: 10px 0;
+}
+
+img {
+	margin: auto;
+	display: block;
+}
+
+
+.more {
+	border: solid 1px #87bdf7;
+	background: #b8d4f221;
+	padding: 3px 0.5em;
+}
+
+.more.collapsible {
+	max-height: 30px;
+	overflow: hidden;
+	width: 123px;
+	transition: max-height 0.2s ease-out, width 0.2s ease-out;
+	-webkit-transition: max-height 0.2s ease-out, width 0.2s ease-out;
+	-moz-transition: max-height 0.2s ease-out, width 0.2s ease-out;
+	-o-transition: max-height 0.2s ease-out, width 0.2s ease-out;
+	margin-top: 1.2em;
+	
+}
+
+.collapsible > :not(.label) {
+	display: none;
+}
+
+.collapsible.active > * {
+	display: block;
+}
+
+.more.collapsible > p:first-child {
+	padding-top: 10px;
+}
+
+
+.more > .label {
+	color: #87bdf7;
+	font-size: 18px;
+	padding: 0;
+	margin-bottom: 10px;
+	display: inline-block;
+}
+
+.more > .label > code {
+	background: none;
+	margin-left: ;
+	padding: 0;
+	font-size: 22px;
+}
+
+.more .l-body {
+	background: white;
+}
+
+.more pre {
+	border: none;
+}
+
+.active {
+	transition: max-height 0.2s ease-out;
+}
+
+.more.collapsible:not(.active):hover {
+	background-color: #87bdf7;
+}
+
+.more:not(.active):hover > .label {
+	color: white;
+}
+
+.more.collapsible.active {
+	width: 100%;
+	transition: width 0.2s ease-out, max-height 0.2s ease-out;
+}
+
+.collapsible {
+	cursor: pointer;
+	outline: none;
+	margin-bottom: 1.5em;
+}
+
+.more .copy-button {
+    background-color: #87bdf7;
+    border-color: #87bdf7;
+}
+
+.more .copy-button:hover {
+    color: #87bdf7;
+    background-color: white;
+    border-color: #87bdf7;
+}
+
+.more .copy-button:active, .more .copy-button:focus,.more .copy-button:active:focus {
+    color: #87bdf7;
+    background-color: #00000011;
+	border-color: #87bdf7;
+}
+
+.more-inline {
+	border: solid 1px #87bdf7;
+	color: #87bdf7;
+	font-weight: bold;
+	padding: 1px 3px;
+	white-space: nowrap;
+}
+
+.more-inline code {
+	padding: 0;
+	font-size: 1.2em;
+	background: none;
+}
+
+
+
+.solution {
+	width: 100%;
+	padding: 10px;
+	background: #013b4911;
+	overflow: hidden;
+	border-bottom: solid 1px;
+	margin-bottom: 2em;
+	transition: max-height .2s ease-out;
+}
+
+.solution {
+	width: 100%;
+	padding: 10px;
+	background: #013b4911;
+	overflow: hidden;
+	border-bottom: solid 1px;
+	margin-bottom: 2em;
+	transition-property: width, max-height, padding;
+	transition-duration: 0.2s;
+	transition-timing-function: ease-out;
+	transition-delay: 0s, 0.2s, 0.2s;
+	
+	-moz-transition-property: width, max-height, padding;
+	-moz-transition-duration: 0.2s;
+	-moz-transition-timing-function: ease-out;
+	-moz-transition-delay: 0s, 0.2s, 0.2s;
+	
+	-webkit-transition-property: width, max-height, padding;
+	-webkit-transition-duration: 0.2s;
+	-webkit-transition-timing-function: ease-out;
+	-webkit-transition-delay: 0s, 0.2s, 0.2s;
+	
+	-o-transition-property: width, max-height, padding;
+	-o-transition-duration: 0.2s;
+	-o-transition-timing-function: ease-out;
+	-o-transition-delay: 0s, 0.2s, 0.2s;
+}
+
+.solution.collapsed {
+	padding: 0px;
+	width: 0px;
+	max-height: 0px;
+	transition-delay: 0.2s, 0s, 0s;
+	-webkit-transition-delay: 0.2s, 0s, 0s;
+	-moz-transition-delay: 0.2s, 0s, 0s;
+	-o-transition-delay: 0.2s, 0s, 0s;
+}
+
+
+.solution.invisible > * {
+	display: none;
+}
+
+.solution.no-anim {
+	transition: none;
+}
+
+.btn.btn-primary.sol-btn {
+	display: block;
+	border-radius: 5px;
+	font-size: 1.2em;
+	font-weight: bold;
+	margin-top: 1em;
+	margin-right: 0;
+	margin-left: auto;
+}
+
+body {font-family: 'Montserrat', sans-serif;}
+code {font-family: 'Fira Mono', monospace;}
+
+.answertext {
+  line-height: 150%;
+  padding-left: .5em;
+}
+
+.answer {
+  line-height: 150%;
+}
+
+.question{
+  padding-top: 1em;
+}
+
+input.quizSubmit[type="submit"] {
+	box-shadow: none;
+	background-color: #96571e;
+}
+
+input.quizSubmit[type="submit"]:hover {
+	background: #663000;
+}
+
+@media only screen and (max-width: 806px) {
+  #header h1 {
+	margin-left: 0;
+	left: 0;
+  }
+  .main-container {
+	padding-left: 75px;
+	margin-left: 0;
+  }
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+span.easy, span.medium,
+span.hard, span.death {
+	padding: 2px 5px 4px 5px;
+	border-radius: 5px;
+	font-size: 20px;
+	color: white;
+	margin-left: 10px;
+	position: absolute;
+}
+
+h2 > span.easy, h2 > span.medium,
+h2 > span.hard, h2 > span.death {
+	margin-top: 4px;
+}
+
+h3 > span.easy, h3 > span.medium,
+h3 > span.hard, h3 > span.death {
+	margin-top: 1px;
+}
+
+
+span.easy {
+	background: #26e326;
+	font-family: 'Shadows Into Light', cursive;
+	letter-spacing: 2px;
+}
+
+span.medium {
+	background: #ffa700;
+	font-family: 'Saira Stencil One', cursive;
+}
+
+span.hard {
+	background: #d90d0d;
+	font-family: 'Arizonia', cursive;
+	font-size: 25px;
+	padding-left: 17px;
+	line-height: 12px;
+	display: inline-block;
+	padding-bottom: 15px;
+	letter-spacing: 1px;
+}
+
+span.death {
+	background: #000000;
+	font-family: 'Nosifer', cursive;
+	font-size: 18px;
+	color: red;
+	white-space: nowrap;
+}
+
+p .easy, p .medium,
+p .hard, p .death {
+	font-size: 1em;
+	position: relative;
+	margin-left: 0;
+	height: 1.3em;
+	display: inline-block;
+	padding: 0 5px;
+}
+
+p .hard {
+	vertical-align: super;
+	padding: 0.1px 3px 0px 10px;
+}
+
+.diff > .table-condensed > tbody > tr > td {
+	vertical-align: middle;
+}
+
+.diff > table td > span {
+	position: relative;
+	margin-left: 0;		
+}
+
+table {
+	margin-bottom: 20px;
+}
+
+.MathJax_Display {
+	z-index: -1;
+}
+</style>

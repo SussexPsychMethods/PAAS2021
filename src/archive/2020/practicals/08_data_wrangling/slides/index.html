@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Data wrangling with dplyr</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
+    <meta name="description" content="In this week&#39;s practical we&#39;re going to learn how to manipulate the transform data with the `dplyr` package."/>
+    <meta week="09"/>
+    <meta content_type="intro_slides"/>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Data wrangling with <code>dplyr</code>
+## Practical 8
+
+---
+
+
+
+&lt;style type="text/css"&gt;
+
+  kbd {
+      padding: 2px 4px;
+      font-size: 90%;
+      color: rgb(var(--font-col));
+          background-color: #efefef;
+      border-radius: 3px;
+      box-shadow: none;
+      border: solid 1px;
+  }
+&lt;/style&gt;
+
+
+
+## Plan for today
+
+- Questions about last week's practical 
+
+- Attendance pin 
+
+- Manipulating and transforming data with `dplyr`
+
+  - the `mutate()` function
+
+  - the `select()` function
+
+  - the `filter()` function
+
+---
+
+# Attendance pin
+
+![:attend]
+
+---
+
+Things might feel hard this week, but remember...
+
+&lt;img src="./monster_support.jpg" /&gt;
+
+---
+
+
+## Recap on functions and assignment
+
+Before we start, I just wanted to recap a few concepts that will come in handy for this week's task:
+
+The first is assigning the output of a function to an object
+
+To assign the output of a function to an **object** the structure is as follows:
+
+```r
+objectname &lt;- function_producing_output()
+```
+
+**objectname** is just a placeholder for the name of the object that will hold the output. This can be any name you want. Choose something short and meaningful because it'll help you keep track of things.
+
+**function_producing_output** is just a placeholder for the function that is producing the output. 
+
+The assignment operator `&lt;-` points to the object that **will hold the output**, and away from the command (or commands) that will **produce** the output
+
+---
+
+## Recap on objects/variables
+
+
+Once you have some value assigned to an **object**, then you can use that content just by using the object name. 
+
+This means you can use that object as the input to another function. 
+
+The other thing worth remembering is that if you want to view the **content** of an object, then you can just use the object name by itself. 
+
+E.g., running the following at the console will print out the content of the object:
+
+```r
+objectname
+```
+
+putting it is a code chunk and running it will do the same:
+
+&lt;pre class="md"&gt;&lt;code&gt;&amp;#96;&amp;#96;&amp;#96;{r}
+objectname
+&amp;#96;&amp;#96;&amp;#96;
+&lt;/code&gt;&lt;/pre&gt;
+---
+
+## Tibbles
+
+A **tibble** really just is a **table** with *rows* and *columns* and *columns headers* just like a regular table.
+
+Whenever we work with data in `R` we'll be working with it in the form of **tibbles**
+
+Here's some penguins data in a tibble:
+
+
+```
+## # A tibble: 5 x 4
+##   species island    bill_length_mm bill_depth_mm
+##   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;
+## 1 Adelie  Torgersen           39.1          18.7
+## 2 Adelie  Torgersen           39.5          17.4
+## 3 Adelie  Torgersen           40.3          18  
+## 4 Adelie  Torgersen           NA            NA  
+## 5 Adelie  Torgersen           36.7          19.3
+```
+
+This **tibble** has 5 rows and 4 columns 
+
+---
+
+### Using `dplyr` to work with **tibbles** 
+
+Today's session is about about working with **tibbles** and using the power of `R` to bend data to our will!
+
+We're going to cover three functions from the `dplyr` package. These are:
+
+.pull-left[
+- `dplyr::select()` for **selecting** specific **columns**
+
+- `dplyr::filter()` for **selecting** specific **rows**
+
+- `dplyr::mutate()` for **creating** new **columns**
+]
+
+.pull-right[
+&lt;img src="./wrangling.png" width="100%"/&gt;
+]
+
+---
+
+### The structure of `dplyr` functions 
+
+All the `dplyr` functions work in very similar ways, so once you learn the pattern you'll be able to work with them with ease. 
+
+All the `dplyr` functions take a **tibble** as the input, and produce another **tibble** as an output. 
+
+```r
+output_tibble &lt;- dplyr::select(.data = input_tibble, ...
+
+output_tibble &lt;- dplyr::filter(.data = input_tibble, ...
+
+output_tibble &lt;- dplyr::mutate(.data = input_tibble, ...
+```
+
+You'll just replace the `...` the operation that you want to perform. 
+
+---
+
+#### The `dplyr::select()` function
+
+The first function we'll cover is `dplyr::select()`, because it's the easiest to get your head around!
+
+- The `dplyr::select()` function is for **selecting** columns. To use it you just need to give it a list of the columns you want
+
+
+```r
+output_result &lt;- dplyr::select(.data = penguins, island)
+output_result
+```
+
+```
+## # A tibble: 344 x 1
+##    island   
+##    &lt;fct&gt;    
+##  1 Torgersen
+##  2 Torgersen
+##  3 Torgersen
+##  4 Torgersen
+##  5 Torgersen
+##  6 Torgersen
+##  7 Torgersen
+##  8 Torgersen
+##  9 Torgersen
+## 10 Torgersen
+## # … with 334 more rows
+```
+
+
+---
+
+- Selecting multiple columns is just as easy as selecting one
+
+
+```r
+output_result &lt;- dplyr::select(.data = penguins, island, sex)
+output_result
+```
+
+```
+## # A tibble: 344 x 2
+##    island    sex   
+##    &lt;fct&gt;     &lt;fct&gt; 
+##  1 Torgersen male  
+##  2 Torgersen female
+##  3 Torgersen female
+##  4 Torgersen &lt;NA&gt;  
+##  5 Torgersen female
+##  6 Torgersen male  
+##  7 Torgersen female
+##  8 Torgersen male  
+##  9 Torgersen &lt;NA&gt;  
+## 10 Torgersen &lt;NA&gt;  
+## # … with 334 more rows
+```
+
+Just make sure that the column exists in the tibble and that you've spelled it correctly or you'll get an error that says `Column ... doesn't exist`
+
+---
+
+- If you want to **delete** columns instead of **selecting** them then just add a `-` before the column name
+
+
+```r
+output_result &lt;- dplyr::select(.data = penguins, -island, -sex, -year)
+output_result
+```
+
+```
+## # A tibble: 344 x 5
+##    species bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##    &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+##  1 Adelie            39.1          18.7               181        3750
+##  2 Adelie            39.5          17.4               186        3800
+##  3 Adelie            40.3          18                 195        3250
+##  4 Adelie            NA            NA                  NA          NA
+##  5 Adelie            36.7          19.3               193        3450
+##  6 Adelie            39.3          20.6               190        3650
+##  7 Adelie            38.9          17.8               181        3625
+##  8 Adelie            39.2          19.6               195        4675
+##  9 Adelie            34.1          18.1               193        3475
+## 10 Adelie            42            20.2               190        4250
+## # … with 334 more rows
+```
+
+---
+
+#### The `dplyr::filter()` function
+
+&lt;img src="./dplyr_filter.jpg" /&gt;
+
+The `dplyr::filter()` allows us to keep rows that match a specific condition
+
+---
+
+#### The `dplyr::filter()` function
+
+The power the `dplyr::filter()` is only limited by your imagination! 
+
+You can come up with all sorts of conditions:
+
+Here's an example of matching a character string
+
+```r
+dplyr::filter(.data = penguins2, island == "Dream")
+```
+
+```
+## # A tibble: 124 x 4
+##    species island sex     year
+##    &lt;fct&gt;   &lt;fct&gt;  &lt;fct&gt;  &lt;int&gt;
+##  1 Adelie  Dream  female  2007
+##  2 Adelie  Dream  male    2007
+##  3 Adelie  Dream  female  2007
+##  4 Adelie  Dream  male    2007
+##  5 Adelie  Dream  female  2007
+##  6 Adelie  Dream  male    2007
+##  7 Adelie  Dream  male    2007
+##  8 Adelie  Dream  female  2007
+##  9 Adelie  Dream  female  2007
+## 10 Adelie  Dream  male    2007
+## # … with 114 more rows
+```
+
+All the penguins from **Dream** island 
+
+---
+
+Here's an example of (un)matching a character string
+
+```r
+dplyr::filter(.data = penguins2, island != "Dream")
+```
+
+```
+## # A tibble: 220 x 4
+##    species island    sex     year
+##    &lt;fct&gt;   &lt;fct&gt;     &lt;fct&gt;  &lt;int&gt;
+##  1 Adelie  Torgersen male    2007
+##  2 Adelie  Torgersen female  2007
+##  3 Adelie  Torgersen female  2007
+##  4 Adelie  Torgersen &lt;NA&gt;    2007
+##  5 Adelie  Torgersen female  2007
+##  6 Adelie  Torgersen male    2007
+##  7 Adelie  Torgersen female  2007
+##  8 Adelie  Torgersen male    2007
+##  9 Adelie  Torgersen &lt;NA&gt;    2007
+## 10 Adelie  Torgersen &lt;NA&gt;    2007
+## # … with 210 more rows
+```
+
+All the penguins **not** from **Dream** island
+
+---
+
+
+Here's an example with numbers 
+
+```r
+dplyr::filter(.data = penguins2, year &gt; 2008) 
+```
+
+```
+## # A tibble: 120 x 4
+##    species island sex     year
+##    &lt;fct&gt;   &lt;fct&gt;  &lt;fct&gt;  &lt;int&gt;
+##  1 Adelie  Biscoe female  2009
+##  2 Adelie  Biscoe male    2009
+##  3 Adelie  Biscoe female  2009
+##  4 Adelie  Biscoe male    2009
+##  5 Adelie  Biscoe female  2009
+##  6 Adelie  Biscoe male    2009
+##  7 Adelie  Biscoe female  2009
+##  8 Adelie  Biscoe male    2009
+##  9 Adelie  Biscoe female  2009
+## 10 Adelie  Biscoe male    2009
+## # … with 110 more rows
+```
+
+All the penguins measured after 2008
+
+Once you learn the **structure** it'll become easier. So practice and stick with it until it clicks!
+
+---
+
+#### The `dplyr::mutate()` function
+
+
+.center[&lt;img src="./dplyr_mutate.png" width="65%" /&gt;]
+
+The `dplyr::mutate()` function allows us to create new columns 
+
+---
+
+
+#### The `dplyr::mutate()` function
+
+The `mutate()` function is used for **creating** new **columns**
+
+The general format is as follows:
+
+```r
+dplyr::mutate(.data = input_tibble, new_col = `operation`)
+```
+
+Where **new_col** is just a placeholder for the name of our new column (it can be whatever we want it to be), and **`operation`** is just a placeholder for the operation that creates the new column (e.g., `col_a + col_b`, or something like that)
+
+We'll take a look at in action, and then it'll make more sense!
+
+---
+
+#### The `dplyr::mutate()` function
+
+
+
+Let's say we have a tibble called `fruit_prices`, and we want to discount all the fruit by 10%
+
+.pull-left[
+Our original tibble with fruit prices
+
+
+```
+## # A tibble: 3 x 2
+##   item    price
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 Apples    1  
+## 2 Bananas   2  
+## 3 Oranges   2.4
+```
+]
+
+
+.pull-right[
+Our tibble with the new prices 
+
+
+```
+## # A tibble: 3 x 3
+##   item    price new_price
+##   &lt;chr&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+## 1 Apples    1        0.9 
+## 2 Bananas   2        1.8 
+## 3 Oranges   2.4      2.16
+```
+]
+
+To create a new column called `new_price` which is equal to 90% of the the `price` column we'd write
+
+```r
+dplyr::mutate(.data = fruit_prices, new_price = price * .90)
+```
+
+---
+
+#### The `dplyr::mutate()` function
+
+The power of the `dplyr::mutate()` function is only limited our imagination!
+
+Let's say we want to create a new column called `average_price`, which contains the average of the values in the price column. 
+
+
+
+.pull-left[
+Our original tibble with fruit prices
+
+
+```
+## # A tibble: 3 x 2
+##   item    price
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 Apples    1  
+## 2 Bananas   2  
+## 3 Oranges   2.4
+```
+]
+
+
+.pull-right[
+Our tibble with the average price column
+
+
+```
+## # A tibble: 3 x 3
+##   item    price average_price
+##   &lt;chr&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+## 1 Apples    1             1.8
+## 2 Bananas   2             1.8
+## 3 Oranges   2.4           1.8
+```
+]
+
+We'd run this command:
+
+```r
+dplyr::mutate(.data = fruit_prices, average_price = mean(price))
+```
+
+Again, the tick to learning this function is to learn the pattern. Once you learn the pattern then things will become easier. 
+
+
+---
+
+.center[&lt;img src="./r_first_then.png" width="65%"/&gt;]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

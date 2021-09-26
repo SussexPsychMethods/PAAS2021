@@ -1,0 +1,617 @@
+---
+title: "Lecture 7: Towards statistical models"
+subtitle: "Descriptive statistics and the sampling distribution"
+author: "Dr Milan Val&aacute;&scaron;ek"
+date: "9 November 2020"
+output:
+  xaringan::moon_reader:
+    # css: slides.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "../../slides.js" # shows "Ask questions..." message when ?live=true & reads in CSS
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, global.par = TRUE, warning=FALSE, message=FALSE, fig.height = 3, dpi = 300)
+options(scipen=999)
+set.seed(420)
+
+knitr::opts_hooks$set(
+  panel = function(options) {
+    if (isTRUE(options$panel)) {
+      options$eval = TRUE
+      options$echo = TRUE
+      options
+    }
+  }
+)
+
+knitr::knit_hooks$set(
+  panel = function(before, options, envir){
+    if (isTRUE(options$panel)) {
+      options$echo=TRUE
+      if (before) {
+        '.codePanel['
+      } else ']'
+    }
+  }
+)
+
+library(plotly)
+library(tidyverse)
+
+bg_col <- "#fdfdfd"
+theme_col <- "#003568"
+default_col <- '#464b61'
+second_col <- "#3d755b"
+
+par(mar = c(5, 2, 2, 1) + 0.1,
+    bg = bg_col)
+
+source("../../plot_theme.R")
+
+xaringanExtra::use_panelset()
+
+data_to_json <- function(data) {
+  jsonlite::toJSON(data, dataframe = "rows", auto_unbox = FALSE, rownames = FALSE)
+}
+```
+
+
+```{js}
+<!-- message to display at the bottom of slides when ?live=true -->
+slideMessage = "<span>Ask questions at </span><a href = 'pollev.com/milanvalasek890'>pollev.com/milanvalasek890</a>"
+plotsToPanels()
+live()
+```
+
+```{r}
+library(metathis)
+meta() %>% 
+  meta_description("In this lecture we will discuss basic descriptive statistics, viewing them not just as ways of summarising variables but also as simple models of the world. Then, we will \"go a little meta\" by talking about how these statistics are themselves variables with their own distributions and descriptive stats.") %>%
+  meta_tag("week" = "07") %>%
+  meta_tag("content_type" = "slides")
+```
+
+## Overview
+
+[**Measures of central tendency**](#central)
+- Mode
+- Median
+- (arithmetic) Mean
+
+[**Measures of spread**](#spread)
+- Range
+- Interquartile range
+- Variance and standard deviation
+
+[**Going meta**](#meta)
+- Sampling distribution
+- Standard error
+
+---
+
+## Describing things with maths
+
+- Quantitative methodology deals with measurable things (variables)
+
+- It explains and predicts the world around us by modelling relationships between variables
+
+- These models are mathematical/statistical in nature and they are based on numeric descriptions of variables
+
+- Variables differ in their range and distribution and _from population to population_
+  - Air temperature on Earth ranges from about &minus;90&deg;C to about 60&deg;C
+  - Temperature produced by humans under laboratory conditions: <span class="no-break">&minus;273&deg;C - 5.5 trillion&deg;C</span>
+  - Distribution of height is _normal_, distribution of wealth is _skewed_
+
+- The term population **does not only refer to people**!
+
+- The most basic ways in which we can describe variables and their distributions is in terms of **central tendency** and **spread**
+
+---
+
+## Central tendency and spread
+
+- Distribution of the values in a variable can be described in terms of
+
+  - its "average" value, *i.e.*, where the _"most typical"_, or **central** value is located along the possible range of values
+  
+  - how much _variability_ there is in the individual values of the variable in the sample or population , *i.e.*, how much the values are **spread** along the range of values
+  
+- There are various measures of both central tendency and spread, each with its pros and cons
+
+- All of them are mathematical _abstractions_ - they provide useful information but they're not all there is to things
+
+---
+
+name: central
+
+## Measures of central tendency
+
+- Measures that tell us about the _"most typical"_ value of a variable
+
+- What does "most typical" mean though?
+
+- Different measures of central tendency have different answers
+
+```{r, dpi=300, fig.height=2.5, fig.cap="Average national annual salary", panel=TRUE}
+salary <- read.csv("assets/world_salary.csv")
+salary %>%
+  ggplot(aes(x = yearly)) +
+  geom_histogram(binwidth = 5000) +
+  labs(x="Annual salary in USD", y = "Count")
+```
+.center[.smol[_Fig 1_ Average national annual salary on a sample of 78 countries]]
+
+---
+
+## Measures of central tendency
+
+- We'll talk about three of these measures
+
+  - the mode
+
+  - the median
+
+  - the arithmetic mean
+
+- They are all different kinds of _average_
+
+---
+
+## Mode
+
+- The most frequent value in the distribution
+
+- A distribution can have one or more modes
+
+```{r, dpi=300, fig.height=2.5, panel=TRUE}
+set.seed(1234)
+tibble(var = c(rnorm(7000, 0, 1.8), 
+               c(rnorm(4000, -2), rnorm(4000, 1.5)), # bimodal
+               rep(seq(-7, 7, length.out = 40), each = 500)), # unif
+       group = rep(LETTERS[c(1:3)], c(7000, 8000, 20000))) %>%
+  ggplot(aes(var)) +
+  geom_histogram(bins = 41) +
+  labs(x = "Variable", y = "Frequency") +
+  facet_wrap(~group)
+```
+.center[.smol[_Fig 2_ Examples of a (A) unimodal, (B) bimodal, and (C) multimodal distribution]]
+
+---
+
+## Median
+
+- To find the median, first sort data
+- Then find the mid-point (average of two mid-points if the number of observations is even)
+
+```{r, warning=FALSE, fig.height=3}
+# salary %>%
+#   ggplot(aes(fct_reorder(country, yearly, min), yearly)) +
+#   geom_bar(stat = "identity") +
+#   labs(x = "Country", y = "Average annual Salary in USD")
+
+salary <- salary %>% mutate(country = fct_reorder(country, yearly, min))
+
+p <- plot_ly() %>%
+  add_trace(type = "bar",
+            x = salary$country,
+            y = salary$yearly,
+            marker = list(
+              color = c(rep(default_col, 38),
+                        "orangered", "orangered",
+                        rep(default_col, 38))
+              )
+            ) %>% 
+  layout(xaxis = list(title = "Country", showticklabels=FALSE, color = default_col),
+         yaxis = list(title = "Average annual salary in USD", color = default_col),
+         paper_bgcolor = bg_col,
+         plot_bgcolor = bg_col,
+         showlegend = FALSE,
+         autosize = F, width = 700, height = 250) %>%
+  config(displayModeBar = F)
+
+htmlwidgets::saveWidget(partial_bundle(p), file=here::here("slides/assets/salary_plotly.html"), background = "transparent", selfcontained = F, title="")
+```
+
+<iframe class="app" src="./assets/salary_plotly.html" height="300px"></iframe>
+.center[.smol[_Fig 3_ Average national annual salary per country sorted from lowest to highest]]
+
+
+```{r, echo=T}
+median(salary$yearly)
+```
+
+---
+
+## Mean
+
+- What most people mean by *average*
+  - population mean $\mu$
+  - sample mean $\bar{x}$
+    $$\bar{x}= \frac{\sum_{i=1}^N x_i}{N}$$
+    
+- If there are *N* observations of variable *x* in our sample,
+  $$\sum_{i=1}^N x_i = x_1+x_2+x_3+\cdots +x_N$$
+
+```{r, echo=TRUE}
+mean(salary$yearly)
+```
+
+---
+
+## Median
+
+- Not influenced by extreme values in sample (50% of sample is larger and 50% smaller, no matter what)
+- Does not have a proper algebraic formula
+- Medians of different samples from the same population can be relatively **different** from each other
+
+## Mean
+
+- Has a formula which allows us to do all sorts of maths (and stats) with it
+- Means of different samples from the same population are relatively **similar** to each other 
+- Sensitive to extreme values
+- Basis for some measures of spread
+ 
+---
+
+## Mean Vs Median
+
+<br>
+
+<iframe class="app" src="https://and.netlify.app/viz/desc.html" height="520px"></iframe>
+
+---
+
+exclude: ![:live]
+
+.pollEv[
+<iframe src="https://embed.polleverywhere.com/discourses/IXL29dEI4tgTYG0zH1Sef?controls=none&short_poll=true" width="800px" height="600px"></iframe>
+]
+
+---
+
+## Variable types and central tendency
+
+**Mode**
+  - Mainly for discrete variables
+  - Doesn't make much sense for truly continuous variables
+
+**Median**
+  - For variables that can be measured on _at least the ordinal level_
+
+**Mean**
+  - For variables that can be measured on _at least the interval level_
+
+---
+
+name: spread
+
+## Measures of spread
+
+- Mode, median, and mean tell us about the central point of a variable
+
+- They don't tell us how spread the data are around this point, *e.g.*, how much **variability** there is in the variable
+
+```{r spread-hist, fig.height = 3, panel=TRUE}
+df <- tibble(x = c(rnorm(5000), rnorm(5000, 0, 3)),
+             dist = rep(1:2, each = 5000))
+df %>%
+  ggplot(aes(x = x)) +
+  geom_histogram(data = filter(df, dist == 1),
+                 fill = "#3d755b", bins = 40, alpha = .5) +
+  geom_histogram(data = filter(df, dist == 2),
+                 fill = '#464b61', bins = 40, alpha = .5) +
+  labs(x = "Value", y = "Count")
+```
+
+.center[.smol[_Fig 3_ Histogram of two distributions with equal means but different spread. *N*=5,000 in each case.]]
+
+---
+
+## Measures of spread
+
+- Measures of spread (dispersion) tell us about the variability in the data
+
+- We will look at the following:
+
+  - Range
+
+  - Inter-quartile range
+
+  - Deviation
+  
+  - Variance
+  
+  - Standard deviation
+
+---
+
+## Range and Inter-quartile range
+
+<br>
+
+<iframe class="app" src="https://and.netlify.app/viz/desc.html" height="520px"></iframe>
+
+---
+
+## Range
+
+- Distance between smallest and largest value in sample
+- *Drawback:* Extremely sensitive to outliers
+
+```{r, echo=TRUE}
+max(salary$yearly) - min(salary$yearly)
+```
+
+## IQR
+
+- Inter-quartile range - distance between 1<sup>st</sup> and 3<sup>rd</sup> quartile
+- *Drawback:* Ignores half of the data
+
+```{r, echo=TRUE}
+IQR(salary$yearly)
+```
+
+---
+
+## Deviation
+
+- Distance from every single value in the data from some convenient point
+
+- Mean is a convenient point
+
+- $x_i - \bar{x}$, where $x_i$ is every single data point
+
+- There are as many deviations as data points
+
+- To get a single measure of spread, how about we add up the deviations?
+
+-  *Problem:* More data points = more points to add up
+
+-  *BIG problem:* They always add up to zero
+
+---
+
+## Deviation and variance
+
+<br>
+
+<iframe class="app" src="https://and.netlify.app/viz/desc.html" height="520px"></iframe>
+
+---
+
+## Variance
+
+- We get around the *BIG problem* (deviations adding up to 0) by taking the square of the deviations
+  - The sum of these is called the _**S**um of **S**quares_
+
+- We can get around the *problem* by dividing the sum of squares by *N*
+  - This is the **variance**
+
+Population variance: $\sigma^2 = \frac{\sum_{i=1}^N (x_i - \mu)^2}{N}$
+
+Sample variance: $s^2 = \frac{\sum_{i=1}^N (x_i - \bar{x})^2}{N - 1}$
+
+- reason for the $N - 1$ is quite technical (see [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction))
+
+```{r, echo=TRUE}
+var(salary$yearly)
+```
+
+---
+
+## Standard deviation
+
+- Variance is a good measure of dispersion and is widely used
+- One minor inconvenience is that it's measured in *squared units*
+    - if salary is measured in years, *s<sup>2</sup>*<sub>salary</sub> is expressed in USD<sup>2</sup>, whatever those are
+- Taking the square root of variance gives us a measure of spread in the original units
+- This is the standard deviation
+    - &sigma; for population
+    - _s_ (or _SD_) for sample
+
+$$s = \sqrt{s^2} = \sqrt{\frac{\sum_{i=1}^N (x_i - \bar{x})^2}{N - 1}}$$ 
+
+```{r, echo = T}
+sd(salary$yearly)
+```
+
+- If we measured salary in 1000s of USD, _s_<sub>salary1000</sub> would be **proportional** to&nbsp;_s_<sub>salary</sub>&nbsp;(`r round(sd(salary$yearly) / 1000, 2)` as opposed to `r round(sd(salary$yearly), 2)`)
+
+---
+
+## Standard deviation
+
+<iframe class="app" src="https://and.netlify.app/viz/desc.html" height="520px"></iframe>
+
+---
+
+exclude: ![:live]
+
+.pollEv[
+<iframe src="https://embed.polleverywhere.com/discourses/IXL29dEI4tgTYG0zH1Sef?controls=none&short_poll=true" width="800px" height="600px"></iframe>
+]
+
+---
+
+name: meta
+
+## From sample to population
+
+- We want to make claims about the world
+
+- _We don't care about samples, we care about populations_
+
+- However, we cannot measure the entire population so we have to make do with samples
+
+- So we end up making claims about the world based on what we know from the sample
+
+- We _cannot be sure_ that our sample accurately represents the population
+
+- Because of that, there's always **uncertainty** associated with any empirical claims we make
+
+---
+
+exclude: ![:live]
+class: last-slide
+background-image: url("assets/scrabble.jpg")
+background-size: cover
+
+.rjust[
+.small[By <a rel="nofollow" class="external text" href="https://www.flickr.com/people/48778414@N04">thebarrowboy</a> - <a rel="nofollow" class="external text" href="https://www.flickr.com/photos/48778414@N04/5933744655">Flickr</a>, <a href="https://creativecommons.org/licenses/by/2.0" title="Creative Commons Attribution 2.0">CC BY 2.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=22817231">Link</a>]
+]
+
+---
+
+## From sample to population
+
+```{r}
+scrabble <- tibble(
+  tiles = rep(c("A", "E", "I", "O", "U", "N", "R", "L", "T", "S",
+                "D", "G", "M", "C", "B", "P", "F", "H", "V", "W",
+                "Y", "K", "J", "X", "Q", "Z", "[BLANK]"),
+              c(12, 9, 9, 8, 6, 6, 6, 4, 4, 4, 4, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2)),
+  points = rep(c(1, 2, 3, 4, 5, 8, 10, 0),
+               c(68, 7, 8, 10, 1, 2, 2, 2))
+  )
+
+scrabble_plot <- scrabble %>% group_by(points) %>% tally()
+scrabble_plot$labels <- scrabble %>%
+  group_by(points, tiles) %>%
+  tally() %>%
+  group_by(points) %>%
+  mutate(labels = paste(tiles, collapse=", ")) %>%
+  pull(labels) %>%
+  unique()
+
+p <- plot_ly(width = 700, height = 250) %>%
+  add_trace(type = "bar",
+            x = scrabble_plot$points,
+            y = scrabble_plot$n,
+            text = scrabble_plot$labels,
+            hoverinfo = 'text',
+            color = I(default_col)) %>% 
+  layout(xaxis = list(title = "Points",
+                      color = default_col,
+                      tickmode="array",
+                      tickvals=0:10,
+                      ticktext=0:10),
+         yaxis = list(title = "Number of tiles",
+                      color = default_col),
+         paper_bgcolor = bg_col,
+         plot_bgcolor = bg_col,
+         showlegend = FALSE,
+         autosize = F,
+         margin = list(t = 10, b = 5)) %>%
+  config(displayModeBar = F)
+
+htmlwidgets::saveWidget(partial_bundle(p), file=here::here("slides/assets/scrabble_plotly.html"), background = "transparent", selfcontained = F, title="")
+```
+
+A full set of Scrabble tiles contains `r nrow(scrabble)` tiles with a mean tile value of `r mean(scrabble$points)` points and a _SD_ of `r round(sd(scrabble$points), 2)`.
+
+<iframe class="app" src="./assets/scrabble_plotly.html" height="330px"></iframe>
+.center[.smol[_Fig 4_ Distribution of Scrabble tiles by point value.]]
+
+You draw - **sample** - 7 tiles for your rack
+  - Sometimes you pick only vowels, sometimes you get only the Zs, Qs, Ks, or Ws due to _statistical fluctuation_ in **sampling**
+  - Most often, you pick a mix of low-score and high-score tiles
+  
+---
+
+<br>
+
+<iframe class="app" src="https://mivalek.github.io/viz/scrabble.html" height="700px" scale="70%"></iframe>
+
+---
+
+## Sampling distribution
+
+Sampling distribution is the distribution of a statistic (*e.g.*, the mean) based on **all possible samples of a given size taken from the same population**
+
+- In the Scrabble example it's the distribution of all possible means of 7-tile draws.
+
+- _Sampling distribution is_ **NOT** _the distribution of the sample!_
+
+- The centre (mean) of the sampling distribution is equal to the population value of the calculated statistic
+  - The mean of the sampling distribution of **the mean** _is equal to the population mean_
+  - The mean of the sampling distribution of **variance** _is equal to population variance_
+  
+- The standard deviation of the sampling distribution is called the&nbsp;**standard&nbsp;error&nbsp;(_SE_)**
+  - Very important concept!
+  - Allows us to quantify the uncertainty about our estimates
+
+
+---
+
+## Standard error
+
+- **_SE_ is the standard deviation of the sampling distribution**
+
+- Quantifies the uncertainty about how similar the sample statistic (*e.g.*, the sample mean, $\bar{x}$) is likely to be to the population parameter (*e.g.*, population mean, $\mu$)
+
+$$SE = \frac{\sigma}{\sqrt{N}}$$
+
+- Related to **sample size** and **variability** in population
+  - If mean annual salary doesn't change much from country to country, _SE_ will be relatively small
+  - If our sample is large, _SE_ will be relatively small and _vice versa_
+  
+- **The concepts of the sampling distribution and standard error will be of crucial importance later, when we are talking about testing hypotheses and statistical modelling**
+
+---
+
+## Recap
+
+- We can describe distributions ("shapes of variables") using maths
+
+- Central tendency refers to the **mid-point** of a variable
+  - Mode
+  - Median
+  - Mean
+
+- Spread refers to the **amount variability** in the variable
+  - Range
+  - IQR
+  - Variance
+  - Standard deviation
+
+- Each measure has its properties and is useful in different situations
+
+---
+
+## Recap
+
+- We don't care about samples, we care about populations
+
+  - But we have to rely on on samples because we don't have access to populations
+  
+- Different samples have different properties (*e.g.*, means) even though they are sampled from the same population
+
+- The sampling distribution is the distribution of **a given statistic from all possible samples of the same size drawn from the same population**
+
+- The standard deviation of the sampling distribution is the **standard error**
+
+  - _SE_ quantifies the uncertainty about how similar the sample statistic is to the population parameter
+
+  - The larger the sample, the smaller the _SE_
+
+  - More variable populations lead to larger *SE*s
+
+
+---
+
+exclude: ![:live]
+
+.pollEv[
+<iframe src="https://embed.polleverywhere.com/discourses/IXL29dEI4tgTYG0zH1Sef?controls=none&short_poll=true" width="800px" height="600px"></iframe>
+]
+
+---
+
+class: last-slide weekend
+background-image: url("../../end.jpg")
+background-size: cover

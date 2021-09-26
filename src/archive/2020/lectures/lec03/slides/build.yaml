@@ -1,0 +1,4 @@
+output_folder: slides
+deploy_folder: public/lectures/lec03
+build_command: R -e "rmarkdown::render('index.Rmd')"
+repository: https://github.com/SussexPsychMethods/paas2020.git
