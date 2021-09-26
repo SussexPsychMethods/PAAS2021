@@ -1,0 +1,18 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    asciidoctor (2.0.10)
+    erb (2.2.0)
+    mini_portile2 (2.4.0)
+
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  asciidoctor
+  erb
+
+
+BUNDLED WITH
+   2.1.4
