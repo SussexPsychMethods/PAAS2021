@@ -1,0 +1,106 @@
+###------------------------------------------------------------------------###
+###                 Simple script for building the index page              ###
+###------------------------------------------------------------------------###
+require 'erb'
+require 'asciidoctor'
+
+weeks = [*1..11]
+
+Materials = Struct.new(
+  :type,
+  :subtype,
+  :week,
+  :link,
+  :week_int
+
+)
+
+class String
+    (1..5).to_a.each do |x|
+        define_method "h#{x}" do
+            return "=" * x + ' ' + self if self != ''
+        end
+    end
+end
+
+def tidy_type(type)
+    if type == "lectures"
+      return "lecture"
+    end
+    # return url
+end
+
+def makeMaterials(week, week_int, type, subtype)
+  link = Dir["src/#{type}/#{week}/#{subtype}/index.html"][0]
+  if link == nil
+    return nil
+  end
+  if link.include?("src")
+    link.gsub!(/src/,"")
+  end 
+  return Materials.new(
+    type,
+    subtype,
+    "Week " + week,
+    "link:#{link}[Link to #{tidy_type(type)} #{subtype}]",
+    week_int
+  )
+end
+
+class Lecture
+  def initialize(week)
+    @week = "%02d" % [week]
+    @week_int = week
+    @subtypes = %w[slides handout]
+    @type = 'lectures'
+  end
+
+  def listfiles
+    @subtypes.flat_map {|subtype| makeMaterials(@week, @week_int, @type, subtype)}
+  end
+end
+
+class Practical
+  def initialize(week)
+    @week = '%02d' % week
+    @week_int = week
+    @subtypes = %w[slides worksheets]
+    @type = 'practicals'
+  end
+
+  def listfiles
+    @subtypes.flat_map {|subtype| makeMaterials(@week, @week_int, @type, subtype)}
+  end
+end
+
+class Tutorial
+  def initialize(week)
+    @week = '%02d' % week
+    @week_int = week
+    @subtypes = %w[tutorials]
+    @type = 'tutorials'
+  end
+
+  def listfiles
+    @subtypes.flat_map {|subtype| makeMaterials(@week, @week_int, @type, subtype)}
+  end
+end
+
+lectureList = weeks.flat_map { |week| Lecture.new(week).listfiles }
+lectureList.compact!
+
+practicalList = weeks.flat_map { |week| Tutorial.new(week).listfiles }
+practicalList.compact!
+
+tutorialList = weeks.flat_map { |week| Practical.new(week).listfiles }
+tutorialList.compact!
+
+puts lectureList
+puts practicalList
+puts tutorialList
+
+template = ERB.new(File.read('./src/index.md'))
+
+index_page = template.result_with_hash(lectureList: lectureList, practicalList: practicalList, tutorialList: tutorialList)
+File.write('./src/index.asc',index_page)
+Asciidoctor.render_file('./src/index.asc')
