@@ -31,7 +31,11 @@ def tidy_type(type)
 end
 
 def makeMaterials(week, week_int, type, subtype)
-  link = Dir["src/#{type}/#{week}/#{subtype}/index.html"][0]
+  if type == "tutorials"
+    link = Dir["src/#{type}/#{week}/index.html"][0]
+  else
+    link = Dir["src/#{type}/#{week}/#{subtype}/index.html"][0]
+  end
   if link == nil
     return nil
   end
@@ -89,10 +93,10 @@ end
 lectureList = weeks.flat_map { |week| Lecture.new(week).listfiles }
 lectureList.compact!
 
-practicalList = weeks.flat_map { |week| Tutorial.new(week).listfiles }
+practicalList = weeks.flat_map { |week| Practical.new(week).listfiles }
 practicalList.compact!
 
-tutorialList = weeks.flat_map { |week| Practical.new(week).listfiles }
+tutorialList = weeks.flat_map { |week| Tutorial.new(week).listfiles }
 tutorialList.compact!
 
 puts lectureList
