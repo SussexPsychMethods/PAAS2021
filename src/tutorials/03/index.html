@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Psychology as a Science" />
+
+
+<title>Introduction to R Markdown</title>
+
+<script src="index_files/header-attrs-2.11/header-attrs.js"></script>
+<script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="index_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="index_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="index_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="index_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="index_files/navigation-1.1/tabsets.js"></script>
+<link href="index_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="index_files/highlightjs-9.12.0/highlight.js"></script>
+<meta name="description" content="Week 3 Tutorial"/>
+<meta content_type="tutorial" week="03"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="css/paas_learnr.css" type="text/css" />
+<link rel="stylesheet" href="css/katex.min.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Introduction to R Markdown</h1>
+<h3 class="subtitle">Tutorial 03</h3>
+<h4 class="author">Psychology as a Science</h4>
+
+</div>
+
+
+<style type="text/css">
+.verbatim > * {word-break:break-word}
+</style>
+<div id="intro" class="section level2">
+<h2>Intro</h2>
+<p>Welcome to the Week 3 tutorial. This tutorial will get you prepared for the practical in Week 4. In this tutorial we will talk about text editors. We will contrast the word processing software that you are probably used to with markdown, a slightly geekier but way of writing documents. Finally, we will discover RStudio’s own markdown editor and learn how to write documents using it.</p>
+<p> </p>
+<p>Onwards!</p>
+<p> </p>
+</div>
+<div id="text-files" class="section level2">
+<h2>Text files</h2>
+<p>Text files are simply computer files that contain text. To create or modify them, we need programs called text editors. Remember how we said that the .docx files require Microsoft Word (or similar) to be installed on the device in order to open them. Well, the .docx file is a text file and MS Word is the text editor program. There are two basic kinds of text, plain text and rich text.</p>
+<div id="plain-text" class="section level3">
+<h3>Plain text</h3>
+<p>Plain text is basically what it says on the tin: just text, without formatting. There is no <strong>bold text</strong>, no <em>italics</em>, no <sup>superscripts</sup>, no <big>variable</big> <small>font sizes</small>, just plain text.</p>
+<p>A typical plain text file has the .txt file extension. This extension lets the computer know that the contents of the file are just text and should not necessarily be interpreted as anything else. However, .txt are not the only plain text files. Later on, when we are writing longer blocks of <code>R</code> code, we will be saving them into files with a .R extension. These are still plain text files but, when opened in the source pane of RStudio, the program will decorate the text with different colours for different bits of the code to make the code easier for us to read.</p>
+</div>
+<div id="rich-text" class="section level3">
+<h3>Rich text</h3>
+<p>Rich text is text with all sorts of formatting. What you are reading now is rich text. You can see that there are headings, buttons, fonts of different colours and sizes, and so on…</p>
+<p>Rich text formatting is, however, just a visual representation that the program creates for us and shows it on the screen. Behind the scenes the program we are using is reading a plain text file written using one of several formatting systems. Every one of these systems has its own way to indicate, using plain text symbols and tags, how the displayed text should be formatted. For example, .docx files use a system called <a href="https://en.wikipedia.org/wiki/XML">Extensible Markup Language, or XML</a>, while Google Docs use <a href="https://en.wikipedia.org/wiki/HTML">Hypertext Markup Language, or HTML</a>.</p>
+<p>HTML is the system in which modern websites are written and all web browsers know how to turn HTML plain text into formatted rich text. These tutorials are also written in HTML and so can be opened in your web browser. To illustrate what we mean by indicating formatting using plain text, let’s see what the HTML plain text behind the first paragraph of the “Plain text” section above looks like:</p>
+<div class="verbatim">
+<pre><code>&lt;p&gt;Plain text is basically what it says on the tin: just text, without formatting. There is no &lt;strong&gt;bold text&lt;/strong&gt;, no &lt;em&gt;italics&lt;/em&gt;, no &lt;sup&gt;superscirpts&lt;/sup&gt;, no &lt;big&gt;variable&lt;/big&gt; &lt;small&gt;font sizes&lt;/small&gt;.&lt;/p&gt;</code></pre>
+</div>
+<p>The browser reading this text knows that this is a new paragraph (<code>&lt;p&gt;...&lt;/p&gt;</code>), the “bold text” bit should be bold because it’s inside the <code>&lt;strong&gt;...&lt;/strong&gt;</code> tag, <em>etc</em>.</p>
+<p>Again, there’s no magic here, nothing mysterious is happening, just a set of instructions in plain text that the program (the browser, in this case) knows how to follow.</p>
+<p> </p>
+<p>Now that we understand how text files work, let’s see how we can create them.</p>
+<p> </p>
+</div>
+</div>
+<div id="text-editors" class="section level2">
+<h2>Text editors</h2>
+<p>You are probably familiar with MS Word and Google Docs and maybe you use them to write documents. These two are examples of text editors, programs that cn create and modify text files. Because all text formatting and styling in these editors is done in real time using buttons, menus, or keyboard shortcuts so that you are always seeing the actual formatted version of the final document, these kinds of editors are called “WYSIWYG” editors (What You See Is What You Get).</p>
+<p>There is also a different kind of text editors that precedes WYSIWYG - plain text editors. As their name suggests, they only deal with plain text. Using this approach to creating and editing documents involves two steps:</p>
+<ol style="list-style-type: decimal">
+<li>You write the plain text file, indicating the structure of the text using symbols or tags.</li>
+<li>Once the plain text file is written, the editor converts it to a formatted file, such as .docx, .html, or .pdf.</li>
+</ol>
+<p>There are several “markup languages” that can be used to write the plain text but the one we will be using is called R Markdown</p>
+</div>
+<div id="r-markdown" class="section level2">
+<h2>R Markdown</h2>
+<p>R Markdown is a markup language (confusing, isn’t it?) that combines <code>R</code> with a plain text editor. There is a wealth of resources on how to use it and we will be learning a lot about it but, for now, it’s best to just see some basics and play around with them.</p>
+<p>You’ve already seen the boxes below in the first tutorial but now you have more context to understand what they are all about. They show what R Markdown looks like and how it gets “rendered” into rich text. Compare the two to see how the markdown translates into formatting. As you will see, R Markdown makes it pretty easy to create nicely formatted text using just a few symbols here and there.</p>
+<p>The top box is editable so feel free to type in anything you want.</p>
+<div class="container">
+# Level 1 heading
+
+## Level 2 heading
+
+### Level 3 heading, etc..
+
+This is **bold**.
+
+This is *italics*.
+
+If you really want, you can also do ~~strikethrough~~.
+
+One line break doesn't do anything.
+These two sentences are still in the same paragraph.
+
+For a new paragraph, we need two line breaks.
+
+- this is
+- an *unordered*
+- list
+    - it can have
+    - multiple levels
+
+1. this is
+1. an *ordered*
+1. list
+    1. also with
+    1. multiple levels
+
+You can even write maths formulae! $\sum_{i = 1}^{n}(x_i - \bar{x})^2$
+</div>
+<script type="text/javascript">
+document.body.onload = build;
+function build (){
+  let scriptTag = document.createElement('script');
+  scriptTag.src = './js/main.js';
+  document.body.appendChild(scriptTag);
+}
+</script>
+<style type="text/css">
+
+pre code * {
+ -ms-word-break: break-all;
+     word-break: break-all;
+
+     /* Non standard for WebKit */
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+        hyphens: auto;
+}
+
+.container {
+  width: 100%;
+}
+textarea {
+  overflow: hidden;
+  resize: none;
+  border: solid 1px rgb(50, 180, 70));
+  min-height: 10em;
+    font-family: monospace;
+    width: 99.7%;
+    padding: 1em;
+    display: block;
+    margin: auto;
+}
+
+textarea:focus {
+    outline: solid 1px rgb(50, 180, 70);
+}
+
+.md-editor {
+    padding: 3.5rem 0;
+    position: relative;
+}
+
+.md-editor::before {
+    font-family: 'Source Sans', sans-serif;
+    color: rgb(50, 180, 70);
+    content: 'Your markdown';
+    position: absolute;
+    margin-top: -18px;
+    font-size: 2em;
+    font-weight: bold;
+    right: 0;
+}
+
+.rendered-content{
+    position: relative;
+    width: 100%;
+  border: solid 1px rgb(67, 75, 117);
+    background: #fff;
+    padding: 1em;
+    overflow-wrap: break-word;
+}
+
+.rendered-content::before {
+    content: 'Rendered output';
+    position: absolute;
+    margin-top: -33px;
+    font-size: 2em;
+    font-weight: bold;
+    right: 0;
+}
+
+</style>
+<p>Take a moment to play around with the editor to get used to the markdown. You don’t need to understand the symbolic language for the maths formula; it’s just to showcase what R Markdown can do. There is much more you can do in R Markdown, including automatic references, including <code>R</code> code, plots, tables, pictures, or even GIFs and videos. In fact, the vast majority of the teaching materials for PAAS was written in R Markdown!</p>
+<p> </p>
+</div>
+<div id="r-markdown-files-and-output-documents" class="section level2">
+<h2>R Markdown files and output documents</h2>
+<p>At this stage you are ready to learn how to write your own R Markdown-generated documents.</p>
+<p>As a first step towards this goal, watch the video below.</p>
+<iframe width="672" height="378" src="https://www.youtube.com/embed/DDQxdxOAEXQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+picture-in-picture" allowfullscreen>
+</iframe>
+<p>(<a href="https://docs.google.com/document/d/1S5CVpVD2KvnCCHeMDwp32oNV4D5gywfEIE2vYXPY4o8/edit#">As always, there’s also a transcript of the video if you need it</a>)</p>
+<p> </p>
+<p>You will be using R Markdown to write all your assignments for the next three methods modules (PAAS, Analysing Data, Discovering Statistics) and we would encourage you to adopt it for basically all writing, especially your dissertation!</p>
+<p>So, to get some practice, here are some tasks for you:</p>
+<p><strong>1. Create a new RStudio project called <code>"week_03"</code> in your <code>uni/psych_methods/paas</code> folder.</strong></p>
+<p><strong>2. Create the minimal folder structure as discussed in the previous tutorial.</strong> You need the <code>"data"</code> and <code>"r_docs"</code> folders.</p>
+<p><strong>3. Following the instructions in the video you just watched, create a new Rmd file.</strong></p>
+<p><strong>4. Change the author at the very top of the document to your name.</strong></p>
+<p><strong>5. Change the title to “Lecture 3 notes”.</strong></p>
+<p><strong>6. Delete everything in the template file after the second set of <code>---</code>.</strong></p>
+<p><strong>7. In the main body of the file, transcribe your Lecture 3 notes, making sure they are nicely structured.</strong> If you don’t have notes, you are strongly advised to re-watch the lecture and take notes. The same goes for every lecture.</p>
+<p><strong>8. Save the file as <code>"lec_03_notes.Rmd"</code> in the <code>"r_docs"</code> folder.</strong></p>
+<p><strong>9. Knit the file into a HTML document.</strong></p>
+<p><strong>10. Admire how pretty the output is!</strong></p>
+<p> </p>
+<p>That’s all for this tutorial.</p>
+<p> </p>
+</div>
+
+<script src="./js/bundle.js"></script>
+
+<style>
+  .btn {
+    padding: 0;
+    margin-right: 1em;
+  }
+
+  .copy-button {
+    width: 7em;
+  }
+</style>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
