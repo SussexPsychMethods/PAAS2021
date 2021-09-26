@@ -1,0 +1,640 @@
+---
+title: "Lecture 11: Recap"
+subtitle: "Look back in angR"
+author: "Dr Lincoln Colling & Dr Milan Val&aacute;&scaron;ek"
+date: "7 December 2020"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+  lib_dir: libs
+highlightLines: true
+countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE, fig.height = 3, dpi = 300)
+options(scipen=999)
+set.seed(420)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+bg_col <- "#fcfbfb"
+default_col <- "#003b49"
+text_col <- '#330e00'
+fill_col <- '#77969e'
+
+
+style_duo_accent(
+  primary_color = default_col,
+  secondary_color = '#265965',
+  header_font_google = google_font("Cabin"),
+  text_font_google   = google_font("Noto Sans", "300", "300i"),
+  code_font_google   = google_font("Fira Mono"),
+  background_color = bg_col,
+  link_color = "#f37213",
+  colors = c(
+    red = "#f34213",
+    purple = "#3e2f5b",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"
+  )
+)
+
+xaringanthemer::style_extra_css(
+  list(
+    ".title-slide" = list("background-image" = 'url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/University_of_Sussex_Logo.svg/480px-University_of_Sussex_Logo.svg.png), url(https://mivalek.github.io/img/paas_slide_logo.png)',
+                          "background-position" =  '96% 96%, 96% 4%',
+                          'background-size' = '120px, 50px',
+                          'border' ='10px solid #013035',
+                          'background-color'= '#fcfbfb'
+    ),
+    ".remark-slide-content:not(.title-slide)" = list(
+      "color" = '#'
+    ),
+    ".remark-slide-content:not(.title-slide)::after" = list(
+      "content" = "''",
+      "background-image" = "url(https://mivalek.github.io/img/paas_slide_logo.png)",
+      "position" = "absolute",
+      "bottom" = "1.5%",
+      "left" = "1%",
+      "width" = "50px",
+      "height" = "50px",
+      "background-size" = "50px",
+      "background-repeat" = "no-repeat",
+      "background-position-y" = "bottom"
+    ),
+    "em" = list(
+      "color" = "#265965"
+    ),
+    "strong" = list(
+      "font-weight" = "bold"
+    ),
+    "h2 strong" = list(
+      'color' = '#653226',
+      "font-size" = "1em"
+    ),
+    ".title-slide h1" = list(
+      'padding-top' = '0px',
+      'font-size' = '60px',
+      'text-align' = 'left',
+      'padding-bottom' = '18px',
+      'margin-bottom' = '18px',
+      'margin-top' = '0px',
+      'color' = '#003b49'
+    ), 
+    '.title-slide h2' = list(
+      'font-size' = '40px',
+      'text-align' = 'left',
+      'padding-top' = '10px',
+      'margin-top' = '0px',
+      'color' = '#222'
+    ),
+    '.title-slide h3' = list(
+      'font-size' = '30px',
+      'color' = '#265965',
+      'text-align' = 'left',
+      'text-shadow' = 'none',
+      'padding' = '5px',
+      'margin' = '0px',
+      'line-height' = '1'
+    ),
+    "sup" = list("font-size" = "0.65rem"),
+    "ul" = list(
+      'list-style' = "none"
+    ),
+    "ul li::before" = list(
+      'content' = '"\\2022"',
+      'color' = '#265965',
+      'font-weight' = 'bold',
+      'display' = 'inline',
+      'width' = '1em',
+      'margin-left' = '-1em',
+      'position' = "absolute"
+    ),
+    "ol li::before" = list(
+      "content" = "''"
+    ),
+    ".large" = list(
+      "font-size" = "1.5em"
+    ),
+    ".smol" = list(
+      "font-size" = ".5em"
+    ),
+    "iframe.app" = list(
+      "border" = "none",
+      "width" = "100%",
+      "overflow" = "hidden",
+      "scale" = "90%",
+      "transform" = "translate(0, -70px)",
+      "margin-bottom" = "-90px"
+    ),
+    ".no-break" = list(
+      "white-space" = "nowrap"
+    ),
+    "img" = list(
+      "margin" = "auto",
+      "display" = "block"
+    ),
+    ".remark-slide table" = list(
+      "border-collapse" = "collapse",
+      "border-top" = "2px solid #644e48",
+      "border-bottom" = "0"
+    ),
+    ".remark-slide table > caption" = list(
+      "text-align" = "left",
+      "margin-bottom" = "10px",
+      "line-height" = "1.5em"
+    ),
+    ".remark-slide table thead th" = list(
+      "border-bottom" = "2px solid #644e48"
+    ),
+    ".remark-slide table tbody" = list(
+      "border-bottom" = "solid 2px #644e48"
+    ),
+    ".remark-slide table tfoot" = list(
+      "font-size" = "0.8em"
+    ),
+    "table > thead > tr > th" = list(
+      "color" = "#265965"
+    ),
+    ".remark-slide thead, .remark-slide tfoot, .remark-slide tr:nth-child(2n)" = list(
+      "background" = "none"
+    ),
+    ".remark-slide table sup" = list(
+      "line-height" = "0.5em"
+    ),
+    ".remark-slide table sup.symbol" = list(
+      "font-size" = "0.8em",
+      "font-family" = "Serif"
+    ),
+    ".bottom-msg" = list(
+      "color" = "orange",
+      "position" = "absolute",
+      "left" = "0",
+      "right" = "0",
+      "bottom" = "10px",
+      "text-align" = "center"
+    ),
+    ".remark-slide .bottom-msg > a" = list(
+      "color" = "orange"
+    ), 
+    ".smaller" = list(
+      "font-size" = "85%"
+    )
+  )
+)
+```
+
+```{r}
+library(metathis)
+meta() %>% 
+  meta_description("The final lecture of Psychology as a Science focuses on recapitulating the topics from the previous lectures with a main focus on Q&A") %>%
+  meta_tag("week" = "11") %>%
+  meta_tag("content_type" = "slides")
+```
+
+## Today
+
+- We'll take turns briefly going over the material covered in each lecture
+
+- After each lecture section, there will be space for discussion/clarification
+
+- Get your questions ready!
+
+---
+
+## Lecture 1: Intro & Housekeeping
+
+Sam is fine, thanks!
+
+---
+
+## Lecture 2: Philosophy of Science
+
+Introduced you to Philosophy of Science and covered some of the basics
+
+- Common-sense view of science (as based on facts)
+
+- Inductive and deductive logic
+
+- *Popper* and falsification
+
+- Amending and abandoning theories in the face in falsification
+
+- *Lakatos* and research programmes
+
+
+---
+
+## Lecture 3: Approaches to Research
+
+Introduced you to different approaches to research including qualitative and quantitative methods and computer simulation 
+
+- Qualitative methods
+
+  - Verbal protocol analysis, Ethnographic methods, Discourse analysis, and Phenomenology
+
+  - Issues in qualitative research: Credibility, Transferability, Dependability, and Confirmability
+
+- Quantitative methods
+
+  - Quantification, operationalisation, causation, confounds
+
+- Comparing qualitative and quantitative methods
+
+- Computer simulation
+
+  - What insights can be gained from computer simulation
+
+---
+
+## Lecture 4: Quantitative design
+
+- How theories are used to generate testable predictions about the world
+
+
+### Research design
+
+- Breakdown according 3 criteria:
+
+  - Presence of a manipulation (experimental vs observational)
+  
+  - Within-subjects vs between-subjects design
+  
+  - By time frame (longitudinal vs cross-sectional)
+
+---
+
+## Lecture 4: Quantitative design
+
+### Experiment
+
+Characteristics
+
+  - **Experimental manipulation** - Changing variable in a study while _controlling_ for all other variables in order to test hypotheses about the effect of the independent variable
+  - **Conditions** - Grouping of _stimuli_, where each group represents a level of manipulation
+  - **Randomisation** - Participants are assigned to conditions at random to control for external sources of variability we cannot control; Order of trials is also randomised if possible
+  - **Tight controls** - Ensure that any potential effect is really the result of the manipulation and not some _confounding_ variables
+  - **Blinding** - Keeping participants na&iuml;ve to hypotheses and manipulation (_single-blind_) and potentially also keeping experimenter na&iuml;ve to allocation to conditions (_double-blind_)
+  
+**Only design that can reliably establish causal relationships**
+
+---
+
+## Lecture 4: Quantitative design
+
+### Quasi-experiment & natural experiments
+
+- Not really experiments
+
+- Either lack randomisation or the manipulation is not under researcher's control
+
+### Observational design
+
+- AKA correlational design
+
+- No experimental manipulation at its heart
+
+- Logistically more feasible, scalable
+
+- Some things cannot be manipulated experimentally
+
+**These designs cannot really make claims about causality, just relationships between things**
+
+---
+
+## Lecture 4: Quantitative design
+
+### Between-subjects design
+
+- AKA independent-groups design
+
+- One participant **only contributes one observation** of the outcome variable
+
+### Within-subjects 
+
+- AKA repeated-measures design
+
+- One participant provides **multiple observations** of the outcome variable
+
+### Mixed design
+
+- Contains elements of both between- and within-subjects designs
+
+---
+
+## Lecture 4: Quantitative design
+
+### Cross-sectional design
+
+- Takes a "cross-section" of a sample of a population **at a single time point** to investigate a hypothesis
+
+- Unable to reliably address questions where time may be a factor (developmental studies)
+
+### Longitudinal design
+
+- Involves _repeated measurement_ of the same characteristic of the same participants at **multiple different time points**
+
+- Logistically very complex and costly
+
+---
+
+## Lecture 4: Measurement
+
+### Levels of measurement
+
+- Nominal/categorical
+  - Just labels
+  
+- Ordinal
+  - Categories that can be meaningfully ordered
+  
+- Interval
+  - Not only can values be ordered from smallest to largest but the distances between each two adjacent values are the same
+  - No true zero point
+  
+- Ratio
+  - True zero point
+
+---
+
+## Lecture 4: Measurement
+
+### Validity
+
+- **External validity** - Generalisability and ecological validity
+
+- **Construct validity** - Extent to which a tool can be justifiably trusted to actually measure the construct it is supposed to measure
+
+### Reliability 
+
+- Ability of a measure to produce results that are an **accurate reflection** of the measured thing and **stable** over points of measurement
+
+---
+
+## Lecture 4: Variables
+
+- Characteristic whose value varies within a set of subjects of interest
+
+- With respect to study design we distinguish:
+  - **Predictor** variables - In experimental studies also called _independent_ variables
+  - **Outcome** variables - In experimental studies also called _dependent_ variables
+  
+### Variable types
+
+- **Continuous** - Can contain _any numerical value_ within a certain range
+
+- **Discrete** - Can only contain a discrete set of values
+
+- **Binary** - Can only contain one of two values
+
+---
+
+## Lecture 5: Open Science    
+
+Introduced open science and the replication crisis 
+
+- The concepts of replication and reproducibility 
+
+- Publication bias and some of it's sources
+
+- **Pre-registration** as a way to combat bias (publication bias, experimenter bias, and statistical bias)
+
+- How pre-registration works, and an example of a **registered report**
+
+
+---
+
+## Lecture 6: Samples, Populations, and Distributions
+
+.smaller[
+Samples and populations 
+
+- The relationship between samples and populations
+
+- Factors that influence whether a sample *resembles* the population (population variation, sample size)
+
+Distributions 
+
+- The binomial distribution
+
+- The normal distribution
+
+  - processes that produce normal distributions and processes that don't
+
+  - deviations from normal including skew and kurtosis
+
+Distributions and samples 
+
+- Normal distribution of sample means
+]
+
+---
+
+## Lecture 7: Descriptive statistics
+
+### Measures of _central tendency_
+
+- Central tendency is the **mid-point** of a variable or the "average" value
+  - **Mode**: the most frequent value
+  - **Median**: the mid-point if we sort our values from smallest to largest
+  - **Mean**: the centre of the distribution, such that the combined distances (deviations) of all the points add up to zero. 
+
+### Measures of _spread_
+
+- Spread is the **amount variability** in the variable
+  - **Range**: the distance between smallest and largest value in the variable
+  - **IQR**: the distance between the 1<sup>st</sup> and 3<sup>rd</sup> quartile
+  - **Variance**: the average _squared_ deviation in the variable
+  - **Standard deviation**: the average deviation in the variable
+
+- Each measure has its properties, benefits, and drawback and is useful in different situations
+
+---
+
+## Lecture 7: The sampling distribution
+
+- We don't really care about samples, we care about populations
+- We have to rely on on samples because we don't have access to populations
+- Different samples can have different properties (*e.g.*, means, variances) **even though they are sampled from the same population**
+
+- The sampling distribution is the distribution of **a given statistic from all possible samples of the same size drawn from the same population**
+
+- The standard deviation of the sampling distribution is the **standard error**
+  - It quantifies the variability of a statistic from sample to sample
+  - Describes the uncertainty about the relationship between the sample statistic (*e.g.*, $\bar{x}$) and the population parameter (*e.g.*, $\mu$)
+  - The larger the sample, the smaller the _SE_
+  - More variable populations lead to larger *SE*s
+
+---
+
+### Lecture 8: Distributions, transformations
+
+- We talked about how we can think about the distributions of variables in terms of the **normal** curve
+- The **mean** and the **standard deviation** (_SD_) reflect the position and spread of this curve, respectively.
+- In a normal distribution, about 68% of all the values are concentrated within &pm;1 standard deviation to either side of the mean
+- **Transformations** are mathematical function that take data and do something to them
+  - **Linear transformations** can shift or stretch/squish variables but the don’t change the relative distances between individual values of a variable
+  - **Non-linear transformations**, such as exponentiation, do change the proportions of the transformed variables
+  - **Centring** shifts the centre (mean) of a variable to some arbitrary point; it's done using addition/subtraction
+  - **Scaling** changes the scale of the variable (_e.g._, from m to in); it's done using multiplication/division
+- _z_-transform consists in first mean-centring (setting mean to zero) a variable and then scaling it by its _SD_
+  - Resulting **_z_-scores** are interpreted as the number of _SD_ a given point is from the mean of the variable
+  - Useful for comparing across populations and variables because it puts variables on a _common scale_
+  
+---
+
+## Lecture 9: Tables and Plots
+
+- Keep them clear, legible, organised, well-formatted
+
+- Provide title and caption and, if need, notes explaining additional details
+
+- Always label your plot axes!
+
+- **Frequency plots** (bar plots and histograms) are good for visualising distributions of variables but rarely worth putting in your paper/report
+
+- Plots and tables should supplement body text, not repeat what's already there
+
+- There's no need to show the same thing in a table AND in a plot at the same time!
+
+---
+
+## Lecture 9: Tables and Plots
+
+<a href="https://paas.netlify.app/lectures/lec09/slides/#12">
+<img src="https://paas.netlify.app/lectures/lec09/slides/index_files/figure-html/unnamed-chunk-4-1.png" height="150px">
+</a>
+<a href="https://paas.netlify.app/lectures/lec09/slides/#13">
+<img src="https://paas.netlify.app/lectures/lec09/slides/index_files/figure-html/unnamed-chunk-5-1.png" height="150px">
+</a>
+<a href="https://paas.netlify.app/lectures/lec09/slides/#16">
+<img src="https://paas.netlify.app/lectures/lec09/slides/index_files/figure-html/unnamed-chunk-7-1.png" height="150px">
+</a>
+---
+
+## Lecture 9: Tables and Plots
+
+.pull-left[
+<a href="https://paas.netlify.app/lectures/lec09/slides/#21">
+<img src="https://paas.netlify.app/lectures/lec09/slides/index_files/figure-html/unnamed-chunk-11-1.png" height="150px">
+</a>
+<a href="https://paas.netlify.app/lectures/lec09/slides/#22">
+<img src="https://paas.netlify.app/lectures/lec09/slides/index_files/figure-html/unnamed-chunk-12-1.png" height="150px">
+</a>
+<a href="https://paas.netlify.app/lectures/lec09/slides/#24">
+<img src="https://paas.netlify.app/lectures/lec09/slides/index_files/figure-html/unnamed-chunk-13-1.png" height="150px">
+</a>
+]
+.pull-right[
+<a href="https://paas.netlify.app/lectures/lec09/slides/#26">
+<img src="https://paas.netlify.app/lectures/lec09/slides/index_files/figure-html/unnamed-chunk-15-1.png" height="150px">
+</a>
+<a href="https://paas.netlify.app/lectures/lec09/slides/#27">
+<img src="https://paas.netlify.app/lectures/lec09/slides/index_files/figure-html/unnamed-chunk-16-1.png" height="150px">
+</a>
+<a href="https://paas.netlify.app/lectures/lec09/slides/#28">
+<img src="https://paas.netlify.app/lectures/lec09/slides/index_files/figure-html/unnamed-chunk-17-1.png" height="150px">
+</a>
+]
+
+---
+## Lecture 10: Introduction to probability
+
+.smaller[
+- Different view of probability: Classical, frequency, and subjective 
+
+- Probability as counting up how many outcomes (out of all possible outcomes) lead to a specific event
+
+Calculations with probability
+
+- Addition law 
+  - Mutuality exclusive events: Prob of at least one occurring is just the sum of the individual probabilities  [P(A &cup; B) = P(A) + P(B)]<sup>1</sup>
+  - Not mutuality exclusive events: Prob of at least one occurring is the sum of the individual probabilities minus the prob of both occurring [P(A &cup; B) = P(A) + P(B) - P(A &cap; B)]<sup>1</sup>
+
+- Multiplication law 
+    - Two independent events: Prob of both occurring is the product of their probabilities [P(A &cap; B) = P(A) &times; P(A)]<sup>1</sup>
+
+]
+
+.footnote[<sup>1</sup>Note: I didn't cover this notation, but I've just included it for people that might find it useful. You **don't** need to know it]
+
+---
+
+## Lecture 10: Introduction to probability
+
+Conditional probabilities
+
+- For dealing events that aren't independent
+
+- Probability a particular event **depends** on whether another event **has** or **has not** occurs 
+
+Working with conditional probabilities
+
+- Basics of Bayes
+
+- Reasoning with Bayes: Taking into prior probabilities
+
+- Reasoning with Bayes: P(A|B)<sup>1</sup> is not necessarily equal to P(B|A)<sup>1</sup>
+
+- Fallacies and pitfalls of conditional probabilities: Knowing when you want P(A|B) and when you want P(B|A)
+
+.footnote[<sup>1</sup>I did use this notation so you **do** need to know it]
+
+
+
+
+
+---
+
+## Exam format 
+
+- 150 minutes (2 hours + 30 minutes for dealing with technical issues) + any extra time for special arrangements
+
+- 50 *multi-choice* questions 
+
+- Online via Canvas
+
+- Must be completed within a 24 hour period
+
+- If you have technical difficulties then it is possible to make a second attempt, **but don't use your second attempt as a chance to get a higher mark**... you'll get the second mark **not the higher of the two**!
+
+- Worth 50% of your final grade
+
+- Only covers context from the **lectures**. Nothing on **R**/**RStudio**
+
+- There will be a sample exam on Canvas in the next few days
+
+---
+
+### Exam format
+
+.smaller[
+**Section 1:** Basic concepts 
+
+  - 20 questions that cover the basic core concepts from the lectures. 
+
+**Section 2:** Interpreting research output 
+
+  - 25 questions where you'll be asked to interpret the results of 3 studies (2 &times; 10 questions, 1 &times; 5 questions)
+
+  - These questions might relate directly to the data
+
+  - Or they might cover similar concepts to Section 1, but with the study providing the context for the question 
+
+  - Might involve some basic calculations 
+
+**Section 3:** Identifying design flaws 
+
+  - 5 questions 
+
+  - Provided with a *brief* study description and you'll need to identify the fundamental flaw in the study that invalidates the researchers interpretation
+
+]
+
+

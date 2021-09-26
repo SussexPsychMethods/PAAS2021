@@ -1,0 +1,4 @@
+output_folder: worksheets
+deploy_folder: public/worksheets/02_project_files
+build_command: R -e "rmarkdown::render('index.Rmd')"
+repository: https://github.com/SussexPsychMethods/paas2020.git

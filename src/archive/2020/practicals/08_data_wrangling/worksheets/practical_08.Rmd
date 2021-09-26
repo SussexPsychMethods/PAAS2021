@@ -1,0 +1,413 @@
+---
+title: "Data wrangling with `dplyr`"
+output: html_document
+---
+
+```{r setup,echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = TRUE, highlight = TRUE)
+
+# I've loaded the packages for you!
+library("paas")
+library("dplyr")
+
+```
+
+# How to use this worksheet
+
+To view a nicely formatted version of this document press <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>k</kbd> (windows) or <kbd>command</kbd> + <kbd>shift</kbd> + <kbd>k</kbd> (macOS). You'll have to enter your answers into this this document, but it might be easier to read the formatted version.
+
+In the tutorial you learned how to use `dplyr::select()`, `dplyr::filter()`, and `dplyr::mutate()`. This practical worksheet will give you a chance to put those skills in to practise. 
+
+The tutorial focused on **learning the syntax** for these functions, and the practical worksheet will focus on developing your problem solving skills. In this worksheet you'll be presented with a series of problem that you'll have to solve using `dplyr::select()`, `dplyr::filter()`, and `dplyr::mutate()`. You'll be solving the problems by writing the code into the code chunks. Many of the code chunks will already have code in them to help you get started, so make sure you don't delete it!
+
+
+## Finding the shortest character (difficulty rating: Medium)
+
+You have some data about the characters in the Star Wars films stored in `starwars2`.
+
+```{r}
+starwars2
+```
+
+You'd like to know the name of the shortest Star Wars character. You know that there is only one character with a height less than 70. Can you find that character's name?
+
+```{r}
+## WRITE YOUR ANSWER IN HERE
+
+sc1_1 <- dplyr::filter(.data = starwars2, ____ ) # replace ___ with the correct code
+sc1_1 # this will print out a tibble with the answer
+```
+
+You should now be able to see the answer in the variable called `sc1_1`. But this table contains a bunch of extra information that we don't need (e.g., the mass and the birth year of the character). Let us tidy up the table. It's will currently look something like this:
+
+```
+# A tibble: 1 x 4
+  name  height  mass birth_year
+  <chr>  <int> <dbl>      <dbl>
+1 Yoda      66    17        8966
+```
+
+Fill in the code below so that your output looks something like this:
+
+```
+# A tibble: 1 x 2
+  name  height
+  <chr>  <int>
+1 Yoda      66
+```
+
+```{r}
+## WRITE YOUR ANSWER IN HERE
+
+dplyr::select(.data = sc1_1, ___)  # replace ___ with the correct code
+```
+
+Great job making it to the end of the first scenario!
+
+## Tidying up the `penguins` dataset (Difficulty rating: Easy)
+
+I this scenario we'll be working with the `penguins2` data set. This dataset is based on the `penguins` dataset that we used in the tutorials, but I've removed a few row's contains `NA`s to make it easier to work with. 
+
+If you run the code chunk below, you'll be able to see how I've done this. 
+
+```{r}
+# make things tidy
+penguins2 <- dplyr::filter(.data = palmerpenguins::penguins, !is.na(sex), !is.na(island), !is.na(species), !is.na(bill_depth_mm))
+
+# show the data
+penguins2
+```
+
+I this scenario you're working as a penguin researcher. You'd like to analyse the data in the `penguins2` dataset, but at the moment it just contains too much irrelevant information. You don't need any of the information about bill length and flipper length. In fact, all you need is penguin's sex, their species, the island they're from, their mass, and the year the measurement was taken in. Tidy up the `penguins2` so it just has the information you need. You'll assign the output to a object called `tidypenguins`.
+
+```{r}
+## WRITE YOUR ANSWER IN HERE
+
+<- dplyr::select(.data = penguins2, )
+tidypenguins
+```
+
+Once you're done the output from `tidypenguins` should look something like this:
+
+```
+# A tibble: 333 x 5
+   species island    sex    body_mass_g  year
+   <fct>   <fct>     <fct>        <int> <int>
+ 1 Adelie  Torgersen male          3750  2007
+ 2 Adelie  Torgersen female        3800  2007
+ 3 Adelie  Torgersen female        3250  2007
+ 4 Adelie  Torgersen female        3450  2007
+ 5 Adelie  Torgersen male          3650  2007
+ 6 Adelie  Torgersen female        3625  2007
+ 7 Adelie  Torgersen male          4675  2007
+ 8 Adelie  Torgersen female        3200  2007
+ 9 Adelie  Torgersen male          3800  2007
+10 Adelie  Torgersen male          4400  2007
+# … with 323 more rows 
+```
+  
+## Tidying up `tidypenguins` (Difficulty rating: Easy)
+
+This is just a continuation of the previous scenario. You've decided that the `tidypenguins` data still contains too much irrelevant information. You want to tidy it up further. You've decided that you only need to the data from the female penguins. Tidy up `tidypenguins` so it just has the information you need. You'll assign the output to an object called `tidypenguins_female`
+
+```{r}
+## WRITE YOUR ANSWER IN HERE
+
+tidypenguins_females <- dplyr::filter(.data = tidypenguins, sex _____)
+tidypenguins_females
+```
+
+Once you're done the output from `tidypenguins_females` should look something like this:
+
+```
+# A tibble: 165 x 5
+   species island    sex    body_mass_g  year
+   <fct>   <fct>     <fct>        <int> <int>
+ 1 Adelie  Torgersen female        3800  2007
+ 2 Adelie  Torgersen female        3250  2007
+ 3 Adelie  Torgersen female        3450  2007
+ 4 Adelie  Torgersen female        3625  2007
+ 5 Adelie  Torgersen female        3200  2007
+ 6 Adelie  Torgersen female        3700  2007
+ 7 Adelie  Torgersen female        3450  2007
+ 8 Adelie  Torgersen female        3325  2007
+ 9 Adelie  Biscoe    female        3400  2007
+10 Adelie  Biscoe    female        3800  2007
+# … with 155 more rows
+```
+
+## Calculating z-scores, Part 1 (Difficulty rating: Medium)
+
+This scenario also follows on from the previous one. It's the first one of three. Each one is going to be one step in the process of calculating a z-scores for the mass of the penguins. 
+
+Just to refresh your memory on what a z-score is: You take each measurement, you subtract the mean of all the measurements, and you divide the result by the standard deviation. We'll do each one of the these steps separately to make it a little easier.
+
+In the first step, we'll just add a column to our `tidypenguins_females` data that will hold the mean of the `body_mass_g` column. To calculate the mean you'll need to use the `mean()` functions together with `dplyr::mutate()`
+
+```{r}
+## WRITE YOUR ANSWER IN HERE
+
+tidypenguins_females <- dplyr::mutate(.data = tidypenguins_females, ____)
+tidypenguins_females
+```
+
+When you're done, the output should look something like this:
+
+```
+# A tibble: 165 x 6
+   species island    sex    body_mass_g  year mean_body_mass
+   <fct>   <fct>     <fct>        <int> <int>          <dbl>
+ 1 Adelie  Torgersen female        3800  2007          3862.
+ 2 Adelie  Torgersen female        3250  2007          3862.
+ 3 Adelie  Torgersen female        3450  2007          3862.
+ 4 Adelie  Torgersen female        3625  2007          3862.
+ 5 Adelie  Torgersen female        3200  2007          3862.
+ 6 Adelie  Torgersen female        3700  2007          3862.
+ 7 Adelie  Torgersen female        3450  2007          3862.
+ 8 Adelie  Torgersen female        3325  2007          3862.
+ 9 Adelie  Biscoe    female        3400  2007          3862.
+10 Adelie  Biscoe    female        3800  2007          3862.
+# … with 155 more rows
+```
+
+## Calculating z-scores, Part 2 (Difficulty rating: Medium)
+
+In the next step, we'll add another column that contains the standard deviation of the `body_mass_g` column. We'll do the same as the step above, but instead we'll use the `sd()` function to calculate the standard deviation. 
+
+
+```{r}
+## WRITE YOUR ANSWER IN HERE
+
+tidypenguins_females <- dplyr::mutate(.data = tidypenguins_females, sd_body_mass = sd(___))
+tidypenguins_females
+```
+
+When you're done the output should look something like this:
+
+```
+# A tibble: 165 x 7
+   species island    sex    body_mass_g  year mean_body_mass sd_body_mass
+   <fct>   <fct>     <fct>        <int> <int>          <dbl>        <dbl>
+ 1 Adelie  Torgersen female        3800  2007          3862.         666.
+ 2 Adelie  Torgersen female        3250  2007          3862.         666.
+ 3 Adelie  Torgersen female        3450  2007          3862.         666.
+ 4 Adelie  Torgersen female        3625  2007          3862.         666.
+ 5 Adelie  Torgersen female        3200  2007          3862.         666.
+ 6 Adelie  Torgersen female        3700  2007          3862.         666.
+ 7 Adelie  Torgersen female        3450  2007          3862.         666.
+ 8 Adelie  Torgersen female        3325  2007          3862.         666.
+ 9 Adelie  Biscoe    female        3400  2007          3862.         666.
+10 Adelie  Biscoe    female        3800  2007          3862.         666.
+# … with 155 more rows
+```
+
+
+## Calculating z-scores, Part 3 (Difficulty rating: Medium)
+
+In the final step, we'll add another column that will hold the z-score itself. Remember, to calculate the z-score, you'll take the body_mass_g column, you'll subtract the column that holds the mean, and you'll divide by the column that holds the standard deviation. For this we'll just need to use the `dplyr::mutate()` function. 
+
+
+```{r}
+## WRITE YOUR ANSWER IN HERE
+
+tidypenguins_females <- dplyr::mutate(.data = tidypenguins_females, z_score = _____)
+tidypenguins_females
+```
+
+When you're done, the output should look something like this:
+
+```
+# A tibble: 165 x 8
+   species island    sex   body_mass_g  year mean_body_mass sd_body_mass z_score
+   <fct>   <fct>     <fct>       <int> <int>          <dbl>        <dbl>   <dbl>
+ 1 Adelie  Torgersen fema…        3800  2007          3862.         666. -0.0935
+ 2 Adelie  Torgersen fema…        3250  2007          3862.         666. -0.919 
+ 3 Adelie  Torgersen fema…        3450  2007          3862.         666. -0.619 
+ 4 Adelie  Torgersen fema…        3625  2007          3862.         666. -0.356 
+ 5 Adelie  Torgersen fema…        3200  2007          3862.         666. -0.994 
+ 6 Adelie  Torgersen fema…        3700  2007          3862.         666. -0.244 
+ 7 Adelie  Torgersen fema…        3450  2007          3862.         666. -0.619 
+ 8 Adelie  Torgersen fema…        3325  2007          3862.         666. -0.807 
+ 9 Adelie  Biscoe    fema…        3400  2007          3862.         666. -0.694 
+10 Adelie  Biscoe    fema…        3800  2007          3862.         666. -0.0935
+# … with 155 more rows
+```
+
+## Finding the character's BMI (Difficulty rating: Hard)
+
+In this scenario we'll again be working with the `starwars2` data set. You'd like to know which Star Wars character has the highest Body Mass Index—for the purposes on this problem we'll define Body Mass Index as height divided by weight. Solving this problem will take three steps, but all you'll need to use are the `dplyr::mutate()`, `dplyr::filter()` functions  and then the `max()`. 
+
+Before you try writing any code try thinking through the problem in plain English. What do you need to do in Step 1, Step 2, and Step 3.
+
+Write out your steps here:
+(If you get stuck then scroll right to the bottom of this document to find some hints)
+
+Step 1:
+
+Step 2:
+
+Step 3:
+
+Once you've written out the steps then you can try filling in the code below. 
+
+
+```{r}
+## WRITE YOUR ANSWER IN HERE
+
+sc2_1 <- 
+
+```
+
+
+```{r}
+## WRITE YOUR ANSWER IN HERE
+
+sc2_2 <- 
+
+```
+
+```{r}
+## WRITE YOUR ANSWER IN HERE
+
+sc2_3 <- 
+```
+
+If you managed to solve the problem correctly then your final output should look something like the output below. As long as you have one row with the name `Wicket Systri Warrick` then you've managed to solve the problem correctly. 
+
+```
+## # A tibble: 1 x 6
+##   name                  height  mass birth_year   bmi max_bmi
+##   <chr>                  <int> <dbl>      <dbl> <dbl>   <dbl>
+## 1 Wicket Systri Warrick     88    20          8   4.4     4.4
+```
+
+## Helping a researcher! (Difficulty rating: Very hard!)
+
+In this scenario you're working as a research assistant for a researcher in the department. You've been given a data set called `survey_data` and your job is to tidy up this data set. 
+
+```{r}
+## VIEW THE DATA
+
+survey_data
+```
+
+This will take a few steps:
+
+1. First, the data set contains 10 different measures, but most of these aren't needed for research. You've been told to produce a data set that only has the following measures and variables
+  - the participant ID code (`id_code`)
+  - the participant gender (`gender`)
+  - Maudsley Addiction Profile (`map`)
+  - Leeds Dependence Questionnaire (`ldq`)
+  - Personal Drinking Questionnaire (`pdq`)
+
+2. Second, the data set contains data from both male `M` and female `F` participants. However, the researcher has said that they only want the data from the male participants. 
+
+3. Finally, the researcher has said that they want to **exclude** any participants that have a score of the Maudsley Addiction Profile of 40 or higher.
+
+You'll have to try solve this one yourself, but if you get stuck then you can scroll to the end of this document 
+
+When you're done the final result should look something like this:
+
+```
+## # A tibble: 9 x 5
+##   id_code gender   map   ldq   pdq
+##   <chr>   <chr>  <dbl> <dbl> <dbl>
+## 1 s04     M         20    33    16
+## 2 s07     M         28     6    11
+## 3 s10     M         22    12    25
+## 4 s11     M         23    37    36
+## 5 s12     M         37     9    23
+## 6 s15     M         34    35    24
+## 7 s17     M         13    29    21
+## 8 s18     M         23    34    33
+## 9 s25     M         29    40    36s
+```
+
+```{r} 
+## WRITE YOUR ANSWER IN HERE STEP 1
+
+sc3_1 <- 
+```
+
+```{r}
+## WRITE YOUR ANSWER IN HERE STEP 2
+
+sc3_2 <- 
+```
+
+```{r} 
+## WRITE YOUR ANSWER IN HERE STEP 3
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Hints
+## Finding the character’s BMI
+
+One way to solve this problem would be as follows:
+
+Step 1: Add a new column that holds the BMI values. `dplyr::mutate()` will come in handy for this. 
+
+Step 2: Add a new column that holds the maximum BMI value. The `max()` function will be useful here together with the column that you just created in Step 1.
+
+Step 3: The character with the maximum BMI will be on the row where the value in the bmi and the value in the maximum bmi column are the same. 
+
+
+## Helping a researcher!
+
+Step 1: You'll need to use the `dplyr::select()` function
+
+Step 2: This requires the `dplyr::filter()` function.
+
+Step 3: This will also require the `dplyr::filter()` function. But this time you'll been dealing with a number. Remember the `dplyr::filter()` function **keeps** rows, but the task requires you to **exclude** rows. 
+
+
+
+
+
+
+

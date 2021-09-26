@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game of Life</title>
+</head>
+<style>
+    .Board {
+    position: relative;
+    margin: 0 auto;
+    background-color: #000;
+    background-image:
+        linear-gradient(#333 1px, transparent 1px),
+        linear-gradient(90deg, #333 1px, transparent 1px);
+}
+
+.Cell {
+    background: #ccc;
+    position: absolute;
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+.button {
+    margin-left: 12px;
+    cursor: pointer;
+}
+</style>
+<body>
+    <div id="app"></div>
+    <script src="bundle.js"></script>
+</body>
+</html>

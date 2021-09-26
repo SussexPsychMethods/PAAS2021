@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Grouping, summarising, and piping</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.5/header-attrs.js"></script>
+    <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+    <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+    <meta name="description" content="In this practical we&#39;ll learn how to group data, summarise data, and use pipes `%&gt;%` to chain operations together"/>
+    <meta week="10"/>
+    <meta content_type="intro_slides"/>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Grouping, summarising, and piping
+## Practical 9
+
+---
+
+
+layout: true
+&lt;div style="text-align:right; height:1em; margin-bottom:-.5em;margin-top:-.5em; margin-right:-2.5em"&gt;pin: ![:header] &lt;/div&gt;
+
+
+
+&lt;style type="text/css"&gt;
+
+  kbd {
+      padding: 2px 4px;
+      font-size: 90%;
+      color: rgb(var(--font-col));
+          background-color: #efefef;
+      border-radius: 3px;
+      box-shadow: none;
+      border: solid 1px;
+  }
+&lt;/style&gt;
+
+
+
+---
+
+
+# Attendance pin
+
+![:attend]
+
+---
+## Plan for today
+
+- Questions about last week's practical 
+
+- More on manipulating and transforming data with `dplyr`
+
+  - the `summarise()` function
+
+  - the `group_by()` function
+
+- Chaining together operations with `%&gt;%`
+
+
+---
+
+## Recap of `dplyr::mutate()`
+
+Last we say how we could use the `dplyr::mutate()` function to add a new column that held an average of another column. 
+
+
+Let's say we wanted to create a new column called `average_price`, which contains the average of the values in the price column. 
+
+
+
+.pull-left[
+Our original tibble with fruit prices
+
+
+```
+## # A tibble: 3 x 2
+##   item    price
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 Apples    1  
+## 2 Bananas   2  
+## 3 Oranges   2.4
+```
+]
+
+
+.pull-right[
+Our tibble with the average price column
+
+
+```
+## # A tibble: 3 x 3
+##   item    price average_price
+##   &lt;chr&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+## 1 Apples    1             1.8
+## 2 Bananas   2             1.8
+## 3 Oranges   2.4           1.8
+```
+]
+
+We'd run this command:
+
+```r
+dplyr::mutate(.data = fruit_prices, average_price = mean(price))
+```
+
+---
+
+## The `dplyr::summarise()` function
+
+But let's say that we want to collapse our table down to make a summary table.
+
+That is, we don't want the whole table. We just one row with the average
+
+.pull-left[
+Our tibble with the average price column
+
+
+```
+## # A tibble: 3 x 3
+##   item    price average_price
+##   &lt;chr&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+## 1 Apples    1             1.8
+## 2 Bananas   2             1.8
+## 3 Oranges   2.4           1.8
+```
+]
+
+
+.pull-right[
+A summary table that only has the average of the price column 
+
+
+```
+## # A tibble: 1 x 1
+##   average_price
+##           &lt;dbl&gt;
+## 1           1.8
+```
+]
+
+To do this, we'd use the the `dplyr::summarise()` function
+
+```r
+dplyr::summarise(.data = fruit_prices, average_price = mean(price))
+```
+
+Note the syntax is identical to `dplyr::mutate()`, but just with the word `mutate()` replaced with the word `summarise()`
+
+---
+
+## Adding lots of summarises 
+
+In the previous example we just added a single summary column, but we can add multiple ones
+
+.pull-left[
+
+```
+## # A tibble: 3 x 2
+##   item    price
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 Apples    1  
+## 2 Bananas   2  
+## 3 Oranges   2.4
+```
+]
+
+
+.pull-right[
+A summary table that only has the average of the price column 
+
+
+```
+## # A tibble: 1 x 2
+##   mean_price sd_price
+##        &lt;dbl&gt;    &lt;dbl&gt;
+## 1        1.8    0.721
+```
+]
+
+To do this, we'd use the the `dplyr::summarise()` function
+
+```r
+dplyr::summarise(.data = fruit_prices, mean_price = mean(price), 
+                                       sd_price = sd(price))
+
+```
+
+If you know how to use the `dplyr::mutate()` function then the `dplyr::summarise()` function is easy to learn
+
+---
+
+## Grouping and summarising
+
+The `dplyr::summarise()` function is that useful **by itself**. It's real power comes when it's combined with `dplyr::group_by()`, which allows us to **group together rows** according to a **grouping variable**
+
+
+
+
+.pull-left[
+A tibble that hasn't been grouped
+
+```
+## # A tibble: 20 x 3
+##   id    condition    rt
+##   &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;
+## 1 sub01 inc        854.
+## 2 sub01 con        888.
+## 3 sub02 inc        943.
+## 4 sub02 con        813.
+## # … with 16 more rows
+```
+]
+
+.pull-right[
+A tibble that has been grouped by **condition**
+
+```
+## # A tibble: 20 x 3
+## # Groups:   condition [2]
+##   id    condition    rt
+##   &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;
+## 1 sub01 inc        854.
+## 2 sub01 con        888.
+## 3 sub02 inc        943.
+## 4 sub02 con        813.
+## # … with 16 more rows
+```
+]
+
+To **group** the tibble **by condition** we'd just run
+```r
+dplyr::group_by(.data = stroop, condition)
+```
+---
+
+### Working with grouped data
+
+
+Once we have grouped data, then we can calculate summaries **by group**. 
+
+.pull-left[
+A tibble grouped by condition 
+
+```
+## # A tibble: 20 x 3
+## # Groups:   condition [2]
+##   id    condition    rt
+##   &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;
+## 1 sub01 inc        854.
+## 2 sub01 con        888.
+## 3 sub02 inc        943.
+## 4 sub02 con        813.
+## # … with 16 more rows
+```
+]
+
+.pull-right[
+A summary of a grouped tibble
+
+```
+## # A tibble: 2 x 2
+##   condition mean_rt
+##   &lt;chr&gt;       &lt;dbl&gt;
+## 1 con          831.
+## 2 inc          865.
+```
+]
+
+To do this would take **two steps**...
+
+```r
+# First we group it!
+grouped_stroop_data &lt;- dplyr::group_by(.data = stroop, condition)
+
+# Then we summarise it!
+dplyr::summarise(.data = grouped_stroop_data, mean_rt = mean(rt))
+
+```
+
+---
+
+### Useful functions for summarises
+
+There are a few functions that are particularly useful for using with `dplyr::summarise()` (and  `dplyr::group_by()`)
+
+- `mean(..., na.rm = TRUE)` for working out the mean of a **column's values**
+
+- `sd(..., na.rm = TRUE)` for working out standard deviation of a **column's values** 
+
+- `n()` for counting the **numbers of rows** (in a group if the data is grouped)
+
+For the `mean()` and `sd()` we need to specify the **column name** we want to work out the mean or sd of
+
+If the column contains **missing values** then we can add `na.rm = TRUE` to ignore those missing values
+
+For the `n()` function you **don't** specify a column name, because *all the columns have the same number of rows* so any input would be redundant 
+
+---
+
+## Using `%&gt;%` to chain together steps
+
+The `%&gt;%` is called the **pipe operator**. We use it for **piping data around!**
+
+The `%&gt;%` doesn't come built in to `R` but it is part of a package called `magrittr`&lt;sup&gt;1&lt;/sup&gt;
+
+To be able to access the `%&gt;%` operator you first need to install `magrittr`
+
+```r
+install.packages("magrittr")
+```
+
+And then load it 
+
+```r
+library("magrittr")
+```
+
+
+.footnote[&lt;sup&gt;1&lt;/sup&gt;It's named after René Magritte, the Belgian surrealist painter who famous for the artwork [The Treachery of Images
+](https://en.wikipedia.org/wiki/The_Treachery_of_Images), which is picture of a pipe with the text "Ceci n'est pas une pipe" (translation: "This is not a pipe")]
+
+---
+
+## Using `%&gt;%` to chain together steps
+
+*The two step version*
+
+&lt;pre&gt;&lt;code&gt;
+&lt;span style="background-color:lightblue; font-weight:bold"&gt;grouped_stroop_data&lt;/span&gt; &lt;- dplyr::group_by(.data = stroop, condition)
+
+dplyr::summarise(.data = &lt;span style="background-color:lightblue; font-weight:bold"&gt;grouped_stroop_data&lt;/span&gt;, mean_rt = mean(rt))
+&lt;/code&gt;&lt;/pre&gt;
+
+
+The **output** from *step 1* serves as the **input** for *step 2* 
+
+*The one step version*
+
+&lt;pre&gt;&lt;code&gt;
+dplyr::group_by(.data = stroop, condition) &lt;span style="background-color:lightgreen; font-weight:bold"&gt;%&gt;%&lt;/span&gt;
+      dplyr::summarise(.data = &lt;span style="background-color:lightblue; font-weight:bold"&gt;.&lt;/span&gt;, mean_rt = mean(rt))
+&lt;/code&gt;&lt;/pre&gt;
+
+We don't **assign the output** from *step 1* to an object. Instead, we add a `%&gt;%` and then start writing out *step 2*, and we use `.` to indicate where the **output** from *step 1* should go
+
+The two steps now function *like a single command*
+
+---
+
+
+## Using `%&gt;%` to chain together steps
+
+You can chain together **any number of steps** and use any functions you want!
+
+You can also move the first input outside the first function and pipe that in too!
+
+Let's say you start off with something like this:
+
+
+```
+## # A tibble: 344 x 6
+##    species island    body_mass_g bill_length_mm sex     year
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;int&gt;          &lt;dbl&gt; &lt;fct&gt;  &lt;int&gt;
+##  1 Adelie  Torgersen        3750           39.1 male    2007
+##  2 Adelie  Torgersen        3800           39.5 female  2007
+##  3 Adelie  Torgersen        3250           40.3 female  2007
+##  4 Adelie  Torgersen          NA           NA   &lt;NA&gt;    2007
+##  5 Adelie  Torgersen        3450           36.7 female  2007
+##  6 Adelie  Torgersen        3650           39.3 male    2007
+##  7 Adelie  Torgersen        3625           38.9 female  2007
+##  8 Adelie  Torgersen        4675           39.2 male    2007
+##  9 Adelie  Torgersen        3475           34.1 &lt;NA&gt;    2007
+## 10 Adelie  Torgersen        4250           42   &lt;NA&gt;    2007
+## # … with 334 more rows
+```
+
+---
+
+And you want something like this:
+
+
+```
+## # A tibble: 3 x 5
+##   species   avg_mass sd_mass     n    se
+##   &lt;fct&gt;        &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
+## 1 Adelie       3369.    269.    73  31.5
+## 2 Chinstrap    3527.    285.    34  48.9
+## 3 Gentoo       4680.    282.    58  37.0
+```
+
+The **mean**, the **standard deviation**, the **number of penguins**, and the **standard error of the mean** for the **females** of each of each **species**
+
+```r
+penguins %&gt;% 
+      dplyr::filter(.data = ., sex == 'female') %&gt;%  
+      dplyr::group_by(.data = ., species) %&gt;%  
+      summarise(.data = .,  
+            avg_mass = mean(body_mass_g),
+            sd_mass = sd(body_mass_g), 
+            n = n()) %&gt;%  
+      mutate(.data = ., se = sd_mass/sqrt(n)) 
+```
+
+This seems **very complicated now** but once you get used to *breaking things down into steps joined with `%&gt;%`* it will start to look easier
+
+---
+
+And you want something like this:
+
+
+```
+## # A tibble: 3 x 5
+##   species   avg_mass sd_mass     n    se
+##   &lt;fct&gt;        &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
+## 1 Adelie       3369.    269.    73  31.5
+## 2 Chinstrap    3527.    285.    34  48.9
+## 3 Gentoo       4680.    282.    58  37.0
+```
+
+The **mean**, the **standard deviation**, the **number of penguins**, and the **standard error of the mean** for the **females** of each of each **species**
+
+```r
+penguins %&gt;% 
+      dplyr::filter(.data = ., sex == 'female') %&gt;% # filter for females 
+      dplyr::group_by(.data = ., species) %&gt;%  # group by species
+      summarise(.data = .,  # work out summarises
+            avg_mass = mean(body_mass_g), # the mean
+            sd_mass = sd(body_mass_g), # the sd
+            n = n()) %&gt;%  # the count
+      mutate(.data = ., se = sd_mass/sqrt(n)) # calculate the standard error
+```
+
+This seems **very complicated now** but once you get used to *breaking things down into steps joined with `%&gt;%`* it will start to look easier
+
+---
+
+# Tips for using  `%&gt;%`
+
+There are two main tips for using `%&gt;%`
+
+- Build up pipelines *step by step* so you can keep track of what each transformation is doing 
+
+- You only ever need to make them as complex as you want to!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

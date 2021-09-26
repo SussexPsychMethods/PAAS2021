@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Data stuctures and assignment</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="PAAS" />
+    <meta name="description" content="Playing around with vectors and tibbles"/>
+    <meta week="06"/>
+    <meta content_type="intro_slides"/>
+    <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+    <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="css/katex.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Data stuctures and assignment
+## Practical 5
+### PAAS
+
+---
+
+
+
+
+
+
+
+
+
+
+
+## Today
+
+- Q&amp;A about last week's tutorial and practical
+
+- Assignment and data structures
+  - One-off commands vs scripts
+  - Vectors
+  - Tibbles
+
+- Attendance
+
+- Small group activity with worksheet
+
+---
+
+## Q&amp;A
+
+Any questions about the previous practical or tutorial?
+
+Ask via microphone or chat!
+
+---
+
+## One-off commands vs scripts
+
+- We use programming to achieve a task
+- This requires algorithmic thinking
+- Code is a sequence of steps that are *necessary* and *sufficient* for achieving the task at hand
+- This sequence is often included in a **script** and, in Rmd, can be broken down into separate **code chunks**
+
+- Sometimes we want to ask he computer to give us some info that isn't part of the algorithm
+  - Check that something worked right, do a quick calculation, visually inspect our data, *etc.*
+- Commands for these one-off tasks should not be part of the script/Rmd file
+- For one-off commands, we us the **console**
+
+
+---
+
+## Assignment
+
+- Objects we create in `R` (data, plots, tables...) can be stored in a part of the computer's memory called the `R` environment
+- Only way to store and modify objects in the `R` environment is using *assignment*, `name &lt;- command that creates an object`
+- Whatever we store in the environment will stay there until we restart or quit RStudio or clear the environment.
+
+
+.large[**Compare**]
+.pull-left[
+
+```r
+my_numbers &lt;- c(11, 4, 147)
+
+my_numbers / 2
+```
+
+```
+## [1]  5.5  2.0 73.5
+```
+
+- Half-numbers are not saved in the envir
+- They only get printed out and forgotten about
+]
+
+.pull-right[
+
+```r
+my_numbers &lt;- c(11, 4, 147)
+
+half_numbers &lt;- my_numbers / 2
+```
+
+- Half-numbers **are saved** in the envir
+- We can use `half_numbers` further down in our code
+]
+
+---
+
+## Assignment
+
+- **Once assigned, the name can be used in the same way as the object it represents**
+  - If it represents numbers, we can do maths with it
+  - We can use it in commands instead of the object it represents
+  
+
+```r
+my_numbers &lt;- c(11, 4, 147)
+
+half_numbers &lt;- my_numbers / 2
+```
+
+---
+
+## Vectors
+
+- Groupings of *elements*: numbers, character strings, logical values
+- Can be arbitrarily long (zero or more elements)
+- Can only contain **one type of element**
+- Created primarily with the `c()` function.
+
+
+```r
+more_numbers &lt;- c(my_numbers, -4321, 3.14)
+more_numbers
+```
+
+```
+## [1]    11.00     4.00   147.00 -4321.00     3.14
+```
+
+```r
+some_letters &lt;- c("A", "e", "X", "K", "r")
+c(some_letters, my_numbers)
+```
+
+```
+## [1] "A"   "e"   "X"   "K"   "r"   "11"  "4"   "147"
+```
+
+---
+
+## Tibbles
+
+- `R`'s version of spread sheets
+
+
+```r
+books
+```
+
+&lt;div data-pagedtable="false"&gt;
+  &lt;script data-pagedtable-source type="application/json"&gt;
+{"columns":[{"label":["en_title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["auth_surname"],"name":[2],"type":["chr"],"align":["left"]},{"label":["auth_fname"],"name":[3],"type":["chr"],"align":["left"]},{"label":["genre"],"name":[4],"type":["chr"],"align":["left"]},{"label":["year"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["pages"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["lang_orig"],"name":[7],"type":["chr"],"align":["left"]},{"label":["lang_copy"],"name":[8],"type":["chr"],"align":["left"]},{"label":["rating"],"name":[9],"type":["chr"],"align":["left"]},{"label":["read_orig"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"The Dispossessed","2":"Kroeber Le Guin","3":"Ursula","4":"Scifi novel","5":"1974","6":"319","7":"English","8":"English","9":"Great","10":"Yes"},{"1":"The Unbearable Lightness of Being","2":"Kundera","3":"Milan","4":"Novel","5":"1984","6":"344","7":"Czech","8":"Czech","9":"Very good","10":"Yes"},{"1":"Kafka on the Shore","2":"Murakami","3":"Haruki","4":"Novel","5":"2002","6":"505","7":"Japanese","8":"English","9":"Very good","10":"No"},{"1":"Purge","2":"Oksanen","3":"Sofi","4":"Novel","5":"2008","6":"390","7":"Finnish","8":"English","9":"Superb","10":"No"},{"1":"The Wall","2":"Sartre","3":"Jean-Paul","4":"Short stories","5":"1939","6":"245","7":"French","8":"French","9":"Good","10":"Yes"},{"1":"The Seven Good Years","2":"Keret","3":"Etgar","4":"Memoir, Short stories","5":"2013","6":"149","7":"English","8":"Slovak","9":"Good","10":"No"},{"1":"Ancillary Justice","2":"Leckie","3":"Ann","4":"Scifi novel","5":"2013","6":"386","7":"English","8":"English","9":"Very good","10":"Yes"},{"1":"Trainspotting","2":"Welsh","3":"Irvine","4":"Short stories, Novel","5":"1993","6":"345","7":"Scottish English","8":"Scottish English","9":"Great","10":"Yes"},{"1":"The Painted Bird","2":"Kosinski","3":"Jerzy","4":"Novel","5":"1965","6":"260","7":"English","8":"Polish","9":"NA","10":"NA"},{"1":"Written on the Body","2":"Winterson","3":"Jeanette","4":"Novel","5":"1992","6":"190","7":"English","8":"English","9":"Very good","10":"Yes"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+---
+
+## Tibbles
+
+- Each column is a vector and can be selected using `$`
+
+
+```r
+books$auth_surname
+```
+
+```
+##  [1] "Kroeber Le Guin" "Kundera"         "Murakami"        "Oksanen"        
+##  [5] "Sartre"          "Keret"           "Leckie"          "Welsh"          
+##  [9] "Kosinski"        "Winterson"
+```
+
+- Because each column is a vector, you can do anything with it that you can do with a vector.
+
+
+```r
+half_point &lt;- books$pages / 2
+half_point
+```
+
+```
+##  [1] 159.5 172.0 252.5 195.0 122.5  74.5 193.0 172.5 130.0  95.0
+```
+
+---
+
+## Attendance
+
+- Use the Sussex app or go to &lt;https://sussex.ombiel.co.uk/&gt;
+
+- Enter PIN
+
+---
+
+## Over to you!
+
+- Go to [Canvas &gt; PAAS &gt; Syllabus &gt; Week 4 &gt; Practical &gt; Worksheet](https://canvas.sussex.ac.uk/courses/12684/pages/week-6)
+
+- Try working together as a group
+
+- Ask for help if you need to (bottom menu panel)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
