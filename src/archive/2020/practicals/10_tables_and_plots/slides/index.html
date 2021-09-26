@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Table and figures with kbl() and ggplot()</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="PAAS" />
+    <meta name="description" content="Creating pretty tables and plots in R the clever way."/>
+    <meta week="11"/>
+    <meta content_type="intro_slides"/>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="css/katex.min.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Table and figures with <code>kbl()</code> and <code>ggplot()</code>
+## Practical 10
+### PAAS
+
+---
+
+
+
+
+
+
+
+&lt;script type="text/javascript"&gt;
+const urlParams = new URLSearchParams(window.location.search);
+const pin = urlParams.get('pin') || ''
+const email = urlParams.get('email') || ''  
+
+if (pin != '') {
+    const bodySlides = document.querySelectorAll(".remark-slide-content:not(.title-slide)")
+    for (i = 0; i &lt; bodySlides.length; i++) {
+      let footer = document.createElement("DIV")
+      footer.classList.add("bottom-msg")
+      footer.innerHTML = "Session PIN: " + pin
+      if (email != '') {
+        footer.innerHTML = footer.innerHTML + "; In case of issues contact " + email + "@sussex.ac.uk"
+      }
+      bodySlides[i].appendChild(footer)
+    }
+}
+
+&lt;/script&gt;
+
+
+
+
+
+
+## Today
+
+- Q&amp;A about last week's tutorial and practical
+
+- Tables with the `kableExtra` package
+
+- Basics of plotting with the `ggplot2` package
+
+- Small group activity with worksheet
+
+---
+
+## Q&amp;A
+
+Any questions about the previous practical or tutorial?
+
+Ask via microphone or chat!
+
+---
+
+## Why tables in `R`?
+
+- Imagine you are making a summary table of the variables in your data
+
+- You calculate all the summary statistics and create a nice table
+
+- Then, you realise you forgot to exclude some observations that are messing up the numbers so you have to redo the table
+
+- If you created the table by hand, this is a big pain
+
+- If you created it with code, it's not even an issue!
+
+---
+
+## Why tables in `R`?
+
+
+
+
+
+
+```smol
+movies %&gt;%
+  dplyr::distinct(.data=., title, .keep_all = T) %&gt;% dplyr::select(-year) %&gt;%
+  
+  dplyr::summarise(.data=., dplyr::across(
+    tidyselect:::where(is.numeric),
+    list(n = function(x, na.rm=T) length(na.omit(x)),
+         min = min, max = max, mean = mean, sd = sd,
+         se = function(x, na.rm=T) sqrt(var(x, na.rm=na.rm)/length(na.omit(x)))), na.rm=T)) %&gt;%
+  tidyr::pivot_longer(data=., cols = tidyselect:::everything(), names_to=c("var", ".value"), names_pattern="(.*)_(.*)$") %&gt;%
+  dplyr::mutate(.data=., dplyr::across(is.numeric, big.num)) %&gt;%
+  dplyr::mutate(.data=., var = c("Average IMDB rating", "Number of IMDB ratings", "Estimated budget (USD)",
+                        "Opening week gross (USD)", "Runtime in minutes")) %&gt;%
+  kableExtra::kbl(x=., col.names = c("", "&lt;em&gt;N&lt;/am&gt;", "Min", "Max", "&lt;em&gt;M&lt;/em&gt;", "&lt;em&gt;SD&lt;/em&gt;", "&lt;em&gt;SEM&lt;/em&gt;"),
+                    caption ="Table 1 &lt;em&gt;Summary statistics of the measured continuous variables&lt;/em&gt;",
+                    format.args = list(big.mark=","), format = "html",
+                    digits = 2, escape = F, align = c("l", rep("r", ncol(movies) - 1))) %&gt;%
+  kableExtra::kable_styling(kable_input=.) %&gt;% kableExtra::row_spec(kable_input=., 0, align = "c")
+```
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Table 1 &lt;em&gt;Summary statistics of the measured continuous variables&lt;/em&gt;
+&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;text-align: center;"&gt;  &lt;/th&gt;
+   &lt;th style="text-align:right;text-align: center;"&gt; &lt;em&gt;N &lt;/em&gt;
+&lt;/th&gt;
+   &lt;th style="text-align:right;text-align: center;"&gt; Min &lt;/th&gt;
+   &lt;th style="text-align:right;text-align: center;"&gt; Max &lt;/th&gt;
+   &lt;th style="text-align:right;text-align: center;"&gt; &lt;em&gt;M&lt;/em&gt; &lt;/th&gt;
+   &lt;th style="text-align:right;text-align: center;"&gt; &lt;em&gt;SD&lt;/em&gt; &lt;/th&gt;
+   &lt;th style="text-align:right;text-align: center;"&gt; &lt;em&gt;SEM&lt;/em&gt; &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Average IMDB rating &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4,468 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.37 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.02 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.02 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Number of IMDB ratings &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4,468 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5,003 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.03×10&lt;sup&gt;6&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.31×10&lt;sup&gt;4&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.23×10&lt;sup&gt;5&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1844.18 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Estimated budget (USD) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2,170 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.56×10&lt;sup&gt;8&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.96×10&lt;sup&gt;7&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.09×10&lt;sup&gt;7&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.09×10&lt;sup&gt;6&lt;/sup&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Opening week gross (USD) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2,842 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 63 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.57×10&lt;sup&gt;8&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.14×10&lt;sup&gt;7&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.52×10&lt;sup&gt;7&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.73×10&lt;sup&gt;5&lt;/sup&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Runtime in minutes &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4,387 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 45 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 321 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 109.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.31 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+
+## Why tables in `R`?
+
+
+
+```smol
+movies %&gt;%
+  dplyr::distinct(.data=., title, .keep_all = T) %&gt;% dplyr::select(-year) %&gt;%
+* dplyr::filter(.data=., cert != "18") %&gt;%
+  dplyr::summarise(.data=., dplyr::across(
+    tidyselect:::where(is.numeric),
+    list(n = function(x, na.rm=T) length(na.omit(x)),
+         min = min, max = max, mean = mean, sd = sd,
+         se = function(x, na.rm=T) sqrt(var(x, na.rm=na.rm)/length(na.omit(x)))), na.rm=T)) %&gt;%
+  tidyr::pivot_longer(data=., cols = tidyselect:::everything(), names_to=c("var", ".value"), names_pattern="(.*)_(.*)$") %&gt;%
+  dplyr::mutate(.data=., dplyr::across(is.numeric, big.num)) %&gt;%
+  dplyr::mutate(.data=., var = c("Average IMDB rating", "Number of IMDB ratings", "Estimated budget (USD)",
+                        "Opening week gross (USD)", "Runtime in minutes")) %&gt;%
+  kableExtra::kbl(x=., col.names = c("", "&lt;em&gt;N&lt;/am&gt;", "Min", "Max", "&lt;em&gt;M&lt;/em&gt;", "&lt;em&gt;SD&lt;/em&gt;", "&lt;em&gt;SEM&lt;/em&gt;"),
+                    caption ="Table 1 &lt;em&gt;Summary statistics of the measured continuous variables&lt;/em&gt;",
+                    format.args = list(big.mark=","), format = "html",
+                    digits = 2, escape = F, align = c("l", rep("r", ncol(movies) - 1))) %&gt;%
+  kableExtra::kable_styling(kable_input=.) %&gt;% kableExtra::row_spec(kable_input=., 0, align = "c")
+```
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Table 1 &lt;em&gt;Summary statistics of the measured continuous variables&lt;/em&gt;
+&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;text-align: center;"&gt;  &lt;/th&gt;
+   &lt;th style="text-align:right;text-align: center;"&gt; &lt;em&gt;N &lt;/em&gt;
+&lt;/th&gt;
+   &lt;th style="text-align:right;text-align: center;"&gt; Min &lt;/th&gt;
+   &lt;th style="text-align:right;text-align: center;"&gt; Max &lt;/th&gt;
+   &lt;th style="text-align:right;text-align: center;"&gt; &lt;em&gt;M&lt;/em&gt; &lt;/th&gt;
+   &lt;th style="text-align:right;text-align: center;"&gt; &lt;em&gt;SD&lt;/em&gt; &lt;/th&gt;
+   &lt;th style="text-align:right;text-align: center;"&gt; &lt;em&gt;SEM&lt;/em&gt; &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Average IMDB rating &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3,617 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.97 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.02 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Number of IMDB ratings &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3,617 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5,003.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.03×10&lt;sup&gt;6&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.13×10&lt;sup&gt;4&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.30×10&lt;sup&gt;5&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2158.16 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Estimated budget (USD) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1,914 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.56×10&lt;sup&gt;8&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.29×10&lt;sup&gt;7&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.27×10&lt;sup&gt;7&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.21×10&lt;sup&gt;6&lt;/sup&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Opening week gross (USD) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2,499 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 72.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.57×10&lt;sup&gt;8&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.25×10&lt;sup&gt;7&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.65×10&lt;sup&gt;7&lt;/sup&gt; &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.29×10&lt;sup&gt;5&lt;/sup&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Runtime in minutes &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3,570 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 46.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 209 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 109.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20.16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.34 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+
+## Pretty tables in `R`
+
+- There are many ways of creating nicely formatter tables in `R`
+
+- Good packages to be aware of are
+  - Frederik Aust &amp; Marius Barth's [`papaja`](https://github.com/crsh/papaja)
+  - David Stanley &amp; Jeffrey Spence's [`apaTables`](https://dstanley4.github.io/apaTables/articles/apaTables.html)
+  - Marek Hlav&amp;aacute;&amp;ccaron;'s [`stargazer`](https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf)
+  - Kun Ren's [`formattable`](https://renkun-ken.github.io/formattable/)
+  - Hao Zhu's [`kableExtra`](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) - The one we'll talk about
+  
+- Here's a [good blog post](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/) about various table-making `R` packages
+
+
+---
+
+## Tables with `kableExtra`
+
+- Package `kableExtra` extends the `kable()` function from the `knitr` package
+
+  - `knitr` is the package that allows us to knit .Rmd files into documents
+  
+  - It works very well with RMarkdown documents
+  
+  - Easy to use, flexible, and powerful
+  
+- Most of the work consists of creating a `tibble` to give to the `kbl()` function
+
+  - Once we have the `tibble`, making a pretty table is very easy
+  
+---
+
+## Step 1: Prepare your `tibble`
+
+
+
+```r
+peng_table &lt;- palmerpenguins::penguins %&gt;%
+  dplyr::group_by(.data = ., species) %&gt;%
+  dplyr::summarise(.data = .,
+                   mean_mass = mean(body_mass_g, na.rm=T))
+
+
+
+
+
+peng_table
+```
+
+
+
+```
+## # A tibble: 3 x 2
+##   species   mean_mass
+##   &lt;fct&gt;         &lt;dbl&gt;
+## 1 Adelie        3701.
+## 2 Chinstrap     3733.
+## 3 Gentoo        5076.
+```
+
+
+
+  
+---
+
+## Step 2: Push tibble to `kbl()`
+
+
+
+```r
+peng_table &lt;- palmerpenguins::penguins %&gt;%
+  dplyr::group_by(.data = ., species) %&gt;%
+  dplyr::summarise(.data = .,
+                   mean_mass = mean(body_mass_g, na.rm=T)) %&gt;%
+* kableExtra::kbl(x = .)
+
+
+
+
+peng_table
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; species &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; mean_mass &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3700.662 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Chinstrap &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3733.088 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5076.016 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+  
+---
+
+## Step 3: Add formatting ` `
+
+
+
+```r
+peng_table &lt;- palmerpenguins::penguins %&gt;%
+  dplyr::group_by(.data = ., species) %&gt;%
+  dplyr::summarise(.data = .,
+                   mean_mass = mean(body_mass_g, na.rm=T)) %&gt;%
+  kableExtra::kbl(x = .,
+*                   digits = 2)
+
+
+
+peng_table
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; species &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; mean_mass &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3700.66 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Chinstrap &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3733.09 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5076.02 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+
+## Step *n* : More formatting... ` `
+
+
+
+```r
+peng_table &lt;- palmerpenguins::penguins %&gt;%
+  dplyr::group_by(.data = ., species) %&gt;%
+  dplyr::summarise(.data = .,
+                   mean_mass = mean(body_mass_g, na.rm=T)) %&gt;%
+  kableExtra::kbl(x = .,
+                    digits = 2,
+*                   col.names = c("Species", "Avg. body mass (g)"))
+
+
+peng_table
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Species &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Avg. body mass (g) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3700.66 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Chinstrap &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3733.09 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5076.02 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+
+## Step *n* : More formatting... ` `
+
+
+
+```r
+peng_table &lt;- palmerpenguins::penguins %&gt;%
+  dplyr::group_by(.data = ., species) %&gt;%
+  dplyr::summarise(.data = .,
+                   mean_mass = mean(body_mass_g, na.rm=T)) %&gt;%
+  kableExtra::kbl(x = .,
+                    digits = 2,
+                    col.names = c("Species", "Avg. body mass (g)"),
+*                   format.args = list(big.mark=","))
+
+peng_table
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Species &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Avg. body mass (g) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3,700.66 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Chinstrap &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3,733.09 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5,076.02 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+
+## Don't forget to add a caption! ` `
+
+
+
+```r
+peng_table &lt;- palmerpenguins::penguins %&gt;%
+  dplyr::group_by(.data = ., species) %&gt;%
+  dplyr::summarise(.data = .,
+                   mean_mass = mean(body_mass_g, na.rm=T)) %&gt;%
+  kableExtra::kbl(x = .,
+                    digits = 1,
+                    col.names = c("Species", "Avg. body mass (g)"),
+                    format.args = list(big.mark=","),
+*                   caption ="Table 2 Average body mass by species")
+peng_table
+```
+
+&lt;table&gt;
+&lt;caption&gt;Table 2 Average body mass by species&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Species &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Avg. body mass (g) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Adelie &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3,700.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Chinstrap &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3,733.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gentoo &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5,076.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+
+## The world's your kable
+
+- There is a lot more you can do to customise `kableExtra` tables to your liking, *e.g.*
+
+  - Align columns
+
+  - Highlight rows, columns, individual cells
+
+  - Add more complicated headers
+
+  - Change the overall appearance/theme of the table
+  
+- See [this post](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) for examples, tips, and tricks
+
+---
+
+## Plots with `ggplot2`
+
+- Using `R` (or other programming languages) to create plots has the same advantages over creating them "manually" as was the case with tables
+
+- There are multiple `R` packages for data visualisation
+
+- The most widely used, most powerful, and the one best integrated with the "tidyverse" is the [`ggplot2` package](https://ggplot2.tidyverse.org/) by Hadley Wickham
+
+- The package is pretty powerful as is but also has a [ton of extensions](https://exts.ggplot2.tidyverse.org/gallery/)
+
+---
+
+## Logic of creating `ggplot2` plots
+
+- `ggplot2` is based on data visualisation philosophy outlined in [The Grammar of Graphics](https://www.springer.com/gp/book/9780387245447) (that's what the `gg` stands for)
+
+  - Plots are built up layer by layer
+
+  - Variables are _mapped_ onto elements of the plot as so-called _aesthetics_
+
+  - Visualisation features (_e.g._, bars, boxes, points) are represented as "geometries", or _geoms_
+
+  - Overall appearance is modified using _thematic elements_
+  
+- That is a lot of jargon so let's have a look at examples to digest
+
+---
+
+## First we need data
+
+
+
+```r
+peng_smry &lt;- palmerpenguins::penguins %&gt;%
+  dplyr::group_by(.data = ., species) %&gt;%
+  dplyr::summarise(.data = .,
+                   m_mass = mean(body_mass_g, na.rm=T),
+                   sd = sd(body_mass_g, na.rm=T),
+                   n = dplyr::n()) %&gt;%
+  dplyr::mutate(se = sd/sqrt(n))
+peng_smry
+```
+
+
+
+```
+## # A tibble: 3 x 5
+##   species   m_mass    sd     n    se
+##   &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
+## 1 Adelie     3701.  459.   152  37.2
+## 2 Chinstrap  3733.  384.    68  46.6
+## 3 Gentoo     5076.  504.   124  45.3
+```
+
+
+
+---
+
+## Base layer with _aesthetics_
+
+
+
+```r
+*p &lt;- ggplot2::ggplot(data = peng_smry, aes(x = species, y = m_mass))
+
+
+
+
+p
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-13-1.png" height="300" /&gt;
+
+---
+
+## Add a _geom_ layer...
+
+
+
+```r
+p &lt;- ggplot2::ggplot(data = peng_smry, aes(x = species, y = m_mass)) +
+* geom_errorbar(aes(ymin = m_mass-se, ymax = m_mass+se), width = .1)
+  
+
+
+p  
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-14-1.png" height="300" /&gt;
+
+---
+
+## ...or even multiple layers
+
+
+
+```r
+p &lt;- ggplot2::ggplot(data = peng_smry, aes(x = species, y = m_mass)) +
+  geom_errorbar(aes(ymin = m_mass-se, ymax = m_mass+se), width = .1) +
+* geom_point(size = 3, colour = "steelblue")
+
+ 
+p
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-15-1.png" height="300" /&gt;
+
+---
+
+## Layer of axis labels
+
+
+
+```r
+p &lt;- ggplot2::ggplot(data = peng_smry, aes(x = species, y = m_mass)) +
+  geom_errorbar(aes(ymin = m_mass-se, ymax = m_mass+se), width = .1) +
+  geom_point(size = 3, colour = "steelblue") +
+* labs(x = "Penguin species", y = "Mean body mass in grammes")
+  
+p  
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-16-1.png" height="300" /&gt;
+
+---
+
+## Layer of thematic elements
+
+
+
+```r
+p &lt;- ggplot2::ggplot(data = peng_smry, aes(x = species, y = m_mass)) +
+  geom_errorbar(aes(ymin = m_mass-se, ymax = m_mass+se), width = .1) +
+  geom_point(size = 3, colour = "steelblue") +
+  labs(x = "Penguin species", y = "Mean body mass in grammes") +
+* theme_bw()
+p
+```
+
+&lt;img src="index_files/figure-html/unnamed-chunk-17-1.png" height="300" /&gt;
+
+---
+
+## `ggplot2` is versatile
+
+- You can create pretty much any plot you can imagine (and quite a few you probably wouldn't imagine)
+
+- You can customise any element of the plot
+  - colours
+  - shapes
+  - sizes
+  - axis ticks
+  - margins
+  - legends
+  - fonts...
+  
+- All plots in [Lecture 9](https://paas.netlify.app/lectures/lec09/slides/#12) were created using `ggplot2`
+
+- Check out [this gallery](https://www.r-graph-gallery.com/ggplot2-package.html) for inspiration and tips 
+
+---
+
+## `ggplot2` is NOT easy
+
+- Because the package is so versatile and powerful, it's also huge
+
+  - The optional `theme()` function alone that can be used to modify appearance can take more than 95 arguments!
+  
+- Mastering `ggplot2` takes time and practice but that's not our goal
+
+- Our goal is to learn enough so that you can create the kinds of plots you like and make them look nice
+
+  - The worksheet will guide you through the basics of the package
+  
+---
+
+## `ggplot2` tips
+
+- Try and understand the logic of layers, aesthetics, and geoms
+
+  - This will make code seem much less "random"
+  
+  - Worksheet will help
+
+- Look up things online
+  
+  - If you have a specific problem, type it into your web search engine and see if any of the results help
+  
+  - The package is pretty well documented with examples, so do check out the `ggplot2` website
+  
+- "Practice." ~ [_Arthur Rubinstein_](https://en.wikipedia.org/wiki/Arthur_Rubinstein) (probably not though)
+
+
+
+---
+
+## Over to you!
+
+- Go to [Canvas &gt; PAAS &gt; Syllabus &gt; Week 11 &gt; Practical &gt; Worksheet](https://canvas.sussex.ac.uk/courses/12684/pages/week-11)
+
+- There are tasks of various difficulty: try completeing at least the easy and medium ones while in the practica so that you can ask for help/clarification if you need to
+
+- Try working together as a group
+
+- Ask for help if you need to (bottom menu panel)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

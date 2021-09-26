@@ -1,0 +1,4 @@
+output_folder: handout
+deploy_folder: public/lectures/lec02
+build_command: R -e "rmarkdown::render('index.Rmd', quiet=TRUE, envir=new.env())"
+repository: https://github.com/SussexPsychMethods/paas2020.git

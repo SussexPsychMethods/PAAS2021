@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 10: Introduction to probability</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr Lincoln Colling" />
+    <script src="libs/header-attrs-2.5/header-attrs.js"></script>
+    <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+    <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+    <meta name="description" content="In this lecture we&#39;ll cover the basics &#10;of probability and how to reason about probabilities."/>
+    <meta week="10"/>
+    <meta content_type="slides"/>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Lecture 10: Introduction to probability
+## Reasoning with and about probability
+### Dr Lincoln Colling
+### Nov 30 2020
+
+---
+
+
+
+
+
+
+## Probability 
+
+What do we mean by "probability"?
+
+It might seem like there's an easy answer to this question, but there's _at least_ three senses of **probability**. 
+
+These different senses after often employed in different contexts, because they make more sense in some contexts and not others
+
+The three I'll cover are:
+
+- The **classical view** of probability
+
+- The **frequency view** of probability
+
+- The **subjective view** of probability
+
+---
+
+### The classical view
+
+The _classical view_ is often used in the context of games of chance like roulette and lotteries 
+
+We can sum it up as follows:
+
+&gt; If we have an (exhaustive) list of **events** that can be produce by some (exhaustive) list of equiprobable outcomes (the number of events and outcomes need not be the same), the the **probability** of a particular event occurring is just **the proportion of outcomes that produce that event**.
+
+To make it concrete we'll think about flipping coins. If we flip two coins the possible outcomes that can occur are:
+
+&gt; HH, HT, TH, TT
+
+---
+
+### The classical view
+
+If we're interested in a particular event—for example, the event of "obtaining at least one head from two flips"—then we just count the number of outcomes that produce that event.
+
+&gt; **HH**, **HT**, **TH**, TT 
+
+Three out of four outcomes would produce the event of "at least one head", so the probability is `\(\frac{3}{4}\)` or 0.75
+
+If you're viewing probability like this, it's very important to be clear about what counts as a possible outcome. 
+
+E.g., When playing the lottery, how many outcomes are there? 
+
+- Two outcomes? You pick the correct numbers or you don't? So the the probability of winning is `\(\frac{1}{2}\)`?
+
+- Of course not! There's 45,057,474 possible outcomes, and 1 leads to you winning with 45,057,473 leading to you not winning!
+
+---
+
+### The frequency view 
+
+When you take a frequency view of probability you're making a claim about **how often, over some long period of time** some event occurs. 
+
+- The frequency view is often the view that we take in science. If we wanted to assign a probability to the claim "drug X lowers depression", we can't just think of each possible outcomes that **could** occur when people take Drug X and then count up how many lead to lower depression and how many do not.
+
+- No way to make an exhaustive list of every possible outcome!
+
+- But we can run an experiment where we give Drug X and see whether it lowers depression. And we can repeat this many many times. Then we count up the proportion of experiments in which depression was lowered. 
+
+- That is then the probability that Drug X lowers depression.
+
+---
+
+### The subjective view (credences)
+
+Consider the following statement:
+
+&gt; The England cricket team will lose the upcoming test series against South Africa
+
+There is a sense in which you can assign a probability to this
+
+- But it isn't the classical kind—we can't just enumerate all the possible outcomes that lead to this event
+
+- Nor is it the frequency kind—we can't repeat the 2020/2021 cricket tour over and over and see how often England lose.
+
+When we talk about probability in this context mean something like _degree of belief_, _credence_, or _subjective probability_. 
+
+Probability in this context is the answer to the question “how sure are you that the England cricket team will lose the upcoming test series against South Africa?”
+
+---
+
+## Calculating with probability 
+
+The different views of probability have got to do with what the numbers **mean**, but once we have the have the numbers there's no real disagreements about how we do calculations with those numbers&lt;sup&gt;1&lt;/sup&gt;.
+
+**Some properties of probabilities**
+
+When we attach numbers to probabilities those numbers must range from 0 to 1
+
+- If an event has probability 0 then it is impossible
+
+- If an event has probability 1 then it is guaranteed
+
+These two simple rules can help us to check our calculations with probabilities. If we get a value more than 1 or a value less than 0, then something has gone wrong!
+
+
+.footnote[&lt;sup&gt;1&lt;/sup&gt; Probabilities don't always have to have **numbers** attached. There is a sense in which something can be **more probably** than something else with numbers being attached.]
+
+
+---
+
+### The addition law
+
+Whenever two events are _mutually exclusive_:
+
+  &gt; The probability that at least one them occurs is the **sum** of the their individual probabilities
+
+If we flip a coin, one of two things can happen. It can land Heads, or it can land Tails. It's can't land heads **and** tails (_mutually exclusive_), and one of those things must happen (it's a list of all possible events)
+
+- What's the probability that at least one of the those events happens? Since one of those events must happen the probability must be 1
+
+- But we can work it out from the individual probabilities
+
+  1. `\(\frac{1}{2}\)` possible outcomes produces Heads—P(Heads) = 0.50
+  2. `\(\frac{1}{2}\)` possible outcomes produces Tails—P(Tails) = 0.50
+
+The probabilities of at least one of **Heads** or **Tails** occurring is 0.5 + 0.5 = 1  
+
+---
+
+### Mutually exclusive events
+
+Consider a deck of cards:
+
+1. What is the probability pulling out a Spade or a Club?
+
+2. What is the probability of pulling out a Spade or a Ace
+
+In situation (1) the events are *mutually exclusively* or *disjoint*. A card can't be a Spade AND a Club. It will either be a Space, a Club, or something else. The addition rule applies:
+-  P(Spade) + P(Club) = Probability of selecting a spade or a club. 
+
+In situation (2) the events are **not** mutually exclusive. A card out be both a Spade and an Ace.
+- So we need a different rules 
+
+To make this clear, we'll take a look at an example
+
+
+
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none" src="https://paas-shooting.netlify.app/?data=mutual&slide=0" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none" src="https://paas-shooting.netlify.app/?data=mutual&slide=1" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none" src="https://paas-shooting.netlify.app/?data=mutual&slide=2" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none" src="https://paas-shooting.netlify.app/?data=mutual&slide=3" />
+
+---
+
+### Two or more events
+
+In the last example we asked about the probability of selecting a **red circle** or a **circle with a black dot**
+
+In this example we were only dealing with **one** event, but we can make things more complex so that we're dealing with multiple events
+
+There's a few different scenarios that can happen when we're dealing with multiple events, so we'll start simple and then get more complex... 
+
+---
+
+
+&lt;iframe height=650 width=750 scrolling="off" style="border:none" src="https://paas-shooting.netlify.app/?data=independence&amp;slide=0" /&gt;
+
+---
+
+### Two or more events
+
+&lt;iframe height=268 width=750 scrolling="off" style="border:none" src="https://paas-embed.netlify.app/coins/"&gt;&lt;/iframe&gt;
+
+- We can also just count when we're dealing with multiple events
+
+- but this is often easier to do when we draw probability trees
+
+---
+
+### Independence
+
+In the previous example, the two choices were **independent**
+
+This just means that the outcome of either choice doesn't influence the probability of the other choice
+
+That is, we can calculate the probability of each event without considering **anything about the other event**
+
+When this is the case, we can calculate the probabilities of both events occurring just by multiplying the two probabilities
+
+But sometimes this isn't the case... sometimes the probability of a second event is **dependent** on the first event
+
+Let us look at a simple example... 
+
+
+---
+
+&lt;iframe height=650 width=750 scrolling="off" style="border:none" src="https://paas-shooting.netlify.app/?data=independence&amp;slide=1" /&gt;
+
+---
+
+### Conditional probabilities
+
+In the last example I introduced the idea of a **conditional probability**
+
+- We knew P(Red):  The probability of a circle being red *independently of whether it had a dot or not*
+
+- And P(Dot): The probability of a circle having a dot *independently of whether it was red or not*
+
+- But to answer our question we needed to know a conditional probability
+
+
+P(Red) × P(Red|Dot): `\(\frac{15}{35} \times \frac{5}{15} = \frac{5}{35}\)`
+
+or
+
+P(Dot) × P(Dot|Red): `\(\frac{20}{35} \times \frac{5}{20} = \frac{5}{35}\)`
+
+
+
+---
+
+
+### Conditional probabilities and independence
+
+Although it didn't seem like it, the first example with the **two sets** of circles also involved conditional probabilities
+
+However, P(Green) was equal to P(Green|Yellow) and P(Yellow) was equal to P(Yellow|Green)
+
+- The probability of picking Green didn't change given that we'd already picked Yellow 
+
+- and the probability of picking Yellow didn't change given that we'd already picked Green
+
+This is the **mathematical definition of independence**
+
+---
+
+### Working with conditional probabilities 
+
+
+In our red circle white dot example we saw that P(Red|Dot) and P(Dot|Red) were not equal each other 
+
+- P(Red|Dot) = `\(\frac{5}{20}\)`
+
+- P(Dot|Red) = `\(\frac{5}{15}\)`
+
+
+This is immediately obvious from the figure: 
+
+&lt;iframe height=200 width=750 scrolling="off" style="border:none" src="https://paas-shooting.netlify.app/?data=independence&amp;slide=1"&gt;&lt;/iframe&gt;
+
+There is a mathematical formula that relates P(Red|Dot) to P(Dot|Red). This formula is known as **Bayes theorem**
+
+---
+
+#### Bayes theorem 
+
+Bayes theorem is very useful for thinking about conditional probabilities, because conditional probabilities can sometimes be incredibly *unintuitive*  
+
+Consider the following example:
+
+An individual has been described by a neighbors as follows: "Steve is very shy and withdrawn, invariably helpful but with very little interest in people or in the world of reality. A meek and tidy soul, he has a need for order and structure, and a passion for detail." 
+
+Is Steve more likely to be a librarian or a farmer?
+
+---
+
+#### Bayes theorem 
+
+Bayes theorem is very useful for thinking about conditional probabilities, because conditional probabilities can sometimes be incredibly *unintuitive*  
+
+Consider the following example:
+
+An individual has been described by a neighbors as follows: "Steve is very shy and withdrawn, invariably helpful but with very little interest in people or in the world of reality. A meek and tidy soul, he has a need for order and structure, and a passion for detail."
+
+Is Steve more likely to be a librarian or a farmer?
+
+![:show](
+
+When questions like this are given to people they often answer that Steve is more likely to be a librarian.
+
+- But there's over 100,000 farmers in the UK
+
+- And there's fewer than 25,000 librarians 
+
+People often neglect to take the base rates into account when giving their answers
+
+But let's try an example with some actual numbers...
+
+)
+
+---
+
+&lt;iframe height=650 width=750 scrolling="off" style="border:none" src="https://paas-shooting.netlify.app/?data=independence&amp;slide=2"&gt;&lt;/iframe&gt;
+
+
+
+---
+
+#### Bayes theorem
+
+We can work out the answer to the previous question just by counting the dots, but we can also use Bayes theorem. 
+
+Bayes theorem is given as:
+
+`$$P(A|B) = \frac{P(B|A) \times P(A)}{P(B)}$$`
+
+or 
+
+`$$P(Red|Dot) = \frac{P(Dot|Red) \times P(Red)}{P(Dot)}$$`
+
+and when we put numbers to it... 
+
+`$$0.21 = \frac{0.83 \times 0.06}{ 0.24 }$$`
+
+
+Note that the crucial values here are P(Red) and P(Dot). These are sometimes referred to as the prior probabilities or unconditional probabilities. 
+
+---
+
+&lt;iframe height=650 width=750 scrolling="off" style="border:none" src="https://paas-shooting.netlify.app/?data=independence&amp;slide=3"&gt;&lt;/iframe&gt;
+
+
+---
+
+And now with numbers
+
+`$$P(Red|Dot) = \frac{P(Dot|Red) \times P(Red)}{P(Dot)}$$`
+
+and when we put numbers to it... 
+
+`$$0.99 = \frac{0.82 \times 0.95}{ 0.79 }$$`
+
+
+We can use Bayes Theorem to help us think through how to deal evidence 
+
+- P(Red) is the probability you assign to a circle being red before I've told you anything about it. This might be high or low depending on how common red circles are 
+
+- P(Red|Dot) is the probability you assign to a circle being red **after** I've told you it has a black dot on it
+
+- `\(\frac{P(Dot|Red)}{P(Dot)}\)` is the **evidence** (for being red) **provided** by the information that a circle has a black dot
+
+
+---
+
+#### Evidence 
+
+- If P(Dot) is very big then the evidence will be low because the probability of a circle having a dot **irrespective of whether it is red or not** is high
+
+  - This might be because black dots are common in green circles 
+
+  - Or it might be because green circles are extremely rare. Think of the extreme case where green circles are non existent! We'd already be so certain that the circle is red, that finding out it has a black dot would tell us nothing!
+
+- If P(Dot|Red) is very low then evidence will be low because dots are not very good at marking out red circles 
+
+You should think about evidence as shifting the probability you assign to something
+
+1. You might assign a low probability to P(Red|Dot) even though you have very strong evidence because P(Red|Dot) is high compared to P(Red)
+
+2. You might assign a high probability to P(Red|Dot) even though you have very weak evidence because P(Red) was very high to begin with  
+
+---
+
+#### Reasoning with Bayes theorem
+
+Examples like the previous one are analogous to many situations we'll face as scientists
+
+- We develop a test for a very rare disease (less than 0.1% of the population). The test is very good, but not perfect. The test will show a positive result in the presence of the disease 90% of time and will show a positive result in the absence of the disease only 1% of the time 
+
+- The test shows a positive a result. What is the probability they have the disease? 
+
+
+- The treatment for the disease is drastic surgery that will have a major impact on their life, but there's a chance it'll save their life **if they actually do have the disease**. Will that 10% chance be enough to justify the surgery?
+
+This kind of reasoning goes into deciding whether/when to screen for certain diseases. If it's the disease is rare enough, and the test occasional produces false positives then screening can do more harm than good.  
+
+
+---
+
+#### Reasoning with Bayes theorem
+
+Examples like the previous one are analogous to many situations we'll face as scientists
+
+- We develop a test for a very rare disease (less than 0.1% of the population). The test is very good, but not perfect. The test will show a positive result in the presence of the disease 90% of time and will show a positive result in the absence of the disease only 1% of the time 
+
+- The test shows a positive a result. What is the probability they have the disease? ![:show](This would be less than a 10% chance)
+
+
+- The treatment for the disease is drastic surgery that will have a major impact on their life, but there's a chance it'll save their life **if they actually do have the disease**. Will that 10% chance be enough to justify the surgery?
+
+This kind of reasoning goes into deciding whether/when to screen for certain diseases. If it's the disease is rare enough, and the test occasional produces false positives then screening can do more harm than good.  
+
+---
+
+#### When does a positive test indicate disease?
+
+&lt;iframe height=650 width=750 scrolling="off" style="border:none" src="https://paas-embed.netlify.app/bayes/index.html"&gt;&lt;/iframe&gt;
+
+---
+
+#### Common fallacies about conditional probabilities 
+
+It can sometimes be difficult to reason about conditional probabilities and there are some common errors people make. 
+
+1. Assuming that P(A|B) = P(B|A)—we saw from our earlier example that this wasn't the case. P(Dot|Red) was higher than P(Red|Dot)
+
+  - You can think of the following example to help remind you of this. P(Lives in London | Is Boris Johnson) = 1, but P(Is Boris Johnson | Lives in London) = 1 in 9 Million 
+
+2. Basing reasoning on P(A|B) when they actually want P(B|A)-for example, people might base reasoning on P(Positive test | Drug user) when they actually want P(Drug user | Positive test)
+
+  - If P(Positive test | Drug User) = 83%, P(Positive test | Not drug user) = 20%, drug users are rare—e.g., P(Drug user) = 6%—then if somebody tests positive for drugs they're far more likely to **not be a drug user** (about 80% chance) than they are **to be a drug user** (about 20% chance) 
+
+   - More recently, a study in a very prestigious scientific journal made some claims on what turned out to be the wrong conditional probability
+
+
+
+
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none;" src="https://paas-shooting.netlify.app/?data=shooting&slide=0" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none;" src="https://paas-shooting.netlify.app/?data=shooting&slide=1" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none;" src="https://paas-shooting.netlify.app/?data=shooting&slide=2" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none;" src="https://paas-shooting.netlify.app/?data=shooting&slide=3" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none;" src="https://paas-shooting.netlify.app/?data=shooting&slide=4" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none;" src="https://paas-shooting.netlify.app/?data=shooting&slide=5" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none;" src="https://paas-shooting.netlify.app/?data=shooting&slide=6" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none;" src="https://paas-shooting.netlify.app/?data=shooting&slide=7" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none;" src="https://paas-shooting.netlify.app/?data=shooting&slide=8" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none;" src="https://paas-shooting.netlify.app/?data=shooting&slide=9" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none;" src="https://paas-shooting.netlify.app/?data=shooting&slide=10" />
+
+---
+
+<iframe height=650 width=750 scrolling="off" style="border:none;" src="https://paas-shooting.netlify.app/?data=shooting&slide=11" />
+
+---
+
+# Summary
+
+- Probabilities are difficult to reason about and easy to get wrong
+
+- Visualising probabilities almost always makes things easier
+
+- At it's **core** it's all just about counting, but you just need to know what to count!
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

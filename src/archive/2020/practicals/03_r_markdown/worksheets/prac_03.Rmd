@@ -1,0 +1,207 @@
+---
+title: "R Markdown"
+output: html_document
+---
+
+
+Welcome to the fourth PAAS practical!
+This week, we will practice the basics of **R Markdown** (Rmd) so you can get some hands-on experience with this extremely versatile and powerful tool for writing reproducible documents of all sorts and formats.
+We promise you that once you get the hang of it, you will never again want to use your ordinary word processor/text editor for writing essays, coursework, papers, or even presentations or your CV.
+In fact, all the teaching materials in this module, from the lecture slides to the `learnr` tutorials, have been written in Rmd.
+
+By the end of this tutorial you will know:
+
+  - a little about markup languages
+  - basic text formatting using R Markdown
+  - how to generate HTML documents purely in RStudio
+
+\ 
+
+## So what is R Markdown?
+
+Well, it is a language - or a system - for telling computers how to process and format text.
+Unlike the more familiar [WYSIWYG](https://en.wikipedia.org/wiki/WYSIWYG "What you see is what you get") word processors/text editors, R Markdown (as well as other [markup languages](https://en.wikipedia.org/wiki/Markup_language)) uses plain text symbols for all formatting.
+In other words, there is no highlighting text and then clicking on a **B** icon to make it **bold**.
+
+You might be thinking "why on Earth should I be learning this when I can just use the text editor on my computer?!".
+That is a good question and the answer to it is that, when it comes to Rmd, its integration with RStudio makes it an incredibly useful tool for writing documents that include the results of a statistical analysis or data visualisations. But mor on that next week...
+
+
+\ 
+
+## Getting things ready
+
+The best way to learn how R markdown (and programming languages really) works is to compare the source and the output and notice the relationships between the two.
+So let's do that and take a look at what the Rmd version of this work sheet looks like.
+
+### Task 1
+
+If you haven't done so yet, create a new `R` project in your `paas` folder and call it `week_04`.
+If you're useing [RStudio cloud](https://rstudio.cloud), create a new project there.
+Use RStudio's Files pane to create four folders in your project folder: `data`, `scripts`, `r_docs`, and `images`.
+
+If you need help on how to create R projects, [check out last week's practical work sheet](https://paas.netlify.app/practicals/02_project_files/worksheets/)
+
+### Task 2
+
+Go to the [PAAS canvas page](https://canvas.sussex.ac.uk/courses/12684/pages/week-4) and download the Week 4 practical Rmd file.
+Save the file in the `r_docs` folder of your `week_04` R project folder.
+
+
+Don't forget to check if the file is saved with the .Rmd extension and not .txt or something else!
+This file type should be automatically associated with RStudio on your computer.
+If your computer offers you a selection of programs to open the file in, just choose RStudio and tick the "always use this app/program to open files of this type" box, if there is one.
+
+\ 
+
+Now, unless you have a two-screen setting where you can put windows side-by-side, you will have to frequently switch between your web browser and RStudio.
+To save time, here is a handy shortcut: Press <kbd>Alt</kbd> + <kbd>&#8633; Tab</kbd> (Windows and Chromebook) or <kbd>&#8984;\ Command</kbd> + <kbd>&rarrb; Tab</kbd> (Mac OS)[^2] to switch between the two most recently viewed windows.
+If you hold down the first of the two keys, you can toggle all currently open windows by pressing <kbd>Tab</kbd> multiple times.
+
+[^2]: As for Linux, the shortcut depends on your system configuration.
+Though, if you are using Linux, you probably know how it works.
+
+### Task 3
+
+Use the Files pane to open the `prac_03.Rmd` file in RStudio and try out switching between your browser and RStudio using the keyboard shortcut.
+
+If you are using RStudio cloud, you need to save the file on your computer and then upload it using the Upload button in the Files pane. Make sure you know where you're saving the file because you'll have to tell Rstudio cloud where to upload the file from (by clicking on the <kbd>Browse...</kbd> button and navigating to the file).
+
+\ 
+
+## R Markdown basics
+
+Before we delve into the nitty-gritty of Rmd, let's remind ourselves how to do some basic formatting you know from your text editor by comparing this section of the lab sheet and its corresponding Rmd file:
+
+# This is level 1 heading (main heading)
+
+## This is level 2 heading (subheading)
+
+### This is level 3 heading
+
+#### And so on...
+
+\ 
+
+- Single dash and space after a blank line creates an unordered list (bullet points).
+   - Lists can be nested by indenting using *white spaces* (or <kbd>&#8633; Tab</kbd>). The exact number of the spaces you need to use can vary depending on settings but it's always _at least two_.
+      - Deeper and deeper... (at least two more spaces!)
+- This is *italics*.
+- This is _also italics_.
+- This is **boldface**.
+- This is __also boldface__ (two underscores).
+- This is ~~strikethrough~~.
+- This is `monospace` (backticks -- not apostrophes! -- are usually right above <kbd>&#8633; Tab</kbd>).
+- This is ^superscript^.
+- This is ~subscript~.
+
+\ 
+
+1. This is an ordered list
+1. It is numbered
+  a. Nested elements can be ordered
+  a. Just use `a.` for second level, if you want letters and
+  1. use `1.` if you want numbers
+  1. like this
+    
+\ 
+
+A single line break
+doesn't do anything.
+
+More than one line break...
+
+
+
+
+...creates a new paragraph.
+
+The \\ (there is an important blank space after it!) is a non-breaking space; any words separated by it will\ be\ forced\ to\ stay\ on\ the\ same\ line\ and will not be split over two lines.
+
+\ 
+
+That's pretty much all the markdown you'll need. So let's go ahead and get you writing your own R Markdown file.
+
+## A guide to Canvas
+
+### Task 4
+
+Create a new R Markdown file, just like we did last week: Go to the menu and select
+
+<kbd>File</kbd> > <kbd>New File</kbd> > <kbd>R Markdown…</kbd>
+
+Then just click <kbd>OK</kbd>
+
+This file has been create, but it hasn't been saved.
+To save it, you can use the shortcut <kbd>Ctrl</kbd> + <kbd>S</kbd> (Windows) or <kbd>&#8984;\ Command</kbd> + <kbd>S</kbd> (MacOS).
+Alternatively, you can click on the button that looks like a floppy disk 💾.
+Call the file `my_canvas_guide.Rmd` and save it in your `r_docs` folder.
+
+### Task 5
+
+In the Rmd file in RStudio, change the `title` and `author` fields of the YAML header and delete everything below it.
+
+### Taks 6
+
+Go on the Canvas PAAS main page and take a screenshot of it. If you don't know how to do that, look up "how to take a screenshot on [Windows/Mac/Chromebook]".
+
+By default, screenshots are saved in the `Screenshot` folder on Windows.
+Just type the name of the folder in the Windows search bar and it should come up.
+On MacOS, screenshots are saved on the desktop, on Chromebooks, they should be in the `Downloads` folder.
+
+Move the file from its location to the `images` folder of your `week_04` project. You can either drag and drop it from window to window, or click on the file and use the shortcuts <kbd>Ctrl</kbd> + <kbd>X</kbd> (Windows) or <kbd>&#8984;\ Command</kbd> + <kbd>X</kbd> (MacOS) to "cut" the file and <kbd>Ctrl</kbd> + <kbd>V</kbd> (Windows) or <kbd>&#8984;\ Command</kbd> + <kbd>V</kbd> (MacOS) to paste it into the destination folder.
+
+If you have a Chromebook, just upload the file into RStudio cloud.
+
+### Task 7
+
+In RStudio Files pane, rename the file to `canvas_main_page.png` (or whatever extension the file has on your computer).
+
+### Task 8
+
+Check out the practical introduction slides and find out how to include the picture in your file.
+
+### Task 9
+
+Knit your file to generate the html document.
+You can do it by clicking on the "Knit" button in the Source pane menu or using the shortcut <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> (Windows) or <kbd>&#8984;\ Command</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> (MacOS).
+
+Something should start happening and, before too long, the "rendered" HTML document should pop up.
+It should contain the Title, Author, Date, and the Canvas screenshot you took.
+
+### Task 10
+
+OK now let's actually make good on the promise of the document title and turn this into an illustrated guide on how to use the Canvas module page.
+
+Here are the criteria for the document:
+
+- Use at least two levels of headings
+- Write text in paragrphs
+- Use **boldface** and _italics_
+- Include a step-by-step guide on how to find
+  - teaching materials for Week 4 (lecture slides and handout, practical worksheet)
+  - Lincoln's and Milan's drop-in information (time and link)
+  - the timetable for the extended R help drop-in sessions with other memebers of staff
+  - additional R and RStudio resources
+  - the discussion forum and how to post on it
+- Make sure you include screenshots of every page!
+- Make it look pretty
+
+### Task 11
+
+Knit the file as often as you want to check that things look the way you want them to.
+Feel free to check out consult [R Markdown cheat sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/rmarkdown-2.0.pdf) for quick reference on how to do all sorts of cool stuff in Rmd.
+
+### Task 12
+
+Admire your work
+
+\ 
+
+
+\ 
+
+That's all we have in store for you for this practical.
+If you haven't managed to complete the work sheet in the practical, do it in your spare time.
+
+  

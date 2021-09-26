@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 6: Samples, Populations, and Distributions</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr Lincoln Colling" />
+    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
+    <meta name="description" content="In this lecture we&#39;ll learn about samples and populations and how samples and populations can be described with distributions."/>
+    <meta week="06"/>
+    <meta content_type="slides"/>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Lecture 6: Samples, Populations, and Distributions
+### Dr Lincoln Colling
+### Nov 02 2020
+
+---
+
+
+
+
+
+
+
+# Plan for today
+
+**Samples and populations**
+- The relationship between samples and populations
+
+**Distributions**
+
+- The binomial distribution
+
+- The normal distribution
+
+	- Describing the normal distribution
+
+	- Processes giving rise to normal distributions
+
+	- Processes that don’t produce normal distributions
+
+	- Describing deviations from the normal distribution
+
+**Distributions and samples**
+
+---
+
+## Samples and populations
+
+A key use of **statistics** is  to make **inferences** about **populations** from *the information* we get from **samples**
+
+**Example**   
+
+You're interested in the **.blue[average height]** of **.green[people in the UK]**
+
+- Option 1: Measure the height of _.green[all the people in the UK]_ and then work out the .blue[average]
+
+But that's over 66 million people, so it'll take you a very long time and maybe some people don't want to be measured
+
+- Option 2: Measure a *.red[subset]* of *.green[all the people in the UK]* and use the .red[average of this subset] to figure out plausible values for the .green[average height of people in the UK]
+
+In this example, the .red[subset of people] is the .red[sample] and .green[all the people in the UK] is the .green[population]
+
+???
+
+It's important to note that there isn't a **single** population. What
+counts as the population will depend on the claim you're making. For
+example, let's say I'm interested in testing the claim, "Do **people
+in East Sussex** show an interference effect on the Stroop task?". Here
+the **population** would be **people in East Sussex**. If, however, I
+want to make claims about **people in general**, then the **population**
+might be **all living humans**. The **sample** is always going to be a
+subset of the **population**. 
+
+In the vast majority of psychology research tend to be rather **WEIRD**.
+That is, the samples used in most published psychological science are
+drawn from **W**estern, **E**ducated, **I**ndustrialized, **R**ich, and
+**D**emocratic (WEIRD) societies [@weird]. The preponderance of WEIRD
+samples implies that researchers either assume that there is little
+variation across different population groups when it comes to the
+phenomena they're studying, or that these samples are as representative
+of **humans in general** as any other group.
+
+---
+
+### The relationship between samples and populations 
+
+After we've taken a **sample** we'll want to use information from this **.red[sample]** to figure out something about the **population**
+
+_.blue[But what's the relationship between the population and the sample?]_
+
+The **sample** should hopefully **resemble** the **population** in some way
+
+- For example, the average of the sample should _resemble_ the average of the population
+
+- But we don't know the average of the population, so how would be _know_?
+
+We can do a _thought experiment_ to try and figure out some factors that will influence whether the **sample** _resembles_ the **population**
+
+---
+
+#### Factors that influence the relationship between samples and populations
+
+Let's think back to our question about _the average height of people in the UK_
+
+**Factor 1**
+
+If all members of the population are **identical** then the height of one person would be the same as the average height of two people, or 100 people, or the entire population, because people only come in one height
+
+_.blue[When there is no variation in the population]_ then the sample average will be **identical** to the population average
+
+**Factor 2**
+
+If our sample is large enough so that it _includes all members of the population_ the sample and the population are the same thing
+
+*.blue[When the sample includes the entire population]* then the sample average will be **identical** to the population average
+
+These are extreme cases but they suggest that **population variation** and **sample size** will influence the relationship between samples and populations
+
+---
+
+#### Determining whether the sample resembles the population
+
+So if we have a big sample and/or small population variation then will our sample **resemble the population?**
+
+
+**For a particular sample** there is no way of knowing whether it **resembles** the population or not, because we don't know what the population looks like!
+
+
+A better way to think about this is in terms of **repeated sampling**
+
+- If we take lots of samples from the same population then will those samples **on average** be closer to the population?
+
+- These two factors (sample size, and population variation) will influence whether the samples resemble the population **on average**
+
+If our sample size is **big enough** then samples will **on average** resemble the population...
+
+...but what counts as **big enough** will depend on the **population variation**
+
+
+---
+
+#### Repeated sampling from the same population
+
+&lt;iframe  width="700px" height="650px" style="border:none; margin-left:auto; margin-right:auto;display:flex" src="https://paas-embed.netlify.app/sampler/index.html?slides" scrolling="no"&gt;&lt;/iframe&gt;
+
+
+---
+
+## Distributions
+
+Before we start talking about **distributions** let's think about what they are and where they come from
+
+_.blue[We'll do another thought experiment]_
+
+- We'll take a coin, and we'll flip it.
+
+- Two outcomes are possible
+	1. The coin lands showing *heads*
+
+	2. The coin lands showing *tails*
+
+Of the two possible events
+
+1. One produces 0 heads
+2. One produces 1 head
+
+Now let's add more coins. As we do, we'll count up the number of sequences that produces 0 heads, 1 head, 2 heads, 3 heads etc
+
+
+---
+
+### The binomial distribution 
+
+&lt;iframe  width="700px" height="500px" style="border:none; margin-left:auto; margin-right:auto;display:flex" src="https://paas-embed.netlify.app/coins/index.html" scrolling="no"&gt;&lt;/iframe&gt;
+
+---
+
+#### Plotting the frequency of outcomes
+
+
+We'll treat the _number of heads in a sequence_ as our _outcome_
+
+As we add more and more coins we can plot the **frequency** of each _possible outcome_.
+
+- This frequency plot starts to take on a **characteristic shape**
+
+- This shape can be described mathematically using the **binomial distribution**
+
+The **binomial distribution** describes the **frequency of outcomes** in our coin flipping example&lt;sup&gt;1&lt;/sup&gt; 
+
+
+.footnote[&lt;sup&gt;1&lt;/sup&gt;In our thought experiment we assume that every _possible_ sequence of Heads and Tails occurs, and that it occurs only once.]
+
+---
+
+#### Natural processes that produce binomial distribution
+
+Balls falling through a _bean machine_ approximate a binomial distribution
+
+&lt;iframe  width="700px" height="660px" style="border:none; margin-left:auto; margin-right:auto;display:flex" src="https://paas-embed.netlify.app/bean/index.html?slides" scrolling="yes"&gt;&lt;/iframe&gt;
+
+---
+
+### The normal distribution
+
+The shape seen in the **binomial distribution** is also seen in another
+distribution called **the normal distribution**.
+
+**Differences between the binomial distribution and the normal distribution:**
+
+- The **binomial** distribution is **bounded** and the **normal distribution** is not
+
+	- **The binomial distribution** ranges from 0 to n (where n is, for example, the number of coins you've flipped)
+
+	- **The normal distribution** ranges from `\(-\infty\)` to `\(+\infty\)`
+
+
+- The **binomial** distribution is **discrete** and the **normal distribution** is **continuous**
+
+	- You can only have 0 heads, 1 head, etc., and not 1.5 heads
+
+	- *Normal distribution* represents all outcomes between `\(-\infty\)` and `\(+\infty\)`
+
+
+---
+
+#### The normal distribution as a model
+
+- The **normal distribution** is a mathematical abstraction, because nothing in real life actually follows a **normal distribution**
+
+- But we can use it as a **model** of **real-life frequency distributions** 
+
+&lt;iframe  width="700px" height="370px" style="border:none; margin-left:auto; margin-right:auto;display:flex" src="https://paas-embed.netlify.app/simple_normal/index.html" scrolling="no"&gt;&lt;/iframe&gt;
+
+The **normal distribution** can be described by two parameters. The **&amp;mu;** parameter controls where it is centred and the **&amp;sigma;** parameter controls how wide it is.
+
+---
+
+#### Processes giving rise to normal distribution 
+
+To see how a natural process can give rise to the **normal distribution** let's consider a simple *dice game*
+
+**The rules of the game**   
+
+1. A group of **x** players roll a dice **n** times
+
+2. A player's score is calculated by **adding** all the values of the **dice rolls** 
+
+	- For example, if they rolled the dice three times (**n** = 3) and the dice showed **1**, **4**, and **4** then their score would be **9** (1 + 4 + 4 = 9)
+
+If you have enough dice rolls then the **players' scores will be normally distributed** 
+
+---
+
+#### A dice game simulation 
+
+&lt;iframe  width="700px" height="400px" style="border:none; margin-left:auto; margin-right:auto;display:flex" src="https://paas-embed.netlify.app/dice/index.html?type=add&amp;diceInput=30&amp;playerInput=100"&gt;&lt;/iframe&gt;
+
+
+As you increase the number of **dice rolls** the **frequency distribution** of _players scores_ will start to look like a normal distribution 
+
+But you also need enough players to clearly see shape
+
+---
+
+#### Natural processes are analogous to the dice game
+
+There are many natural processes that are **analogous** to the **dice game**
+
+We can imagine other processes that work like the **dice game**
+
+- For example, a developmental process might work similarly. 
+
+	- At each point in time some value can be **added** on to the person’s current height just like players scores can increase by some amount on each dice roll.
+
+&lt;br /&gt;
+
+**.green[The numbers you add aren't important... it's the _adding_ that's important]**
+
+A person’s score can increase by either 1, 2, 3, 4, 5, or 6 after each roll, and with a balanced dice an increase of 1 will be no more common than an increase of 6, or 5 etc 
+
+But even if the dice were unbalanced then a normal distribution would still appear. 
+
+The numbers that you add isn't the important thing... the **adding** is what's important
+
+If instead the numbers were **multiplied** then we wouldn't see a **normal distribution**
+
+---
+
+#### A different dice game simulation 
+
+
+&lt;iframe  width="700px" height="400px" style="border:none; margin-left:auto; margin-right:auto;display:flex" src="https://paas-embed.netlify.app/dice/index.html?type=prod&amp;diceInput=10&amp;playerInput=30"&gt;&lt;/iframe&gt;
+
+We can change the rules of the dice game so that we **multiply** instead of **add**
+
+- This won't produce a **normal distribution**. 
+
+- The distribution will be **skew** 
+
+
+---
+
+#### Describing deviations from the normal distribution
+
+When distributions deviate from the normal distribution this can happen in two ways 
+
+- The distribution can be **asymmetrical**
+
+- The size of the **tails** can change
+
+.pull-left[
+&lt;iframe  width="700px" height="250px" style="border:none; margin-left:auto; margin-right:auto;display:flex" src="https://paas-embed.netlify.app/skew/index.html"&gt;&lt;/iframe&gt;
+
+- Asymmetry is quantified by **skew**]
+
+.pull-right[
+&lt;iframe  width="700px" height="250px" style="border:none; margin-left:auto; margin-right:auto;display:flex" src="https://paas-embed.netlify.app/kurtosis/index.html"&gt;&lt;/iframe&gt;
+
+
+- The **thickness** of the **tails** is quantified by **kurtosis** (or **excess kurtosis** if given _relative_ to the **normal distribution**)]
+
+---
+
+## Distributions and samples
+
+Now that we know a little about **distributions** we can return to **samples**
+
+Let's return to the problem of **sampling** people and measuring their height
+
+- After we've got our **sample** and we've taken our measurements let's **add** up all the measurements.
+
+- Now let's take another sample and **add** all the measurements again
+
+.blue[What can we say about how these **sums** will be distributed?]
+
+This scenario is **analogous**  to the **dice game**
+
+- This means the **sums** will be **normally distributed**
+
+&lt;br /&gt;
+
+Instead of just taking a regular **sum** we can first *divide each value in the sample by the sample size*. This turns the *sum* into an **average**
+
+The **sample averages** will be normally distributed!
+
+---
+
+### Sample averages are normally distributed
+
+In the dice game if we have enough **dice rolls** the **players' scores** will follow a normal distribution 
+
+If our sample size is big enough (enough dice rolls) then the **sample averages** (players' scores) will follow a normal distribution
+
+This will happen **irrespective** of how the **population is distributed**
+
+This simple fact underlies the concept of the **sampling distribution** and the **sampling distribution** will underlie many of the statistical procedures you'll learn about.
+
+---
+
+### Preview of the sampling distribution
+
+The sampling distribution will tell us what sample averages will be more or less common for a given population average, sample size, and population variation. 
+
+We don't know the population properties (specifically, the population average, because we can estimate the population variation)
+
+But we can put forward a conjecture for what they might be and then see if our frequency distribution of sample means fits with that conjecture
+
+- If we keep measuring sample averages that should be rare then we can **reject** that conjecture and slowly rule out values for the population average  
+
+- Through this process we can learn something about the population properties from the samples that we take.
+
+---
+
+# Special lecture
+
+.blue[&lt;h3&gt;Don't forget that there's a special lecture on Ethics on Wednesday!&lt;/h4&gt;]
+
+.blue[&lt;h3&gt;There is an announcement on Canvas!&lt;/h4&gt;]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

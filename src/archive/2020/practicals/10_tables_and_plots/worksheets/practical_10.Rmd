@@ -1,0 +1,153 @@
+---
+title: 'Tables with `kableExtra` and plots with `ggplot2`'
+output:
+  rmarkdown::html_document
+---
+
+```{r setup,echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = TRUE, warning = FALSE, message = FALSE)
+```
+
+This document should be used in conjunction with the [Week 11 worksheet](https://paas.netlify.app/practicals/10_tables_and_plots/worksheet/).
+Feel free to add text to write little notes to your future self.
+
+You can knit this document whenever you want to see what the formatted HTML version looks like.
+
+## Packages
+
+```{r packages}
+## load the required packages here
+```
+
+
+## Data
+
+```{r data}
+## edit code to read in the 2 data sets
+# fill in the blanks, removing the ...
+stroop_data <- readr::read_csv("...")
+movie_data <- ...
+```
+
+
+## Tables
+
+
+### Simple frequency table
+
+```{r freq-tib}
+peng_smry <- palmerpenguins::penguins %>%  # you can break line after each %>% if you want
+  dplyr::group_by(.data = ..., ...) %>%
+  dplyr::summarise(n = ...)
+```
+
+
+```{r freq-table}
+peng_smry %>% ...
+```
+
+
+### Adding relative frequencies
+
+```{r rel-freq-tib}
+movie_smry <- movie_data %>%
+```
+
+
+### Table of summary statistics
+
+```{r smry-table}
+stroop_data %>%
+```
+
+
+
+## Plots
+
+
+### Simple histogram
+
+```{r base-layer}
+# give the function the correct data and the right aesthetic (variable)
+p1 <- ... %>%
+  ggplot2::ggplot(data = ., aes(x = ...))
+p1  # this prints out the plot
+```
+
+```{r geom-layer}
+# add the histogram layer
+p2 <- p1 + 
+  
+p2 # print out plot
+```
+
+```{r labs-layer}
+# add the layer of axis labels, specifying both x and y labels
+p3 <- p2 +
+  labs(...)
+p3 # print out plot
+```
+
+
+### Scatter plot
+
+```{r scatterplot}
+... %>% # provide data
+  ggplot2::ggplot(aes(x = ..., y = ...)) + # map variables onto axes
+  geom_point() +
+  labs(...) # give axes proper labels
+```
+
+
+### Grouped scatterplot
+
+```{r grouped-scatterplot}
+... %>% #provide data
+  ggplot(aes(...)) + # specify the 4 aesthetics needed
+  ... + # add points with some transparency
+  ... # add axis labels
+```
+
+
+### Violin-box plot combo
+
+```{r viol-box}
+# provide data
+# pipe them into the base layer where you map your aesthetics
+# add a violin plot layer with fill and transparency
+# add a boxplot layer and change width
+# add a layer of labels
+# give the plot a caption
+```
+
+
+### Grouped violin plot (custom colours)
+
+```{r grouped-viol-box}
+# First, create the grouped plot and don't worry about custom colours and geom positions
+# We'll take care of those next.
+```
+
+
+### Errorbar plot
+
+```{r errorbar-data}
+movie_smry_plot <- ...
+
+```
+
+```{r errorbar-plot}
+movie_smry_plot %>%
+  ggplot2::ggplot(...) +
+  geom_errorbar(...(ymin = ..., ymax = ...), width = 0.04) +
+  ...
+```
+
+
+### Publication-quality groupped errorbar chart {.death}
+
+```{r showstopper}
+
+```
+
+
