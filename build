@@ -27,7 +27,12 @@ def tidy_type(type)
     if type == "lectures"
       return "lecture"
     end
-    # return url
+    if type == "tutorials"
+      return "tutorial"
+    end
+    if type = "practicals"
+      return "practical"
+    end
 end
 
 def makeMaterials(week, week_int, type, subtype)
