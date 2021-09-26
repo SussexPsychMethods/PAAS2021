@@ -23,7 +23,9 @@ meta() %>%
 ## PAAS tutorials
 
 
-Welcome to the first Psychology as a Science tutorial!
+Welcome to the first Psychology as a Science tutorial! This is the Week 1
+tutorial and this tutorial will get you prepared for the practical class in
+Week 2.
 
 This series of interactive tutorials will gently guide you through the topics
 covered in the PAAS module. To get the best value out of this module, you
@@ -41,8 +43,6 @@ provided to you really is the best thing you can do to get the most out of the
 module.
 
 Let's get started!
-
-
 
 Lincoln, Danielle, and Milan
 
@@ -68,7 +68,7 @@ sometimes let you practice R Markdown in text editor boxes such as the one
 below. Anything you type in the box will get *rendered* underneath as it would
 if you generated a document from a R Markdown file.
 
-```{r, echo=F}
+```{r, echo = FALSE}
 text <- "
 ## Markdown example
 
@@ -89,7 +89,7 @@ div <- htmltools::tag("div", list(class = "container"))
 htmltools::tagAppendChild(div, text)
 ```
 
-```{js, echo=F}
+```{js, echo = FALSE}
 document.body.onload = build;
 function build (){
   let scriptTag = document.createElement('script');
@@ -171,24 +171,19 @@ To download RStudio you can click the following links:
 If you need help installing either of these, here's a video guide on how to
 install both on Windows:
 
-<iframe width="560" height="315"
-src="https://www.youtube.com/embed/9-RrkJQQYqY" frameborder="0"
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
-picture-in-picture" allowfullscreen></iframe>
+<iframe title="YouTube video player"
+src="https://www.youtube.com/embed/cLTXve3Rf5k" width="672" height="378"
+allowfullscreen="allowfullscreen" allow="accelerometer; autoplay;
+clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
 
 \ 
 
 And here is one for MacOS users:
 
-<iframe width="560" height="315"
-src="https://www.youtube.com/embed/by5HyJX6H1I" frameborder="0"
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
-picture-in-picture" allowfullscreen></iframe>
-
-(Videos courtesy of helpful youtubers, [Xperimental
-Learning](https://www.youtube.com/channel/UCrEpGdiRBgj6-ru1Q7WKIBw) and
-[thatRnerd](https://www.youtube.com/channel/UCPJIY0oU-CJRRdweKZ44UZw),
-respectively)
+<iframe title="YouTube video player"
+src="https://www.youtube.com/embed/TXxmVaZkYks" width="672" height="378"
+allowfullscreen="allowfullscreen" allow="accelerometer; autoplay;
+clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
 
 \
 
@@ -281,7 +276,7 @@ users, below is the transcript of this flowchart.
 1. Exit.
 </div>
 
-<iframe width="560" height="315"
+<iframe width="672" height="378"
 src="https://www.youtube.com/embed/ockaUxLtc_c" frameborder="0"
 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
 picture-in-picture" allowfullscreen></iframe>

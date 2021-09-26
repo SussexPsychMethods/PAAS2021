@@ -30,11 +30,12 @@ meta() %>%
 
 ## Intro
 
-Welcome to the third PAAS tutorial, in which we will talk about text editors.
-We will contrast the word processing software that you are probably used to
-with markdown, a slightly geekier but way of writing documents. Finally, we
-will discover RStudio's own markdown editor and learn how to write documents
-using it.
+Welcome to the Week 3 tutorial. This tutorial will get you prepared for the
+practical in Week 4. In this tutorial we will talk about text editors. We will
+contrast the word processing software that you are probably used to with
+markdown, a slightly geekier but way of writing documents. Finally, we will
+discover RStudio's own markdown editor and learn how to write documents using
+it.
 
 \ 
 

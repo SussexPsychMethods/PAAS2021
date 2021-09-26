@@ -24,10 +24,13 @@ meta() %>%
 
 ## Intro
 
-Welcome to the second PAAS tutorial, in which we will learn a little more about
-computers and find out how to keep our files organised when working in `R`. The
-tutorial (just like every subsequent one) assumes that you have completed all
-tasks in the previous one and are familiar with the topics it covered.
+Welcome to the Week 2 tutorial. This tutorial will get you prepared for the
+practical class in Week 3.
+
+In this tutorial we will learn a little more about computers and find out how
+to keep our files organised when working in `R`. The tutorial (just like every
+subsequent one) assumes that you have completed all tasks in the previous one
+and are familiar with the topics it covered.
 
 ###
 
@@ -71,7 +74,7 @@ quiz(caption = "",
 For starters, watch the video below.
 It discusses how computers store, organise, and use files.
 
-<iframe width="560" height="315"
+<iframe width="672" height="378"
 src="https://www.youtube.com/embed/fKHj_csJtsY" frameborder="0"
 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
 picture-in-picture" allowfullscreen></iframe>
@@ -191,14 +194,15 @@ Let's take what we just learned about files and folders and apply it to working
 in RStudio. Watch this video to find out the best way to keep organised your
 `R`-related work.
 
-<iframe width="560" height="315"
+<iframe width="672" height="378"
 src="https://www.youtube.com/embed/kg5QATDSh_4" frameborder="0"
 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
 picture-in-picture" allowfullscreen></iframe>
 
 Again, you can also check out the [transcript of the video](https://docs.google.com/document/d/1odQV96QUcwkrKslhMfYH2cThFX5U6tT99bfLjUcxKt8/edit?usp=sharing)
 
- 
+
+## Test your understanding
 
 Test your knowledge of RStudio projects with by answering a few questions.
 
