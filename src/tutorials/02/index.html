@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Psychology as a Science" />
+
+
+<title>Files, paths, and RStudio projects</title>
+
+<script src="index_files/header-attrs-2.11/header-attrs.js"></script>
+<script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="index_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="index_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="index_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="index_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="index_files/navigation-1.1/tabsets.js"></script>
+<link href="index_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="index_files/highlightjs-9.12.0/highlight.js"></script>
+<meta name="description" content="Week 2 Tutorial"/>
+<meta content_type="tutorial" week="02"/>
+<script src="index_files/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="index_files/niceQuiz-0.0.1/styles.css" rel="stylesheet" />
+<script src="index_files/niceQuiz-0.0.1/lib.js"></script>
+<script src="index_files/quiz-binding-0.1.0/quiz.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="css/paas_learnr.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Files, paths, and RStudio projects</h1>
+<h3 class="subtitle">Tutorial 02</h3>
+<h4 class="author">Psychology as a Science</h4>
+
+</div>
+
+
+<div id="intro" class="section level2">
+<h2>Intro</h2>
+<p>Welcome to the Week 2 tutorial. This tutorial will get you prepared for the practical class in Week 3.</p>
+<p>In this tutorial we will learn a little more about computers and find out how to keep our files organised when working in <code>R</code>. The tutorial (just like every subsequent one) assumes that you have completed all tasks in the previous one and are familiar with the topics it covered.</p>
+<div id="section" class="section level3">
+<h3></h3>
+<p>In particular, before you start, you should have <code>R</code>, and RStudio installed on your computer. Optionally, you should also have OneDrive installed. If any of this sounds like gobbledygook, please go back to Tutorial 01.</p>
+</div>
+</div>
+<div id="warm-up-quiz" class="section level2">
+<h2>Warm-up quiz</h2>
+<p>To get you warmed up for some nerd action, here’s a little quiz about the topics we’ve covered thus far.</p>
+<div id="htmlwidget-78483885da543ae7e828" style="width:672px;height:100%;" class="quiz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-78483885da543ae7e828">{"x":[{"question":"What is the collective term for Windows, MacOS, Unix, <em>etc.<\/em>?","answers":[["Operating system","true"],["Graphical user interface","false"],["Integrated development environment","false"],["Secondary computing software","false"]]},{"question":"What is R?","answers":[["A high-level programming language","true"],["An IDE for Windows and MacOS","false"],["Machine code for RStudio","false"],["Baby don&#39;t hurt me.","false"]]},{"question":"How many panes does RStudio contain?","answers":[["1","false"],["2","false"],["3","false"],["4","true"]]}],"evals":[],"jsHooks":[]}</script>
+<div id="section-1" class="section level3">
+<h3></h3>
+</div>
+</div>
+<div id="files-folders-extensions-and-paths" class="section level2">
+<h2>Files, folders, extensions, and paths</h2>
+<p>For starters, watch the video below. It discusses how computers store, organise, and use files.</p>
+<iframe width="672" height="378" src="https://www.youtube.com/embed/fKHj_csJtsY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+picture-in-picture" allowfullscreen>
+</iframe>
+<p>A <a href="https://docs.google.com/document/d/1cf_oEpx6pQvL4eF28eWc9TalE-LkZYEBpdvQ3KZ0VUE/edit?usp=sharing">transcript of the video</a> is also available.</p>
+<div id="section-2" class="section level3">
+<h3></h3>
+<p>After you’ve watched the video, test your knowledge of the topics with a short quiz.</p>
+<div id="htmlwidget-d348972bd25afd4f7043" style="width:672px;height:100%;" class="quiz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d348972bd25afd4f7043">{"x":[{"question":"What do we call files that can run themselves?","answers":[["Self-extracting","false"],["Recurrent","false"],["Applications","true"],["Programs","true"]]},{"question":"What is the difference between folders and directories","answers":[["There&#39;s no difference; they are synonyms.","true"],["Folders cannot contain other folders but directories can.","false"],["Folders cannot contain other folders but they can contain directories.","false"],["Directories can contain both folders and directories but folders cannot. ","false"]]},{"question":"Which one of these is <strong>NOT<\/strong> a valid file extension for pictures?","answers":[[".exe","true"],[".jpg","false"],[".png","false"],[".bmp","false"]]},{"question":"Reltive paths are independent on your current location?","answers":[["True","false"],["False","true"]]}],"evals":[],"jsHooks":[]}</script>
+<p>If you haven’t aced the quiz, maybe it would be worth going over the video again…</p>
+</div>
+<div id="your-folder-structure" class="section level3">
+<h3>Your folder structure</h3>
+<p>Now that you understand how computers organise files, it’s time to set up a neat folder structure for all your uni-related work.</p>
+<p><strong>1. Create a folder called <code>"uni"</code> in your Documents folder or your OneDrive folder (if you’re using OneDrive).</strong></p>
+<p>Here is where you will keep all files related to your study programme.</p>
+<p>It’s up to you how you organise most of your folders and files within the <code>"uni"</code> folder but we strongly encourage you to give it some thought and keep your file and folder structure tidy.</p>
+<p><strong>2. Inside the <code>"uni"</code> folder, create a <code>"psych_methods"</code> folder.</strong></p>
+<p>This folder will contain all files related to your stats and methods modules. Notice the underscore (<code>_</code>) in the name. Get used to not using blank spaces in folder and file names. Computers like it like that!</p>
+<p>Over the next two years, you will take four stats and methods modules. Let’s create a folder for each one.</p>
+<p><strong>3. Create four folders inside <code>"uni/psych_methods"</code>:</strong></p>
+<ul>
+<li><code>01_paas</code></li>
+<li><code>02_analysing_data</code></li>
+<li><code>03_disc_stats</code></li>
+<li><code>03_qqm</code></li>
+</ul>
+<p>These folders are for the following modules (respectively):</p>
+<ul>
+<li>Psychology as a Science (term 1)</li>
+<li>Analysing Data (term 2)</li>
+<li>Discovering Statistics (term 3)</li>
+<li>Quantitative and Qualitative Methods (term 4)</li>
+</ul>
+<p>Make sure you include the numbers with leading zeroes, followed by underscores. This way, your folders will be neatly sorted in the order, in which you will take the modules.</p>
+<p>In this term, we will only be working with the <code>"01_paas"</code> folder but make sure you set up the structure now.</p>
+<p><strong>4. Finally, if your computer hides file extensions, make sure you disable this setting.</strong></p>
+<p>Because we will be working with quite a few different kinds of files, it is really important to know what the extension of any given one is. How to set your OS to show file extensions is shown in the video you just watched.</p>
+<p>You can adopt the “termNumber_module_name” naming convention even for your non-methodsy modules, if you’d like. Alternatively, you can create one folder for each year of study (<code>"y01"</code>, <code>"y02"</code>, <code>"y03"</code>) – each one hosting folders for individual modules – and one separate folder for your dissertation. But like we said, we will leave that to you.</p>
+<p>Just please, whatever structure you come up with, make sure it’s logical and that you stick to it and keep your files organised. It will make your life a whole lot easier down the line!</p>
+</div>
+</div>
+<div id="rstudio-projects" class="section level2">
+<h2>RStudio projects</h2>
+<p>Let’s take what we just learned about files and folders and apply it to working in RStudio. Watch this video to find out the best way to keep organised your <code>R</code>-related work.</p>
+<iframe width="672" height="378" src="https://www.youtube.com/embed/kg5QATDSh_4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+picture-in-picture" allowfullscreen>
+</iframe>
+<p>Again, you can also check out the <a href="https://docs.google.com/document/d/1odQV96QUcwkrKslhMfYH2cThFX5U6tT99bfLjUcxKt8/edit?usp=sharing">transcript of the video</a></p>
+</div>
+<div id="test-your-understanding" class="section level2">
+<h2>Test your understanding</h2>
+<p>Test your knowledge of RStudio projects with by answering a few questions.</p>
+<div id="htmlwidget-07328180a99f384f2578" style="width:672px;height:100%;" class="quiz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-07328180a99f384f2578">{"x":[{"question":"What sets RStudio projects apart from other folders?","answers":[["Nothing, they&#39;re the same.","false"],["RStudio projects must be created in R.","false"],["RStudio projects contain a special file that the software recognises","true"],["Folders have both relative and absolute paths; RStudio projects have only relative paths.","false"]]},{"question":"What is the extension of the file that identifies an RStudio project","answers":[[".Rproj","true"],[".R","false"],[".Rmd","false"],[".RData ","false"]]},{"question":"What must you never do with the RStudio project file if you want RStudio to recognise the project?","answers":[["Move it or move the folder.","true"],["Rename it or rename the folder.","true"],["Open it.","false"],["Delete it.","true"]]},{"question":"Which of these folders should you create within every project at the very least?","answers":[["data","true"],["r_docs","true"],["pics","false"]]},{"question":"Where does an RStudio project set your current location to?","answers":[["Your Documents folder.","false"],["The given project folder.","true"],["Wherever RStudio is installed.","false"],["Your HOME directory.","false"]]}],"evals":[],"jsHooks":[]}</script>
+<p>Again, if you didn’t get the answers right, consider re-watching the video.</p>
+<div id="section-3" class="section level3">
+<h3></h3>
+<p>Let’s conclude the tutorial with a few tasks.</p>
+<p><strong>1. In RStudio, create a new RStudio project inside your <code>"uni/psych_methods/01_paas"</code> folder.</strong></p>
+<p><strong>2. Call the project folder <code>"week_02"</code></strong>.</p>
+<p>We will be creating a new RStudio project every week to get some practice. The double digit numbering ensures that the folders will be sorted in the right order. Otherwise <code>"week_11"</code> would be between <code>"week_1"</code> and <code>"week_2"</code>.</p>
+<p><strong>3. Go to the location of the project in Windows File Explorer or MacOS Finder to see that the new folder is really there.</strong></p>
+<p><strong>4. Close the <code>"week_01"</code> project.</strong></p>
+<p><strong>5. Reopen it again by choosing it from the top-right menu of recently open projects.</strong></p>
+<p><strong>6. Close the project again to go back to where you were when you first opened RStudio.</strong></p>
+<p>That is it for this tutorial.</p>
+</div>
+</div>
+
+<script src="./js/bundle.js"></script>
+
+<style>
+  .btn {
+    padding: 0;
+    margin-right: 1em;
+  }
+
+  .copy-button {
+    width: 7em;
+  }
+</style>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
