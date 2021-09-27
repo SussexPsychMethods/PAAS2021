@@ -25,6 +25,10 @@ end
 
 def tidy_type(type)
   return 'lecture' if type == 'lectures'
+
+  return 'practical' if type == 'practicals'
+
+  return 'tutorial' if type == 'tutorials'
 end
 
 def make_materials(week, week_int, type, subtype)
@@ -38,7 +42,13 @@ def make_materials(week, week_int, type, subtype)
 
   link.gsub!(/src/, '') if link.include?('src')
 
-  Materials.new(type, subtype, "Week #{week}", "link:#{link}[Link to #{tidy_type(type)} #{subtype}]", week_int)
+  link_text = if type == 'tutorials'
+                tidy_type(type)
+              else
+                "#{tidy_type(type)} #{subtype}"
+              end
+
+  Materials.new(type, subtype, "Week #{week}", "link:#{link}[Link to #{link_text}]", week_int)
 end
 
 class Lecture
@@ -95,7 +105,8 @@ puts tutorial_list
 
 template = ERB.new(File.read('./src/index.md'))
 
-index_page = template.result_with_hash(lectureList: lecture_list, practicalList: practical_list,
+index_page = template.result_with_hash(lectureList: lecture_list,
+                                       practicalList: practical_list,
                                        tutorialList: tutorial_list)
 File.write('./src/index.asc', index_page)
 Asciidoctor.render_file('./src/index.asc')
