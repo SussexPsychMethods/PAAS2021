@@ -38,10 +38,10 @@ end
 def makeMaterials(week, week_int, type, subtype)
   if type == "tutorials"
     link = Dir["src/#{type}/#{week}/index.html"][0]
-    link_text = "link:#{link}[Link to #{tidy_type(type)}]",
+    link_text = "link:#{link}[Link to #{tidy_type(type)}]"
   else
     link = Dir["src/#{type}/#{week}/#{subtype}/index.html"][0]
-    link_text = "link:#{link}[Link to #{tidy_type(type)} #{subtype}]",
+    link_text = "link:#{link}[Link to #{tidy_type(type)} #{subtype}]"
   end
   if link == nil
     return nil
