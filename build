@@ -24,6 +24,7 @@ class String
 end
 
 def tidy_type(type)
+
   return 'lecture' if type == 'lectures'
 
   return 'practical' if type == 'practicals'
@@ -49,6 +50,7 @@ def make_materials(week, week_int, type, subtype)
               end
 
   Materials.new(type, subtype, "Week #{week}", "link:#{link}[Link to #{link_text}]", week_int)
+
 end
 
 class Lecture
@@ -93,11 +95,13 @@ end
 lecture_list = weeks.flat_map { |week| Lecture.new(week).listfiles }
 lecture_list.compact!
 
+
 practical_list = weeks.flat_map { |week| Practical.new(week).listfiles }
 practical_list.compact!
 
 tutorial_list = weeks.flat_map { |week| Tutorial.new(week).listfiles }
 tutorial_list.compact!
+
 
 puts lecture_list
 puts practical_list
