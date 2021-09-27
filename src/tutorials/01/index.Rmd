@@ -293,7 +293,7 @@ following command at the **console**. This command will install everything you
 need for this course.
 
 ```{r, class.source="copy", eval=FALSE}
-source("https://paas.netlify.app/install.r")
+source("https://files.mindsci.net/install.r")
 ```
 
 If you've had any problems installing anything from this tutorial then feel
