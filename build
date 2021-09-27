@@ -70,7 +70,7 @@ class Practical
   def initialize(week)
     @week = format('%<week>02d', week: week)
     @week_int = week
-    @subtypes = %w[slides worksheets]
+    @subtypes = %w[slides worksheet]
     @type = 'practicals'
   end
 
