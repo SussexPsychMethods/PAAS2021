@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Getting started…</title>
+    <meta charset="utf-8" />
+    <script src="index_files/header-attrs-2.11/header-attrs.js"></script>
+    <meta name="description" content="Getting started..."/>
+    <meta week="01"/>
+    <meta content_type="practical-slides"/>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Getting started…
+## Psychology as a Science: Practical 1
+
+---
+
+
+
+
+
+
+# Plan for today
+
+**Getting set up**
+
+- What is `R` and `RStudio`?
+
+- Installing all the software we'll need
+
+**Study design**
+
+- A brain-storming session in groups
+
+**Preview for next week**
+
+- Introduction to next week's **tutorial**/**homework**
+
+
+---
+
+&lt;!--intro start --&gt;
+
+# But first, introductions...
+
+.pull-left[
+**Dr Lincoln Colling** l.colling@sussex.ac.uk
+
+&lt;img width="75%" src="https://github.com/ljcolling/my_images/raw/master/Me.jpg"&gt;
+
+]
+
+.pull-right[
+
+- Originally from South Africa, but did my undergrad and masters at the University of Auckland, New Zealand (the home of the **R** statistics program!)
+
+- Did my PhD in Australia in Neuroscience, Philosophy, and Experimental Psychology
+
+- Since finishing my PhD, I've held research positions in Australia, The Netherlands, Hungary, and Cambridge in the UK.
+
+- I've just started by third year at Sussex
+
+]
+
+
+---
+
+# But first, introductions...
+
+.pull-left[
+**Dr Danielle Evans** danielle.evans@sussex.ac.uk
+
+&lt;img width="75%" src="https://desupervision.netlify.app/img/prof2.png"&gt;
+
+]
+
+
+.pull-right[
+
+- Did my BSc in Forensic Psychology at the University of Portsmouth and my MSc in Psychological Research Methods at the University of Essex
+
+- Completed my PhD in Psychology here at Sussex investigating all things 'mathsy'
+
+- Following my PhD, I've spent most of my time teaching **R** &amp; all the super cool things you can do with it
+
+- I've been at Sussex for a little while now, but this is my second year teaching here 
+
+]
+
+&lt;!-- intro end --&gt;
+---
+
+# Introducing R and R RStudio
+
+.pull-left[![](https://github.com/ljcolling/my_images/raw/master/r_logo.png)]
+
+???
+
+**R** is a free software environment for doing statistical computing and
+graphics
+
+--
+
+.pull-right[![](https://github.com/ljcolling/my_images/raw/master/base_r.png)]
+
+
+???
+
+But the interface for **R** isn't very user friendly for novices! It can be
+intimidating to use, ugly, and it is difficult to access a lot of the
+information that you might need.
+
+---
+
+# Introducing R and R RStudio
+
+
+.pull-left[![](https://github.com/ljcolling/my_images/raw/master/r_logo.png)]
+
+???
+
+Instead of using **R** by itself, we use a second bit of software called **R Studio**.
+
+--
+
+.pull-right[![](https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png)]
+
+???
+
+ **R Studio** makes using a **R** a little more user friendly. **R Studio** has
+ a lot of extra built in functionality. This includes an editor for writing
+ your code, a graphics window for viewing your graphs and figures, and a data
+ viewer for viewing any data that you might be working with. You can use **R**
+ without **RStudio**, but because **RStudio** interfaces with **R**, to use
+ **RStudio** you must first install **R**.
+
+ We'll get around to orientating ourselves in **RStudio** soon but first you're
+ probably wondering why you're learning **R** in the first place
+
+---
+
+&lt;!-- starting R start --&gt;
+
+# Getting set up
+
+- Using **R Studio** on campus is a little different to how you'd use it on
+  your personal computer 
+
+- There's a special way of starting it, and there's a special place where you
+  need to store your files
+
+- For the smoothest most hassle-free experience you need to make sure you follow
+the instructions **carefully**
+
+&lt;br /&gt;
+
+.center[.blue[*And remember, the computers in these labs haven't been used for over a year!*
+
+*So things might be a bit slow to get going today*]]
+
+
+???
+
+Patience will be one of the great *transferable skills* you learn from this
+course!
+
+---
+
+## Saving and accessing your files
+
+When you're using the lab computers you save all your work on **OneDrive**
+
+.pull-left[![](https://github.com/ljcolling/my_images/raw/master/sussex_cloud.png)]
+
+.pull-right[
+
+- You first need to login to your Sussex **OneDrive** my clicking on the OneDrive
+  icon on the task bar and entering your login details 
+
+- You can also download the **OneDrive** app onto your home computer so that you
+  can access your work from off campus
+]
+
+&lt;br /&gt;
+
+Whenever you come into to use the lab computers you should always make sure
+you're sure that you're signed into **OneDrive** before doing anything else.
+
+After if you've signed in once then you *should* be automatically signed in but
+you should always double check
+
+---
+
+## Starting R Studio on Campus
+
+.center[&lt;img width="45%" src="https://github.com/ljcolling/my_images/raw/master/software_hub.png"&gt;&lt;/img&gt;]
+
+Double click the **software hub** icon to get started
+
+---
+
+**Starting R Studio on Campus**
+
+.center[&lt;img width="75%" src="https://github.com/ljcolling/my_images/raw/master/launch_rstudio.png"&gt;&lt;/img&gt;]
+
+Find the RStudio icon &lt;img
+src="http://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/rstudio-icon.png"
+height = "40px" style="vertical-align:middle;"&gt; and click **Launch**
+
+If the launch icon is greyed out and says .blue[Authorisation needed] then just
+wait a sec or click the refresh icon &lt;img
+src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Ic_refresh_48px.svg"
+height = "40px" style="vertical-align:middle;"&gt; 
+
+???
+
+Give the students a chance to start RStudio on their computers
+
+---
+
+## Installing the packages we need
+
+The last step to get everything set up for the course is to *install the
+"packages"* we need... 
+
+
+We'll learn more about what packages are in the coming weeks, but for now you
+can just following the instructions:
+
+
+---
+
+## Installing the packages we need
+
+&lt;small&gt; Copy and paste the text below into **RStudio** in the "console" window:
+&lt;pre&gt;&lt;code&gt;
+source("https://files.mindsci.net/install.r")
+&lt;/pre&gt;&lt;/code&gt;
+&lt;/small&gt;
+
+.center[&lt;img src="./Capture.jpg" height="300px"&gt;]
+
+&lt;small&gt;You can also find the comment on the Week 1 Canvas page&lt;/small&gt;
+
+---
+
+&lt;!-- starting R end --&gt;
+# Practical task
+
+The aim of the practical task today is to get us .blue[*thinking*]
+.blue[*about*] .blue[*science*] so we're going to do a little brain-storming
+session
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
