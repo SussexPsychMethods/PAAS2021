@@ -12,106 +12,105 @@ Materials = Struct.new(
   :week,
   :link,
   :week_int
-
 )
 
 class String
-    (1..5).to_a.each do |x|
-        define_method "h#{x}" do
-            return "=" * x + ' ' + self if self != ''
-        end
+  # String
+  (1..5).to_a.each do |x|
+    define_method "h#{x}" do
+      return '=' * x + ' ' + self if self != ''
     end
+  end
 end
 
 def tidy_type(type)
-    if type == "lectures"
-      return "lecture"
-    end
-    if type == "tutorials"
-      return "tutorial"
-    end
-    if type = "practicals"
-      return "practical"
-    end
+
+  return 'lecture' if type == 'lectures'
+
+  return 'practical' if type == 'practicals'
+
+  return 'tutorial' if type == 'tutorials'
 end
 
-def makeMaterials(week, week_int, type, subtype)
-  if type == "tutorials"
-    link = Dir["src/#{type}/#{week}/index.html"][0]
-    link_text = "link:#{link}[Link to #{tidy_type(type)}]"
-  else
-    link = Dir["src/#{type}/#{week}/#{subtype}/index.html"][0]
-    link_text = "link:#{link}[Link to #{tidy_type(type)} #{subtype}]"
-  end
-  if link == nil
-    return nil
-  end
-  if link.include?("src")
-    link.gsub!(/src/,"")
-  end 
-  return Materials.new(
-    type,
-    subtype,
-    "Week " + week,
-    link_text,
-    week_int
-  )
+def make_materials(week, week_int, type, subtype)
+  link = if type == 'tutorials'
+           Dir["src/#{type}/#{week}/index.html"][0]
+         else
+           Dir["src/#{type}/#{week}/#{subtype}/index.html"][0]
+         end
+
+  return nil if link.nil?
+
+  link.gsub!(/src/, '') if link.include?('src')
+
+  link_text = if type == 'tutorials'
+                tidy_type(type)
+              else
+                "#{tidy_type(type)} #{subtype}"
+              end
+
+  Materials.new(type, subtype, "Week #{week}", "link:#{link}[Link to #{link_text}]", week_int)
+
 end
 
 class Lecture
   def initialize(week)
-    @week = "%02d" % [week]
+    @week = format('%<week>02d', week: week)
     @week_int = week
     @subtypes = %w[slides handout]
     @type = 'lectures'
   end
 
   def listfiles
-    @subtypes.flat_map {|subtype| makeMaterials(@week, @week_int, @type, subtype)}
+    @subtypes.flat_map { |subtype| make_materials(@week, @week_int, @type, subtype) }
   end
 end
 
 class Practical
   def initialize(week)
-    @week = '%02d' % week
+    @week = format('%<week>02d', week: week)
     @week_int = week
     @subtypes = %w[slides worksheets]
     @type = 'practicals'
   end
 
   def listfiles
-    @subtypes.flat_map {|subtype| makeMaterials(@week, @week_int, @type, subtype)}
+    @subtypes.flat_map { |subtype| make_materials(@week, @week_int, @type, subtype) }
   end
 end
 
 class Tutorial
   def initialize(week)
-    @week = '%02d' % week
+    @week = format('%<week>02d', week: week)
     @week_int = week
     @subtypes = %w[tutorials]
     @type = 'tutorials'
   end
 
   def listfiles
-    @subtypes.flat_map {|subtype| makeMaterials(@week, @week_int, @type, subtype)}
+    @subtypes.flat_map { |subtype| make_materials(@week, @week_int, @type, subtype) }
   end
 end
 
-lectureList = weeks.flat_map { |week| Lecture.new(week).listfiles }
-lectureList.compact!
+lecture_list = weeks.flat_map { |week| Lecture.new(week).listfiles }
+lecture_list.compact!
 
-practicalList = weeks.flat_map { |week| Practical.new(week).listfiles }
-practicalList.compact!
 
-tutorialList = weeks.flat_map { |week| Tutorial.new(week).listfiles }
-tutorialList.compact!
+practical_list = weeks.flat_map { |week| Practical.new(week).listfiles }
+practical_list.compact!
 
-puts lectureList
-puts practicalList
-puts tutorialList
+tutorial_list = weeks.flat_map { |week| Tutorial.new(week).listfiles }
+tutorial_list.compact!
+
+
+puts lecture_list
+puts practical_list
+puts tutorial_list
 
 template = ERB.new(File.read('./src/index.md'))
 
-index_page = template.result_with_hash(lectureList: lectureList, practicalList: practicalList, tutorialList: tutorialList)
-File.write('./src/index.asc',index_page)
+index_page = template.result_with_hash(lectureList: lecture_list,
+                                       practicalList: practical_list,
+                                       tutorialList: tutorial_list)
+File.write('./src/index.asc', index_page)
 Asciidoctor.render_file('./src/index.asc')
