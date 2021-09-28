@@ -9,6 +9,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+      beforeInit: "macros.js"
 ---
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
@@ -78,15 +79,20 @@ meta() %>%
   meta_tag("content_type" = "practical-slides")
 ```
 
+```{r, include = FALSE}
+xaringanExtra::use_editable(expires = 1)
+```
+
+
 # Plan for today
 
 **Getting set up**
 
 - What is `R` and `RStudio`?
 
-- Installing all the software we'll need
-
 **Study design**
+
+- Participate in the SMARM study
 
 - A brain-storming session in groups
 
@@ -96,6 +102,7 @@ meta() %>%
 
 
 ---
+exclude: ![:dan]
 
 <!--intro start -->
 
@@ -110,11 +117,15 @@ meta() %>%
 
 .pull-right[
 
-- Originally from South Africa, but did my undergrad and masters at the University of Auckland, New Zealand (the home of the **R** statistics program!)
+- Originally from South Africa, but did my undergrad and masters at the
+  University of Auckland, New Zealand (the home of the **R** statistics
+  program!)
 
-- Did my PhD in Australia in Neuroscience, Philosophy, and Experimental Psychology
+- Did my PhD in Australia in Neuroscience, Philosophy, and Experimental
+  Psychology
 
-- Since finishing my PhD, I've held research positions in Australia, The Netherlands, Hungary, and Cambridge in the UK.
+- Since finishing my PhD, I've held research positions in Australia, The
+  Netherlands, Hungary, and Cambridge in the UK.
 
 - I've just started by third year at Sussex
 
@@ -122,6 +133,8 @@ meta() %>%
 
 
 ---
+
+exclude: ![:lincoln]
 
 # But first, introductions...
 
@@ -135,18 +148,23 @@ meta() %>%
 
 .pull-right[
 
-- Did my BSc in Forensic Psychology at the University of Portsmouth and my MSc in Psychological Research Methods at the University of Essex
+- Did my BSc in Forensic Psychology at the University of Portsmouth and my MSc
+  in Psychological Research Methods at the University of Essex
 
-- Completed my PhD in Psychology here at Sussex investigating all things 'mathsy'
+- Completed my PhD in Psychology here at Sussex investigating all things
+  'mathsy'
 
-- Following my PhD, I've spent most of my time teaching **R** & all the super cool things you can do with it
+- Following my PhD, I've spent most of my time teaching **R** & all the super
+  cool things you can do with it
 
-- I've been at Sussex for a little while now, but this is my second year teaching here 
+- I've been at Sussex for a little while now, but this is my second year
+  teaching here 
 
 ]
 
-<!-- intro end -->
+
 ---
+
 
 # Introducing R and R RStudio
 
@@ -159,10 +177,12 @@ graphics
 
 --
 
+
 .pull-right[![](https://github.com/ljcolling/my_images/raw/master/base_r.png)]
 
 
 ???
+
 
 But the interface for **R** isn't very user friendly for novices! It can be
 intimidating to use, ugly, and it is difficult to access a lot of the
@@ -197,6 +217,8 @@ Instead of using **R** by itself, we use a second bit of software called **R Stu
 
 ---
 
+exclude: ![:dan]
+
 <!-- starting R start -->
 
 # Getting set up
@@ -224,6 +246,8 @@ course!
 
 ---
 
+exclude: ![:dan]
+
 ## Saving and accessing your files
 
 When you're using the lab computers you save all your work on **OneDrive**
@@ -249,6 +273,8 @@ you should always double check
 
 ---
 
+exclude: ![:dan]
+
 ## Starting R Studio on Campus
 
 .center[<img width="45%" src="https://github.com/ljcolling/my_images/raw/master/software_hub.png"></img>]
@@ -256,6 +282,8 @@ you should always double check
 Double click the **software hub** icon to get started
 
 ---
+
+exclude: ![:dan]
 
 **Starting R Studio on Campus**
 
@@ -276,6 +304,8 @@ Give the students a chance to start RStudio on their computers
 
 ---
 
+exclude: ![:dan]
+
 ## Installing the packages we need
 
 The last step to get everything set up for the course is to *install the
@@ -288,6 +318,8 @@ can just following the instructions:
 
 ---
 
+exclude: ![:dan]
+
 ## Installing the packages we need
 
 <small> Copy and paste the text below into **RStudio** in the "console" window:
@@ -298,13 +330,111 @@ source("https://files.mindsci.net/install.r")
 
 .center[<img src="./Capture.jpg" height="300px">]
 
-<small>You can also find the comment on the Week 1 Canvas page</small>
+<small>You can also find the command on the Week 1 Canvas page</small>
+
+<!-- starting R end -->
 
 ---
 
-<!-- starting R end -->
-# Practical task
+# Practical task: SMARM study
+
+- As part of this module, you will have weekly quizzes that assess your
+  understanding of topics covered in the tutorials & practicals
+
+- For this week, instead of a quiz, we have a survey for you to complete, if
+  you complete the survey and pass the attention checks, you get an automatic
+  100% for your first quiz mark
+
+- The survey covers your attitudes, opinions, and experiences with statistics,
+  maths, and coding, with some questions about anxiety and gender identity, &
+  we also want to use your responses to link to your attendance, & marks etc. 
+
+- **You can access the Qualtrics link on
+  [Canvas](https://canvas.sussex.ac.uk/courses/15795/quizzes/26175)**, when
+  you’ve finished the survey, enter the completion codes in the quiz (you can
+  still participate in the survey, but not consent to the study with no impact
+  on your quiz mark & no impact on the practical today)
+
+- Make sure to read all the consent information - this is a *real* study
+
+
+---
+
+
+# Attendance 
+
+<br>
+
+.middle[
+.center[
+
+## Practical 1 attendance pin.can-edit[: ]
+
+
+## Practical 2 attendance pin.can-edit[: ]
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+**Go to www.sussex.ac.uk/mobile OR use the SussexMobile app to input the pin**
+
+]]
+
+---
+
+# Practical task: study design
 
 The aim of the practical task today is to get us .blue[*thinking*]
 .blue[*about*] .blue[*science*] so we're going to do a little brain-storming
 session
+
+For the brain-storming session, we’ll be using
+[Etherpad](https://canvas.sussex.ac.uk/courses/15795/pages/week-1) to work
+together in groups
+
+**In your groups you’ll be brain-storming:**
+
+- a poorly constrained psychology study: One where it’s difficult to clearly
+  define things we’re manipulating and measuring
+
+- an impossible psychology study
+
+- a study that is not useful in the real world
+
+- bias in psychology studies and bias in publishing psychology studies
+
+
+???
+
+
+Don’t worry if you don’t understand some of the terminology. We’ll be covering
+all this material as we progress in the course. The aim for today is for you to
+see how much you already know. and you can draw on your experience today now
+that you've taken part in a real study yourselves,
+  
+
+---
+
+# Tasks for next week
+
+- Complete the first PAAS tutorial on [Canvas](https://paas.netlify.app/tutorials/01/)
+
+  + Install R & RStudio on your own computers
+
+  + Setup OneDrive if you wish
+
+
+  
+  
+
+
+
+
+
+
+
