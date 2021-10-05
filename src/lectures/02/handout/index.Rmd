@@ -5,7 +5,7 @@ description: |
 author:
   - name: Dr Lincoln Colling
     affiliation: University of Sussex
-date: "07 October 2021"
+date: "October 07 2021"
 output: distill::distill_article
 bibliography: references.bib
 ---
