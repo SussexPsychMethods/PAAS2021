@@ -1,8 +1,0 @@
-#!/bin/bash
-
-cd ./src/lectures/01/slides/
-R -e 'rmarkdown::render("index.Rmd")'
-
-cd ~/GitHub/teaching/PAAS2021/
-
-netlify deploy --prod

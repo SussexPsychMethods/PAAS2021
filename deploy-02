@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd ./src/lectures/02/slides/
+R -e 'rmarkdown::render("index.Rmd")'
+cd ~/GitHub/teaching/PAAS2021/
+
+
+cd ./src/lectures/02/handout//
+R -e 'rmarkdown::render("index.Rmd")'
+cd ~/GitHub/teaching/PAAS2021/
+
+netlify deploy --prod
