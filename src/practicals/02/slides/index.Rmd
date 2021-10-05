@@ -209,7 +209,7 @@ source("https://files.mindsci.net/install.r")
 ---
 
 
-# Pracitcal task
+# Practical task
 
 Computers are **dumb** but people are **smart**
 
@@ -255,6 +255,19 @@ The task will be to draw a simple house... something along the lines of this:
 
 .center[<img width="50%" src="./house.jpg">]
 
+
+---
+
+exclude: ![:hidden]
+
+## The task 2.0
+
+This time, the task will be to draw this stickman:
+
+.center[<img width="35%" src="./stickman.png">]
+
+**Keep in mind how clear & specific you need to be from the last task!**
+
 ---
 
 # Attendance 
@@ -279,7 +292,6 @@ The task will be to draw a simple house... something along the lines of this:
 **Go to www.sussex.ac.uk/mobile OR use the SussexMobile app to input the pin**
 
 ]]
-
 
 ---
 
