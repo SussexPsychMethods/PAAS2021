@@ -1,0 +1,82 @@
+<!-- starting R start -->
+
+# Getting set up
+
+- Using **R Studio** on campus is a little different to how you'd use it on
+  your personal computer 
+
+- There's a special way of starting it, and there's a special place where you
+  need to store your files
+
+- For the smoothest most hassle-free experience you need to make sure you follow
+the instructions **carefully**
+
+<br />
+
+.center[.blue[*And remember, the computers in these labs haven't been used for over a year!*
+
+*So things might be a bit slow to get going today*]]
+
+
+???
+
+Patience will be one of the great *transferable skills* you learn from this
+course!
+
+---
+
+## Saving and accessing your files
+
+When you're using the lab computers you save all your work on **OneDrive**
+
+.pull-left[![](https://github.com/ljcolling/my_images/raw/master/sussex_cloud.png)]
+
+.pull-right[
+
+- You first need to login to your Sussex **OneDrive** my clicking on the OneDrive
+  icon on the task bar and entering your login details 
+
+- You can also download the **OneDrive** app onto your home computer so that you
+  can access your work from off campus
+]
+
+<br />
+
+Whenever you come into to use the lab computers you should always make sure
+you're sure that you're signed into **OneDrive** before doing anything else.
+
+After if you've signed in once then you *should* be automatically signed in but
+you should always double check
+
+---
+
+## Starting R Studio on Campus
+
+.center[<img width="45%" src="https://github.com/ljcolling/my_images/raw/master/software_hub.png"></img>]
+
+Double click the **software hub** icon to get started
+
+---
+
+**Starting R Studio on Campus**
+
+.center[<img width="75%" src="https://github.com/ljcolling/my_images/raw/master/launch_rstudio.png"></img>]
+
+Find the RStudio icon <img
+src="http://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/rstudio-icon.png"
+height = "40px" style="vertical-align:middle;"> and click **Launch**
+
+If the launch icon is greyed out and says .blue[Authorisation needed] then just
+wait a sec or click the refresh icon <img
+src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Ic_refresh_48px.svg"
+height = "40px" style="vertical-align:middle;"> 
+
+???
+
+Give the students a chance to start RStudio on their computers
+
+---
+
+## Installing the packages we need
+
+---

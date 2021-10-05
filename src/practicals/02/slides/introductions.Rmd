@@ -1,0 +1,48 @@
+<!--intro start -->
+
+# But first, introductions...
+
+.pull-left[
+**Dr Lincoln Colling** l.colling@sussex.ac.uk
+
+<img width="75%" src="https://github.com/ljcolling/my_images/raw/master/Me.jpg">
+
+]
+
+.pull-right[
+
+- Originally from South Africa, but did my undergrad and masters at the University of Auckland, New Zealand (the home of the **R** statistics program!)
+
+- Did my PhD in Australia in Neuroscience, Philosophy, and Experimental Psychology
+
+- Since finishing my PhD, I've held research positions in Australia, The Netherlands, Hungary, and Cambridge in the UK.
+
+- I've just started by third year at Sussex
+
+]
+
+
+---
+
+# But first, introductions...
+
+.pull-left[
+**Dr Danielle Evans** danielle.evans@sussex.ac.uk
+
+<img width="75%" src="https://desupervision.netlify.app/img/prof2.png">
+
+]
+
+
+.pull-right[
+
+- Did my BSc in Forensic Psychology at the University of Portsmouth and my MSc in Psychological Research Methods at the University of Essex
+
+- Completed my PhD in Psychology here at Sussex investigating all things 'mathsy'
+
+- Following my PhD, I've spent most of my time teaching **R** & all the super cool things you can do with it
+
+- I've been at Sussex for a little while now, but this is my second year teaching here 
+
+]
+
