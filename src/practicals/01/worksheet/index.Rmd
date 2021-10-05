@@ -130,8 +130,8 @@ In your **groups** you'll be brain-storming:
 <li><a href="https://etherpad.wikimedia.org/p/paas_session8" target="_blank"><strong>Session 8</strong></a></li>
 <li><a href="https://etherpad.wikimedia.org/p/paas_session9" target="_blank"><strong>Session 9</strong></a></li>
 <li><a href="https://etherpad.wikimedia.org/p/paas_session10" target="_blank"><strong>Session 10</strong></a></li>
-<li><a href="https://etherpad.wikimedia.org/p/paas_session10" target="_blank"><strong>Session 11</strong></a></li>
-<li><a href="https://etherpad.wikimedia.org/p/paas_session10" target="_blank"><strong>Session 12</strong></a></li>
+<li><a href="https://etherpad.wikimedia.org/p/paas_session11" target="_blank"><strong>Session 11</strong></a></li>
+<li><a href="https://etherpad.wikimedia.org/p/paas_session12" target="_blank"><strong>Session 12</strong></a></li>
 </ol>
 
 Maybe nominate one person in your group to do the typing because all the groups

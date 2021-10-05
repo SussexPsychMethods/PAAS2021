@@ -217,7 +217,7 @@ Instead of using **R** by itself, we use a second bit of software called **R Stu
 
 ---
 
-exclude: ![:dan]
+exclude: ![:online]
 
 <!-- starting R start -->
 
@@ -246,7 +246,7 @@ course!
 
 ---
 
-exclude: ![:dan]
+exclude: ![:online]
 
 ## Saving and accessing your files
 
@@ -273,7 +273,7 @@ you should always double check
 
 ---
 
-exclude: ![:dan]
+exclude: ![:online]
 
 ## Starting R Studio on Campus
 
@@ -283,7 +283,7 @@ Double click the **software hub** icon to get started
 
 ---
 
-exclude: ![:dan]
+exclude: ![:online]
 
 **Starting R Studio on Campus**
 
@@ -304,7 +304,7 @@ Give the students a chance to start RStudio on their computers
 
 ---
 
-exclude: ![:dan]
+exclude: ![:online]
 
 ## Installing the packages we need
 
@@ -318,7 +318,7 @@ can just following the instructions:
 
 ---
 
-exclude: ![:dan]
+exclude: ![:online]
 
 ## Installing the packages we need
 
