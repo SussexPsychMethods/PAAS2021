@@ -2,3 +2,6 @@ src/index.html
 src/index.asc
 .Rproj.user
 *.Rproj
+
+# Local Netlify folder
+.netlify
