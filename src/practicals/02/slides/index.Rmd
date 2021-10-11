@@ -64,9 +64,10 @@ xaringanthemer::style_extra_css(
    "text-shadow" = "none",
    "padding" = "0px",
    "margin" = "0px",
-   "line-height" = "1")
- ),
-)
+   "line-height" = "1"),
+  ".big" = list("font-size" = "40px")
+))
+
 
 xaringanExtra::use_editable(expires = 1)
 ```
@@ -78,6 +79,23 @@ meta() %>%
   meta_tag("week" = "02") %>%
   meta_tag("content_type" = "slides")
 ```
+
+
+exclude: ![:online]
+
+<br />
+
+.center[.big[**Masking wearing**]]
+
+<br />
+
+.big[.center[**It is university policy to recommend mask wearing**]]
+
+<br />
+
+.big[.center[**Masks are available if you need one**]]
+
+---
 
 # Plan for today
 
@@ -234,17 +252,12 @@ things when information/instructions are missing
 
 For the practical task we're going to split into **groups of 5** 
 
-1. One person from the group is going to .green[*play the role of the computer*]
 
-2. And the other group members will .blue[*play the role the programmers*]
+1. In the groups you'll come up with set of instructions for drawing a specific
+   picture (I'll tell you what the picture will be in a second)
 
-The task will be for the .blue[*programmers*] to give instructions to the
-.green[*computer*] on how to draw a simple picture
-
-<br />
-
-.center[I'll get the .green[*computers*] to close their eyes now so that they
-don't see the task]
+2. Once you've come up with the instructions then one of the tutors will follow
+   those instructions and will hopefully produce the desired picture!
 
 ---
 exclude: ![:hidden]

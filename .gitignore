@@ -5,3 +5,7 @@ src/index.asc
 
 # Local Netlify folder
 .netlify
+
+# building
+deploy-02
+makepdfs.r
