@@ -17,63 +17,91 @@ output:
 library(xaringanthemer)
 
 style_duo_accent(
- primary_color = "#003b49",
+  primary_color = "#003b49",
   secondary_color = "#1d4289",
   header_font_google = google_font("Cabin"),
-  text_font_google   = google_font("Noto Sans", "300", "300i"),
-  code_font_google   = google_font("Fira Mono"),
+  text_font_google = google_font("Noto Sans", "300", "300i"),
+  code_font_google = google_font("Fira Mono"),
   colors = c(
-  red = "#d3003f",
-  purple = "#3e2f5b",
-  orange = "#ff8811",
-  green = "#136f63",
-  white = "#FFFFFF"
-)
+    red = "#d3003f",
+    purple = "#3e2f5b",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"
+  )
 )
 
 xaringanthemer::style_extra_css(
-  list(".title-slide" = list("background-image" = 'url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/University_of_Sussex_Logo.svg/480px-University_of_Sussex_Logo.svg.png)',
-  "background-position" =  '95% 95%',
- 'background-size' = '180px',
-  'border' ='10px solid #013035',
-  'background-color'= '#FFFFFF'
-  ),
- ".title-slide h1" = list(
-  'padding-top' = '0px',
-  'font-size' = '60px',
-  'text-align' = 'left',
-  'padding-bottom' = '18px',
-  'margin-bottom' = '18px',
-  'margin-top' = '0px',
-  'color' = '#003b49'
- ), 
- '.title-slide h2' = list(
-   'font-size' = '40px',
-   'text-align' = 'left',
-   'padding-top' = '10px',
-   'margin-top' = '0px',
-   'color' = '#003b49'
- ),
- '.title-slide h3' = list(
-   'font-size' = '30px',
-   'color' = '#26272A',
-   'text-align' = 'left',
-   'text-shadow' = 'none',
-   'padding' = '0px',
-   'margin' = '0px',
-   'line-height' = '1')
- )
+  list(
+    ".title-slide" = list(
+      "background-image" =
+        paste0(
+          "url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/",
+          "University_of_Sussex_Logo.svg/",
+          "480px-University_of_Sussex_Logo.svg.png)"
+        ),
+      "background-position" = "95% 95%",
+      "background-size" = "180px",
+      "border" = "10px solid #013035",
+      "background-color" = "#FFFFFF"
+    ),
+    ".title-slide h1" = list(
+      "padding-top" = "0px",
+      "font-size" = "60px",
+      "text-align" = "left",
+      "padding-bottom" = "18px",
+      "margin-bottom" = "18px",
+      "margin-top" = "0px",
+      "color" = "#003b49"
+    ),
+    ".title-slide h2" = list(
+      "font-size" = "40px",
+      "text-align" = "left",
+      "padding-top" = "10px",
+      "margin-top" = "0px",
+      "color" = "#003b49"
+    ),
+    ".title-slide h3" = list(
+      "font-size" = "30px",
+      "color" = "#26272A",
+      "text-align" = "left",
+      "text-shadow" = "none",
+      "padding" = "0px",
+      "margin" = "0px",
+      "line-height" = "1"
+    ),
+    ".big" = list("font-size" = "40px")
+  )
 )
 ```
 
 ```{r, echo=FALSE}
 library(metathis)
-meta() %>% 
-  meta_description("We try to answer the question: 'What is this thing called \"science\"?'") %>%
+meta() %>%
+  meta_description(paste(
+    "We try to answer the question: ",
+    "'What is this thing called \"science\"?'"
+  )) %>%
   meta_tag("week" = "02") %>%
   meta_tag("content_type" = "slides")
 ```
 
+```{r broadcast, echo=FALSE}
+xaringanExtra::use_broadcast()
+```
+
+<br />
+
+
+<br />
+
+.big[.center[**It is university policy to recommend mask wearing**]]
+
+<br />
+
+.big[.center[**Masks are available if you need one**]]
+
+---
 
 ## Philosophy of Science 
 
@@ -243,7 +271,7 @@ And experiments will presume the truth of certain theories (e.g., brain imaging 
 ## "Objectivity"
 
 <blockquote>
-Fact's not care about your feelings
+Fact's don't care about your feelings
 .right[— <cite>Guy on the internet</cite>]
 </blockquote>
 
@@ -372,7 +400,7 @@ But surely there are .green[good] and .red[bad] **inductive** arguments?
 
 **Clear** and **simple** rules aren't easy to come by.
 
-But the bigger problem is **induction can never establish truth*.
+But the bigger problem is **induction can never establish truth**.
 
 So how do we ever **prove anything for certain in science**. The short answer is, **we don't**.
 
@@ -502,7 +530,7 @@ For example, an experiment on memory using brain imaging is also making assumpti
 
 It **may be the case** that what is actually at fault is one of these auxiliary assumptions and not **your theory**.  Telling which part of the **interconnected web** of theories is at fault can be tricky. Philosophers call this the _Duhem-Quine problem_.
 
-_Popper_ didn't have a good answer on how figure out where to lay the blame for an _apparent_ falsification.
+_Popper_ didn't have a good answer on how to figure out where to lay the blame for an _apparent_ falsification.
 
 _Popper_ also didn't think that theories should be abandoned _too quickly_.
 
@@ -550,7 +578,7 @@ _Popper's_ focus on **falsifying** theories leads to a couple of problems:
 
 The philosopher _Imre Lakatos_ developed his idea of **research programmes**<sup>1</sup> as a reaction to these two problems.
  
-.footnote[A _similar_ idea was developed by the philosopher _Thomas Kuhn_, but _Kuhn_ used the term **paradigms** for his idea.]
+.footnote[<sup>1</sup>A _similar_ idea was developed by the philosopher _Thomas Kuhn_, but _Kuhn_ used the term **paradigms** for his idea.]
 
 ---
 
@@ -586,7 +614,7 @@ When apparent falsifications occur the **protective belt** is up for revision bu
 
 On _Latakos's_ view, scientists work **within a research programme**. 
 
-He split guidelines for working within a research programme into a **negative** and **positive** heuristic, specifying what scientists **shouldn't** but also what they **should** do
+He split guidelines for working within a research programme into a **negative** and **positive** heuristic, specifying what scientists **shouldn't** do but also what they **should** do
 
 - The _negative heuristic_ includes things like not abandoning the **hard core**
 
@@ -639,3 +667,16 @@ But again, what is and isn't a **research programme** isn't always clear, becaus
 However, I think it's valuable to keep these distinctions in mind as you move through your university career.
 
 ---
+
+```{r, echo = FALSE}
+qrcode::generate_svg("https://pollev.com/drcolling",filename = "qrcode.svg", size = 100)
+
+```
+.center[**Any Questions?**]
+
+.center[<img src="qrcode.svg" width="65%">]
+
+.center[https://pollev.com/drcolling]
+
+
+

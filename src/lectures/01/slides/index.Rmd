@@ -18,56 +18,60 @@ output:
 library(xaringanthemer)
 
 style_duo_accent(
- primary_color = "#003b49",
+  primary_color = "#003b49",
   secondary_color = "#1d4289",
   header_font_google = google_font("Cabin"),
-  text_font_google   = google_font("Noto Sans", "300", "300i"),
-  code_font_google   = google_font("Fira Mono"),
+  text_font_google = google_font("Noto Sans", "300", "300i"),
+  code_font_google = google_font("Fira Mono"),
   colors = c(
-  red = "#d3003f",
-  blue = "#1d4289",
-  purple = "#3e2f5b",
-  orange = "#ff8811",
-  green = "#136f63",
-  white = "#FFFFFF"
-)
+    red = "#d3003f",
+    blue = "#1d4289",
+    purple = "#3e2f5b",
+    orange = "#ff8811",
+    green = "#136f63",
+    white = "#FFFFFF"
+  )
 )
 
 xaringanthemer::style_extra_css(
-  list(".title-slide" = list("background-image" =
- paste0(
-  "url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/",
-  "University_of_Sussex_Logo.svg/480px-University_of_Sussex_Logo.svg.png)"),
-  "background-position" =  "95% 95%",
-  "background-size" = "180px",
-  "border" = "10px solid #013035",
-  "background-color" = "#FFFFFF"
-  ),
- ".title-slide h1" = list(
-  "padding-top" = "0px",
-  "font-size" = "60px",
-  "text-align" = "left",
-  "padding-bottom" = "18px",
-  "margin-bottom" = "18px",
-  "margin-top" = "0px",
-  "color" = "#003b49"
- ),
- ".title-slide h2" = list(
-   "font-size" = "40px",
-   "text-align" = "left",
-   "padding-top" = "10px",
-   "margin-top" = "0px",
-   "color" = "#003b49"
- ),
- ".title-slide h3" = list(
-   "font-size" = "30px",
-   "color" = "#26272A",
-   "text-align" = "left",
-   "text-shadow" = "none",
-   "padding" = "0px",
-   "margin" = "0px",
-   "line-height" = "1")
- )
+  list(
+    ".title-slide" = list(
+      "background-image" =
+        paste0(
+          "url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/",
+          "University_of_Sussex_Logo.svg/480px-University_of_Sussex_Logo.svg.png)"
+        ),
+      "background-position" = "95% 95%",
+      "background-size" = "180px",
+      "border" = "10px solid #013035",
+      "background-color" = "#FFFFFF"
+    ),
+    ".title-slide h1" = list(
+      "padding-top" = "0px",
+      "font-size" = "60px",
+      "text-align" = "left",
+      "padding-bottom" = "18px",
+      "margin-bottom" = "18px",
+      "margin-top" = "0px",
+      "color" = "#003b49"
+    ),
+    ".title-slide h2" = list(
+      "font-size" = "40px",
+      "text-align" = "left",
+      "padding-top" = "10px",
+      "margin-top" = "0px",
+      "color" = "#003b49"
+    ),
+    ".title-slide h3" = list(
+      "font-size" = "30px",
+      "color" = "#26272A",
+      "text-align" = "left",
+      "text-shadow" = "none",
+      "padding" = "0px",
+      "margin" = "0px",
+      "line-height" = "1"
+    )
+  )
 )
 ```
 
@@ -511,8 +515,7 @@ concepts like validity.
 ---
 
 ```{r, echo = FALSE}
-qrcode::generate_svg("https://pollev.com/drcolling",filename = "qrcode.svg", size = 100)
-
+qrcode::generate_svg("https://pollev.com/drcolling", filename = "qrcode.svg", size = 100)
 ```
 .center[**Any Questions?**]
 

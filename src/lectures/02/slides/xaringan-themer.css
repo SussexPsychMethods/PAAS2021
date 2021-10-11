@@ -337,3 +337,6 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   margin: 0px;
   line-height: 1;
 }
+.big {
+  font-size: 40px;
+}
