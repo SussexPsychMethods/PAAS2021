@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Working with R Project files</title>
+    <meta charset="utf-8" />
+    <script src="index_files/header-attrs-2.11/header-attrs.js"></script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xb125bec806c4f78990d0c8f17be3da2","expires":1}</script>
+    <script src="index_files/himalaya-1.1.0/himalaya.js"></script>
+    <script src="index_files/js-cookie-3.0.0/js.cookie.js"></script>
+    <link href="index_files/editable-0.2.6/editable.css" rel="stylesheet" />
+    <script src="index_files/editable-0.2.6/editable.js"></script>
+    <meta name="description" content="Working with R Project files"/>
+    <meta week="03"/>
+    <meta content_type="slides"/>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Working with R Project files
+## Psychology as a Science: Practical 3
+
+---
+
+
+
+
+
+
+
+# Introduction
+
+The practical today is focused on **two** main concepts 
+
+1. Quick Q&amp;A
+
+2. Recapping the Quiz/Tutorial/Practical Structure
+
+1. Files, folders, and paths!
+
+2. **R Project** files
+
+In short, it is all about how to keep things **organised** so that you, and
+your computer, can find the files you need to find!
+
+---
+
+## Recapping the Quiz/Tutorial/Practical
+
+Apart from Lectures the other two main tasks you need to do each week are the
+**Tutorial** and **Practial** classes
+
+
+**Tutorials**
+
+- These are activities you do at home **before** the practical class.
+
+- They're linked on the weekly CANVAS pages under the heading **Tutorial** (or
+from Week 4 they've been accessed from RStudio under the **Tutorials** pane)
+
+- The **Quizzes** are based on the **Tutorial** from the **previous week**.
+
+  + i.e., The **Week 2** tutorial is used to get the content for the **Week 3**
+    quiz 
+
+- You have the week leading up to the **Week 3** practial to do the **Quiz**
+  because the **quizzes** are there to make sure you do the tutorial **before**
+  coming to class 
+
+ &lt;small&gt;You also have a few days after, but this is so I can remind you because
+ people forget when they get busy. This isn't the window in which you should do
+ the quiz.&lt;/small&gt;
+
+---
+
+## Recapping the Quiz/Tutorial/Practical
+
+**Tutorials**
+
+Each tutorial starts off by telling you which practical class it is designed as
+prep for
+
+&lt;img src="./assets/screen.png"&gt;
+
+---
+
+## Recapping the Quiz/Tutorial/Practical
+
+**Quizzes**
+
+Each **quiz** starts off by telling you which tutorial it is based on
+
+&lt;img src="./assets/quiz.png"&gt;
+
+---
+
+## Recapping the Quiz/Tutorial/Practical
+
+*Why not give a week after the practicals to do the quiz?*
+
+Because would mean a single topic would be spread out over three weeks, and you'd
+be working on multiple topics each week!
+
+**Example**
+
+Week 1: 
+
+- Tutorial on **Intoduction to computing**
+
+Week 2:
+
+- Pratical on **Introduction to computing**
+- Tutorial on **Files, paths, and projects**
+
+Week 3: 
+- Quiz on **Introduction to computing** 
+- Practical on **Files, paths, and project**
+- Tutorial on **Introduction to R Markdown**
+
+---
+
+## Recapping the Quiz/Tutorial/Practical
+
+The current stucture means you only have to focus on one thing at a time.
+
+**Example**
+
+Week 3
+
+*In the days leading up to the practial*
+- Do tutorial for Week 3 prep (labelled Week 2 tutorial)
+
+- Do quiz on tutorial material
+
+- Do pratical exapanding on topic covered in tutorial 
+
+*In the days after the pratical*
+
+- Do tutorial that preps you for the following weeks practical / quiz
+
+
+---
+
+## Recapping the Quiz/Tutorial/Practical
+
+But the **the most important reason** why this stucture is used is:
+
+- Having the week **leading** up to the pratical being the week in which you
+can do the quiz means that you have to do the tutorial **before** the practical
+
+If we gave you the week after then you would only need to do the tutorial after
+the pratical
+
+
+- The **tutorial** is preparation and helps you get the **most** out of the
+pratical class
+
+- The **quiz** is your motivation to actually do the **tutorial**
+
+Think of it as a *quiz to make sure that you've "done the reading" before coming to class*
+
+---
+
+# Attendance 
+
+&lt;br&gt;
+
+.middle[
+.center[
+
+## Attendance pin.can-edit[: ]
+
+
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+**Go to www.sussex.ac.uk/mobile OR use the SussexMobile app to input the pin**
+
+]]
+
+---
+
+## Files and folders
+
+When we have **files** on our computer we usually just think about **file names**
+
+But **file names** actually come in two parts. The .blue[file name] and the .green[file extensions]
+
+
+&lt;div style="font-size:1.5em;line-height:2em"&gt;&lt;code style="color:blue"&gt;my_script&lt;/code&gt;&lt;code style="color:green"&gt;.R&lt;/code&gt;&lt;/div&gt;
+
+&lt;div style="font-size:1.5em;line-height:2em"&gt;&lt;code style="color:blue"&gt;my_document&lt;/code&gt;&lt;code style="color:green"&gt;.Rmd&lt;/code&gt;&lt;/div&gt;
+
+&lt;div style="font-size:1.5em;line-height:2em"&gt;&lt;code style="color:blue"&gt;my_project&lt;/code&gt;&lt;code style="color:green"&gt;.Rproj&lt;/code&gt;&lt;/div&gt;
+
+&lt;div style="font-size:1.5em;line-height:2em"&gt;&lt;code style="color:blue"&gt;my_data&lt;/code&gt;&lt;code style="color:green"&gt;.csv&lt;/code&gt;&lt;/div&gt;
+
+**.green[file extensions]** are very important because they tell you what **type** of file it is 
+
+---
+
+## Common file extensions
+
+There are a few common file extensions you'll come across when working in `R`
+
+- `.R` for R Script files that hold code/instructions for `R` to run (although
+  we won't deal with them much this year)
+
+- `.Rmd` for R Markdown files that hold code and text (e.g., documents we're
+  writing)
+
+- `.Rproj` for R Project files
+
+- `.csv` for data files (&lt;u&gt;C&lt;/u&gt;ommas &lt;u&gt;S&lt;/u&gt;eperated &lt;u&gt;V&lt;/u&gt;alues)
+
+---
+
+### Why is it important to **recognise** file extensions?
+
+1. So you don't save over things you're not meant to 
+  - e.g., once a file with a `.Rproj` has been created, you never touch that file again
+
+2. So you can open files in the correct way
+
+  - Sometimes when you download a file from the internet your web browser might
+    add something to the extension (often `.txt`)
+
+  - If you open what you **think** is an R Markdown file (`.Rmd`) but your web
+    browser has remained it to `.Rmd.txt` then it'll look weird in **R Studio**
+  
+3. We'll try get into the habit of organising files by **type** so we need to
+   recognise the type!
+
+---
+
+## Folders and paths 
+
+.pull-left[&lt;img src="https://github.com/ljcolling/my_images/raw/master/get_organized.png"&gt;&lt;/img&gt;]
+.pull-right[Each file on your computer has a **location**
+
+The **path** specifies the location]
+
+&lt;br&gt;
+**two examples of file paths**  (absolute paths)
+
+&lt;span style="font-size:.95em"&gt;`c:/Users/Lincoln/My Documents/my_new_project/my_new_project.Rproj`&lt;/span&gt;
+
+&lt;span style="font-size:.95em"&gt;`/Volumes/HD/Users/lincoln/Documents/my_new_project/my_new_project.Rproj`&lt;/span&gt;
+
+---
+
+### Relative paths 
+
+Paths are **long** and **confusing** and _**full**_ paths (aka **absolute** paths) are specific to **our
+computer**
+
+So instead, we're going to learn how to specify the location of files
+**relative ** to a specific place—**here**
+
+.pull-left[&lt;img src="https://static.vecteezy.com/system/resources/previews/000/142/719/non_2x/free-isometric-you-are-here-map-vector.jpg" /&gt;]
+.pull-right[Our **R Project file** (the one with the `.Rproj` extension) will always be our **here**
+
+Writing out a **relative path** is now just about writing out the **steps from
+here** with a `/` between each step ]
+
+---
+
+### Relative paths: an example
+
+.pull-left[&lt;img src="assets/from_here.png"/&gt;]
+.pull-right[
+
+**Step 1**  
+Go from **here** to folder called **data**
+
+write step 1 as: `data`
+
+**Step 2**  
+Go from **data** folder to file called **my_funky_data.csv**
+
+write step 2 as: `my_funky_data.csv`
+]
+
+&lt;br&gt;
+Put **step 1** and **step 2** together and separate them with `/`
+
+write the relative path as: `data/my_funky_data.csv`
+
+---
+
+### Why the jargon?
+
+- In Psychology as a Science, we'll only ever work with **relative paths**. 
+
+- Relative paths are just the set of steps to get to a file from a
+*pre-specified* location (the folder holder our R Project file)
+
+.center[So why the jargon of **relative paths** and **absolute paths**]
+
+
+In short, because you might hear these terms in other courses or other contexts
+so having a reference you can turn back to for help understanding the jargon 
+might be useful!
+
+---
+
+## Keeping things organised 
+
+We'll always adopt a **consistent** folder **structure** in our project. This will help us stay organised and it'll make it easier for us to find our files. 
+
+.pull-left[
+**Basic folder structure**
+```
+.
+├── data
+├── r_docs
+├── scripts
+└── week_03.RProj
+```
+]
+.pull-right[
+The basic folder structure will include:
+- a `data` folder for our data
+- a `r_docs` folder for our documents
+- a `scripts` folder for our `R` scripts (we won't really be using this folder this year, but it's good to get in the habit)
+]
+
+&lt;br&gt;
+After you create your **R Project** you can create your **folder structure** through the files pane.
+
+---
+
+## Getting to know the files pane
+
+.pull-left[&lt;img src="https://github.com/ljcolling/my_images/raw/master/new_project_fresh_open_highlighted.png" /&gt;
+
+Clicking the **New Folder** button allows you to create new folders
+]
+
+--
+
+.pull-right[&lt;img src="https://github.com/ljcolling/my_images/raw/master/new_project_with_sub_folders.png" /&gt;
+
+Once the folders have been created you'll see them in the **Files pane**]
+
+---
+
+## Getting to know the files pane
+
+&lt;img style="width:50%;display:flex;margin-left:auto;margin-right:auto" src="https://github.com/ljcolling/my_images/raw/master/new_project_withsubfolders_zoomed.png" /&gt;
+
+You'll be able to use your **Files** pane to **find files**, to **rename** files, and to **open** files...
+
+---
+
+## Activity for today
+
+_What you should already know how to do_: Create an **R Studio** project file
+according to the instructions in the **tutorial**
+
+- Create an RStudio project (or open one you've already made)
+
+- Creating/checking you have the correct folder structure 
+
+- Exercises on **writing out file paths**
+
+- Saving files from the internet, checking them and putting them in the correct
+  place, and checking that they have correct file extension
+
+- Closing everything back down again
+
+We'll be working through the worksheet linked on the **Week 3** page.
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

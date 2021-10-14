@@ -325,7 +325,7 @@ Each of the assessments has a **specific purpose**
 **Weekly quizzes**
 
 The **weekly quizzes** are there to make sure you do the **tutorials** and
-their content is based on the content of the **tutorials and practicals**. 
+their content is based on the content of the **tutorials**
 
 Doing the **tutorials** will make you better prepared for the practical classes
 that this means you'll get more out of them
