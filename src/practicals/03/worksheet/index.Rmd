@@ -171,7 +171,12 @@ code {font-family: 'Fira Mono', monospace;}
 
 ## About today's practical
     
-In the last tutorial you learned about how you can use **R Project Files** to keep your work organised. You should have already created a **Project file** before this practical, but if you haven't then you should create one now. Open the info box below if you need help doing this.
+In the last tutorial you learned about how you can use **R Project Files** to
+keep your work organised. You should have already created a **Project file**
+before this practical, but this is also the first task we're going to start off 
+with today.
+
+If you need help with creating a Project then open the info box below.
 
 ::: {.hint label="Creating an R Studio Project [Info Box]" type="infobox"}
 
@@ -369,7 +374,8 @@ Write out the path from **here**
 </code></pre>
 <path>images/pictures_of_my_dog/my_dog.png</path>
 
-Write out the path relative to the **R Project file**
+Write out the path relative to the **R Project file**. These are tricker 
+you'll need to find the starting point yourself.
 
 <pre><code>.
 └── rprojects
@@ -462,10 +468,19 @@ What do you do if this happens?
 
 In your web browser go to: 
 
-1. **File** > **Save Page As** (or **File > Save As** in Safari)
+1. **File** > **Save Page As** (or **File > Save As** in Safari) or just
+   hit
+
+   <kbd>ctrl</kbd> + <kbd>s</kbd> (Windows)
+
+   <kbd>⌘</kbd> + <kbd>s</kbd> (MacOS).
+
   - **Firefox**: Make sure **Format** is set to **Plain Text Document**
+
   - **Chrome**: Make sure **Format** is set to **text**
-  - **Safari**:  Make sure **Format** is to to **Page Source**
+
+  - **Safari**:  Make sure
+    **Format** is to to **Page Source**
 
 2. Now you can directly save the file into your data folder
 
@@ -522,10 +537,10 @@ quiz(
   ),
   question(
     "Which folder should you use to store data files?",
-    answer("`/datafiles/`"),
+    answer("`datafiles/`"),
     answer("`R/data/`"),
-    answer("`/data/`", correct = TRUE),
-    answer("`/documents/r_data`")
+    answer("`data/`", correct = TRUE),
+    answer("`documents/r_data`")
   ),
   question(
     "When you want to open a file in R Studio you should...",

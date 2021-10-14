@@ -1568,7 +1568,8 @@ code {font-family: 'Fira Mono', monospace;}
 </style>
 <div id="about-todays-practical" class="section level2">
 <h2>About today’s practical</h2>
-<p>In the last tutorial you learned about how you can use <strong>R Project Files</strong> to keep your work organised. You should have already created a <strong>Project file</strong> before this practical, but if you haven’t then you should create one now. Open the info box below if you need help doing this.</p>
+<p>In the last tutorial you learned about how you can use <strong>R Project Files</strong> to keep your work organised. You should have already created a <strong>Project file</strong> before this practical, but this is also the first task we’re going to start off with today.</p>
+<p>If you need help with creating a Project then open the info box below.</p>
 </div>
 <div id="creating-a-new-rstudio-project" class="section level2 hint" label="Creating an R Studio Project [Info Box]" type="infobox">
 <h2>Creating a new <span class="RR">RStudio</span> project</h2>
@@ -1727,7 +1728,7 @@ A project folder with subfolders in the Files pane
 └── week_01.Rproj
 </code></pre>
 <p><path>images/pictures_of_my_dog/my_dog.png</path></p>
-<p>Write out the path relative to the <strong>R Project file</strong></p>
+<p>Write out the path relative to the <strong>R Project file</strong>. These are tricker you’ll need to find the starting point yourself.</p>
 <pre><code>.
 └── rprojects
     └── week02
@@ -1764,7 +1765,7 @@ A project folder with subfolders in the Files pane
 <p>The next thing we’ll do is save a data file from the internet. Sometimes we’ll provide links to files in the practical worksheets and sometimes we’ll place files on <strong>Canvas</strong> for you to download.</p>
 <p>Before we start downloading data files, we should learn a little bit about data files. We can recognise data files by their file extension. In this course, all the data files we’ll be using will have the file extension <code>.csv</code>. Look out for the <code>.csv</code> extension whenever you’re working with data files.</p>
 <p>Let’s start by downloading two files directly from this page.</p>
-<p>Let us first download the file <a href="data:text/csv;base64,aWQsY29sb3VyLGhlaWdodAowMDEscmVkLDE3MQowMDIscmVkLDE2NAowMDMscmVkLDE5NQowMDQscmVkLDE3NQowMDUscmVkLDIwNwowMDYscmVkLDE0OQowMDcscmVkLDE5MAowMDgscmVkLDE2MwowMDkscmVkLDE3MQowMTAscmVkLDE5Mgo=" download="colour_data.csv">colour_data.csv</a></p>
+<p>Let us first download the file <a href="data:text/csv;base64,aWQsY29sb3VyLGhlaWdodAowMDEscmVkLDE0NQowMDIscmVkLDE5NwowMDMscmVkLDE4OAowMDQscmVkLDIwOAowMDUscmVkLDE1OAowMDYscmVkLDE1MAowMDcscmVkLDE3MAowMDgscmVkLDE1NAowMDkscmVkLDE0NgowMTAscmVkLDIwMQo=" download="colour_data.csv">colour_data.csv</a></p>
 <p>Depending on how your web browser is set up the file might directly download to your <strong>downloads</strong> folder, or you might get a dialog box asking you where you want to save it. If you get a dialog box, make sure you <strong>save</strong> the file. Don’t try to open the file in <strong>Excel</strong> or <strong>Numbers</strong></p>
 <p>Once the file is saved on your computer you’ll want to make sure you move it to the correct spot in your project folder for this week.</p>
 <p>When it comes to moving files between folders an easy way to do it is:</p>
@@ -1786,12 +1787,14 @@ A project folder with subfolders in the Files pane
 <p>What do you do if this happens?</p>
 <p>In your web browser go to:</p>
 <ol style="list-style-type: decimal">
-<li><strong>File</strong> &gt; <strong>Save Page As</strong> (or <strong>File &gt; Save As</strong> in Safari)</li>
+<li><p><strong>File</strong> &gt; <strong>Save Page As</strong> (or <strong>File &gt; Save As</strong> in Safari) or just hit</p>
+<p><kbd>ctrl</kbd> + <kbd>s</kbd> (Windows)</p>
+<p><kbd>⌘</kbd> + <kbd>s</kbd> (MacOS).</p></li>
 </ol>
 <ul>
-<li><strong>Firefox</strong>: Make sure <strong>Format</strong> is set to <strong>Plain Text Document</strong></li>
-<li><strong>Chrome</strong>: Make sure <strong>Format</strong> is set to <strong>text</strong></li>
-<li><strong>Safari</strong>: Make sure <strong>Format</strong> is to to <strong>Page Source</strong></li>
+<li><p><strong>Firefox</strong>: Make sure <strong>Format</strong> is set to <strong>Plain Text Document</strong></p></li>
+<li><p><strong>Chrome</strong>: Make sure <strong>Format</strong> is set to <strong>text</strong></p></li>
+<li><p><strong>Safari</strong>: Make sure <strong>Format</strong> is to to <strong>Page Source</strong></p></li>
 </ul>
 <ol start="2" style="list-style-type: decimal">
 <li>Now you can directly save the file into your data folder</li>
@@ -1826,8 +1829,8 @@ A project folder with subfolders in the Files pane
 </div>
 <div id="test-your-understanding" class="section level2 quiz">
 <h2 class="quiz">Test your understanding</h2>
-<div id="htmlwidget-8f65fd4541ffae1836bb" style="width:672px;height:100%;" class="quiz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8f65fd4541ffae1836bb">{"x":[{"question":"What is the extension of an R Project file?","answers":[["<code>.project<\/code>","false"],["<code>.Rproj<\/code>","true"],["<code>.R<\/code>","false"],["<code>.Rmd<\/code>","false"]]},{"question":"Which folder should you use to store data files?","answers":[["<code>/datafiles/<\/code>","false"],["<code>R/data/<\/code>","false"],["<code>/data/<\/code>","true"],["<code>/documents/r_data<\/code>","false"]]},{"question":"When you want to open a file in R Studio you should&hellip;","answers":[["Double click on it in Finder / File Explorer","false"],["Use the R Studio Files pane to open it","true"]]},{"question":"What is the extension for data file?","answers":[["<code>.cvs<\/code>","false"],["<code>.dat<\/code>","false"],["<code>.csv<\/code>","true"]]}],"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b213fd0a02125f705b7e" style="width:672px;height:100%;" class="quiz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b213fd0a02125f705b7e">{"x":[{"question":"What is the extension of an R Project file?","answers":[["<code>.project<\/code>","false"],["<code>.Rproj<\/code>","true"],["<code>.R<\/code>","false"],["<code>.Rmd<\/code>","false"]]},{"question":"Which folder should you use to store data files?","answers":[["<code>datafiles/<\/code>","false"],["<code>R/data/<\/code>","false"],["<code>data/<\/code>","true"],["<code>documents/r_data<\/code>","false"]]},{"question":"When you want to open a file in R Studio you should&hellip;","answers":[["Double click on it in Finder / File Explorer","false"],["Use the R Studio Files pane to open it","true"]]},{"question":"What is the extension for data file?","answers":[["<code>.cvs<\/code>","false"],["<code>.dat<\/code>","false"],["<code>.csv<\/code>","true"]]}],"evals":[],"jsHooks":[]}</script>
 </div>
 
 <script>!function(e){var t={};function n(r){if(t[r])return t[r].exports;var l=t[r]={i:r,l:!1,exports:{}};return e[r].call(l.exports,l,l.exports,n),l.l=!0,l.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var l in e)n.d(r,l,function(t){return e[t]}.bind(null,l));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=4)}([function(e,t,n){"use strict";e.exports=n(6)},function(e,t,n){"use strict";!function e(){if("undefined"!=typeof __REACT_DEVTOOLS_GLOBAL_HOOK__&&"function"==typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE){0;try{__REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(e)}catch(e){console.error(e)}}}(),e.exports=n(5)},function(e,t,n){"use strict";

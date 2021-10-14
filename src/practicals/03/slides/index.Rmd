@@ -165,6 +165,7 @@ be working on multiple topics each week!
 Week 1: 
 
 - Tutorial on **Intoduction to computing**
+
 Week 2:
 
 - Pratical on **Introduction to computing**
@@ -203,7 +204,7 @@ Week 3
 
 But the **the most important reason** why this stucture is used is:
 
-- Having the weeek **leading** up to the pratical being the week in which you
+- Having the week **leading** up to the pratical being the week in which you
 can do the quiz means that you have to do the tutorial **before** the practical
 
 If we gave you the week after then you would only need to do the tutorial after
@@ -219,6 +220,30 @@ Think of it as a *quiz to make sure that you've "done the reading" before coming
 
 ---
 
+# Attendance 
+
+<br>
+
+.middle[
+.center[
+
+## Attendance pin.can-edit[: ]
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+**Go to www.sussex.ac.uk/mobile OR use the SussexMobile app to input the pin**
+
+]]
+
+---
 
 ## Files and folders
 
@@ -393,12 +418,12 @@ You'll be able to use your **Files** pane to **find files**, to **rename** files
 
 ---
 
-## Plan for today 
+## Activity for today
 
-_What you should already have done_: Created an **R Studio** project file
+_What you should already know how to do_: Create an **R Studio** project file
 according to the instructions in the **tutorial**
 
-- Opening your project file
+- Create an RStudio project (or open one you've already made)
 
 - Creating/checking you have the correct folder structure 
 
@@ -410,36 +435,4 @@ according to the instructions in the **tutorial**
 - Closing everything back down again
 
 We'll be working through the worksheet linked on the **Week 3** page.
-
----
-
-# Attendance 
-
-<br>
-
-.middle[
-.center[
-
-## Attendance pin.can-edit[: ]
-
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-**Go to www.sussex.ac.uk/mobile OR use the SussexMobile app to input the pin**
-
-]]
-
----
-
-
-
-
-
 
