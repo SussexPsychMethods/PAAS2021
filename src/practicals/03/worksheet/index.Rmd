@@ -323,7 +323,7 @@ Write out the path from **here**
 ├── 📁data
 │   <mark>└── data.csv</mark>
 ├── 📁r_docs
-└── 📁week_03.RProj
+└── week_03.RProj
 </code></pre>
 <path>data/data.csv</path>
 
@@ -364,7 +364,7 @@ Write out the path from **here**
 
 <pre><code>here
 ├── 📁data
-│   └── 📁my_data_file.csv
+│   └── my_data_file.csv
 ├── 📁images
 │   ├── 📁pictures_of_me
 │   │   └── pic.jpg
