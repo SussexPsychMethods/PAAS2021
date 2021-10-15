@@ -1638,9 +1638,9 @@ The New Project dialog box
 <p>We won’t be keeping many files in the main project folder. Instead we’ll be creating a few sub-folders to help keep everything organised.</p>
 <p>Our most basic folder structure will look like the diagram below.</p>
 <pre><code>.
-├── data
-├── r_docs
-├── scripts
+├── 📁data
+├── 📁r_docs
+├── 📁scripts
 └── week_03.RProj</code></pre>
 <p>The easiest way to create new folders in <strong>R Studio</strong> is through the <strong>Files</strong> pane. It’s a good idea to familiarise yourself with the <strong>Files</strong> pane.</p>
 <div class="figure" style="text-align: center">
@@ -1680,81 +1680,81 @@ A project folder with subfolders in the Files pane
 <p>One of the most important things that you can learn is how to accurately describe the path to a file.</p>
 <p>Write out the path from <strong>here</strong></p>
 <pre><code>here
-├── data
+├── 📁data
 │   <mark>└── data.csv</mark>
-├── r_docs
-└── week_03.RProj
+├── 📁r_docs
+└── 📁week_03.RProj
 </code></pre>
 <p><path>data/data.csv</path></p>
 <pre><code>here
-├── data
+├── 📁data
 │   └── data.csv
-├── images
+├── 📁images
 │   <mark>└── me.png</mark>
-├── r_docs
+├── 📁r_docs
 └── week_03.RProj
 </code></pre>
 <p><path>images/me.png</path></p>
 <pre><code>here
-├── data
+├── 📁data
 │   └── data.csv
-├── images
+├── 📁images
 │   └── me.png
-├── r_docs
+├── 📁r_docs
 │   <mark>└── my_r_doc.Rmd</mark>
 └── week_03.RProj
 </code></pre>
 <p><path>r_docs/my_r_doc.Rmd</path></p>
 <pre><code>here
-├── data
+├── 📁data
 │   └── data.csv
-├── images
+├── 📁images
 │   └── me.png
-├── r_docs
+├── 📁r_docs
 │   ├── my_r_doc.Rmd
-│   └── supporting_files
+│   └── 📁supporting_files
 │     <mark>  └── appendix.Rmd</mark>
 └── week_03.RProj
 </code></pre>
 <p><path>r_docs/supporting_files/appendix.Rmd</path></p>
 <pre><code>here
-├── data
-│   └── my_data_file.csv
-├── images
-│   ├── pictures_of_me
+├── 📁data
+│   └── 📁my_data_file.csv
+├── 📁images
+│   ├── 📁pictures_of_me
 │   │   └── pic.jpg
-│   └── pictures_of_my_dog
+│   └── 📁pictures_of_my_dog
 │     <mark>  └── my_dog.png</mark>
 └── week_01.Rproj
 </code></pre>
 <p><path>images/pictures_of_my_dog/my_dog.png</path></p>
 <p>Write out the path relative to the <strong>R Project file</strong>. These are tricker you’ll need to find the starting point yourself.</p>
 <pre><code>.
-└── rprojects
-    └── week02
-        └── week_02_project
-            ├── data
-            ├── rdocs
+└── 📁rprojects
+    └── 📁week02
+        └── 📁week_02_project
+            ├── 📁data
+            ├── 📁rdocs
             │   <mark>└── my_doc.Rmd</mark>
             └── week_02_project.Rproj
 </code></pre>
 <p><path>rdocs/my_doc.Rmd</path></p>
 <pre><code>.
-└── SussexUniversity
-    └── PAAS
-        └── Rprojects
+└── 📁SussexUniversity
+    └── 📁PAAS
+        └── 📁Rprojects
             ├── Rprojects.Rproj
-            └── data
-                ├── data
+            └── 📁data
+                ├── 📁data
                 │   <mark>└── data.csv</mark>
-                └── documents
+                └── 📁documents
                     └── my_doc.Rmd
 </code></pre>
 <p><path>data/data/data.csv</path></p>
 <pre><code>.
-└── my_uni_work
-    └── week03
-        ├── r_docs
+└── 📁my_uni_work
+    └──📁week03
+        ├──📁r_docs
         │   <mark>└── my_doc.Rmd</mark>
         └── week03.Rproj
 </code></pre>
@@ -1765,7 +1765,7 @@ A project folder with subfolders in the Files pane
 <p>The next thing we’ll do is save a data file from the internet. Sometimes we’ll provide links to files in the practical worksheets and sometimes we’ll place files on <strong>Canvas</strong> for you to download.</p>
 <p>Before we start downloading data files, we should learn a little bit about data files. We can recognise data files by their file extension. In this course, all the data files we’ll be using will have the file extension <code>.csv</code>. Look out for the <code>.csv</code> extension whenever you’re working with data files.</p>
 <p>Let’s start by downloading two files directly from this page.</p>
-<p>Let us first download the file <a href="data:text/csv;base64,aWQsY29sb3VyLGhlaWdodAowMDEscmVkLDE0NQowMDIscmVkLDE5NwowMDMscmVkLDE4OAowMDQscmVkLDIwOAowMDUscmVkLDE1OAowMDYscmVkLDE1MAowMDcscmVkLDE3MAowMDgscmVkLDE1NAowMDkscmVkLDE0NgowMTAscmVkLDIwMQo=" download="colour_data.csv">colour_data.csv</a></p>
+<p>Let us first download the file <a href="data:text/csv;base64,aWQsY29sb3VyLGhlaWdodAowMDEscmVkLDIwNAowMDIscmVkLDIwOQowMDMscmVkLDE2NwowMDQscmVkLDE3MgowMDUscmVkLDIwNwowMDYscmVkLDE2NQowMDcscmVkLDE4NwowMDgscmVkLDE3OQowMDkscmVkLDE4NwowMTAscmVkLDE4NAo=" download="colour_data.csv">colour_data.csv</a></p>
 <p>Depending on how your web browser is set up the file might directly download to your <strong>downloads</strong> folder, or you might get a dialog box asking you where you want to save it. If you get a dialog box, make sure you <strong>save</strong> the file. Don’t try to open the file in <strong>Excel</strong> or <strong>Numbers</strong></p>
 <p>Once the file is saved on your computer you’ll want to make sure you move it to the correct spot in your project folder for this week.</p>
 <p>When it comes to moving files between folders an easy way to do it is:</p>
@@ -1829,8 +1829,8 @@ A project folder with subfolders in the Files pane
 </div>
 <div id="test-your-understanding" class="section level2 quiz">
 <h2 class="quiz">Test your understanding</h2>
-<div id="htmlwidget-b213fd0a02125f705b7e" style="width:672px;height:100%;" class="quiz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b213fd0a02125f705b7e">{"x":[{"question":"What is the extension of an R Project file?","answers":[["<code>.project<\/code>","false"],["<code>.Rproj<\/code>","true"],["<code>.R<\/code>","false"],["<code>.Rmd<\/code>","false"]]},{"question":"Which folder should you use to store data files?","answers":[["<code>datafiles/<\/code>","false"],["<code>R/data/<\/code>","false"],["<code>data/<\/code>","true"],["<code>documents/r_data<\/code>","false"]]},{"question":"When you want to open a file in R Studio you should&hellip;","answers":[["Double click on it in Finder / File Explorer","false"],["Use the R Studio Files pane to open it","true"]]},{"question":"What is the extension for data file?","answers":[["<code>.cvs<\/code>","false"],["<code>.dat<\/code>","false"],["<code>.csv<\/code>","true"]]}],"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-be91ebc31d03f8861ded" style="width:672px;height:100%;" class="quiz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-be91ebc31d03f8861ded">{"x":[{"question":"What is the extension of an R Project file?","answers":[["<code>.project<\/code>","false"],["<code>.Rproj<\/code>","true"],["<code>.R<\/code>","false"],["<code>.Rmd<\/code>","false"]]},{"question":"Which folder should you use to store data files?","answers":[["<code>datafiles/<\/code>","false"],["<code>R/data/<\/code>","false"],["<code>data/<\/code>","true"],["<code>documents/r_data<\/code>","false"]]},{"question":"When you want to open a file in R Studio you should&hellip;","answers":[["Double click on it in Finder / File Explorer","false"],["Use the R Studio Files pane to open it","true"]]},{"question":"What is the extension for data file?","answers":[["<code>.cvs<\/code>","false"],["<code>.dat<\/code>","false"],["<code>.csv<\/code>","true"]]}],"evals":[],"jsHooks":[]}</script>
 </div>
 
 <script>!function(e){var t={};function n(r){if(t[r])return t[r].exports;var l=t[r]={i:r,l:!1,exports:{}};return e[r].call(l.exports,l,l.exports,n),l.l=!0,l.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var l in e)n.d(r,l,function(t){return e[t]}.bind(null,l));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=4)}([function(e,t,n){"use strict";e.exports=n(6)},function(e,t,n){"use strict";!function e(){if("undefined"!=typeof __REACT_DEVTOOLS_GLOBAL_HOOK__&&"function"==typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE){0;try{__REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(e)}catch(e){console.error(e)}}}(),e.exports=n(5)},function(e,t,n){"use strict";

@@ -274,9 +274,9 @@ Our most basic folder structure will look like the diagram below.
 
 ```
 .
-├── data
-├── r_docs
-├── scripts
+├── 📁data
+├── 📁r_docs
+├── 📁scripts
 └── week_03.RProj
 ```
 
@@ -320,55 +320,55 @@ One of the most important things that you can learn is how to accurately describ
 Write out the path from **here**
 
 <pre><code>here
-├── data
+├── 📁data
 │   <mark>└── data.csv</mark>
-├── r_docs
-└── week_03.RProj
+├── 📁r_docs
+└── 📁week_03.RProj
 </code></pre>
 <path>data/data.csv</path>
 
 <pre><code>here
-├── data
+├── 📁data
 │   └── data.csv
-├── images
+├── 📁images
 │   <mark>└── me.png</mark>
-├── r_docs
+├── 📁r_docs
 └── week_03.RProj
 </code></pre>
 <path>images/me.png</path>
 
 
 <pre><code>here
-├── data
+├── 📁data
 │   └── data.csv
-├── images
+├── 📁images
 │   └── me.png
-├── r_docs
+├── 📁r_docs
 │   <mark>└── my_r_doc.Rmd</mark>
 └── week_03.RProj
 </code></pre>
 <path>r_docs/my_r_doc.Rmd</path>
 
 <pre><code>here
-├── data
+├── 📁data
 │   └── data.csv
-├── images
+├── 📁images
 │   └── me.png
-├── r_docs
+├── 📁r_docs
 │   ├── my_r_doc.Rmd
-│   └── supporting_files
+│   └── 📁supporting_files
 │     <mark>  └── appendix.Rmd</mark>
 └── week_03.RProj
 </code></pre>
 <path>r_docs/supporting_files/appendix.Rmd</path>
 
 <pre><code>here
-├── data
-│   └── my_data_file.csv
-├── images
-│   ├── pictures_of_me
+├── 📁data
+│   └── 📁my_data_file.csv
+├── 📁images
+│   ├── 📁pictures_of_me
 │   │   └── pic.jpg
-│   └── pictures_of_my_dog
+│   └── 📁pictures_of_my_dog
 │     <mark>  └── my_dog.png</mark>
 └── week_01.Rproj
 </code></pre>
@@ -378,33 +378,33 @@ Write out the path relative to the **R Project file**. These are tricker
 you'll need to find the starting point yourself.
 
 <pre><code>.
-└── rprojects
-    └── week02
-        └── week_02_project
-            ├── data
-            ├── rdocs
+└── 📁rprojects
+    └── 📁week02
+        └── 📁week_02_project
+            ├── 📁data
+            ├── 📁rdocs
             │   <mark>└── my_doc.Rmd</mark>
             └── week_02_project.Rproj
 </code></pre>
 <path>rdocs/my_doc.Rmd</path>
 
 <pre><code>.
-└── SussexUniversity
-    └── PAAS
-        └── Rprojects
+└── 📁SussexUniversity
+    └── 📁PAAS
+        └── 📁Rprojects
             ├── Rprojects.Rproj
-            └── data
-                ├── data
+            └── 📁data
+                ├── 📁data
                 │   <mark>└── data.csv</mark>
-                └── documents
+                └── 📁documents
                     └── my_doc.Rmd
 </code></pre>
 <path>data/data/data.csv</path>
 
 <pre><code>.
-└── my_uni_work
-    └── week03
-        ├── r_docs
+└── 📁my_uni_work
+    └──📁week03
+        ├──📁r_docs
         │   <mark>└── my_doc.Rmd</mark>
         └── week03.Rproj
 </code></pre>
