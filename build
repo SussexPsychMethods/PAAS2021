@@ -11,7 +11,8 @@ Materials = Struct.new(
   :subtype,
   :week,
   :link,
-  :week_int
+  :week_int,
+  :desc
 )
 
 class String
@@ -64,6 +65,15 @@ def list_pdf(type, week, subtype)
   end
 end
 
+def list_description(type, week)
+  desc = Dir["src/#{type}/#{week}/*.md"][0]
+  if desc.nil?
+    ''
+  else
+    File.read(desc)
+  end
+end
+
 def add_pdf_to_link(link_text, link, pdf)
   return "link:#{link.trim}[Link to #{link_text}]" if pdf.nil?
 
@@ -73,12 +83,12 @@ end
 def make_materials(week, week_int, type, subtype)
   link = list_html(type, week, subtype)
   pdf = list_pdf(type, week, subtype)
-
+  desc = list_description(type, week)
   return nil if link.nil?
 
   link_text = make_link_text(type, subtype)
   link_text = add_pdf_to_link(link_text, link, pdf)
-  Materials.new(type, subtype, "Week #{week}", link_text, week_int)
+  Materials.new(type, subtype, "Week #{week}", link_text, week_int, desc)
 end
 
 class Lecture

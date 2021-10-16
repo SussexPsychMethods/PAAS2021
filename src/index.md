@@ -15,6 +15,7 @@ link:archive/2020/index.html[this link].
 
 <% lectureList.each do |item| %>
 <%= item.week.h3 if item.subtype == "slides" %>
+<%= item.desc + "\n" if item.subtype == "slides" %>
 <%= item.link + "\n" %>
 <% end %>
 
@@ -22,6 +23,7 @@ link:archive/2020/index.html[this link].
 
 <% practicalList.each do |item| %>
 <%= item.week.h3 if item.subtype == "slides" %>
+<%= item.desc + "\n" if item.subtype == "slides" %>
 <%= item.link + "\n" %>
 <% end %>
 
@@ -30,5 +32,6 @@ link:archive/2020/index.html[this link].
 
 <% tutorialList.each do |item| %>
 <%= item.week.h3 %>
+<%= item.desc + "\n" %>
 <%= item.link + "\n" %>
 <% end %>
