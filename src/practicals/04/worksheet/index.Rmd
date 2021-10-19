@@ -10,8 +10,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 require(tidyverse)
 require(metathis)
-
-```  
+``` 
 
 
 ```{r, echo=FALSE}
