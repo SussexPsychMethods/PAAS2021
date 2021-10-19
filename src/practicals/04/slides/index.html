@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introduction to R Markdown</title>
+    <meta charset="utf-8" />
+    <script src="index_files/header-attrs-2.11/header-attrs.js"></script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x4432a5099e644699a413928735f4483","expires":1}</script>
+    <script src="index_files/himalaya-1.1.0/himalaya.js"></script>
+    <script src="index_files/js-cookie-3.0.0/js.cookie.js"></script>
+    <link href="index_files/editable-0.2.6/editable.css" rel="stylesheet" />
+    <script src="index_files/editable-0.2.6/editable.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introduction to R Markdown
+## Psychology as a Science: Practical 4
+
+---
+
+
+
+
+&lt;style type="text/css"&gt;
+pre {
+  background: #eee;
+  padding: 20px;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+## Plan for today
+
+- Q&amp;A about last week's tutorial and practical
+
+- Intro to R Markdown
+  - Basic markdown
+  - The YAML header
+
+- Attendance
+
+- Worksheet tasks
+
+---
+
+## What is R Markdown
+
+
+- R Markdown (Rmd) is `R`'s version of markdown
+  
+- Markdown is just a language for writing documents **using only plain text**
+
+- Unlike WYSIWYG editors, it separates *form* from *content*
+
+- Rmd combines markdown with `R` code
+  - Lets you put results of `R` code directly into your documents
+  - Tables, plots, analysis results
+
+- You can use it to create all sorts of things
+  - text documents
+  - web pages
+  - blogs
+  - presentations
+  - dissertation
+  - teaching materials (like we do)
+
+---
+
+## Basic markdown
+
+&lt;small&gt;
+
+.pull-left[
+# Level 1 heading
+
+## Level 2 heading
+
+### Level 3 heading, etc..
+
+This is **bold**. 
+
+This is *italics*.
+
+You can also do ~~strikethrough~~.
+]
+
+.pull-right[
+&lt;pre&gt;
+# Level 1 heading
+
+## Level 2 heading
+
+### Level 3 heading, etc..
+
+This is **bold**.
+
+This is *italics*.
+
+You can also do ~~strikethrough~~.
+&lt;/pre&gt;
+]
+
+&lt;/small&gt;
+
+---
+
+## Basic markdown
+
+&lt;small&gt;
+
+.pull-left[
+One line break doesn't 
+do anything.
+
+
+For a new paragraph
+
+we need two line breaks.
+
+- this is
+- an *unordered*
+- or bullet point list
+    - it can have
+    - multiple levels
+
+1. this is
+1. an *ordered*
+1. list
+    1. also with
+    1. multiple levels
+]
+
+.pull-right[
+&lt;pre&gt;
+One line break doesn't
+do anything.
+
+
+For a new paragraph
+
+we need two line breaks.
+
+- this is
+- an *unordered*
+- or bullet point list
+    - it can have
+    - multiple levels
+
+1. this is
+1. an *ordered*
+1. list
+    1. also with
+    1. multiple levels
+&lt;/pre&gt;
+]
+
+&lt;/small&gt;
+
+---
+
+## YAML header (rhymes with camel)
+
+- Every R Markdown file starts with the YAML header
+
+- **ALWAYS** "fenced-off" by ` --- ` _on either side!
+
+- The YAML header contains meta-data about the Rmd file including
+
+    - The `title`
+    - The `output` type
+    - Can also include other fields like `author`, `date`, and `subtitle`
+
+
+&lt;br /&gt;
+**Example YAML header**  
+```
+---
+title: "My first R Markdown"
+author: "Me"
+date: "01 April 2021"
+output: html_document
+---
+```
+
+---
+
+## The body of the Rmd file
+
+The body of the Rmd file can contain both **text** and **R Code**
+
+
+````
+
+# Some text
+
+This is some text in the Rmd file. This is just the same *kind*
+of thing that you'd write in an word document. Following this, 
+there'll be some R Code.
+
+```{r}
+knitr::include_graphics(here::here("images/nicolas_cage.png"))
+```
+````
+
+
+- The bit between the ` ```{r} ` and ` ``` ` is R Code
+
+- We haven't learned what this R Code does yet, but you might notice a bit that
+  looks like a file path. It looks like a file path, because it is a file path
+
+
+
+
+---
+
+## Learning Rmd
+
+- Always compare source (.Rmd) and outcome (.html, .docx, .pdf)
+
+- Pay attention to details
+  - Spaces matter
+  - Line breaks matter
+  
+- Use online resources!
+  - [R Markdown cheat sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/rmarkdown-2.0.pdf)
+  - [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+
+---
+
+## `.Rmd` files
+
+- Just plain text files
+
+- The `.Rmd` file extension tells RStudio that this plain text file contains R Markdown
+
+- RStudio will make it look nice for you and give you additional options
+
+- **If you open a R Markdown file in RStudio and the text is all the same colour, the file probably doesn't have the correct `.Rmd` file extension!**
+  - If so, you can edit the file name manually
+
+---
+
+## `.Rmd` vs `.txt`
+
+.pull-left[
+![](assets/rmd.png)
+]
+
+.pull-right[
+![](assets/txt.png)
+]
+
+---
+
+## Knitting a document
+
+- **R Markdown** documents don't look very pretty, but there is a way to turn it
+into a pretty document.
+
+- This process of going from **R Markdown** to **pretty document** is called
+  **knitting**
+
+.pull-left[
+.center[&lt;img width="45%" src="https://github.com/ljcolling/my_images/raw/master/markdown.png"&gt;]
+]
+
+.pull-right[
+.center[&lt;img width="45%" src="https://github.com/ljcolling/my_images/raw/master/knitr.png"&gt;]
+]
+
+
+To **knit** an **R Markdown** document into something pretty click on the **Knit** button
+
+![](https://github.com/ljcolling/my_images/raw/master/knitr_icon.png)
+
+---
+
+.center[&lt;img width="90%" src="https://github.com/ljcolling/my_images/raw/master/rmarkdown_overview.png"&gt;]
+
+**Knitting** your **R Markdown** document turned it into a **"knitted"** document.
+
+If you haven't had a chance to **knit** a document yet then you'll get a chance
+in the **practical worksheet**
+
+---
+
+## Learning Rmd
+
+- Always compare source (.Rmd) and outcome (.html, .docx, .pdf)
+
+- Pay attention to details
+  - Spaces matter
+  - Line breaks matter
+  
+- Use online resources!
+  - [R Markdown cheat sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/rmarkdown-2.0.pdf)
+  - [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+
+
+---
+
+# Attendance 
+
+&lt;br&gt;
+
+.middle[
+.center[
+
+## Attendance pin.can-edit[: ]
+
+
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+**Go to www.sussex.ac.uk/mobile OR use the SussexMobile app to input the pin**
+
+]]
+
+---
+
+## Today's worksheet
+
+In today's worksheet we'll be going through some of the following tasks:
+
+- Creating and **R Studio** project
+
+- Creating the standard set of sub-folders
+
+- Writing some **markdown**
+
+- Knitting our documents
+
+- Downloading and organising files
+
+- Working with **file paths**
+
+---
+
+### Running the tutorial for next week
+
+.center[&lt;img width="72%" src="./assets/tutorials.png"&gt;]
+
+If you can't see the **Tutorial** pane go to **View &gt; Tutorial** 
+
+---
+
+### The quiz
+
+If you haven't completed the **Week 4** quiz then make sure to do it after this
+class.
+
+Remember that the Quiz closes on Saturday, and if you miss the deadline then
+you won't get a second chance!
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
