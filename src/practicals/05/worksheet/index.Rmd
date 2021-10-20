@@ -363,7 +363,7 @@ in them but (unlike in the **console**) that code won't run when you hit
 
 How do you explicitly run the code? There are three ways:
 
-1. YOu can put the cursor on the line you want to run and hit <kbd>ctrl</kbd> +
+1. You can put the cursor on the line you want to run and hit <kbd>ctrl</kbd> +
    <kbd>enter</kbd> (Windows) or <kbd>⌘ cmd</kbd> + <kbd>enter</kbd> (MacOS)
 
 2. You can click on the little green triangle <span
@@ -455,7 +455,7 @@ session.
 
 **However, when you knit a `.Rmd` file something special happens!** When you
 knit a document all the code in the `.Rmd` file is run
-**inside a new session**. That means that when you
+**inside a new empty enviroment**. That means that when you
 **knit** the document, `R` will only have access to
 **objects created inside the document**. It won’t have access to
 objects that haven’t been created **inside the document**.

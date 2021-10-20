@@ -1,0 +1,15 @@
+Markdown text before the code chunk  
+ 
+   
+
+```{r}
+
+
+1 + 1
+
+
+   
+```
+
+
+Markdown text after the code chunk
