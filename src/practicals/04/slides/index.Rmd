@@ -291,7 +291,11 @@ knitr::include_graphics(here::here("images/nicolas_cage.png"))
   
 - Use online resources!
   - [R Markdown cheat sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/rmarkdown-2.0.pdf)
+
   - [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+
+- Make your own cheat sheet
+  - Make a list of things as you learn them
 
 ---
 
@@ -349,21 +353,6 @@ To **knit** an **R Markdown** document into something pretty click on the **Knit
 
 If you haven't had a chance to **knit** a document yet then you'll get a chance
 in the **practical worksheet**
-
----
-
-## Learning Rmd
-
-- Always compare source (.Rmd) and outcome (.html, .docx, .pdf)
-
-- Pay attention to details
-  - Spaces matter
-  - Line breaks matter
-  
-- Use online resources!
-  - [R Markdown cheat sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/rmarkdown-2.0.pdf)
-  - [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
-
 
 ---
 

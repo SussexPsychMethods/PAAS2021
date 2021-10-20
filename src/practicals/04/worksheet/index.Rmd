@@ -16,8 +16,8 @@ require(metathis)
 ```{r, echo=FALSE}
 library(metathis)
 meta() %>%
-  meta_description("Getting started...") %>%
-  meta_tag("week" = "01") %>%
+  meta_description("Introduction to R Markdown") %>%
+  meta_tag("week" = "04") %>%
   meta_tag("content_type" = "practical-worksheet")
 ```
 
