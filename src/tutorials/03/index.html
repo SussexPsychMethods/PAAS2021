@@ -177,53 +177,132 @@ pre code {
 
 <style type="text/css">
 .verbatim > * {word-break:break-word}
-</style>
-<div id="intro" class="section level2">
-<h2>Intro</h2>
-<p>Welcome to the Week 3 tutorial. This tutorial will get you prepared for the practical in Week 4. In this tutorial we will talk about text editors. We will contrast the word processing software that you are probably used to with markdown, a slightly geekier but way of writing documents. Finally, we will discover RStudio’s own markdown editor and learn how to write documents using it.</p>
-<p> </p>
-<p>Onwards!</p>
-<p> </p>
-</div>
-<div id="text-files" class="section level2">
-<h2>Text files</h2>
-<p>Text files are simply computer files that contain text. To create or modify them, we need programs called text editors. Remember how we said that the .docx files require Microsoft Word (or similar) to be installed on the device in order to open them. Well, the .docx file is a text file and MS Word is the text editor program. There are two basic kinds of text, plain text and rich text.</p>
-<div id="plain-text" class="section level3">
-<h3>Plain text</h3>
-<p>Plain text is basically what it says on the tin: just text, without formatting. There is no <strong>bold text</strong>, no <em>italics</em>, no <sup>superscripts</sup>, no <big>variable</big> <small>font sizes</small>, just plain text.</p>
-<p>A typical plain text file has the .txt file extension. This extension lets the computer know that the contents of the file are just text and should not necessarily be interpreted as anything else. However, .txt are not the only plain text files. Later on, when we are writing longer blocks of <code>R</code> code, we will be saving them into files with a .R extension. These are still plain text files but, when opened in the source pane of RStudio, the program will decorate the text with different colours for different bits of the code to make the code easier for us to read.</p>
-</div>
-<div id="rich-text" class="section level3">
-<h3>Rich text</h3>
-<p>Rich text is text with all sorts of formatting. What you are reading now is rich text. You can see that there are headings, buttons, fonts of different colours and sizes, and so on…</p>
-<p>Rich text formatting is, however, just a visual representation that the program creates for us and shows it on the screen. Behind the scenes the program we are using is reading a plain text file written using one of several formatting systems. Every one of these systems has its own way to indicate, using plain text symbols and tags, how the displayed text should be formatted. For example, .docx files use a system called <a href="https://en.wikipedia.org/wiki/XML">Extensible Markup Language, or XML</a>, while Google Docs use <a href="https://en.wikipedia.org/wiki/HTML">Hypertext Markup Language, or HTML</a>.</p>
-<p>HTML is the system in which modern websites are written and all web browsers know how to turn HTML plain text into formatted rich text. These tutorials are also written in HTML and so can be opened in your web browser. To illustrate what we mean by indicating formatting using plain text, let’s see what the HTML plain text behind the first paragraph of the “Plain text” section above looks like:</p>
+````
+
+## Intro
+
+Welcome to the Week 3 tutorial. This tutorial will get you prepared for the
+practical in Week 4. In this tutorial we will talk about text editors. We will
+contrast the word processing software that you are probably used to with
+markdown, a slightly geekier but way of writing documents. Finally, we will
+discover RStudio's own markdown editor and learn how to write documents using
+it.
+
+\ 
+
+Onwards!
+
+\ 
+
+## Text files
+
+Text files are simply computer files that contain text. To create or modify
+them, we need programs called text editors. Remember how we said that the .docx
+files require Microsoft Word (or similar) to be installed on the device in
+order to open them. Well, the .docx file is a text file and MS Word is the text
+editor program. There are two basic kinds of text, plain text and rich text.
+
+
+### Plain text
+
+Plain text is basically what it says on the tin: just text, without formatting.
+There is no **bold text**, no *italics*, no ^superscripts^, no
+<big>variable</big> <small>font sizes</small>, just plain text.
+
+A typical plain text file has the .txt file extension. This extension lets the
+computer know that the contents of the file are just text and should not
+necessarily be interpreted as anything else. However, .txt are not the only
+plain text files. Later on, when we are writing longer blocks of `R` code, we
+will be saving them into files with a .R extension. These are still plain text
+files but, when opened in the source pane of RStudio, the program will decorate
+the text with different colours for different bits of the code to make the code
+easier for us to read.
+
+
+### Rich text
+
+Rich text is text with all sorts of formatting. What you are reading now is
+rich text. You can see that there are headings, buttons, fonts of different
+colours and sizes, and so on...
+
+Rich text formatting is, however, just a visual representation that the program
+creates for us and shows it on the screen. Behind the scenes the program we are
+using is reading a plain text file written using one of several formatting
+systems. Every one of these systems has its own way to indicate, using plain
+text symbols and tags, how the displayed text should be formatted. For example,
+.docx files use a system called [Extensible Markup Language, or
+XML](https://en.wikipedia.org/wiki/XML), while Google Docs use [Hypertext
+Markup Language, or HTML](https://en.wikipedia.org/wiki/HTML).
+
+HTML is the system in which modern websites are written and all web browsers
+know how to turn HTML plain text into formatted rich text. These tutorials are
+also written in HTML and so can be opened in your web browser. To illustrate
+what we mean by indicating formatting using plain text, let's see what the HTML
+plain text behind the first paragraph of the "Plain text" section above looks
+like:
+
 <div class="verbatim">
-<pre><code>&lt;p&gt;Plain text is basically what it says on the tin: just text, without formatting. There is no &lt;strong&gt;bold text&lt;/strong&gt;, no &lt;em&gt;italics&lt;/em&gt;, no &lt;sup&gt;superscirpts&lt;/sup&gt;, no &lt;big&gt;variable&lt;/big&gt; &lt;small&gt;font sizes&lt;/small&gt;.&lt;/p&gt;</code></pre>
-</div>
-<p>The browser reading this text knows that this is a new paragraph (<code>&lt;p&gt;...&lt;/p&gt;</code>), the “bold text” bit should be bold because it’s inside the <code>&lt;strong&gt;...&lt;/strong&gt;</code> tag, <em>etc</em>.</p>
-<p>Again, there’s no magic here, nothing mysterious is happening, just a set of instructions in plain text that the program (the browser, in this case) knows how to follow.</p>
-<p> </p>
-<p>Now that we understand how text files work, let’s see how we can create them.</p>
-<p> </p>
-</div>
-</div>
-<div id="text-editors" class="section level2">
-<h2>Text editors</h2>
-<p>You are probably familiar with MS Word and Google Docs and maybe you use them to write documents. These two are examples of text editors, programs that cn create and modify text files. Because all text formatting and styling in these editors is done in real time using buttons, menus, or keyboard shortcuts so that you are always seeing the actual formatted version of the final document, these kinds of editors are called “WYSIWYG” editors (What You See Is What You Get).</p>
-<p>There is also a different kind of text editors that precedes WYSIWYG - plain text editors. As their name suggests, they only deal with plain text. Using this approach to creating and editing documents involves two steps:</p>
-<ol style="list-style-type: decimal">
-<li>You write the plain text file, indicating the structure of the text using symbols or tags.</li>
-<li>Once the plain text file is written, the editor converts it to a formatted file, such as .docx, .html, or .pdf.</li>
-</ol>
-<p>There are several “markup languages” that can be used to write the plain text but the one we will be using is called R Markdown</p>
-</div>
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>R Markdown is a markup language (confusing, isn’t it?) that combines <code>R</code> with a plain text editor. There is a wealth of resources on how to use it and we will be learning a lot about it but, for now, it’s best to just see some basics and play around with them.</p>
-<p>You’ve already seen the boxes below in the first tutorial but now you have more context to understand what they are all about. They show what R Markdown looks like and how it gets “rendered” into rich text. Compare the two to see how the markdown translates into formatting. As you will see, R Markdown makes it pretty easy to create nicely formatted text using just a few symbols here and there.</p>
-<p>The top box is editable so feel free to type in anything you want.</p>
-<div class="container">
+</style>
+<p>
+Plain text is basically what it says on the tin: just text, without formatting. There is no <strong>bold text</strong>, no <em>italics</em>, no <sup>superscirpts</sup>, no <big>variable</big> <small>font sizes</small>.
+</p>
+<pre><code>&lt;/div&gt;
+
+The browser reading this text knows that this is a new paragraph
+(`&lt;p&gt;...&lt;/p&gt;`), the &quot;bold text&quot; bit should be bold because it&#39;s inside the
+`&lt;strong&gt;...&lt;/strong&gt;` tag, *etc*.
+
+Again, there&#39;s no magic here, nothing mysterious is happening, just a set of
+instructions in plain text that the program (the browser, in this case) knows
+how to follow.
+
+\ 
+
+Now that we understand how text files work, let&#39;s see how we can create them.
+
+\ 
+
+## Text editors
+
+You are probably familiar with MS Word and Google Docs and maybe you use them
+to write documents. These two are examples of text editors, programs that cn
+create and modify text files. Because all text formatting and styling in these
+editors is done in real time using buttons, menus, or keyboard shortcuts so
+that you are always seeing the actual formatted version of the final document,
+these kinds of editors are called &quot;WYSIWYG&quot; editors (What You See Is What You
+Get).
+
+There is also a different kind of text editors that precedes WYSIWYG - plain
+text editors. As their name suggests, they only deal with plain text. Using
+this approach to creating and editing documents involves two steps:
+
+1. You write the plain text file, indicating the structure of the text using
+   symbols or tags.
+2. Once the plain text file is written, the editor converts it to a formatted
+   file, such as .docx, .html, or .pdf.
+
+There are several &quot;markup languages&quot; that can be used to write the plain text
+but the one we will be using is called R Markdown
+
+## R Markdown
+
+R Markdown is a markup language (confusing, isn&#39;t it?) that combines `R` with a
+plain text editor. There is a wealth of resources on how to use it and we will
+be learning a lot about it but, for now, it&#39;s best to just see some basics and
+play around with them.
+
+You&#39;ve already seen the boxes below in the first tutorial but now you have more
+context to understand what they are all about. They show what R Markdown looks
+like and how it gets &quot;rendered&quot; into rich text. Compare the two to see how the
+markdown translates into formatting. As you will see, R Markdown makes it
+pretty easy to create nicely formatted text using just a few symbols here and
+there.
+
+The top box is editable so feel free to type in anything you want.
+
+
+```{=html}
+&lt;div class=&quot;container&quot;&gt;
 # Level 1 heading
 
 ## Level 2 heading
@@ -236,7 +315,7 @@ This is *italics*.
 
 If you really want, you can also do ~~strikethrough~~.
 
-One line break doesn't do anything.
+One line break doesn&#39;t do anything.
 These two sentences are still in the same paragraph.
 
 For a new paragraph, we need two line breaks.
@@ -254,7 +333,7 @@ For a new paragraph, we need two line breaks.
     1. multiple levels
 
 You can even write maths formulae! $\sum_{i = 1}^{n}(x_i - \bar{x})^2$
-</div>
+&lt;/div&gt;</code></pre>
 <script type="text/javascript">
 document.body.onload = build;
 function build (){
@@ -333,7 +412,6 @@ textarea:focus {
 </style>
 <p>Take a moment to play around with the editor to get used to the markdown. You don’t need to understand the symbolic language for the maths formula; it’s just to showcase what R Markdown can do. There is much more you can do in R Markdown, including automatic references, including <code>R</code> code, plots, tables, pictures, or even GIFs and videos. In fact, the vast majority of the teaching materials for PAAS was written in R Markdown!</p>
 <p> </p>
-</div>
 <div id="r-markdown-files-and-output-documents" class="section level2">
 <h2>R Markdown files and output documents</h2>
 <p>At this stage you are ready to learn how to write your own R Markdown-generated documents.</p>

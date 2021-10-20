@@ -1,0 +1,40 @@
+---
+title: "Functions and packages"
+subtitle: "Tutorial 06"
+author: "Psychology as a Science"
+output:
+  rmarkdown::html_document:
+    css: ["./css/paas_learnr.css", "./css/katex.min.css"] 
+    includes: 
+      js: "./js/setup.js"
+      after_body: "./header.html"
+    self_contained: false
+---
+ 
+
+
+```{r, include=FALSE}
+library(metathis)
+library(niceQuiz)
+
+knitr::opts_chunk$set(echo = FALSE)
+meta() %>%
+  meta_description("Week 3 Tutorial") %>%
+  meta_tag(
+    "content_type" = "tutorial",
+    "week" = "06"
+  )
+```
+
+You can run Tutorial 6 by going to the tutorials pane in R Studio.
+
+<img src="tutorials.png">
+
+\
+
+If you can't see the tutorials, then make sure you have installed the tutorials
+package. To do this, run the code below.
+
+```r
+source("https://files.mindsci.net/install.r")
+```
