@@ -104,7 +104,7 @@ remember, you can always return to them later. The practicals are all about
 giving you a helpful environment in which to **learn** and **practice** your
 new skills.
 
-<span class="ex"></span>
+### Task 1
 
 
 First off, we'll create a new **R Studio** project. You can call it **prac_04**
@@ -127,7 +127,7 @@ window, check that this text matches the name of the project you just created.
 
 <img src="./assets/pract_project.png">
 
-<span class="ex"></span>
+### Task 2
 
 Next, create a new **R Markdown file**, and save it into the **r_docs** folder
 you created in the previous step. When you save it, you can name the file
@@ -136,7 +136,7 @@ you created in the previous step. When you save it, you can name the file
 Again, if you're stuck with creating an **R Markdown** file then check out the
 end of [**Practical 3**.](https://paas.netlify.app/practicals/03/worksheet/)
 
-<span class="ex"></span>
+### Task 3
 
 Now that you have an **R Markdown** file, try **knitting** it! To **knit** your
 document click the <img src="./assets/knit.png"> button or hit
@@ -144,7 +144,7 @@ document click the <img src="./assets/knit.png"> button or hit
 <kbd>⌘</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd> on MacOS.
 
 
-<span class="ex"></span>
+### Task 4
 
 Now that we've made sure that we can **knit** the document, we're going to try
 editing it. We'll start simple by editing the YAML header. We'll edit both the title, 
@@ -169,7 +169,7 @@ date: "1 April 2021"
 Once you've made the changes, **knit** the document again to see how the output changes
 
 
-<span class="ex"></span>
+### Task 5
 
 For the next task we're actually going to write a little markdown. Before we start, 
 delete everything in your .Rmd file except for the YAML header. Once you've done this
@@ -236,7 +236,7 @@ doesn't do anything.
 More than one line break...
 </code></pre>
 
-<span class="ex"></span>
+### Task 6
 
 Now that we have a nice blank document let's add some text. 
 
@@ -251,7 +251,7 @@ Here are the criteria for the document:
 - Use **boldface** and _italics_
 - Include some a list (either number or with bullet points)
 
-<span class="ex"></span>
+### Task 7
 
 For the next task, you'll need to download an **R Markdown** file and move it
 into your **r_docs** folder. Remember, you need to move it into the 
@@ -281,7 +281,7 @@ Explorer instance
   <img src="./assets/more_open.png">
 
 
-<span class="ex"></span>
+### Task 8
 
 Now that you've downloaded **R Markdown** above you can download the following
 two images.
@@ -292,7 +292,7 @@ two images.
 These images should go into the **images** subfolder of your project folder.
 
 
-<span class="ex"></span>
+### Task 9
 
 Now you should've downloaded the **R Markdown** file and the two image files,
 and you should've put them in the correct place. To **open** the **R Markdown**
@@ -321,7 +321,7 @@ called **prac_04**).
 </code></pre>
 
 
-<span class="ex"></span>
+### Task 10
 
 Look inside the `doc_with_image.Rmd`{.file} file, and find the part that looks like
 this:
@@ -359,12 +359,4 @@ has changed to an image of John Travolta.
 
 \
 
-```{js, echo = FALSE}
-let i = 1;
-document.querySelectorAll(".ex").forEach(x =>{
-  x.innerHTML = "<h3>Task " + i + "</h3>";
-  i++;
-
-  })
-```
 
