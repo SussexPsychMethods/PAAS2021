@@ -1,3 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ae884d00-65d9-4b34-9909-8b16a87c5615/deploy-status)](https://app.netlify.com/sites/paas/deploys)
 # About
 
 Course materials for Psychology as a Science (2021)
