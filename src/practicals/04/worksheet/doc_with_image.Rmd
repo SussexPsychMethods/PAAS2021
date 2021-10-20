@@ -1,0 +1,21 @@
+---
+title: "An example R Markdown document"
+subtitle: "Now with an Image!"
+author: "Mx Anonymous"
+date: "1 April 2021"
+---
+
+This is an example **R Markdown** document. 
+
+It contains an image of Nicolas Cage. Nicholas Cage is known for starring 
+in the movie *Face Off* alongside John Travolta. 
+
+
+```{r}
+
+knitr::include_graphics(here::here("images/nicolas_cage.png"))
+
+```
+
+Change the code above so that the image of Nicolas Cage is replaced with an
+image of John Travolta.
