@@ -164,6 +164,7 @@ If I (Lincoln) was doing it, then it might look something like this.
 title: "My R Markdown document"
 author: "Dr Lincoln J Colling"
 date: "1 April 2021"
+output: html_document
 ---</code></pre>
 
 Once you've made the changes, **knit** the document again to see how the output changes
