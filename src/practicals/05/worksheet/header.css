@@ -154,7 +154,8 @@ summary {
 :root {
   --hint-color: rgb(0, 59, 73);
 }
-<!-- details[open] {
+
+details[open] {
   border: 1px solid #aaa;
   border-radius: 4px;
   padding: 5px;
@@ -174,6 +175,7 @@ details.hint {
   width: max-content;
   padding-bottom: 20px;
 }
+
 summary.hint {
   font-weight: bold;
   font-size: 1.1em;
@@ -210,17 +212,10 @@ details.hint[open] {
   background: none;
 }
 
-details > summary::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
 
 .hint pre {
-  border: none;
+  /* border: none; */
   border-radius: 1px;
   width: 99%;
+  background-color: white;
 }
