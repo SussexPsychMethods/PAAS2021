@@ -1,0 +1,141 @@
+---
+title: "Getting started..."
+output:
+  rmarkdown::html_document:
+    includes:
+      after_body: "./header.html"
+---
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(echo = TRUE)
+require(tidyverse)
+require(metathis)
+
+```  
+
+
+```{r, echo=FALSE}
+library(metathis)
+meta() %>%
+  meta_description("Getting started...") %>%
+  meta_tag("week" = "01") %>%
+  meta_tag("content_type" = "practical-worksheet")
+```
+
+```{css echo=FALSE}
+body {
+ margin-top: 80px;
+}
+.main-container {
+      padding-left: 15px;
+      padding-right: 15px;
+      display: flex;
+      max-width: 680px;
+      margin-right: auto;
+      margin-left:  auto;
+      flex-direction: column;}
+
+   .btn {
+        padding: 0;
+        margin-right: 1em;
+    }
+
+
+  .copy-button {
+      width: 7em;
+  }
+    .btn-primary {
+        background-color: black;
+        border-color: black;
+        padding-left: 1em;
+        padding-right: 1em;
+        z-index: -4;
+    }
+
+
+.hint summary {
+  font-weight: bold;
+  line-height: 3em;
+  font-size: 1.1em;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+
+body {font-family: 'Montserrat', sans-serif;}
+code {font-family: 'Fira Mono', monospace;}
+
+.answertext {
+  line-height: 150%;
+  padding-left: .5em;
+}
+
+.answer {
+  line-height: 150%;
+}
+
+.question{
+  padding-top: 1em;
+}
+
+```
+
+## Installing the packages we need
+
+Copy and paste the text below into **RStudio** in the "console" window:
+```{r, class.source="copy", eval=FALSE}
+source("https://files.mindsci.net/install.r")
+```
+
+<span style="margin-left:auto"><img src="./Capture.jpg" height="100%"></span>
+
+
+
+# Practical task
+
+The aim of the practical task today is to get us **thinking about science** so
+we're going to do a little brain-storming session.
+
+Don't worry if you don't understand some of the *terminology*. We'll be
+covering all this material as we progress in the course. The aim for today is
+for **you** to see how much **you** already know.
+
+For the brain-storming session, we'll be using **Etherpad** to work together in
+**groups**
+
+In your **groups** you'll be brain-storming:
+
+- a *poorly constrained* psychology study: One where it's difficult to clearly
+  define things we're manipulating and measuring
+
+- an impossible psychology study
+
+- a study that is not useful in the real world
+
+- bias in psychology studies and bias in publishing psychology studies
+
+
+## Accessing Etherpad
+
+<p>Click the link for the session you’re in.</p>
+<ol type="1">
+<li><a href="https://etherpad.wikimedia.org/p/paas_session1" target="_blank"><strong>Session 1</strong></a></li>
+<li><a href="https://etherpad.wikimedia.org/p/paas_session2" target="_blank"><strong>Session 2</strong></a></li>
+<li><a href="https://etherpad.wikimedia.org/p/paas_session3" target="_blank"><strong>Session 3</strong></a></li>
+<li><a href="https://etherpad.wikimedia.org/p/paas_session4" target="_blank"><strong>Session 4</strong></a></li>
+<li><a href="https://etherpad.wikimedia.org/p/paas_session5" target="_blank"><strong>Session 5</strong></a></li>
+<li><a href="https://etherpad.wikimedia.org/p/paas_session6" target="_blank"><strong>Session 6</strong></a></li>
+<li><a href="https://etherpad.wikimedia.org/p/paas_session7" target="_blank"><strong>Session 7</strong></a></li>
+<li><a href="https://etherpad.wikimedia.org/p/paas_session8" target="_blank"><strong>Session 8</strong></a></li>
+<li><a href="https://etherpad.wikimedia.org/p/paas_session9" target="_blank"><strong>Session 9</strong></a></li>
+<li><a href="https://etherpad.wikimedia.org/p/paas_session10" target="_blank"><strong>Session 10</strong></a></li>
+<li><a href="https://etherpad.wikimedia.org/p/paas_session11" target="_blank"><strong>Session 11</strong></a></li>
+<li><a href="https://etherpad.wikimedia.org/p/paas_session12" target="_blank"><strong>Session 12</strong></a></li>
+</ol>
+
+Maybe nominate one person in your group to do the typing because all the groups
+will be typing in the same document!
+
+At the end of the brain-storming session, we can discuss your ideas as a class.
+
