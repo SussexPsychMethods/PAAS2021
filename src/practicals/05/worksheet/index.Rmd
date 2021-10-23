@@ -1,5 +1,5 @@
 ---
-title: "Writing and running code in R Studio"
+title: "Writing and running code"
 output:
   rmarkdown::html_document:
     includes:
@@ -21,7 +21,7 @@ meta() %>%
   meta_tag("content_type" = "practical-worksheet")
 ```
 
-\
+
 \
 
 In today’s practical we will learn to navigate our way around **R Studio** and
@@ -47,7 +47,6 @@ important. These are:
 1. The **Environment** pane
 
 1. The **Console** pane
-
 
 During this practical we’ll be writing `R` code into the **Console** and
 **Source** panes and we’ll be able to see any objects we've created in the
@@ -310,7 +309,7 @@ How do you explicitly run the code? There are three ways:
    <kbd>enter</kbd> (Windows) or <kbd>⌘ cmd</kbd> + <kbd>enter</kbd> (MacOS)
 
 2. You can click on the little green triangle <span
-   style="color:green;">▶</span> at the top of the code chunk to run all the
+   style="color:green;font-size:1.5em">▶</span> at the top of the code chunk to run all the
    code in that chunk
 
 3. Or finally, you can **knit** the document to run **all the code chunks** in
@@ -335,12 +334,12 @@ Sys.sleep(15)
 
 Once you’ve added some code, run it by either using <kbd>ctrl</kbd> +
 <kbd>enter</kbd> (Windows) or <kbd>command</kbd> + <kbd>enter</kbd> (MacOS) or
-hitting the <span style="color:green;">▶</span> 
+hitting the <span style="color:green;font-size:1.5em">▶</span> 
 
-When you do this, you’ll see the <span style="color:green;">▶</span> turn into
+When you do this, you’ll see the <span style="color:green;font-size:1.5em;">▶</span> turn into
 a <span class="fas">🕒</span> and then a <span style="color:red;">🟥</span>.
 When it’s shows a <span style="color:red;">🟥</span> it means the code is
-running. Wait for the <span style="color:green;">▶</span> to return before
+running. Wait for the <span style="color:green;font-size:1.5em">▶</span> to return before
 continuing.
 
 
@@ -377,7 +376,7 @@ we can just add a new line with just the object’s name to show the content of
 that object.</reveal>
 
 **Tip** Sometimes your `.Rmd` file might look strange, because the syntax
-highlight disappears or little <span style="color:green;">▶</span> disappears.
+highlighting disappears or little <span style="color:green;font-size:1.5em">▶</span> disappears.
 This happens when you don’t have matching fences or if you’ve put a code chunk
 inside another code chunk.
 
@@ -385,6 +384,18 @@ If this happens then check over your document and make sure that all your
 opening fences <code class="markdown">&#96;&#96;&#96;{r}</code> have matching
 closing fences <code>&#96;&#96;&#96;</code> and that you don’t open another fence before
 closing the previous one.
+
+::: {.box}
+Remeber, everything **inside** the fences is **R Code** and everything 
+**outside** the fences is **Markdown**. This means that symbols (e.g., `#`) that
+mean one thing **outside** the **code chunk** can mean a different thing 
+**inside** the **code chunk**.
+
+For example, **inside** a code chunk the `#` is used for comments, but **outside**
+the code chunk the `#` is used for headings
+
+
+:::
 
 ### The environment and **knitting**
 
@@ -429,7 +440,7 @@ knitr::opts_chunk$set(echo = TRUE, error = TRUE)
 
 
 ```{r}`r ''`
-<mark>cat(&quot;my name is&quot;,name)</mark>
+<mark>cat(&quot;my name is&quot;, name)</mark>
 ```</code></pre>
 
 You’ll notice that the highlighted line makes use on a object called
@@ -438,17 +449,17 @@ You’ll notice that the highlighted line makes use on a object called
 Let’s create a object called name by typing something like the following into
 the console.
 
-<pre class="r copy"><code>name &lt;- &quot;Spartacus&quot;</code></pre>
+<pre class="r copy"><code>name &lt;- &quot;Inigo Montoya&quot;</code></pre>
 
 You’ll now be able to see that you have an object called <code>name</code>
 in your **Environment** pane.
 
 Now let’s go to the <code>.Rmd</code> file. Go to the code chunk with the line
-`cat("my name is ",name)` and click the <span style="color:green">▶</span>...
+`cat("my name is ", name)` and click the <span style="color:green;font-size:1.5em">▶</span>...
 
 What happens?
 
-<reveal>That’s right. It prints out `my name is Spartacus`</reveal>
+<reveal>That’s right. It prints out `my name is Inigo Montoya`</reveal>
 
 Now, try and **knit** the <code>.Rmd</code> file by using the
 shortcut key <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>k</kbd> (Windows) or
@@ -478,8 +489,8 @@ You can fix it by creating the `name` object
 inside the `.Rmd` file. Try editing the code in that code chunk so
 that it now reads like the following.
 
-<pre><code>name &lt;- &quot;Spartacus&quot;
-cat(&quot;my name is&quot;,name)</code></pre>
+<pre><code>name &lt;- &quot;Inigo Montoya&quot;
+cat(&quot;my name is&quot;, name)</code></pre>
 </div>
 
 ### The `setup` chunk
