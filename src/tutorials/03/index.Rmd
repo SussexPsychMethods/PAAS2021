@@ -20,13 +20,15 @@ library(niceQuiz)
 knitr::opts_chunk$set(echo = FALSE)
 meta() %>%
   meta_description("Week 3 Tutorial") %>%
-  meta_tag("content_type" = "tutorial",
-           "week" = "03")
+  meta_tag(
+    "content_type" = "tutorial",
+    "week" = "03"
+  )
 ```
 
 ```{css}
 .verbatim > * {word-break:break-word}
-````
+```
 
 ## Intro
 
