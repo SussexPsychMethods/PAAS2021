@@ -754,3 +754,21 @@ link on Canvas.
 Don't forget about the weekly quizzes!
 
 There's still a lot of people not doing them!
+
+
+And a quick survey...
+
+---
+class: center, inverse
+background-image: url("./assets/feedback.jpeg")
+background-size: contain  
+
+
+
+
+
+
+
+
+
+
