@@ -2,7 +2,7 @@
 title: "Lecture 9: Tables and plots"
 subtitle: "Concise data summary"
 author: "Dr Milan Val&aacute;&scaron;ek"
-date: "23 November 2020"
+date: "25 November 2021"
 output:
   xaringan::moon_reader:
     # css: slides.css
