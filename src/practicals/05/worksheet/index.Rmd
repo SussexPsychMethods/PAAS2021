@@ -24,6 +24,18 @@ meta() %>%
 
 \
 
+First things first, as usual, we'll start off with creating a new project. 
+You can call this project `prac_05` if you'd like. Once you've created the project, 
+make sure you create the `data` and `r_docs` sub-folders, just as usual.
+
+If you need help with creating R projects, [check out the week 3 practical
+worksheet](https://paas.netlify.app/practicals/03/worksheet/).
+
+Before you proceed **make sure you're in the correct project** (check the
+top-right corner of RStudio).
+
+\ 
+
 In today’s practical we will learn to navigate our way around **R Studio** and
 we’ll learn about where to write our **R** code and how to run it.
 
