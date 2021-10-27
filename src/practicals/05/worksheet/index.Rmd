@@ -258,7 +258,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}`r ''`
-kntir::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 </code></pre>
   
@@ -532,14 +532,6 @@ to load any packages.
 
 In this course, we won't really be using `.R` script files at all. But we can
 play around with one now if you'd like to see what they're all about.
-
-Writing <code>R</code> code into the **Console** window is fine
-for one off commands or for testing things. In fact, it’s very useful for this
-and you should make use of it for this.
-
-However, there’s often times where we want to **write down** a
-bunch of commands first and then **run them later**. There are two
-places we can do this. The first is in <code>.R</code> script files.
 
 Let’s go ahead and create a new script file. You can do this through the
 menu by going to **File** > **New File** > **R Script** or you can use the keyboard shortcuts. Try using

@@ -27,6 +27,12 @@ all :
 
 .PHONY: deploy
 
+.PHONY : pdf
+pdf :
+	make "./src/lectures/${WEEK}/slides/lecture_${WEEK}_slides.pdf"
+
+
 deploy : 
 	make all
+	ruby build
 	netlify deploy --prod

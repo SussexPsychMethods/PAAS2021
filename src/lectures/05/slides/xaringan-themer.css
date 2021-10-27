@@ -352,3 +352,7 @@ div.footnote {
   border-top: 1px solid #007935;
   margin-bottom: -40px;
 }
+a {
+  text-decoration: underline;
+  font-size: 95%;
+}
