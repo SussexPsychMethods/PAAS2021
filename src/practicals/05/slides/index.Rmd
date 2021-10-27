@@ -261,8 +261,8 @@ Demonstrate creating a simple code chunk and running the code inside it
 - This is **not** the case when **knitting** your `.Rmd` file
 
   - When you knit a `.Rmd` file all the code is run **inside a new empty
-    enviroment**. That means that when you objects that haven’t been created
-    **inside the document**.
+    enviroment**. That means that when you knit a document, objects 
+    that haven’t been created **inside the document** won't be available
 
   - A common source of errors is thinking you can **access** an object because
     you can see it in your environment but then the code fails when you
