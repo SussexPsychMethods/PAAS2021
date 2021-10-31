@@ -77,10 +77,22 @@ xaringanthemer::style_extra_css(
       "font-size" = ".6em",
       "border-top" = "1px solid #007935",
       "margin-bottom" = "-40px"
-    )
+    ),
+       "a" = list("text-decoration" = "underline", "font-size" = "95%")
   )
 )
 ```
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+```{css, echo=FALSE}
+a:after {
+    font-family: 'FontAwesome';
+    content: " \f0c1";
+}
+```
+
 
 ```{r, echo=FALSE}
 library(metathis)
@@ -95,6 +107,7 @@ meta() %>%
   meta_tag("week" = "05") %>%
   meta_tag("content_type" = "slides")
 ```
+
 
 ```{r broadcast, echo=FALSE}
 xaringanExtra::use_broadcast()
@@ -436,7 +449,7 @@ to try **improve** the methods as much as possible.]
 ### An example registered report
 
 
-.center[<img src="./assets/header_joint.png" width="75%" />]
+.center[<a href="https://journals.sagepub.com/doi/10.1177/2515245920903079"><img src="./assets/header_joint.png" width="75%" /></a>]
 
 - We found **absolutely no evidence** for the original finding...
 
@@ -751,9 +764,12 @@ link on Canvas.
 
 ### And finally!
 
-Don't forget about the weekly quizzes!
+Don't forget about the weekly quizzes! There's still a lot of people not doing
+them!
 
-There's still a lot of people not doing them!
+And don't forget that you have an extra ethics lecture next week
+
+### And finally, finally.. 
 
 
 And a quick survey...
