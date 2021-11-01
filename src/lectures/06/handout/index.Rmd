@@ -19,13 +19,12 @@ knitr::opts_chunk$set(echo = FALSE)
 ```{r, echo=FALSE}
 library(metathis)
 meta() %>%
-meta_description("In this lecture we'll learn about samples and populations and how samples and populations can be described with distributions.") %>%	
+  meta_description("In this lecture we'll learn about samples and populations and how samples and populations can be described with distributions.") %>%
   meta_tag("week" = "06") %>%
   meta_tag("content_type" = "handout")
 
 htmltools::includeCSS("styles.css")
 htmltools::includeScript("header.js")
-
 ```
 
 
@@ -530,12 +529,6 @@ distribution**, which you'll learn about in a later lecture, and it is
 one of the most fundamental ideas in statistics.
 
 [^1]: The ["bean machine"](https://en.wikipedia.org/wiki/Bean_machine)
-    is sometimes also called the Galton board after it's inventor,
-    [Francis Galton](https://en.wikipedia.org/wiki/Francis_Galton). In
-    addition to inventing the Galton board, Galton was also an advocate
-    of eugenics (a term which he invented). Because of Galton's
-    association with eugenics and racism, I prefer the term "bean
-    machine".
 
 
 
