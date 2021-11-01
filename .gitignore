@@ -9,3 +9,4 @@ src/index.asc
 # building
 deploy-02
 makepdfs.r
+watch.rb

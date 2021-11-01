@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Data structures and assignment</title>
+    <meta charset="utf-8" />
+    <script src="index_files/header-attrs-2.11/header-attrs.js"></script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x8398f2c8bee4437bf4bca12439163be","expires":1}</script>
+    <script src="index_files/himalaya-1.1.0/himalaya.js"></script>
+    <script src="index_files/js-cookie-3.0.0/js.cookie.js"></script>
+    <link href="index_files/editable-0.2.6/editable.css" rel="stylesheet" />
+    <script src="index_files/editable-0.2.6/editable.js"></script>
+    <meta name="description" content="Data structures and assignment"/>
+    <meta week="06"/>
+    <meta content_type="slides"/>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Data structures and assignment
+## Psychology as a Science: Practical 6
+
+---
+
+
+
+
+
+
+
+
+
+
+
+## Today
+
+- Q&amp;amp;A about last week's tutorial and practical
+
+- Assignment and data structures
+
+  - One-off commands vs writing code in `.Rmd` files
+
+  - Vectors
+
+  - Tibbles
+
+- Attendance
+
+- Work through the worksheet
+
+---
+
+## One-off commands vs code chunks
+
+- We use programming to achieve a task
+
+- Code is a sequence of steps/instructions that we give to the computer to
+  perform the task we want done
+
+- We can write these instructions (the code) down into **code chunks** 
+
+- Sometime we might want to run code that isn't part of the main set of
+  instructions for the task we're trying to perform. For example, 
+
+  * We might want to quickly check if something worked correctly
+
+  * or do a quick calculation
+
+  * or we might want to visually inspect our data
+  
+For one-off commands like this, we might choose to run them at the **console**
+rather than writing them down in a **code chunk**
+
+
+---
+
+## Assignment
+
+- **Objects** in `R` are just little containers that hold some data
+
+- **Objects** have names (like little labels on containers)
+
+- We can use the **label** to refer to the content of the container
+
+- To **create** an object we use the **assignment operator** `&lt;-`
+
+For example, the following code means *Put the data (a character string) "some
+words" into the box labelled `container`*
+
+```{.r}
+container &lt;- "some words"
+```
+
+
+---
+
+## Assignment
+
+**Once assigned, the name can be used in the same way as the object it represents**
+
+For example, we can right some code to put a **vector** of numbers in a
+container labelled `my_numbers`
+
+
+```r
+my_numbers &lt;- c(11, 4, 147)
+```
+
+Later in the code chunk we could write the following code
+
+```{.r}
+half_numbers &lt;- my_numbers / 2
+```
+
+Which means: *Take (a copy of) the numbers inside the container labelled `my_numbers` and
+divide them by 2*. *Put the result in a container labelled `half_numbers`*
+
+---
+
+## Types of Data: Vectors
+
+- Groupings of *elements*: numbers, character strings, logical values
+
+- Can be arbitrarily long (zero or more elements)
+
+- Can only contain **one type of element** (e.g., only character strings,
+  logical values, or numbers)
+
+- Created primarily with the `c()` function.
+
+
+**An example of a vector of numbers**
+
+
+```r
+more_numbers &lt;- c(my_numbers, -4321, 3.14)
+more_numbers
+```
+
+```
+## [1]    11.00     4.00   147.00 -4321.00     3.14
+```
+
+
+---
+
+## Types of Data: Vectors
+
+
+
+**An example of a vector of letters and words**
+
+
+```r
+some_letters &lt;- c("A", "e", "X", "K", "r", "dog")
+some_letters
+```
+
+```
+## [1] "A"   "e"   "X"   "K"   "r"   "dog"
+```
+
+**Mixing letters and numbers will result in the numbers being converted into
+*numerals***
+
+
+```r
+numerals_letter &lt;- c(1, "A")
+numerals_letter
+```
+
+```
+## [1] "1" "A"
+```
+
+---
+
+## Types of data: Tibbles 
+
+- `R`'s version of spread sheets
+
+
+```r
+books &lt;- tibble::tibble(
+  title = c("Mrs Dalloway", "Another Country", "Burger's Daugher"),
+  author = c("Virginia Woolf", "James Baldwin", "Naine Gordimer"),
+  year = c(1925, 1962, 1979),
+  pages = c(224, 436, 364)
+) 
+```
+
+
+|title            |author         | year| pages|
+|:----------------|:--------------|----:|-----:|
+|Mrs Dalloway     |Virginia Woolf | 1925|   224|
+|Another Country  |James Baldwin  | 1962|   436|
+|Burger's Daugher |Naine Gordimer | 1979|   364|
+
+We'll never **manually create** tibbles by typing in the data (expect for the
+example on the worksheet). Instead we'll **read** in data from files (more on
+that in the coming weeks)
+
+---
+
+## Types of data: Tibbles 
+
+Each column is a vector and can be selected using `$`
+
+
+```r
+books$author
+```
+
+```
+## [1] "Virginia Woolf" "James Baldwin"  "Naine Gordimer"
+```
+
+
+Because each column is a vector, you can do anything with it that you can do
+with a vector.
+
+
+
+```r
+half_point &lt;- books$pages / 2
+half_point
+```
+
+```
+## [1] 112 218 182
+```
+
+
+---
+
+# Attendance 
+
+&lt;br&gt;
+
+.middle[
+.center[
+
+## Attendance pin.can-edit[: ]
+
+
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+**Go to www.sussex.ac.uk/mobile OR use the SussexMobile app to input the pin**
+
+]]
+
+---
+
+## Today's worksheet
+
+
+To find today's worksheet go to the Week 6 page on Canvas and find the link
+
+---
+
+### Running the tutorial for next week
+
+.center[&lt;img width="72%" src="./assets/tutorials.png"&gt;]
+
+If you can't see the **Tutorial** pane go to **View &gt; Tutorial** 
+
+---
+
+### The quiz
+
+If you haven't completed the **Week 6** quiz then make sure to do it after this
+class.
+
+Remember that the Quiz closes on Saturday, and if you miss the deadline then
+you won't get a second chance!
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

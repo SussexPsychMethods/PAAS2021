@@ -1,0 +1,154 @@
+body {
+  margin-top: 80px;
+}
+.main-container {
+  padding-left: 15px;
+  padding-right: 15px;
+  display: flex;
+  max-width: 680px;
+  margin-right: auto;
+  margin-left: auto;
+  flex-direction: column;
+}
+
+.btn {
+  padding: 0;
+  margin-right: 1em;
+}
+
+.copy-button {
+  width: 7em;
+}
+.btn-primary {
+  background-color: black;
+  border-color: black;
+  padding-left: 1em;
+  padding-right: 1em;
+  z-index: -4;
+}
+
+.hint summary {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+code {
+  font-family: "Fira Mono", monospace;
+}
+
+.answertext {
+  line-height: 150%;
+  padding-left: 0.5em;
+}
+
+.answer {
+  line-height: 150%;
+}
+
+.question {
+  padding-top: 1em;
+}
+.box {
+  background: #e3e1dd;
+  padding: 1em 1em 1px 1em;
+  margin: 1em 0 2em 0;
+  color: #3e2d05;
+  text-align: justify;
+}
+
+.box em,
+.box strong {
+  color: #126051;
+}
+
+.warn {
+  color: #bb1a1a;
+  border: solid 1px #bb1a1a;
+  padding: 1em 1em 0em 1em;
+  margin: 2em 0 3em 0;
+  text-align: justify;
+}
+
+.warn strong {
+  color: #bb1a1a;
+  background: #fff;
+}
+
+summary {
+  font-weight: bold;
+  margin: -0.5em -0.5em 0;
+  padding: 0.5em;
+  display: list-item;
+}
+
+details[open] {
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+details[open] summary {
+  border-bottom: 1px solid #aaa;
+  margin-bottom: 0.5em;
+}
+
+details.hint {
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding-left: 5px;
+  padding-right: 10px;
+  padding-top: 10px;
+  color: rgb(177, 177, 188);
+  position: relative;
+  width: max-content;
+}
+
+summary.hint {
+  font-weight: bold;
+  font-size: 1.1em;
+  border: solid 1px rgb(177, 177, 188);
+  width: max-content;
+  border-radius: 5px;
+  color: #fff;
+  background: rgb(177, 177, 188);
+  cursor: pointer;
+}
+
+summary.hint:focus {
+  outline: none;
+}
+
+summary.hint:hover {
+  background-color: rgba(177, 177, 188, 0.1);
+  color: rgb(177, 177, 188);
+}
+
+details.hint[open] {
+  border: solid 1px rgb(177, 177, 188);
+  background: rgba(177, 177, 188, 0.1);
+  width: 100%;
+}
+
+.hint[open] summary {
+  margin-left: -5px;
+  border: none;
+  color: rgb(177, 177, 188);
+  background: none;
+}
+
+details > summary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.hint pre {
+  border: none;
+  border-radius: 1px;
+  width: 99%;
+}

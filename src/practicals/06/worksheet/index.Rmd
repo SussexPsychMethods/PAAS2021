@@ -1,0 +1,345 @@
+---
+title: "Data structures and assignment"
+output:
+  rmarkdown::html_document:
+    includes:
+      after_body: "./header.html"
+---
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(echo = TRUE)
+require(tidyverse)
+require(metathis)
+``` 
+
+
+```{r, echo=FALSE}
+library(metathis)
+meta() %>%
+  meta_description("Data structures and assignment") %>%
+  meta_tag("week" = "06") %>%
+  meta_tag("content_type" = "practical-worksheet")
+```
+
+```{css echo=FALSE}
+```
+
+\
+
+This week, we will practice running basic commands, creating objects and
+storing them in the `R` environment, and working with vectors and
+tibbles. On top of that we'll get some more R Markdown experience.
+
+By the end of this tutorial you will know how to:
+
+-   create vectors and store them in the environment
+-   perform basic operations with objects
+-   select a single column of a tibble
+-   include code chunks in you Rmd files
+
+
+### Task 1
+
+As usual, we'll start off with creating a new project. You can call
+this project `prac_06` if you'd like. Once you've created the project, 
+make sure you create the `data` and `r_docs` sub-folders.
+
+If you need help with creating R projects, [check out the week 3 practical
+worksheet](https://paas.netlify.app/practicals/03/worksheet/).
+
+Before you proceed **make sure you're in the correct project** (check the
+top-right corner of RStudio).
+
+For the next few tasks I want you to just use the console.
+
+::: {.warn}
+Remember, that the `R` console is ready when you can see the cursor
+blinking *next to the command prompt* `>`. If there's nothing to the left of
+the cursor, that means that RStudio is busy running the previous command.
+
+If the cursor is blinking next to a `+`, that means that the command you just
+entered is not complete. This is often due to a typo so the easiest thing to do
+is hit the [Esc]{.kbd} key on your keyboard to abort the command.
+:::
+
+### Task 2
+
+Let's start off with a few calculations, just to get warmed up.
+Peform these calculations in the **console**.
+
+- How many years ago was the year 1842?
+
+- How much is half of the square root of 1156?
+
+- How old will you be in 25 years?
+
+### Task 3
+
+Ok, now we'll create a few **vectors**.
+
+
+::: {.box}
+To reiterate, vectors are just *groupings of things*: numbers, character
+strings, or logical values (`TRUE`/`FALSE`). A vector can be arbitrarily
+long but **can only contain one type of elements**: just numbers, or
+just character strings, or just logicals!
+:::
+
+Use the `c()` function to create a vector of the ages of the people in
+your group.
+
+<div class="hint">
+When combining elements in a vector, they need to be separated by commas.
+</div>
+
+Once you ran the command in the console, notice that its result got
+printed out. But if you glance at the Environment pane, you'll see that
+the vector didn't get saved in the environment.
+
+
+### Task 4
+
+Use the assignment operator `<-` to write a command that stores the
+vector of ages in the environment under the name `ages`.
+
+
+<div class="hint">
+That's just `ages <- [command from task 3]`
+</div>
+
+
+Notice that the object is now listed in the Environment pane.
+
+
+### Task 5
+
+OK, let's do some calculations with this object. Make `R` do the maths,
+don't do it yourself.
+
+-   Create an object `ages_in_2047` containing info about how old you
+    guys will be in the year 2047
+
+<div class="hint">
+You just need to add the correct number of years - the difference
+between the year 2047 and now.
+</div>
+\
+
+ Create an object `birth_year` containing the years of birth of the people in
+ your group. Don't ask them though, use maths instead!
+
+Check the values inside `birth_year` by typing the name into the console and
+pressing [Enter]{.kbd}.
+
+-   Is your year of birth correct?
+
+-   Think of a reason why it wouldn't be?
+
+Very well, so now that we're warmed up, let's make us a nice explainer
+document about assignment and data structures.
+
+
+### Task 6
+
+Crate a new R Markdown (Rmd) document and save it as
+`prac_05_data_structures.Rmd` in the `r_docs` folder of your current project.
+
+
+### Task 7
+
+For the next task, we're just going to delete everything in the Rmd file expect
+for the YAML header and the **setup** code chunk.
+
+
+<div class="hint">
+That is, you're going delete everything **after** the **code chunk** that looks
+like the one below
+
+<pre><code>```{r setup, include=FALSE}`r ''`
+knitr::opts_chunk$set(echo = TRUE)
+```
+</code></pre>
+</div>
+
+### Task 8
+
+Edit the YAML header:
+
+- Change the title of the document to `"Data structures and assignment"`.
+- Put your name in the `author` field.
+
+And now, you can actually start writing our document in place of the stuff you
+just deleted.
+
+### Task 9
+
+Start by creating a Level 2 heading `Code chunks`.
+
+Below it, write a short (a couple of sentences) paragraph about how to insert
+a, `R` code chunk and then insert one. If you're not sure how to insert a code
+chunk, check out [last week's
+practical](https://paas.netlify.app/practicals/05/worksheet). Inside the code
+chunk write a comment saying: 
+
+`# this is an empty code chunk`
+
+
+### Task 10
+
+Knit the file.
+
+Once the rendered HTML document pops up, the code chunk in it should
+look like this:
+
+``` {.r}
+# this is an empty code chunk
+```
+
+::: {.warn}
+Remember that you can knit and re-knit your document as many times and
+as often as you want.
+:::
+
+
+### Task 11
+
+Create a new code chunk and in it put the code from [Task 2](#task-2).
+
+### Task 12
+
+Run the code chunk. Again, if you don't remember how this is done, check out
+last week's practical worksheet.
+
+For future reference, write yourself a note under the code chunk explaining how
+to run individual chunks.
+
+
+### Task 13
+
+Let's start another section by including a new level 2 heading `Data
+structures` and underneath put a level 3 heading `Vectors`.
+
+In this section, create 3 code chunks
+
+The **first code chunk** you should create a vector of 5 numbers, but don't assign it to a
+named object.
+
+In the **second code chunk** create a vector of 4 *letters*, assigning it under the
+name of `character_vector`.
+
+<div class="hint">
+Remember that character strings must be `"in quotes"`.
+</div>
+
+The **last one** should *call* the vector you just created so that, once the
+document is knitted, the contents of the object get shown. Remember, this is
+possible because the `character_vector` object gets stored in the Rmd
+environment and so it is available to us.
+
+
+
+### Task 14
+
+Knit the document to see if it all looks good. If it doesn't, make edits
+to the Rmd file and try again.
+
+If it looks OK, write some notes to your future self, explaining that
+assigning objects to names stores themi nthe environment for future use.
+Don't forget to use markdown to make the text look nice.
+
+### Task 15
+
+In another code chunk, type in the code from [Tasks 3-5](#task-3).
+
+Above the chunk write a few sentences explaining that objects stored in
+the environment can be used in the same way as anything else. If the
+object is a numeric vector, you can do maths with it. You can also use
+objects to create new objects like you did with `ages_in_2047` and
+`birth_year` in Task 5.
+
+
+### Task 16
+
+You can even use stored *vectors* inside the `c()` function to combine
+them with other elements.
+
+Add another code chunk and in it, write code that combines our
+`character_vector` with 2 more letters of your choice.
+
+### Task 17
+
+OK, time for another level 3 heading. This time it's **Tibbles**
+
+As you learnt in Tutorial 5, tibbles are essentially `R`'s version of
+spreadsheets. Here's some code that will create a tibble of information about
+three boooks. Copy and paste it into a new code chunk.
+
+```{r class.source="copy"}
+
+books <- tibble::tibble(
+  title = c("Mrs Dalloway", "Another Country", "Burger's Daugher"),
+  author = c("Virginia Woolf", "James Baldwin", "Naine Gordimer"),
+  year = c(1925, 1962, 1979),
+  pages = c(224, 436, 364)
+)
+```
+
+As you can see, the tibble is stored under the name `books`. That means
+that if you know just knit the document, you won't see the printout of
+the `books` object in the HTML document; only the code that created it.
+
+Try it and see for yourself!
+
+#### Task 18
+
+Add another code chunk that calls `books` to print out the tibble in the
+knitted document.
+
+knit again and see the result.
+
+#### Task 19
+
+If you look at the code, you'll see that our `books` tibble is basically
+composed of vectors. Each column is a single vector: most are character
+vectors but `year` and `pages` are numeric.
+
+You can select a single column vector of a `tibble` using the
+`[tibble name]$[column name]` notation, *e.g.*, `books$year`. Try it
+yourself in a new code chunk!
+
+#### Task 20
+
+Once you select a column vector, you can treat it as any other vector.
+If it's numeric, you can do maths with it.
+
+In the same code chunk, write `R` code that tells you how old each of
+the books is.
+
+<div class="hint"> 
+Just subtract the `year` column from the current year.
+</div>
+
+#### Task 21
+
+You can also perform logical operations with vectors, and you'll get a vector of
+logical TRUE / FALSE values.
+
+Try this out by writing some R code that will return TRUE if a book is more
+than 300 pages long and FALSE otherwise. The result should be a vector of
+TRUE/FALSE values.
+
+
+
+<div class="hint"> 
+You'll need to compare the `pages` column to something. 
+</div>
+
+#### Task 22
+
+Go through the Rmd file again and add explanatory text so that you understand
+the code even if you come cack to it in a year.
+
+
+\
+
+
