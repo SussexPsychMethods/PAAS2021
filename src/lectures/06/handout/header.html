@@ -1,0 +1,40 @@
+<script>
+    function hider() {
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    content.style.borderStyle = "hidden"
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    content.style.borderStyle = "dashed"
+                    content.style.borderTop = "none"
+                }
+            });
+        };
+
+        var view;
+
+        fetch('assets/tree2.json')
+            .then(res => res.json())
+            .then(spec => render(spec))
+            .catch(err => console.error(err));
+
+        function render(spec) {
+            view = new vega.View(vega.parse(spec), {
+                renderer: 'canvas',
+                container: '#view',
+                hover: true
+            });
+
+            return view.runAsync();
+        }
+
+    }
+    window.onload = hider;
+</script>
