@@ -1,0 +1,327 @@
+---
+title: "Data structures and assignment"
+subtitle: "Psychology as a Science: Practical 6"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+style_duo_accent(
+  primary_color = "#003b49",
+  secondary_color = "#1d4289",
+  header_font_google = google_font("Cabin"),
+  text_font_google = google_font("Noto Sans", "300", "300i"),
+  code_font_google = google_font("Fira Mono"),
+  colors = c(
+    red = "#d3003f",
+    purple = "#3e2f5b",
+    orange = "#ff8811",
+    green = "green",
+    white = "#FFFFFF",
+    blue = "blue"
+  )
+)
+
+xaringanthemer::style_extra_css(
+  list(
+    ".title-slide" = list(
+      "background-image" =
+        paste0(
+          "url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/",
+          "University_of_Sussex_Logo.svg/",
+          "480px-University_of_Sussex_Logo.svg.png)"
+        ),
+      "background-position" = "95% 95%",
+      "background-size" = "180px",
+      "border" = "10px solid #013035",
+      "background-color" = "#FFFFFF"
+    ),
+    ".title-slide h1" = list(
+      "padding-top" = "0px",
+      "font-size" = "60px",
+      "text-align" = "left",
+      "padding-bottom" = "18px",
+      "margin-bottom" = "18px",
+      "margin-top" = "0px",
+      "color" = "#003b49"
+    ),
+    ".title-slide h2" = list(
+      "font-size" = "40px",
+      "text-align" = "left",
+      "padding-top" = "10px",
+      "margin-top" = "0px",
+      "color" = "#003b49"
+    ),
+    ".title-slide h3" = list(
+      "font-size" = "30px",
+      "color" = "#26272A",
+      "text-align" = "left",
+      "text-shadow" = "none",
+      "padding" = "0px",
+      "margin" = "0px",
+      "line-height" = "1"
+    ),
+    ".big" = list("font-size" = "40px"),
+    "pre" = list(
+      "background" = "#f8f8f8",
+      "padding" = "10px",
+      "border" = "1px",
+      "border-color" = "#666",
+      "border-style" = "solid",
+      "border-radius" = "2px"
+    )
+  )
+)
+
+
+xaringanExtra::use_editable(expires = 1)
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
+
+```{r, echo=FALSE}
+library(metathis)
+meta() %>%
+  meta_description("Data structures and assignment") %>%
+  meta_tag("week" = "06") %>%
+  meta_tag("content_type" = "slides")
+```
+
+
+
+## Today
+
+- Q&amp;A about last week's tutorial and practical
+
+- Assignment and data structures
+
+  - One-off commands vs writing code in `.Rmd` files
+
+  - Vectors
+
+  - Tibbles
+
+- Attendance
+
+- Work through the worksheet
+
+---
+
+## One-off commands vs code chunks
+
+- We use programming to achieve a task
+
+- Code is a sequence of steps/instructions that we give to the computer to
+  perform the task we want done
+
+- We can write these instructions (the code) down into **code chunks** 
+
+- Sometime we might want to run code that isn't part of the main set of
+  instructions for the task we're trying to perform. For example, 
+
+  * We might want to quickly check if something worked correctly
+
+  * or do a quick calculation
+
+  * or we might want to visually inspect our data
+  
+For one-off commands like this, we might choose to run them at the **console**
+rather than writing them down in a **code chunk**
+
+
+---
+
+## Assignment
+
+- **Objects** in `R` are just little containers that hold some data
+
+- **Objects** have names (like little labels on containers)
+
+- We can use the **label** to refer to the content of the container
+
+- To **create** an object we use the **assignment operator** `<-`
+
+For example, the following code means *Put the data (a character string) "some
+words" into the box labelled `container`*
+
+```{.r}
+container <- "some words"
+```
+
+
+---
+
+## Assignment
+
+**Once assigned, the name can be used in the same way as the object it represents**
+
+For example, we can right some code to put a **vector** of numbers in a
+container labelled `my_numbers`
+
+```{r}
+my_numbers <- c(11, 4, 147)
+```
+
+Later in the code chunk we could write the following code
+
+```{.r}
+half_numbers <- my_numbers / 2
+```
+
+Which means: *Take (a copy of) the numbers inside the container labelled `my_numbers` and
+divide them by 2*. *Put the result in a container labelled `half_numbers`*
+
+---
+
+## Types of Data: Vectors
+
+- Groupings of *elements*: numbers, character strings, logical values
+
+- Can be arbitrarily long (zero or more elements)
+
+- Can only contain **one type of element** (e.g., only character strings,
+  logical values, or numbers)
+
+- Created primarily with the `c()` function.
+
+
+**An example of a vector of numbers**
+
+```{r eval=TRUE, echo=TRUE, include=TRUE}
+more_numbers <- c(my_numbers, -4321, 3.14)
+more_numbers
+```
+
+
+---
+
+## Types of Data: Vectors
+
+
+
+**An example of a vector of letters and words**
+
+```{r}
+some_letters <- c("A", "e", "X", "K", "r", "dog")
+some_letters
+```
+
+**Mixing letters and numbers will result in the numbers being converted into
+*numerals***
+
+```{r}
+numerals_letter <- c(1, "A")
+numerals_letter
+```
+
+---
+
+## Types of data: Tibbles 
+
+- `R`'s version of spread sheets
+
+```{r}
+books <- tibble::tibble(
+  title = c("Mrs Dalloway", "Another Country", "Burger's Daugher"),
+  author = c("Virginia Woolf", "James Baldwin", "Naine Gordimer"),
+  year = c(1925, 1962, 1979),
+  pages = c(224, 436, 364)
+) 
+```
+
+```{r, include=TRUE, echo=FALSE}
+tibble::tibble(
+  title = c("Mrs Dalloway", "Another Country", "Burger's Daugher"),
+  author = c("Virginia Woolf", "James Baldwin", "Naine Gordimer"),
+  year = c(1925, 1962, 1979),
+  pages = c(224, 436, 364)
+) %>% knitr::kable()
+```
+
+We'll never **manually create** tibbles by typing in the data (expect for the
+example on the worksheet). Instead we'll **read** in data from files (more on
+that in the coming weeks)
+
+---
+
+## Types of data: Tibbles 
+
+Each column is a vector and can be selected using `$`
+
+```{r}
+books$author
+```
+
+
+Because each column is a vector, you can do anything with it that you can do
+with a vector.
+
+
+```{r}
+half_point <- books$pages / 2
+half_point
+```
+
+
+---
+
+# Attendance 
+
+<br>
+
+.middle[
+.center[
+
+## Attendance pin.can-edit[: ]
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+**Go to www.sussex.ac.uk/mobile OR use the SussexMobile app to input the pin**
+
+]]
+
+---
+
+## Today's worksheet
+
+
+To find today's worksheet go to the Week 6 page on Canvas and find the link
+
+---
+
+### Running the tutorial for next week
+
+.center[<img width="72%" src="./assets/tutorials.png">]
+
+If you can't see the **Tutorial** pane go to **View > Tutorial** 
+
+---
+
+### The quiz
+
+If you haven't completed the **Week 6** quiz then make sure to do it after this
+class.
+
+Remember that the Quiz closes on Saturday, and if you miss the deadline then
+you won't get a second chance!
+
+
