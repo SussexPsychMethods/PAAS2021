@@ -1,0 +1,334 @@
+---
+title: "Organizing data"
+output:
+  rmarkdown::html_document:
+    include:
+      after_body: "./header.html"
+---
+
+```{r setup, include=FALSE} 
+Ex <- function() {
+  thisEnv <- environment()
+
+  me <- list(
+    thisEnv = thisEnv,
+    getEnv = function() {
+      return(get("thisEnv", thisEnv))
+    },
+    init = function() {
+      return(assign("exs", 0, thisEnv))
+    },
+    Ex = function(label) {
+      require(glue)
+      exs <- get("exs", thisEnv)
+      exs <- exs + 1
+      assign("exs", exs, thisEnv)
+      return(exs)
+    }
+  )
+
+  assign("this", me, envir = thisEnv)
+
+  class(me) <- append(class(me), "Exs")
+  return(me)
+}
+
+ex <- Ex()
+ex$init()
+prob <- function() glue::glue('<h3 style="font-size:130%;font-weight: bold;">Task {ex$Ex()}</h3>')
+
+
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(metathis)
+library(DiagrammeR)
+```  
+
+
+```{r echo=FALSE}
+
+week <- "08"
+content_type <- "worksheet"
+meta() %>%
+  meta_description(paste0(
+    "In this practical we'll learn how to organise ",
+    "data in the tidy way"
+  )) %>%
+  meta_tag("week" = week) %>%
+  meta_tag("content_type" = content_type)
+```
+```{js, echo=FALSE}
+function hideer() {
+
+  const linkify = (x) => {
+  return `<a href=\"${x}\" target=\"_blank\">this link to access the spreadsheet</a>`
+  }
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString)
+
+    if (urlParams.get("solutions") != "true") {
+
+        console.log("tutor version...")
+
+        let answers = document.querySelectorAll(".tutor")
+        answers.forEach(x => x.style.display = 'none')
+
+    }
+
+    let link1 = linkify("https://docs.google.com/spreadsheets/d/1LP_Fl_USHCfGmq6pLHHQ5iP0Y0G40LKbmfCZlbMHGaI/edit#gid=0")
+    let link2 = linkify("https://docs.google.com/spreadsheets/d/1_1nA1OW2bAeh7gKMYaIKo769XJ0SnwyIl0W3qgJZpzk/edit#gid=0")
+    let link
+
+    if (urlParams.get("session") != "online") {
+      link = link1 
+    } else {
+      link = link2
+    }
+
+  let el = document.getElementById("link")
+  el.innerHTML = link
+
+}
+
+window.onload = hideer
+```
+\
+
+In today's practical we're going to learn how to organize data in the **tidy** way. 
+
+
+<img style="display:flex;margin-left:auto;margin-right:auto;" src="./assets/tidydata_2.jpg" />
+
+
+
+<!--
+::: {.hint label="Spotting installation errors [Info Box]" type="infobox" -->
+
+# Messy and Tidy data
+
+
+<img style="display:flex;margin-left:auto;margin-right:auto;" src="./assets/tidydata_1.jpg" />
+
+The best way to understand the structure of **tidy data** is for us to collect
+some data, and then enter it in a **tidy way**.
+
+Our tasks for today will involve:
+
+1. Creating some data (to do this, we'll run a quick experiment)
+
+2. Enter that data into a spreadsheet (we'll use google docs) 
+
+3. Download the spreadsheet as a `.csv` file
+
+4. FInally, **read** that data into `R Studio`
+
+## Creating some data
+
+To create some data, we're just going to run a quick colour Stroop task. In the
+colour Stroop task you have to identify the **colour** of word. The words can
+be printed in <span style="color:red">Red</span>, <span
+style="color:blue">Blue</span>, <span style="color:yellow">Yellow</span>, or
+<span style="color:green">Green</span>.
+
+The words that are used in the task are colour names (e.g., Red, Blue, Green,
+and Yellow).
+
+The words are presented under two conditions:
+
+1. In the congruent condition the colour of the word matches the name (e.g.,
+   <span style="color:red">Red</span>, <span style="color:blue">Blue</span>)
+
+2. In the incongruent condition the colour of the word does not match the name
+   (e.g., <span style="color:red">Blue</span>, <span
+   style="color:blue">Red</span>)
+
+At the end of the task you'll be presented with two numbers. One will be how
+quickly you could identify the colour for in the congruent condition, and the
+other will be how quickly you could identify the colour in the incongruent
+condition. 
+
+
+<iframe src="./assets/paas_stroop.html" width="600" height="600" scrolling="no" style="border:none" />
+
+
+\
+
+Write down these two numbers. Make sure you note which number is for which
+condition!
+
+The next thing we need is a identifier for each of you. Participants identifier
+are necessary because we need to know which two numbers belong to which person. 
+
+The participant identifier should be **unique** so two participants don't have
+the same one. However, you also shouldn't use something like the participant's
+name, because the participant's data should be anonymised. To generate an
+anonymous participant ID, enter your name and a random number into the box
+below. This will generate your participant ID. You should also write this down. 
+
+```{r, echo=FALSE}
+htmltools::includeScript("helpers.js")
+```
+
+\
+
+<div class="subid"><input id="subenter" placeholder="your name and a random
+number" style="width:18em"></input><button onclick="GenerateID()">Generate
+ID</button><span id="subid"></span></div>
+
+
+\
+
+
+Next, we'll split the class into two groups *as if* we were doing a between
+groups study. Click the box below to get your group ID. You should also write
+this down.
+
+
+\
+
+<div class="groupid"><button onclick="GenerateGroup()">Get Group
+ID</button><span id="groupid"></span></div>
+
+
+\
+
+We all should now have four bits of information. A reaction time for the
+congruent condition on the Stroop task, a reaction for the incongruent
+condition of the Stroop task, your participant ID, and your group ID. 
+
+
+
+## Entering the data in a spreadsheet
+
+Now we'll enter this data into a spreadsheet. We'll enter the data in the
+**tidy** way. This means that each of the two measurements will go on their own
+row. 
+
+Follow <span id="link"></span>
+
+When you're entering the data, remember that identifiers have to be specified **exactly**
+
+1. The two identifiers for the two conditions are **con** (for the congruent
+   condition) and **inc** (for the incongruent condition). Be careful to watch
+   the spelling.
+
+2. For your **id** code, make sure you enter it exactly as it's shown on the
+   sheet above. \
+
+3. The same applies for the **group** identifier
+
+4. And for the reaction time (**rt**)
+
+Once the class has finished entering the data into the spreadsheet, we'll
+download the spreadsheet onto our computers. To download the spreadsheet go to:
+
+File **>** Download **>** Comma-separated values (.csv, current sheet)
+
+Save the file into the **data** sub folder of your **project folder** and give it the name **stroop.csv**
+
+## Reading the data into `R`
+
+Finally, we'll read the data into `R`. Doing this will involve two steps. 
+
+1. We'll use the `here::here()` function to translate our directions from
+   **here** into a file path (just as we did last week with the image file)
+
+2. We'll use the `readr::read_csv()` function to actually read in the file.
+
+
+`r prob()` 
+
+Again, we'll start off by creating a **R Project**. You can call it whatever
+you want, but `prac_08` is probably a good name.
+
+`r prob()` 
+
+Create a new **R Markdown** (`.Rmd`) file and create out everything expect the
+header and the **setup** code chunk.
+
+`r prob()`
+
+
+Make sure you load the **here**, the **readr**, and the **tibble** package in
+the **setup** code chunk.
+
+:::{.hint}
+The `library()` function is used for loading packages
+:::
+
+`r prob()`
+
+
+Create a new code chuck. In this code chunk do the following things:
+
+1. Use **here** to give the directions to the data file
+
+2. Use the directions generated by **here** as the input to the **read_csv**
+   function from the **readr** package. This will read in the data.
+
+3. Make sure you assign the output of the **read_csv** function to an object!
+
+:::{.hint}
+This is almost exactly the same as what we did last week, expect
+we're using **read_csv** to read a data file instead of **include_graphics** to
+read an image file. If you're stuck, check back to [last week's
+practical](https://paas.netlify.app/practicals/06_packages_functions/worksheets/).
+:::
+
+
+
+:::{.tutor}
+
+
+<pre class="bash copy"><code>---
+title: "Untitled"
+output: html_document
+---
+
+&#96;&#96;&#96;{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# load the packages
+library("here")
+library("readr")
+library("tibble")
+&#96;&#96;&#96;
+ 
+&#96;&#96;&#96;{r}
+# read in the data
+data_file <- here::here("data/stroop.csv")
+stroop_tib <- readr::read_csv(file = data_file)
+&#96;&#96;&#96;
+</code></pre>
+
+
+:::
+
+`r prob()`
+
+Now that we've read our data into an object, add a new code chunk which simply
+calls that object, so that the content will be printed out below the code
+chunk.
+
+`r prob()`
+
+Now let's try **knit** our **R Markdown** document, to make sure everything has
+worked correctly.
+
+
+`r prob()`
+
+We're not going to cover how to make **pretty formatted tables** this year. At
+least not in detail, but for this task we'll just do something very basic. 
+
+To make a tibble into a nicely formatted table, we can use a function called
+`kable()` from the `knitr` package. This function takes one input `x`, which 
+will just be a **tibble**.
+
+Add a new code chunk where the **tibble** we created earlier is used at the
+input to the `knitr::kable()` function. Also, make sure you load the **knitr**
+package in the setup code chunk.
+
+Once you've down this, **knit** the document again and see what the nicely
+formatted table looks like.
+
+\

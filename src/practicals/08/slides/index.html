@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Organizing data</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"b28b5579257840eab1bf2bf71cacb883","expires":1}</script>
+    <script src="libs/himalaya-1.1.0/himalaya.js"></script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <link href="libs/editable-0.2.6/editable.css" rel="stylesheet" />
+    <script src="libs/editable-0.2.6/editable.js"></script>
+    <meta name="description" content="In this practical we&#39;ll learn how to organisedata in the tidy way"/>
+    <meta week="08"/>
+    <meta content_type="intro_slides"/>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Organizing data
+## Practical 7
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+
+  kbd {
+      padding: 2px 4px;
+      font-size: 90%;
+      color: rgb(var(--font-col));
+          background-color: #efefef;
+      border-radius: 3px;
+      box-shadow: none;
+      border: solid 1px;
+  }
+
+.inset {
+
+    margin-left:auto;
+    margin-right:auto;
+    display:flex;
+    width: 100%;
+    border: 0;
+    -ms-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -o-transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    transform: scale(0.65);
+
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+&lt;/style&gt;
+
+
+
+## Plan for today
+
+- Questions about last weeks practical
+
+- Attendance pin
+
+- Learning how to organise data
+
+- Organising the data the **tidy** way
+
+- Running a little experiment to **generate some data**
+
+- Entering the data into a spreadsheet
+
+- Reading that data into *R**
+
+---
+
+
+# Attendance 
+
+&lt;br&gt;
+
+.middle[
+.center[
+
+## Attendance pin.can-edit[: ]
+
+
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+**Go to www.sussex.ac.uk/mobile OR use the SussexMobile app to input the pin**
+
+]]
+
+
+---
+
+## Organizing data
+
+In today's practical we're going to learn how to organize data in a **tidy**
+way
+
+
+&lt;img src="./assets/tidydata_2.jpg" /&gt;
+
+---
+
+We organise data in a **tidy** way, because it makes it easier to work with.
+
+From next week, we'll be learning how to work with **tidy** data, so the aim
+for this week is to learn **what tidy data is...**
+
+&lt;img src="./assets/tidydata_3.jpg" /&gt;
+
+
+
+---
+
+### What is **tidy** data?
+
+&lt;img src="./assets/tidydata_1.jpg" /&gt;
+
+---
+
+### Generating some data
+
+In today's practical we're going to run a short experiment to generate some data. We'll then enter that data into a spreadsheet in a **tidy** way. 
+
+**The Experiment**
+
+We'll be run a short Stroop task. In the Stroop task you'll see colour words printed in different colours. The words are presented under two conditions:
+
+
+In the **congruent condition** the colour will match the word. 
+
+
+In the **incongruent condition** there will be a mismatch between the colour and the word. 
+
+&lt;br /&gt;
+
+Your task is to identify the **colour the word is printed in**. At the end of the task, you'll be presented with **two** numbers. How quickly you could identify the colour in the **congruent** condition, and how quickly you could identify the colour in the **incongruent** condition. 
+
+---
+
+### Organizing the data
+
+Once everyone has done the experiment then we'll need to enter it into the computer and organize it somehow. 
+
+**Identifiers**
+
+When we collect data we will have **identifiers** that might tell us something about:
+
+1. Who the data was collected from (subject IDs)
+
+2. Which group the person was part of (group ID)&lt;sup&gt;1&lt;/sup&gt;
+
+3. Which condition the data was collected in (condition ID)&lt;sup&gt;2&lt;/sup&gt;
+
+
+You'll always have subject IDs, but whether you'll also have group IDs and condition IDs will depend on whether you're employing a repeated-measures, between-subjects, or mixed design.
+
+.footnote[&lt;sup&gt;1&lt;/sup&gt;We'll only need this if we have a *between-groups* or **mixed-design** design.
+
+&lt;sup&gt;2&lt;/sup&gt;We'll only need this if we have a *repeated-measures* or **mixed-design** design.]
+
+
+---
+
+#### Rules for identifiers
+
+There are some general rules that should be followed when *creating* identifiers. Many of these rules are the same as those that should be followed when naming *files* and *folders*.
+
+1. Identifiers should **not** contain spaces (use underscores instead i.e., _)
+
+1. Identifiers should all be the same number of characters long
+This means that if you're using sequential numbers you should pad the numbers with extra zeros i.e., 001, 002, 003, 011, 100 and not 1, 2, 3, 11, 100
+
+1. Identifies must never start with a number (e.g., use *cond01* instead of *01*)
+
+1. No special characters e.g., ü, é, ø, ā, æ, å, !, #, *, ~ etc
+
+1. Try to keep the names are short as practically possible
+
+1. Very important: **Identifiers must be unique**
+
+
+---
+
+#### Some example identifiers
+
+
+.pull-left[
+**Bad Identifies**
+
+Subject_1  
+Subject_10
+
+01  
+02
+
+bill smith  
+roger bannister]
+
+
+.pull-right[
+**Better Identifiers**
+
+subject_001  
+subject_002
+
+
+p10292  
+p10293]
+
+You'll be able to use the worksheet to generate a unique participant ID and a group ID for yourself.
+
+---
+
+#### Entering the data
+
+At the end of the experiment, and once you're generated your participant ID and group ID, you'll have four bits of data:
+
+1. A number (a reaction time) for the **congruent condition**
+
+1. A number (a reaction time) for the **incongruent condition**
+
+1. Your **participant ID**
+
+1. Your **group ID**
+
+We'll also need **condition identifiers**. For this we'll use:
+
+- `con`
+
+- `inc`
+
+For the **congruent** and **incongruent** conditions, respectively.
+
+---
+
+### **Tidy** data vs **messy** data
+
+When we enter the data into the spreadsheet, we're going to use the **tidy** format.
+
+.pull-left[
+**Wide format**
+
+| id   | con | inc | group |
+| ---- | ------ | ------ | -----|
+| p001 | 3042   | 4234   | G1 |
+| p002 | 4674   | 6244   | G2|
+| p003 | 3346   | 6048   | G1|
+| p004 | 3467   | 4055   | G1 |
+
+Each **row** represents one **person**]
+    
+.pull-right[
+**Tidy format**
+    
+| id  | condition | rt | group |
+| ---- | --------- | ----- |
+| p001 | con   | 3042  | G1 |
+| p001 | inc    | 4234  | G1 |
+| p002 | con    | 4674  | G2 |
+| p002 | inc    | 6244  | G2 |
+    
+Each **row** represents one **measurement**]
+
+In the **tidy** format, each **row** holds a **measurement**, and the **columns** hold information **about that measurement**
+
+
+---
+
+### Generating data
+
+To generate the data, we'll perform a short Stroop task
+
+You can find the task, and instructions on how to do the task on the worksheet
+under the heading **Creating some data**
+
+
+&lt;p align="center"&gt;&lt;iframe width="700px" height="650px" class="inset" src="assets/paas_stroop.html" scrolling="no"&gt;&lt;/iframe&gt;&lt;/p&gt;
+
+---
+
+#### Getting the date into a file
+
+We're going to put our data into a Google Sheet.
+
+.pull-left[
+
+- Put your participant ID in the **id** column. 
+
+- Put the appropriate condition ID (**con** or **inc**) in the **condition** column
+
+- Put the measurement in the **rt** column 
+
+- Put your group ID in the **group** column
+
+]
+
+
+.pull-right[
+&lt;img src="./assets/sheets.png" /&gt;]
+
+---
+
+#### Downloading the data
+
+Now that the data has been entered into the spreadsheet we can download it!
+
+1. Go to the **File** menu
+
+2. Select **Download**
+
+3. Select **Comma-separated values (.csv, current sheet)**
+
+4. Save the file as `stroop.csv` 
+
+4. Save (or move) this file to the `data` sub-folder of your project folder
+
+---
+
+## Working through the worksheet
+
+To work through the worksheet we'll be using a few **packages**. They should all already be installed on your computer, so you'll just need to load them.
+
+1. **here** for working with file paths
+
+2. **readr** for reading in the data 
+
+3. and **tibble**, because when we read the data in we'll read it into a **tibble**
+
+---
+
+### The `here` package
+
+The **here** package gives us access to the **here** function...
+
+Remember, we give file paths by tracing out the steps we need to take to 
+get to a file. 
+
+
+.pull-left[
+&lt;span&gt;
+&lt;pre&gt;&lt;code&gt;
+.
+├── 📁data
+│   &lt;mark&gt;└── data.csv&lt;/mark&gt;
+├── 📁r_docs
+└── week_08.RProj
+
+
+
+
+ 
+   
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/span&gt;
+]
+
+.pull-right[
+If we wanted to get to the highlighted file (`data.csv`), we'd
+take the following steps.
+
+1. go to `data`
+
+2. then go to the file called `data.csv`
+
+Putting those two steps together we get `data/data.csv`
+]
+
+We give these steps to `here::here()` as a **string**
+
+```r
+here::here("data/data.csv")
+```
+
+---
+
+### The `readr` package
+
+The **readr** package gives us access to the **read_csv** function
+
+`rear::read_csv()` can take several inputs, but the only one that we care about
+is one called **file**
+
+**file** is just the file path (i.e., the directions to a file). Something that
+we're generated with `here::here()`
+
+So if wanted to read in our file from the previous example, we'd write something 
+like this
+
+```r
+readr::read_csv(file = here::here("data/data.csv"))
+```
+
+The output of this will be a **tibble**, so we'll want to assign that output to
+an object (that is, put the output in a little labelled box so we can use it
+later)
+
+```r
+my_data &lt;- readr::read_csv(file = here::here("data/data.csv"))
+```
+
+---
+
+### The `tibble` package
+
+We won't use the **tibble** package directly ourselves, but it's used by the
+**readr** package, which is why we also need load it
+
+As mentioned a couple of weeks ago, almost all the **tibbles** we use will be
+created by reading in data files rather than by writing the **R** code to
+construct the **tibble** directly.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
