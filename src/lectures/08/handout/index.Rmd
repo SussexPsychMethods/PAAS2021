@@ -47,7 +47,7 @@ xaringanExtra::use_panelset(in_xaringan = F)
 
 # Introduction
 
-In the [previous lecture](https://paas.netlify.app/lectures/lec07/handout), we introduced the basic _descriptive statistics_, the measures of central tendency and spread, and talked about the concepts of the sampling distribution and the standard error.
+In the [previous lecture](https://paas.netlify.app/lectures/07/handout), we introduced the basic _descriptive statistics_, the measures of central tendency and spread, and talked about the concepts of the sampling distribution and the standard error.
 In this lecture, we start playing with the mean and standard deviation and see how we can manipulate them to create comparable distributions.
 
 Before we do that, we need to get used to thinking about things---variables---in terms of their distributions.
@@ -55,7 +55,7 @@ Before we do that, we need to get used to thinking about things---variables---in
 # The shape of things
 
 For the purpose of this lecture, we will only be talking about _continuous_ variables.
-If you need a refresher on what these are, check out [Lecture\ 4](https://paas.netlify.app/lectures/lec04/handout/#variable-types).
+If you need a refresher on what these are, check out [Lecture\ 4](https://paas.netlify.app/lectures/04/slides/#37).
 
 As we saw in previous lectures, we can plot an observed variable on a _histrogram_ to visualise the distribution of its values.
 For example, if we measure the height of 500 women and plot the values, we get something like Figure\ \@ref(fig:hist).
@@ -71,7 +71,7 @@ hist(x, breaks = default_breaks,
 
 As you can see, the vast majority of the measured heights were roughly in the 155-175 centimetre range, with only a few people in the sample being shorter than 155 cm or taller than 175 cm.
 You can also see that the distribution is roughly symmetrical around its mean and has the shape of a bell characteristic of a normal distribution.
-This is not a coincidence: height is a normally-distributed variable as you found out in [Lecture\ 6](https://paas.netlify.app/lectures/lec06/handout/describing-the-normal-distribution).
+This is not a coincidence: height is a normally-distributed variable as you found out in [Lecture\ 6](https://paas.netlify.app/lectures/06/handout/#describing-the-normal-distribution).
 Of course, the shape isn't as smooth as the normal curve you saw in the same lecture.
 This is because 500 observations is too few to smooth out any statistical fluctuations due to sampling.
 So, just by chance alone, we can end up with a few more 173-cm-tall people and a few fewer 172-cm-tall people than we would expect based on what we know about the normal distribution.
@@ -104,7 +104,7 @@ This allows us to abstract from the individual values and talk about variables i
 **Everything that applies in general to this abstraction of a variable in the form of the curve, applies to the actual values.**
 The curve is just a tool that allows us to talk about variables without having to worry about details that are _not relevant_ for the topic at hand.
 
-OK, to reiterate what we said in the [previous lecture](https://paas.netlify.app/lectures/lec07/handout/), we can describe key properties of a variable using measures of _central tendency_ and _spread_.
+OK, to reiterate what we said in the [previous lecture](https://paas.netlify.app/lectures/07/handout/), we can describe key properties of a variable using measures of _central tendency_ and _spread_.
 The mean tells us where the centre of a variable is and the standard deviation tells us the average distance between the mean and each value in the variable.
 
 :::{.warn}
@@ -173,7 +173,7 @@ So how _do_ we change things like the mean and the standard deviation of a varia
 
 Since we're talking about observed variables, let's switch from talking about means and standard deviations in general to talking about the **sample mean** ($\bar{x}$) and **sample standard deviation** ($SD$). The only reason for doing this is so that we can use the symbols instead of having to write it all out every time.
 
-We know from the [previous lecture](https://paas.netlify.app/lectures/lec07/handout/) that both $\bar{x}$ and $SD$ are sensitive to outliers and that we can change their values to be arbitrarily small or large by moving a few points around.
+We know from the [previous lecture](https://paas.netlify.app/lectures/07/handout/) that both $\bar{x}$ and $SD$ are sensitive to outliers and that we can change their values to be arbitrarily small or large by moving a few points around.
 However, only changing the values of a selection of observations will alter the shape of the distribution.
 That is not good.
 We can decide to switch our measurement unit of height from centimetres to feet and inches but we have to do it **consistently for all observations**.
