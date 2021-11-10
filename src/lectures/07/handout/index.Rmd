@@ -47,7 +47,7 @@ xaringanExtra::use_panelset(in_xaringan = F)
 
 # Introduction
 
-In [Lecture\ 4](https://paas.netlify.app/lectures/lec04/handout) we started talking about how quantitative methodology deals with measurable things (variables) and aims to explain and predict the world around us by modelling relationships between these things.
+In [Lecture\ 4](https://paas.netlify.app/lectures/04/slides) we started talking about how quantitative methodology deals with measurable things (variables) and aims to explain and predict the world around us by modelling relationships between these things.
 The models of the relationships are mathematical/statistical in nature and they are based on numeric descriptions of variables.
 In other words such a model is essentially an equation with the predicted (dependent/outcome) variable on one side and predictor (independent) variables on the other.
 
@@ -63,7 +63,7 @@ Take, for instance, temperature in degrees Celsius (centigrade).
 Air temperature on Earth ranges from about &minus;90&deg;C to about 60&deg;C with a fairly _symmetrical distribution_ where, most of the time, the temperatures are relatively mild.
 However, temperature produced by humans has a much larger range. In laboratory conditions, scientists have produced temperatures as low as about &minus;273&deg;C and as high as ~5.5 trillion &deg;C!
 Obviously, most of the temperatures produced by humans are neither this hot nor this cold with the bulk of them in the tens, hundreds, maybe thousands of degrees, making the distribution _positively skewed_ (with a long right tail).
-Similarly, as discussed in [Lecture\ 6](https://paas.netlify.app/lectures/lec06/handout#processes-giving-rise-to-normal-distributions), height in humans is _normally_ distributed, while the distribution of wealth is, once again, heavily _skewed_ to the right.
+Similarly, as discussed in [Lecture\ 6](https://paas.netlify.app/lectures/06/handout#processes-giving-rise-to-normal-distributions), height in humans is _normally_ distributed, while the distribution of wealth is, once again, heavily _skewed_ to the right.
 To reiterate, not only two different variables but even _the same variable_ (*e.g.*, temperature) in different populations can have wildly different ranges and distributions.
 
 :::{.warn}
@@ -248,7 +248,7 @@ The arithmetic **mean**^[There are other kinds of mean, such as harmonic or geom
 :::{.warn}
 There is a difference between the **population mean** and the **sample mean**.
 We can never know the mean of the population because it is impossible to measure all instances of a variable.
-For that reason, the best thing we can do is calculate the mean of our sample and make _inferences_ about the likely value of the population mean, as discussed in [Lecture\ 6](https://paas.netlify.app/lectures/lec06/handout#the-relationship-between-samples-and-populations).
+For that reason, the best thing we can do is calculate the mean of our sample and make _inferences_ about the likely value of the population mean, as discussed in [Lecture\ 6](https://paas.netlify.app/lectures/06/handout#the-relationship-between-samples-and-populations).
 
 To distinguish between these two, we use the Greek letter $\mu$ /mew/ for population mean and $\bar{x}$ /x-bar/ for sample mean.
 
@@ -715,7 +715,7 @@ However, we cannot measure the entire population so we have to make do with samp
 And so we end up making claims about the world based on what we know from the sample
 :::
 
-The problem with samples, as discussed in [Lecture\ 6](https://paas.netlify.app/lectures/lec06/handout#processes-giving-rise-to-normal-distributions), is that **we cannot be sure that our sample accurately represents the population**.
+The problem with samples, as discussed in [Lecture\ 6](https://paas.netlify.app/lectures/06/handout#processes-giving-rise-to-normal-distributions), is that **we cannot be sure that our sample accurately represents the population**.
 Because of that, there's always **uncertainty** associated with any empirical claims we make based on a sample of data.
 
 :::{.important}
