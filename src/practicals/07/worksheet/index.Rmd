@@ -454,11 +454,13 @@ numbers perform the following steps.
 1. Work out the difference between each element of the vector and the mean of 
    vector
 
-2. Work out the square of these numbers
+2. Square of these numbers
 
 3. Work out the sum of these numbers
 
 4. Divide this value by N - 1, where N is the number of elements in the vector.
+
+5. Work out the square root of this value
 
 You can use the `sum()` function to work out the sum of a vector, and the 
 `length()` function to work out the number of elements in a vector. 
