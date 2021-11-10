@@ -28,11 +28,25 @@ all :
 .PHONY: deploy
 
 .PHONY : pdf
+
+.PHONY : pracs
+
+.PHONY : deploy-pracs
+
+
 pdf :
 	make "./src/lectures/${WEEK}/slides/lecture_${WEEK}_slides.pdf"
 
+pracs :
+	make "./src/practicals/${WEEK}/slides/index.html"
+	make "./src/practicals/${WEEK}/worksheet/index.html"
 
 deploy : 
 	make all
+	ruby build
+	netlify deploy --prod
+
+deploy-pracs : 
+	make pracs
 	ruby build
 	netlify deploy --prod
