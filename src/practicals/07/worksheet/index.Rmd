@@ -419,7 +419,7 @@ sd(x = my_random_numbers)
 `r prob()`
 
 Both the `mean()` function and the `sd()` don't produce the result you might 
-expect when there's missing values (represented by `NA` in R) in the list. 
+expect when there are missing values (represented by `NA` in R) in the list. 
 
 Create a new code chunk, and insert this code snippet, which will create a 
 vector called `numbers_with_missing`.
@@ -447,7 +447,7 @@ mean(numbers_with_missing, na.rm = TRUE)
 
 `r prob()`
 
-This problem is for people that want to try implement the algorithm for a 
+This problem is for people that want to try to implement the algorithm for a 
 standard deviation themselves. To work out the standard deviation of a list of
 numbers perform the following steps.
 
@@ -474,11 +474,28 @@ $$\sigma={\sqrt{\frac{\sum(x_{i}-{\mu})^{2}}{N - 1}}}$$
 Work out the standard deviation for `my_random_numbers` and `numbers_with_missing`
 and check whether you get the same result as above.
 
+Once you've got it working, try to do it in one line of code by nesting the
+function calls inside each other.
 
 :::{.tutor}
 ```{r, eval=FALSE, class.source="copy"}
 sqrt(sum((my_random_numbers - mean(my_random_numbers))^2) / (length(my_random_numbers) - 1)) 
-sqrt(sum((numbers_with_missing - mean(numbers_with_missing))^2) / (length(numbers_with_missing) - 1)) 
+
+# for numbers_with_missing we can't use length, because it'll count NAs
+# but there is another way to count the values
+# if we did following
+# numbers_with_missing / numbers_with_missing
+# we'd get a vector with a 1 everywhere there's isn't an NA and an NA otherwise
+# then we can just work out the sum of that vector!
+# making sure to include na.rm = TRUE, and tha's the length!
+
+sqrt(sum((numbers_with_missing - mean(numbers_with_missing, na.rm = TRUE))^2, na.rm = TRUE) / (sum(numbers_with_missing / numbers_with_missing, na.rm = TRUE) - 1)) 
+
+# Note the trick above won't work if some of the non-missing values are equal
+# to 0, but there's an easy way to get around it. 
+# sum((numbers_with_missing+1) / (numbers_with_missing+1), na.rm = TRUE) 
+# that will give you the count of non-missing values even if one of the values
+# is equal to zero
 ```
 :::
 
@@ -525,7 +542,7 @@ If you're having trouble downloading the file and then uploading to
 create your `images` folder, and then run the following command:
 
 ```{r, eval=FALSE, class.source="copy"}
- download.file(url = "https://files.mindsci.net/rollercoaster.png", destfile = "./images/rollercoaster.png")       
+download.file(url = "https://files.mindsci.net/rollercoaster.png", destfile = "./images/rollercoaster.png")
 ```
 :::
 
@@ -535,7 +552,7 @@ For people using chromebooks/the cloud version of `R` it might be easier for
 them to use the `download.file()` function. 
 
 ```{r, eval=FALSE, class.source="copy"}
- download.file(url = "https://files.mindsci.net/rollercoaster.png", destfile = "./images/rollercoaster.png")       
+download.file(url = "https://files.mindsci.net/rollercoaster.png", destfile = "./images/rollercoaster.png")
 ```
 
 :::
