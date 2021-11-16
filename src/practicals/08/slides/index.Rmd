@@ -16,6 +16,10 @@ output:
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
 
+library(dplyr)
+library(palmerpenguins)
+penguins2 <- penguins %>% select(species, island, sex, year)
+
 style_duo_accent(
   primary_color = "#003b49",
   secondary_color = "#1d4289",
@@ -502,3 +506,95 @@ We won't use the **tibble** package directly ourselves, but it's used by the
 As mentioned a couple of weeks ago, almost all the **tibbles** we use will be
 created by reading in data files rather than by writing the **R** code to
 construct the **tibble** directly.
+
+
+---
+
+## Getting started with of `dplyr`
+
+In the coming weeks we'll be covering a package called `dplyr` to work with
+**tibbles**
+
+We're going to cover three functions from the `dplyr` package. These are:
+
+.pull-left[
+- `dplyr::select()` for **selecting** specific **columns**
+
+- `dplyr::filter()` for **selecting** specific **rows**
+
+- `dplyr::mutate()` for **creating** new **columns**
+
+- `dplyr::group_by()` for **grouping** data
+
+- `dplyr::summarise()` for **creating** summarises
+]
+
+.pull-right[
+<img src="./wrangling.png" width="100%"/>
+]
+
+---
+
+### The structure of `dplyr` functions 
+
+All the `dplyr` functions work in very similar ways, so once you learn the
+pattern you'll be able to work with them with ease. 
+
+All the `dplyr` functions take a **tibble** as the input, and produce another
+**tibble** as an output. 
+
+```r
+output_tibble <- dplyr::select(.data = input_tibble, ...
+
+output_tibble <- dplyr::filter(.data = input_tibble, ...
+
+output_tibble <- dplyr::mutate(.data = input_tibble, ...
+```
+
+You'll just replace the `...` the operation that you want to perform, and
+`input_tibble` with the name of the tibble you want to perform the operations
+on
+
+---
+
+#### The `dplyr::select()` function
+
+We'll preview the `dplyr::select()` function this week because it's easiet
+
+The `dplyr::select()` function is for **selecting** columns. To use it you just
+need to give it a list of the columns you want
+
+```{r}
+output_result <- dplyr::select(.data = penguins, island)
+output_result
+```
+
+---
+
+Selecting multiple columns is just as easy as selecting one
+
+```r
+output_result <- dplyr::select(.data = penguins, island, sex)
+```
+
+Returns the `island` and `sex` column
+
+Just make sure that the column exists in the tibble and that you've spelled it
+correctly or you'll get an error that says `Column ... doesn't exist`
+
+
+If you want to **drop** columns instead of **selecting** them then just add
+  a `-` before the column name
+
+```r
+output_result <- dplyr::select(.data = penguins, -island)
+```
+
+Returns all the columns **except** for the `island` column
+
+
+---
+
+.center[<img src="./r_first_then.png" width="65%"/>]
+
+

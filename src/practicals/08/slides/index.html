@@ -4,7 +4,7 @@
     <title>Organizing data</title>
     <meta charset="utf-8" />
     <script src="libs/header-attrs-2.11/header-attrs.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"b28b5579257840eab1bf2bf71cacb883","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x59763e83e6c41cdab61c4100a811b96","expires":1}</script>
     <script src="libs/himalaya-1.1.0/himalaya.js"></script>
     <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="libs/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -427,6 +427,116 @@ We won't use the **tibble** package directly ourselves, but it's used by the
 As mentioned a couple of weeks ago, almost all the **tibbles** we use will be
 created by reading in data files rather than by writing the **R** code to
 construct the **tibble** directly.
+
+
+---
+
+## Getting started with of `dplyr`
+
+In the coming weeks we'll be covering a package called `dplyr` to work with
+**tibbles**
+
+We're going to cover three functions from the `dplyr` package. These are:
+
+.pull-left[
+- `dplyr::select()` for **selecting** specific **columns**
+
+- `dplyr::filter()` for **selecting** specific **rows**
+
+- `dplyr::mutate()` for **creating** new **columns**
+
+- `dplyr::group_by()` for **grouping** data
+
+- `dplyr::summarise()` for **creating** summarises
+]
+
+.pull-right[
+&lt;img src="./wrangling.png" width="100%"/&gt;
+]
+
+---
+
+### The structure of `dplyr` functions 
+
+All the `dplyr` functions work in very similar ways, so once you learn the
+pattern you'll be able to work with them with ease. 
+
+All the `dplyr` functions take a **tibble** as the input, and produce another
+**tibble** as an output. 
+
+```r
+output_tibble &lt;- dplyr::select(.data = input_tibble, ...
+
+output_tibble &lt;- dplyr::filter(.data = input_tibble, ...
+
+output_tibble &lt;- dplyr::mutate(.data = input_tibble, ...
+```
+
+You'll just replace the `...` the operation that you want to perform, and
+`input_tibble` with the name of the tibble you want to perform the operations
+on
+
+---
+
+#### The `dplyr::select()` function
+
+We'll preview the `dplyr::select()` function this week because it's easiet
+
+The `dplyr::select()` function is for **selecting** columns. To use it you just
+need to give it a list of the columns you want
+
+
+```r
+output_result &lt;- dplyr::select(.data = penguins, island)
+output_result
+```
+
+```
+## # A tibble: 344 × 1
+##    island   
+##    &lt;fct&gt;    
+##  1 Torgersen
+##  2 Torgersen
+##  3 Torgersen
+##  4 Torgersen
+##  5 Torgersen
+##  6 Torgersen
+##  7 Torgersen
+##  8 Torgersen
+##  9 Torgersen
+## 10 Torgersen
+## # … with 334 more rows
+```
+
+---
+
+Selecting multiple columns is just as easy as selecting one
+
+```r
+output_result &lt;- dplyr::select(.data = penguins, island, sex)
+```
+
+Returns the `island` and `sex` column
+
+Just make sure that the column exists in the tibble and that you've spelled it
+correctly or you'll get an error that says `Column ... doesn't exist`
+
+
+If you want to **drop** columns instead of **selecting** them then just add
+  a `-` before the column name
+
+```r
+output_result &lt;- dplyr::select(.data = penguins, -island)
+```
+
+Returns all the columns **except** for the `island` column
+
+
+---
+
+.center[&lt;img src="./r_first_then.png" width="65%"/&gt;]
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

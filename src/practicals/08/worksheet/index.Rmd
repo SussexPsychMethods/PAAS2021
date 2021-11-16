@@ -314,11 +314,65 @@ chunk.
 Now let's try **knit** our **R Markdown** document, to make sure everything has
 worked correctly.
 
+\
+
+
+
 
 `r prob()`
 
-We're not going to cover how to make **pretty formatted tables** this year. At
-least not in detail, but for this task we'll just do something very basic. 
+For the next problem, we're also going to try use the `dplyr::select()` function.
+
+Add the code chunk below into your **RMarkdown** document
+
+<pre class="bash copy"><code>&#96;&#96;&#96;{r}
+penguin_data <- palmerpenguins::penguins
+penguin_data
+&#96;&#96;&#96;
+</code></pre>
+
+Once you've copied this code chunk into this document then make sure you 
+run it, because it will load some data.
+
+
+`r prob()`
+
+Now that you have the data loaded, use `dplyr::select()` to select the `island`,
+and `species` column. You end result should look like the following:
+
+```{r, echo = FALSE}
+penguin_data %>% dplyr::select(island, species)
+```
+
+:::{.tutor}
+<pre class="bash copy"><code>&#96;&#96;&#96;{r}
+dplyr::select(.data = penguin_data, island, species)
+&#96;&#96;&#96;
+</code></pre>
+:::
+
+`r prob()`
+
+Now that you have a sense of how the `dplyr::select()` function works, let's try
+a problem where you don't have an output to compare it to.
+
+For this problem, we'll be using the **stroop** data tibble that we created
+earlier. This **tibble** should have a column for `id`, `condition`, `rt` and
+`group`. Since people were just put into two **groups** which didn't really
+mean anything, let's **drop** the `group` column from this tibble.
+
+:::{.tutor}
+<pre class="bash copy"><code>&#96;&#96;&#96;{r}
+dplyr::select(.data = stroop_data, -group)
+&#96;&#96;&#96;
+</code></pre>
+:::
+
+`r prob()`
+
+We're not going to cover how to make **pretty formatted tables** this year. But
+for this task we'll just do something very basic that won't require much
+explanation.
 
 To make a tibble into a nicely formatted table, we can use a function called
 `kable()` from the `knitr` package. This function takes one input `x`, which 
@@ -331,4 +385,9 @@ package in the setup code chunk.
 Once you've down this, **knit** the document again and see what the nicely
 formatted table looks like.
 
-\
+
+:::{.tutor}
+<pre class="bash copy"><code>&#96;&#96;&#96;{r}
+knitr::kable(x = stroop_data) 
+</code></pre>
+:::
