@@ -1,0 +1,81 @@
+---
+title: "Data wrangling with `dplyr`"
+output:
+  rmarkdown::html_document:
+    includes:
+      after_body: "./header.html"
+---
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(echo = TRUE)
+require(tidyverse)
+require(metathis)
+```  
+
+
+
+```{r, echo=FALSE}
+content_type <- "worksheet"
+week <- "09"
+description <- c(
+  "In this week's practical we're going to learn how ",
+  "to manipulate the transform data with the `dplyr` package."
+)
+
+meta() %>%
+  meta_description(description) %>%
+  meta_tag("week" = "09") %>%
+  meta_tag("content_type" = content_type)
+```
+
+
+```{js, echo=FALSE}
+    function hider() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString)
+
+        if (urlParams.get("solutions") != "true") {
+
+            console.log("tutor version...")
+
+            let answers = document.querySelectorAll(".tutor")
+            answers.forEach(x => x.style.display = 'none')
+
+        }
+    }
+
+    window.onload = hider
+
+```
+
+
+Today's practical is all about how to manipulate data using `dplyr`
+
+We're going to be working through **a lot** of problems. If you struggle with
+them, then don't worry. You can also come back to these problems are your
+confidence builds. With some practise you'll start to find the problems easier. 
+
+To access the problems, I've made an RMarkdown document for you to work
+through. You'll just been filling in the code chunks to complete the problems.
+All the problems have **example output**. Take a look at the example output to
+help you work through the problem. Try things out, see what happens, and
+eventually you'll get it right!
+
+Good luck!
+
+You can download the document here: `r xfun::embed_file("practical_09.Rmd",
+name = "practical_09.Rmd")`
+
+
+```{r, echo=FALSE}
+knitr::include_graphics(path = "monster_support.jpg")
+```
+
+:::{.tutor}
+
+You can download the filled in document here: 
+`r xfun::embed_file("practical_09_filled.Rmd", name = "practical_09.Rmd")`
+
+Or you can view the [knitted version here](practical_09_filled.html)
+
+:::
