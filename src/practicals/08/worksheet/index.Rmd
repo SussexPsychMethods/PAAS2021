@@ -272,7 +272,7 @@ Create a new code chuck. In this code chunk do the following things:
 This is almost exactly the same as what we did last week, expect
 we're using **read_csv** to read a data file instead of **include_graphics** to
 read an image file. If you're stuck, check back to [last week's
-practical](https://paas.netlify.app/practicals/06/worksheet/).
+practical](https://paas.netlify.app/practicals/07/worksheet/).
 :::
 
 
