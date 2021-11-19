@@ -155,7 +155,7 @@ meta() %>%
 
 - Entering the data into a spreadsheet
 
-- Reading that data into *R**
+- Reading that data into **R**
 
 ---
 
