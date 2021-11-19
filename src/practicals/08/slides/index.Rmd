@@ -1,6 +1,6 @@
 ---
 title: "Organizing data"
-subtitle: "Practical 7"
+subtitle: "Practical 8"
 output:
   xaringan::moon_reader:
     css: xaringan-themer.css
