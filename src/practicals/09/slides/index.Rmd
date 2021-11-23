@@ -1,6 +1,6 @@
 ---
 title: "Data wrangling with `dplyr`"
-subtitle: "Practical 8"
+subtitle: "Practical 9"
 output:
   xaringan::moon_reader:
     css: xaringan-themer.css

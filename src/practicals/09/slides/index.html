@@ -4,7 +4,7 @@
     <title>Data wrangling with dplyr</title>
     <meta charset="utf-8" />
     <script src="libs/header-attrs-2.11/header-attrs.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x0235489c5a4478eab38407b0ff9bb96","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x3313f6bced94dffbdcb63ae83e8d146","expires":1}</script>
     <script src="libs/himalaya-1.1.0/himalaya.js"></script>
     <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="libs/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -19,7 +19,7 @@
 class: center, middle, inverse, title-slide
 
 # Data wrangling with <code>dplyr</code>
-## Practical 8
+## Practical 9
 
 ---
 
@@ -306,20 +306,19 @@ output_result
 
 ```
 ## # A tibble: 344 × 5
-##    species bill_length_mm bill_depth_mm flipper_length_mm
-##    &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;
-##  1 Adelie            39.1          18.7               181
-##  2 Adelie            39.5          17.4               186
-##  3 Adelie            40.3          18                 195
-##  4 Adelie            NA            NA                  NA
-##  5 Adelie            36.7          19.3               193
-##  6 Adelie            39.3          20.6               190
-##  7 Adelie            38.9          17.8               181
-##  8 Adelie            39.2          19.6               195
-##  9 Adelie            34.1          18.1               193
-## 10 Adelie            42            20.2               190
-## # … with 334 more rows, and 1 more variable:
-## #   body_mass_g &lt;int&gt;
+##    species bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##    &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+##  1 Adelie            39.1          18.7               181        3750
+##  2 Adelie            39.5          17.4               186        3800
+##  3 Adelie            40.3          18                 195        3250
+##  4 Adelie            NA            NA                  NA          NA
+##  5 Adelie            36.7          19.3               193        3450
+##  6 Adelie            39.3          20.6               190        3650
+##  7 Adelie            38.9          17.8               181        3625
+##  8 Adelie            39.2          19.6               195        4675
+##  9 Adelie            34.1          18.1               193        3475
+## 10 Adelie            42            20.2               190        4250
+## # … with 334 more rows
 ```
 
 ---
