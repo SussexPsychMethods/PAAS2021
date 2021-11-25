@@ -44,7 +44,7 @@ You should now be able to see the answer in the variable called `sc1_1`. But thi
 # A tibble: 1 x 4
   name  height  mass birth_year
   <chr>  <int> <dbl>      <dbl>
-1 Yoda      66    17        8966
+1 Yoda      66    17        896
 ```
 
 Fill in the code below so that your output looks something like this:
