@@ -1,20 +1,11 @@
 ---
 title: 'Grouping, summarising, and pipes'
 output:
-  rmarkdown::html_document:
-    includes:
-      after_body: './header.html'
-      self_contained: true
+  rmarkdown::html_document
 ---
 
 ```{r setup,echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(
-  echo = TRUE,
-  error = TRUE,
-  highlight = TRUE,
-  tidy = "styler",
-  class.source = "copy"
-)
+knitr::opts_chunk$set(echo = TRUE, error = TRUE, highlight = TRUE)
 
 # I've loaded the packages for you!
 library("paas")
@@ -28,6 +19,7 @@ starwars2 <- paas::starwars2
 survey <- paas::survey_data
 stroop_data <- readr::read_csv("https://files.mindsci.net/stroop_data.csv")
 movie_data <- readr::read_csv("https://files.mindsci.net/movies_data.csv")
+
 ```
 
 # How to use this worksheet
@@ -62,9 +54,9 @@ there is only one character with a height less than 70. Can you find that
 character's name? (You should use the `%>%` in your solution)
 
 ```{r}
-sc1_1 <- dplyr::filter(.data = starwars2, ) %>%
-  dplyr::select(.data = ., )
-sc1_1
+# Write answer here
+sc1_1 <- dplyr::filter(.data = starwars2, ) %>% dplyr::select(.data = .,  ) 
+sc1_1 
 ```
 
 Your final output should look something like this:
@@ -94,9 +86,7 @@ the condition column is called `condition` and the rt column is called `rt`
 ```{r}
 # Write answer here
 
-dplyr::group_by(.data = stroop_data, ) %>%
-  dplyr::summarise(.data = ., )
-
+dplyr::group_by(.data = stroop_data, ) %>% dplyr::summarise(.data = ., )
 ```
 
 Your end result should look something like this
@@ -111,43 +101,36 @@ Your end result should look something like this
 
 ## Tidying the stroop data before summarising (Difficulty rating: Medium)
 
-You've just finished working out the averages for the two conditions, but now a
-research assistant had told you that they messed up the participants IDs.
-There's actually two participants that were given the code `sub01`!
+You've just finished working out the averages for the two conditions, but now a research assistant had told you that they messed up the participants IDs. There's actually two participants that were given the code `sub01`!
 
-You'll need to work out the averages again, but first remove `sub01` from the
-data set.
+You'll need to work out the aveages again, but first remove `sub01` from the data set.
 
 ```{r}
 # Write answer here
 
-dplyr::filter(.data = stroop_data, ) %>%
-  dplyr::group_by(.data = ., ) %>%
-  dplyr::summarise()
+dplyr::filter(.data = stroop_data, ) %>% dplyr::group_by() %>% dplyr::summarise()
 
 ```
 
 When you're done you should have something that looks like this
 
 ```
-# A tibble: 2 x 2   
-  condition mean_rt   
-  <chr>       <dbl>   
-1 con          798.   
+# A tibble: 2 x 2  
+  condition mean_rt  
+  <chr>       <dbl>  
+1 con          798.  
 2 inc          896.  
 ```
 
 ## Find the heaviest penguin species (Difficulty rating: Medium)
 
-We're back to the penguins! We're going to be using the data in the `penguins`
-data
+We're back to the penguins! We're going to be using the data in the `penguins` data
 
 ```{r}
 penguins
 ```
 
-You job is to calculate the average body mass for each penguins species. When
-you're done, your output should look like the following:
+You job is to calculate the average body mass for each penguins species. When you're done, your output should look like the following:
 
 ```
 # A tibble: 3 x 2
@@ -158,15 +141,12 @@ you're done, your output should look like the following:
 3 Gentoo                5076.
 ```
 
-Note! When you're using the mean function you might have to add na.rm = TRUE to
-the end of the function, because there are a few missing values is in the
-body_mass_g column
+Note! When you're using the mean function you might have to add na.rm = TRUE to the end of the function, because there are a few missing values is in the body_mass_g column
 
 ```{r}
 # Write your answer here
 
-dplyr::group_by(.data = penguins, ) %>% dplyr::summarise()
-
+dplyr::group_by(.data = penguins, ) %>% summarise()
 ```
 
 
@@ -179,9 +159,7 @@ Hint: You only need to add in one word to your previous answer. So feel free to 
 ```{r}
 # Write answer here
 
-dplyr::filter(.data = stroop_data, ) %>%
-  dplyr::group_by() %>%
-  dplyr::summarise()
+dplyr::filter(.data = stroop_data, ) %>% dplyr::group_by() %>% dplyr::summarise()
 
 ```
 
@@ -198,30 +176,24 @@ When you're done, you should have something like this
 4 inc       G2       896.
 ```
 
-Notice that the data above is still grouped! You can ungroup it by putting an
-`dplyr::ungroup()` at the end of you pipeline. Try editing your pipeline so
-that the output looks like this. 
+Notice that the data above is still grouped! You can ungroup it by putting an `dplyr::ungroup()` at the end of you pipeline. Try editing your pipeline so that the output looks like this. 
 
 ```
-# A tibble: 4 x 3
-  condition group mean_rt
+# A tibble: 4 x 3  
+  condition group mean_rt  
   <chr>     <chr>   <dbl>
 1 con       G1       795.
 2 con       G2       802.
 3 inc       G1       895.
-4 inc       G2       896.
 ```
 
 ---
 
 ## Helping a researcher! (Difficulty rating: Hard!)
 
-This problem is very similar to last week's scenario but this time I'm going to
-make it ever harder! However, if you get stuck look at last week's solution for
-hits. 
+This problem is very similar to last week's scenario but this time I'm going to make it ever harder! However, if you get stuck look at last week's solution for hits. 
 
-Again, you'll be working as a research assistant, and you'll be working with
-the `survey_data` data set.
+Again, you'll be working as a research assistant, and you'll be working with the `survey_data` data set.
 
 ```{r}
 survey_data
@@ -236,17 +208,11 @@ This will take a few steps:
 - Maudsley Addiction Profile (`map`)
 - Leeds Dependence Questionnaire (`ldq`)
 
-2. Second, the researcher has said that they want to **exclude** any
-   participants that have a score of the Maudsley Addiction Profile of 40 or
-   higher.
+2. Second, the researcher has said that they want to **exclude** any participants that have a score of the Maudsley Addiction Profile of 40 or higher.
 
-2. Third, the data set contains data from both male `M` and female `F`
-   participants, and the research said they want the data from males and
-   females processed separately. 
+2. Third, the data set contains data from both male `M` and female `F` participants, and the research said they want the data from males and females processed separately. 
 
-3. Finally, once the data has been group according to gender, the research
-   wants you to work out the average `map` value for males and females and the
-   average `ldq` value for males and females
+3. Finally, once the data has been group according to gender, the research wants you to work out the average `map` value for males and females and the average `ldq` value for males and females
 
 
 When you're done the final result should look something like this:
@@ -262,8 +228,8 @@ When you're done the final result should look something like this:
 Try to solve the problem using `%>%`
 
 ```{r}
-# Write your answer in here
-
+# Write your answer in here  
+  
 
 ```
 
@@ -275,11 +241,9 @@ You have the rating of various movies obtained from IMBD. This data is in `movie
 movie_data
 ```
 
-In addition to the rating, the data set also has the genre, the year the movie
-came out, and the country it was produced in. 
+In addition to the rating, the data set also has the genre, the year the movie came out, and the country it was produced in. 
 
-Make a table that lists the highest rated movie in each genre. Your final
-output should look like the following:
+Make a table that lists the highest rated movie in each genre. Your final output should look like the following:
 
 ```
 # A tibble: 18 x 6
@@ -308,14 +272,11 @@ output should look like the following:
 ```{r}
 # Write your answer here
 
-
 ```
 
 ## Highest rated genre (Difficulty rating: Hard)
 
-In the previous question you made a table of the highest rated movie in each
-genre. In this question instead of looking for the highest rated movie, you're
-going to look for the genre that had the highest average rating. 
+In the previous question you made a table of the highest rated movie in each genre. In this question instead of looking for the highest rated movie, you're going to look for the genre that had the highest average rating. 
 
 Your final output should look something like the following:
 
@@ -327,5 +288,7 @@ Your final output should look something like the following:
 ```
 
 ```{r}
+# Write your answer here
+
 
 ```

@@ -51,7 +51,11 @@ meta() %>%
 
 Today is the second practical about using `dplyr`.
 
-To access the problems, there will be another R Markdown document for you to work through. Once again you'll be filling the answers into the chunks. All the problems have **example output**. Take a look at the example output to help you work through the problem. Try things out, see what happens, and eventually you'll get it right!
+To access the problems, there will be another R Markdown document for you to
+work through. Once again you'll be filling the answers into the chunks. All the
+problems have **example output**. Take a look at the example output to help you
+work through the problem. Try things out, see what happens, and eventually
+you'll get it right!
 
 Good luck!
 

@@ -8,7 +8,13 @@ output:
 ---
 
 ```{r setup,echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, error = TRUE, highlight = TRUE, tidy="styler", class.source="copy")
+knitr::opts_chunk$set(
+  echo = TRUE,
+  error = TRUE,
+  highlight = TRUE,
+  tidy = "styler",
+  class.source = "copy"
+)
 
 # I've loaded the packages for you!
 library("paas")
@@ -22,32 +28,43 @@ starwars2 <- paas::starwars2
 survey <- paas::survey_data
 stroop_data <- readr::read_csv("https://files.mindsci.net/stroop_data.csv")
 movie_data <- readr::read_csv("https://files.mindsci.net/movies_data.csv")
-
-
-
 ```
 
 # How to use this worksheet
 
-To view a nicely formatted version of this document press <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>k</kbd> (windows) or <kbd>command</kbd> + <kbd>shift</kbd> + <kbd>k</kbd> (macOS). You'll have to enter your answers into this this document, but it might be easier to read the formatted version.
+To view a nicely formatted version of this document press <kbd>ctrl</kbd> +
+<kbd>shift</kbd> + <kbd>k</kbd> (windows) or <kbd>command</kbd> +
+<kbd>shift</kbd> + <kbd>k</kbd> (macOS). You'll have to enter your answers into
+this this document, but it might be easier to read the formatted version.
 
-In the tutorial you learned how to use `dplyr::summarise()` and `dplyr::group_by()`. We also learned how to the use the `%>%` from the `magrittr` packages. In the previous practical and tutorial we learned about `dplyr::select()`, `dplyr::filter()`, and `dplyr::mutate()`. This practical worksheet will give you a chance to put all of these skills in to practise.
+In the tutorial you learned how to use `dplyr::summarise()` and
+`dplyr::group_by()`. We also learned how to the use the `%>%` from the
+`magrittr` packages. In the previous practical and tutorial we learned about
+`dplyr::select()`, `dplyr::filter()`, and `dplyr::mutate()`. This practical
+worksheet will give you a chance to put all of these skills in to practise.
 
-Some of the problems in this worksheet will be a repeat of last week's problems. However, in this worksheet you'll solve these problems using the pipe `%>%` operator. The idea is to give you a problem that you're familiar with while giving you the chance to solve it in a few way. 
+Some of the problems in this worksheet will be a repeat of last week's
+problems. However, in this worksheet you'll solve these problems using the pipe
+`%>%` operator. The idea is to give you a problem that you're familiar with
+while giving you the chance to solve it in a few way. 
 
 ## Finding the shortest character (difficulty rating: Easy)
 
-You have some data about the characters in the Star Wars films stored in `starwars2`.
+You have some data about the characters in the Star Wars films stored in
+`starwars2`.
 
 ```{r}
 starwars2
 ```
 
-You'd like to know the name of the shortest Star Wars character. You know that there is only one character with a height less than 70. Can you find that character's name? (You should use the `%>%` in your solution)
+You'd like to know the name of the shortest Star Wars character. You know that
+there is only one character with a height less than 70. Can you find that
+character's name? (You should use the `%>%` in your solution)
 
 ```{r}
-sc1_1 <- dplyr::filter(.data = starwars2, height < 70 ) %>% dplyr::select(.data = ., name, height ) 
-sc1_1 
+sc1_1 <- dplyr::filter(.data = starwars2, height < 70) %>%
+  dplyr::select(.data = ., name, height)
+sc1_1
 ```
 
 Your final output should look something like this:
@@ -64,18 +81,22 @@ Great job making it to the end of the first scenario!
 ## Finding the conditions averages for the Stroop task (Difficulty rating: Medium)
 
 
-In this scenario you're working on some Stroop data just like the data we collected in practical 7. Run the chunk below to see the data
+In this scenario you're working on some Stroop data just like the data we
+collected in an earlier practical. Run the chunk below to see the data
 
 ```{r}
 stroop_data
 ```
 
-You first task is to work out the average rt for each condition. Take note that the condition column is called `condition` and the rt column is called `rt`
+You first task is to work out the average rt for each condition. Take note that
+the condition column is called `condition` and the rt column is called `rt`
 
 ```{r}
 # Write answer here
 
-dplyr::group_by(.data = stroop_data, condition) %>% dplyr::summarise(.data = ., mean_rt = mean(rt))
+dplyr::group_by(.data = stroop_data, condition) %>%
+  dplyr::summarise(.data = ., mean_rt = mean(rt))
+
 ```
 
 Your end result should look something like this
@@ -90,14 +111,19 @@ Your end result should look something like this
 
 ## Tidying the stroop data before summarising (Difficulty rating: Medium)
 
-You've just finished working out the averages for the two conditions, but now a research assistant had told you that they messed up the participants IDs. There's actually two participants that were given the code `sub01`!
+You've just finished working out the averages for the two conditions, but now a
+research assistant had told you that they messed up the participants IDs.
+There's actually two participants that were given the code `sub01`!
 
-You'll need to work out the averages again, but first remove `sub01` from the data set.
+You'll need to work out the averages again, but first remove `sub01` from the
+data set.
 
 ```{r}
 # Write answer here
 
-dplyr::filter(.data = stroop_data, id != 'sub01') %>% dplyr::group_by(.data = ., condition) %>% dplyr::summarise(.data = ., mean_rt = mean(rt))
+dplyr::filter(.data = stroop_data, id != "sub01") %>%
+  dplyr::group_by(.data = ., condition) %>%
+  dplyr::summarise(.data = ., mean_rt = mean(rt))
 
 ```
 
@@ -113,13 +139,15 @@ When you're done you should have something that looks like this
 
 ## Find the heaviest penguin species (Difficulty rating: Medium)
 
-We're back to the penguins! We're going to be using the data in the `penguins` data
+We're back to the penguins! We're going to be using the data in the `penguins`
+data
 
 ```{r}
 penguins
 ```
 
-You job is to calculate the average body mass for each penguins species. When you're done, your output should look like the following:
+You job is to calculate the average body mass for each penguins species. When
+you're done, your output should look like the following:
 
 ```
 # A tibble: 3 x 2
@@ -130,12 +158,16 @@ You job is to calculate the average body mass for each penguins species. When yo
 3 Gentoo                5076.
 ```
 
-Note! When you're using the mean function you might have to add na.rm = TRUE to the end of the function, because there are a few missing values is in the body_mass_g column
+Note! When you're using the mean function you might have to add na.rm = TRUE to
+the end of the function, because there are a few missing values is in the
+body_mass_g column
 
 ```{r}
 # Write your answer here
 
-dplyr::group_by(.data = penguins, species) %>% summarise(.data = ., average_body_mass = mean(body_mass_g, na.rm = TRUE))
+dplyr::group_by(.data = penguins, species) %>%
+  dplyr::summarise(.data = ., average_body_mass = mean(body_mass_g, na.rm = TRUE))
+
 ```
 
 
@@ -148,7 +180,18 @@ Hint: You only need to add in one word to your previous answer. So feel free to 
 ```{r}
 # Write answer here
 
-dplyr::filter(.data = stroop_data, id != 'sub01') %>% dplyr::group_by(.data = ., condition, group) %>% dplyr::summarise(.data = ., mean_rt = mean(rt)) 
+## Part 1
+
+dplyr::filter(.data = stroop_data, id != "sub01") %>%
+  dplyr::group_by(.data = ., condition, group) %>%
+  dplyr::summarise(.data = ., mean_rt = mean(rt))
+
+## Part 2
+
+dplyr::filter(.data = stroop_data, id != "sub01") %>%
+  dplyr::group_by(.data = ., condition, group) %>%
+  dplyr::summarise(.data = ., mean_rt = mean(rt)) %>%
+  dplyr::ungroup()
 
 ```
 
@@ -165,7 +208,9 @@ When you're done, you should have something like this
 4 inc       G2       896.
 ```
 
-Notice that the data above is still grouped! You can ungroup it by putting an `dplyr::ungroup()` at the end of you pipeline. Try editing your pipeline so that the output looks like this. 
+Notice that the data above is still grouped! You can ungroup it by putting an
+`dplyr::ungroup()` at the end of you pipeline. Try editing your pipeline so
+that the output looks like this. 
 
 ```
 # A tibble: 4 x 3
@@ -181,9 +226,12 @@ Notice that the data above is still grouped! You can ungroup it by putting an `d
 
 ## Helping a researcher! (Difficulty rating: Hard!)
 
-This problem is very similar to last week's scenario but this time I'm going to make it ever harder! However, if you get stuck look at last week's solution for hits. 
+This problem is very similar to last week's scenario but this time I'm going to
+make it ever harder! However, if you get stuck look at last week's solution for
+hits. 
 
-Again, you'll be working as a research assistant, and you'll be working with the `survey_data` data set.
+Again, you'll be working as a research assistant, and you'll be working with
+the `survey_data` data set.
 
 ```{r}
 survey_data
@@ -198,11 +246,17 @@ This will take a few steps:
 - Maudsley Addiction Profile (`map`)
 - Leeds Dependence Questionnaire (`ldq`)
 
-2. Second, the researcher has said that they want to **exclude** any participants that have a score of the Maudsley Addiction Profile of 40 or higher.
+2. Second, the researcher has said that they want to **exclude** any
+   participants that have a score of the Maudsley Addiction Profile of 40 or
+   higher.
 
-2. Third, the data set contains data from both male `M` and female `F` participants, and the research said they want the data from males and females processed separately. 
+2. Third, the data set contains data from both male `M` and female `F`
+   participants, and the research said they want the data from males and
+   females processed separately. 
 
-3. Finally, once the data has been group according to gender, the research wants you to work out the average `map` value for males and females and the average `ldq` value for males and females
+3. Finally, once the data has been group according to gender, the research
+   wants you to work out the average `map` value for males and females and the
+   average `ldq` value for males and females
 
 
 When you're done the final result should look something like this:
@@ -218,9 +272,13 @@ When you're done the final result should look something like this:
 Try to solve the problem using `%>%`
 
 ```{r}
-# Write your answer in here  
-  
-survey_data %>% dplyr::select(.data = ., id_code, gender, map, ldq) %>% dplyr::filter(.data = ., map < 40) %>% dplyr::group_by(.data = ., gender) %>% dplyr::summarise(.data = ., mean_map = mean(map), mean_ldq = mean(ldq)) 
+# Write your answer in here
+
+survey_data %>%
+  dplyr::select(.data = ., id_code, gender, map, ldq) %>%
+  dplyr::filter(.data = ., map < 40) %>%
+  dplyr::group_by(.data = ., gender) %>%
+  dplyr::summarise(.data = ., mean_map = mean(map), mean_ldq = mean(ldq))
 
 ```
 
@@ -232,9 +290,11 @@ You have the rating of various movies obtained from IMBD. This data is in `movie
 movie_data
 ```
 
-In addition to the rating, the data set also has the genre, the year the movie came out, and the country it was produced in. 
+In addition to the rating, the data set also has the genre, the year the movie
+came out, and the country it was produced in. 
 
-Make a table that lists the highest rated movie in each genre. Your final output should look like the following:
+Make a table that lists the highest rated movie in each genre. Your final
+output should look like the following:
 
 ```
 # A tibble: 18 x 6
@@ -263,12 +323,18 @@ Make a table that lists the highest rated movie in each genre. Your final output
 ```{r}
 # Write your answer here
 
-movie_data %>% dplyr::group_by(.data = ., genre) %>% dplyr::mutate(.data = ., max_rating = max(rating)) %>% dplyr::filter(rating == max_rating) 
+movie_data %>%
+  dplyr::group_by(.data = ., genre) %>%
+  dplyr::mutate(.data = ., max_rating = max(rating)) %>%
+  dplyr::filter(rating == max_rating)
+
 ```
 
 ## Highest rated genre (Difficulty rating: Hard)
 
-In the previous question you made a table of the highest rated movie in each genre. In this question instead of looking for the highest rated movie, you're going to look for the genre that had the highest average rating. 
+In the previous question you made a table of the highest rated movie in each
+genre. In this question instead of looking for the highest rated movie, you're
+going to look for the genre that had the highest average rating. 
 
 Your final output should look something like the following:
 
@@ -280,5 +346,10 @@ Your final output should look something like the following:
 ```
 
 ```{r}
-movie_data %>% dplyr::group_by(.data = ., genre) %>% dplyr::summarise(.data = ., mean_rating = mean(rating)) %>% dplyr::mutate(.data = ., max_rating = max(mean_rating)) %>% dplyr::filter(.data = ., mean_rating == max_rating)
+movie_data %>%
+  dplyr::group_by(.data = ., genre) %>%
+  dplyr::summarise(.data = ., mean_rating = mean(rating)) %>%
+  dplyr::mutate(.data = ., max_rating = max(mean_rating)) %>%
+  dplyr::filter(.data = ., mean_rating == max_rating)
+
 ```
