@@ -1,0 +1,542 @@
+---
+title: "Summarising data with `dplyr` and pipes `%>%`"
+subtitle: "Practical 11"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+library(dplyr)
+library(palmerpenguins)
+penguins2 <- penguins %>% select(species, island, sex, year)
+style_duo_accent(
+  primary_color = "#003b49",
+  secondary_color = "#1d4289",
+  header_font_google = google_font("Cabin"),
+  text_font_google = google_font("Noto Sans", "300", "300i"),
+  code_font_google = google_font("Fira Mono"),
+  colors = c(
+    red = "#d3003f",
+    purple = "#3e2f5b",
+    orange = "#ff8811",
+    green = "green",
+    white = "#FFFFFF",
+    blue = "blue"
+  )
+)
+
+xaringanthemer::style_extra_css(
+  list(
+    ".title-slide" = list(
+      "background-image" =
+        paste0(
+          "url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/",
+          "University_of_Sussex_Logo.svg/",
+          "480px-University_of_Sussex_Logo.svg.png)"
+        ),
+      "background-position" = "95% 95%",
+      "background-size" = "180px",
+      "border" = "10px solid #013035",
+      "background-color" = "#FFFFFF"
+    ),
+    ".title-slide h1" = list(
+      "padding-top" = "0px",
+      "font-size" = "60px",
+      "text-align" = "left",
+      "padding-bottom" = "18px",
+      "margin-bottom" = "18px",
+      "margin-top" = "0px",
+      "color" = "#003b49"
+    ),
+    ".title-slide h2" = list(
+      "font-size" = "40px",
+      "text-align" = "left",
+      "padding-top" = "10px",
+      "margin-top" = "0px",
+      "color" = "#003b49"
+    ),
+    ".title-slide h3" = list(
+      "font-size" = "30px",
+      "color" = "#26272A",
+      "text-align" = "left",
+      "text-shadow" = "none",
+      "padding" = "0px",
+      "margin" = "0px",
+      "line-height" = "1"
+    ),
+    ".big" = list("font-size" = "40px"),
+    "pre" = list(
+      "background" = "#f8f8f8",
+      "padding" = "10px",
+      "border" = "1px",
+      "border-color" = "#666",
+      "border-style" = "solid",
+      "border-radius" = "2px"
+    ),
+    ".footnote" = list(
+      "font-size" = ".6em",
+      "border-top" = "1px solid #007935"
+    )
+  )
+)
+
+
+xaringanExtra::use_editable(expires = 1)
+```
+```{css echo=FALSE}
+
+  kbd {
+      padding: 2px 4px;
+      font-size: 90%;
+      color: rgb(var(--font-col));
+          background-color: #efefef;
+      border-radius: 3px;
+      box-shadow: none;
+      border: solid 1px;
+  }
+```
+
+```{r, echo=FALSE}
+library(metathis)
+week <- "10"
+description <- paste0(
+  c(
+  "In this practical we'll learn how to group data, ",
+  "summarise data, and use pipes `%>%` to chain operations together")
+)
+content_type <- "intro_slides"
+
+meta() %>%
+  meta_description(description) %>%
+  meta_tag("week" = week) %>%
+  meta_tag("content_type" = content_type)
+```
+
+
+## Plan for today
+
+- Questions about last week's practical 
+
+- Attendance pin
+
+- More on manipulating and transforming data with `dplyr`
+
+  - the `dplyr::summarise()` function
+
+  - the `dplyr::group_by()` function
+
+- Chaining together operations with `%>%`
+
+
+---
+
+
+# Attendance 
+
+<br>
+
+.middle[
+.center[
+
+## Attendance pin.can-edit[: ]
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+**Go to www.sussex.ac.uk/mobile OR use the SussexMobile app to input the pin**
+
+]]
+
+
+---
+
+## Recap of `dplyr::mutate()`
+
+Last we say how we could use the `dplyr::mutate()` function to add a new column
+that held an average of another column. 
+
+
+Let's say we wanted to create a new column called `average_price`, which
+contains the average of the values in the price column. 
+
+```{r, echo=FALSE, include=FALSE}
+
+fruit_prices <- tibble::tibble(item = c("Apples", "Bananas", "Oranges"), price = c(1.00, 2.00, 2.40))
+```
+
+.pull-left[
+Our original tibble with fruit prices
+
+```{r, include=TRUE, echo=FALSE}
+fruit_prices
+```
+]
+
+
+.pull-right[
+Our tibble with the average price column
+
+```{r, include=TRUE, echo=FALSE}
+dplyr::mutate(.data = fruit_prices, average_price = mean(price))
+```
+]
+
+We'd run this command:
+
+```r
+dplyr::mutate(.data = fruit_prices, average_price = mean(price))
+```
+
+---
+
+## The `dplyr::summarise()` function
+
+But let's say that we want to collapse our table down to make a summary table.
+
+That is, we don't want the whole table. We just one row with the average
+
+.pull-left[
+Our tibble with the average price column
+
+```{r, include=TRUE, echo=FALSE}
+dplyr::mutate(.data = fruit_prices, average_price = mean(price))
+```
+]
+
+
+.pull-right[
+A summary with only average price
+
+```{r, include=TRUE, echo=FALSE}
+dplyr::summarise(.data = fruit_prices, average_price = mean(price))
+```
+]
+
+To do this, we'd use the the `dplyr::summarise()` function
+
+```r
+dplyr::summarise(.data = fruit_prices, average_price = mean(price))
+```
+
+Notice the identical syntax for `dplyr::mutate()` and `dplyr::summarise()`
+
+---
+
+## Adding multiple of summarises 
+
+In the previous example we just added a single summary column, but we can add
+multiple ones
+
+.pull-left[
+Our orginal **tibble** with `price`
+
+```{r, include=TRUE, echo=FALSE}
+fruit_prices
+```
+]
+
+
+.pull-right[
+Two summarises for `mean` and `sd`
+
+```{r, include=TRUE, echo=FALSE}
+dplyr::summarise(
+  .data = fruit_prices, mean_price = mean(price),
+  sd_price = sd(price)
+)
+```
+]
+
+To do this, we'd use the the `dplyr::summarise()` function
+
+```r
+dplyr::summarise(.data = fruit_prices, mean_price = mean(price), 
+                                       sd_price = sd(price))
+
+```
+
+If you know how to use `dplyr::mutate()` then `dplyr::summarise()` is easy to
+learn!
+
+---
+
+## The `dplyr::group_by()` function
+
+The `dplyr::summarise()` function is not that useful **by itself**. It's real
+power comes when it's combined with `dplyr::group_by()`, which allows us to
+**group together rows** according to a **grouping variable**
+
+```{r, include=FALSE}
+sub_ids <- rep(paste0("sub", sprintf("%.2d", seq(1, 10, 1))), 2)
+cond <- c(rep("inc", 10), rep("con", 10))
+rt <- round(c(rnorm(10, 900, 50), rnorm(10, 800, 50)), 2)
+stroop <- tibble::tibble(id = sub_ids, condition = cond, rt = rt) %>% arrange(id)
+```
+
+
+.pull-left[
+A tibble that hasn't been grouped
+```{r, include=TRUE, echo=FALSE}
+print(stroop, n = 4)
+```
+]
+
+.pull-right[
+...and now grouped by **condition**
+```{r, include=TRUE, echo=FALSE}
+print(group_by(stroop, condition), n = 3)
+```
+]
+
+To **group** the tibble **by condition** we'd just run
+```r
+dplyr::group_by(.data = stroop, condition)
+```
+---
+class: smoller
+
+### Working with grouped data
+
+
+Once we have grouped data, then we can calculate summaries **by group**. 
+
+.pull-left[
+A tibble grouped by condition 
+```{r, include=TRUE, echo=FALSE}
+print(group_by(stroop, condition), n = 4)
+```
+]
+
+.pull-right[
+A summary of a grouped tibble
+```{r, include=TRUE, echo=FALSE}
+print(group_by(stroop, condition) %>% summarise(mean_rt = mean(rt), .groups = "drop"), n = 4)
+```
+]
+
+To do this would take **two steps**...
+
+```r
+# First we group it!
+grouped_stroop <- dplyr::group_by(.data = stroop, condition)
+
+# Then we summarise it!
+dplyr::summarise(.data = grouped_stroop, mean_rt = mean(rt))
+
+```
+
+---
+
+### Ungrouping data with `dplyr::ungroup()`
+
+One this to be aware of when you're working with **grouped** data is that your 
+data will stay grouped
+
+Once you're finished working with the data in **grouped** form, you should
+**explicitly** ungroup it, otherwise you may sometimes get unexpected results!
+
+To **ungroup** a **tibble** just use `dplyr::ungroup()`
+
+```r
+ungrouped_stroop <- dplyr::ungroup(.data = grouped_stroop)
+```
+
+---
+
+### Useful functions for summarises
+
+There are a few functions that are particularly useful for using with
+`dplyr::summarise()` (and  `dplyr::group_by()`)
+
+- `mean(..., na.rm = TRUE)` for working out the mean of a **column's values**
+
+- `sd(..., na.rm = TRUE)` for working out standard deviation of a **column's
+  values** 
+
+- `n()` for counting the **numbers of rows** (in a group if the data is
+  grouped)
+
+For the `mean()` and `sd()` we need to specify the **column name** we want to
+work out the mean or sd of
+
+If the column contains **missing values** then we can add `na.rm = TRUE` to
+ignore those missing values
+
+For the `n()` function you **don't** specify a column name, because *all the
+columns have the same number of rows* so any input would be redundant 
+
+---
+
+## Using `%>%` to chain together steps
+
+The `%>%` is called the **pipe operator**. We use it for **piping data
+around!**
+
+The `%>%` doesn't come built in to `R` but it is part of a package called
+`magrittr`<sup>1</sup>
+
+To be able to access the `%>%` operator you first need to install `magrittr`
+
+```r
+install.packages("magrittr")
+```
+
+And then load it 
+
+```r
+library("magrittr")
+```
+
+Everyone should already have it installed, so you should only need to load it!
+
+.footnote[<sup>1</sup>It's named after René Magritte, the Belgian surrealist
+painter who famous for the artwork [The Treachery of Images
+](https://en.wikipedia.org/wiki/The_Treachery_of_Images), which is picture of a
+pipe with the text "Ceci n'est pas une pipe" (translation: "This is not a
+pipe")]
+
+---
+
+## Using `%>%` to chain together steps
+
+*The two step version*
+
+<pre><code>
+<span style="background-color:lightblue; font-weight:bold">grouped_stroop</span> <- dplyr::group_by(.data = stroop, condition)
+
+dplyr::summarise(.data = <span style="background-color:lightblue; font-weight:bold">grouped_stroop</span>, mean_rt = mean(rt))
+</code></pre>
+
+
+The **output** from *step 1* serves as the **input** for *step 2* 
+
+*The one step version*
+
+<pre><code>
+dplyr::group_by(.data = stroop, condition) <span style="background-color:lightgreen; font-weight:bold">%>%</span>
+      dplyr::summarise(.data = <span style="background-color:lightblue; font-weight:bold">.</span>, mean_rt = mean(rt))
+</code></pre>
+
+We don't **assign the output** from *step 1* to an object. Instead, we add a
+`%>%` and then start writing out *step 2*, and we use `.` to indicate where the
+**output** from *step 1* should go
+
+The two steps now function *like a single command*
+
+---
+
+
+## Using `%>%` to chain together steps
+
+You can chain together **any number of steps** and use any functions you want!
+
+You can also move the first input outside the first function and pipe that in too!
+
+Let's say you start off with something like this:
+
+```{r, echo=FALSE}
+penguins %>% select(species, island, body_mass_g, bill_length_mm, sex, year)
+```
+
+---
+class: smoller
+
+```{css, echo=FALSE}
+.smoller .remark-code {
+  font-size: 80%;
+}
+```
+
+And you want something like this:
+
+```{r, echo=FALSE}
+penguins %>%
+  dplyr::filter(.data = ., sex == "female") %>%
+  dplyr::group_by(.data = ., species) %>%
+  summarise(
+    .data = .,
+    avg_mass = mean(body_mass_g),
+    sd_mass = sd(body_mass_g),
+    n = n(), .groups = "drop"
+  ) %>%
+  mutate(.data = ., se = sd_mass / sqrt(n))
+```
+
+The **mean**, the **standard deviation**, the **number of penguins**, and the
+**standard error of the mean** for the **females** of each of each **species**
+
+```r
+penguins %>% 
+      dplyr::filter(.data = ., sex == 'female') %>%  
+      dplyr::group_by(.data = ., species) %>%  
+      summarise(.data = .,  
+            avg_mass = mean(body_mass_g),
+            sd_mass = sd(body_mass_g), 
+            n = n()) %>%  
+      mutate(.data = ., se = sd_mass/sqrt(n)) 
+```
+
+This seems **very complicated now** but once you get used to *breaking things
+down into steps joined with `%>%`* it will start to look easier
+
+---
+class: smoller
+
+And you want something like this:
+
+```{r, echo=FALSE}
+penguins %>%
+  dplyr::filter(.data = ., sex == "female") %>%
+  dplyr::group_by(.data = ., species) %>%
+  summarise(
+    .data = .,
+    avg_mass = mean(body_mass_g),
+    sd_mass = sd(body_mass_g),
+    n = n(), .groups = "drop"
+  ) %>%
+  mutate(.data = ., se = sd_mass / sqrt(n))
+```
+
+The **mean**, the **standard deviation**, the **number of penguins**, and the
+**standard error of the mean** for the **females** of each of each **species**
+
+```r
+penguins %>% 
+      dplyr::filter(.data = ., sex == 'female') %>% # filter for females 
+      dplyr::group_by(.data = ., species) %>%  # group by species
+      summarise(.data = .,  # work out summarises
+            avg_mass = mean(body_mass_g), # the mean
+            sd_mass = sd(body_mass_g), # the sd
+            n = n()) %>%  # the count
+      mutate(.data = ., se = sd_mass/sqrt(n)) # calculate the standard error
+```
+
+This seems **very complicated now** but once you get used to *breaking things
+down into steps joined with `%>%`* it will start to look easier
+
+---
+
+# Tips for using  `%>%`
+
+There are two main tips for using `%>%`
+
+- Build up pipelines *step by step* so you can keep track of what each
+  transformation is doing 
+
+- You only ever need to make them as complex as you want to!

@@ -1,0 +1,287 @@
+<script src="bundle.js"></script>
+
+
+
+
+<style>
+    @media only screen and (max-width: 450px) {
+        #header * {
+            display: none;
+        }
+    }
+    
+    .tutor {
+        border: solid;
+        padding: 2em;
+        border-color: green;
+    }
+    
+    .tutor::before {
+        content: "solution\a\a";
+        white-space: pre;
+    }
+    
+     :root {
+        --alt-col: 1, 59, 73;
+    }
+    
+    .pathquestion {
+        outline: none;
+        padding-bottom: 5px;
+        line-height: 1.5em;
+        height: 3em;
+    }
+    
+    .pathquestion input {
+        font-size: 1.2em;
+        outline: 0;
+        height: 2em;
+        border-width: 0 0 2px;
+        border-color: grey;
+        width: 25em;
+        font-family: 'Fira Mono', monospace;
+    }
+    
+    kbd {
+        padding: 2px 4px;
+        font-size: 90%;
+        color: rgb(var(--font-col));
+        background-color: #EFEFEF;
+        border-radius: 3px;
+        box-shadow: none;
+        border: solid 1px;
+    }
+    
+    #header {
+        flex: 0 0 50px;
+        /*or just height:50px;*/
+        margin-top: 50px;
+        line-height: 2em;
+        margin-top: 0em;
+        background-color: #F3F3F3;
+        width: 100%;
+        margin-bottom: 50px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 1030;
+    }
+    
+    h1,
+    h2,
+    h3,
+    strong {
+        color: #003b49;
+    }
+    
+    #header h1 {
+        padding-left: 75px;
+        padding-right: 15px;
+        padding-bottom: 10px;
+        max-width: 680px;
+        margin-right: auto;
+        margin-left: auto;
+        background-repeat: no-repeat;
+        background-size: 50px;
+        background-position-y: 0;
+        position: relative;
+        left: -60px;
+        padding-top: 40px;
+        margin-top: 0;
+    }
+    
+    .infobox .body {
+        display: block;
+        padding: 1em;
+        border-radius: 5px;
+        max-width: 680px;
+    }
+    
+    details.infobox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 660px;
+    }
+    
+    mark {
+        font-weight: bold;
+    }
+    
+    body {
+        margin-top: 80px;
+        background: #fdfdfd;
+    }
+    
+    .main-container {
+        padding-left: 15px;
+        padding-right: 15px;
+        display: flex;
+        max-width: 680px;
+        margin-right: auto;
+        margin-left: auto;
+        flex-direction: column;
+    }
+    
+    .btn {
+        padding: 0;
+        margin-right: 1em;
+    }
+    
+    .copy-button {
+        width: 7em;
+    }
+    
+    .btn-primary {
+        background-color: rgb(var(--alt-col));
+        border-color: rgb(var(--alt-col));
+        padding-left: 1em;
+        padding-right: 1em;
+        z-index: -4;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    
+    .copy-button:hover {
+        color: rgb(var(--alt-col));
+        background-color: rgba(var(--alt-col), .1);
+        border-color: rgb(var(--alt-col));
+        border-bottom: solid 1px transparent;
+    }
+    
+    pre {
+        border-radius: 0;
+        border-color: rgb(var(--alt-col));
+        background: #f7f7f7;
+    }
+    
+    details.hint {
+        color: black;
+        position: relative;
+        width: max-content;
+        margin-bottom: 10px;
+    }
+    
+    summary.hint {
+        font-weight: bold;
+        line-height: 1.5em;
+        font-size: 1.1em;
+        border: solid 1px rgb(var(--alt-col));
+        width: max-content;
+        padding: 0 5px;
+        border-radius: 5px;
+        color: #fff;
+        background: rgb(var(--alt-col));
+        cursor: pointer;
+    }
+    
+    summary.hint:focus {
+        outline: none;
+    }
+    
+    summary.hint:hover {
+        background-color: rgba(var(--alt-col), .1);
+        color: rgb(var(--alt-col));
+    }
+    
+    details.hint[open] {
+        border: solid 1px rgb(var(--alt-col));
+        padding: 8px;
+        background: rgba(var(--alt-col), .005);
+        width: 100%;
+        cursor: pointer;
+    }
+    
+    .hint[open] summary {
+        margin-left: -5px;
+        border: none;
+        color: rgb(var(--alt-col));
+        background: none;
+    }
+    
+    details>summary::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    
+    .box {
+        background: #e3e1dd;
+        padding: 1em 1em 1px 1em;
+        margin: 1em 0 2em 0;
+        color: #3e2d05;
+        text-align: justify;
+    }
+    
+    .box em,
+    .box strong {
+        color: #126051;
+    }
+    
+    .warn {
+        color: #bb1a1a;
+        border: solid 1px #bb1a1a;
+        padding: 1em 1em 0em 1em;
+        margin: 2em 0 3em 0;
+        text-align: justify;
+    }
+    
+    .warn strong {
+        color: #bb1a1a;
+        background: #fff;
+    }
+    
+    img {
+        margin: auto;
+        display: block;
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    body {
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    code {
+        font-family: 'Fira Mono', monospace;
+    }
+    
+    .answertext {
+        line-height: 150%;
+        padding-left: .5em;
+    }
+    
+    .answer {
+        line-height: 150%;
+    }
+    
+    .question {
+        padding-top: 1em;
+    }
+    
+    input.quizSubmit[type="submit"] {
+        box-shadow: none;
+        background-color: #96571e;
+    }
+    
+    input.quizSubmit[type="submit"]:hover {
+        background: #663000;
+    }
+    
+    @media only screen and (max-width: 806px) {
+        #header h1 {
+            margin-left: 0;
+            left: 0;
+        }
+        .main-container {
+            padding-left: 75px;
+            margin-left: 0;
+        }
+    }
+    
+    p:first-of-type {
+        margin-top: 2em;
+    }
+</style>

@@ -1,0 +1,294 @@
+---
+title: 'Grouping, summarising, and pipes'
+output:
+  rmarkdown::html_document
+---
+
+```{r setup,echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = TRUE, highlight = TRUE)
+
+# I've loaded the packages for you!
+library("paas")
+library("dplyr")
+library("magrittr")
+
+# Now let's load some data!
+
+penguins <- palmerpenguins::penguins
+starwars2 <- paas::starwars2
+survey <- paas::survey_data
+stroop_data <- readr::read_csv("https://files.mindsci.net/stroop_data.csv")
+movie_data <- readr::read_csv("https://files.mindsci.net/movies_data.csv")
+
+```
+
+# How to use this worksheet
+
+To view a nicely formatted version of this document press <kbd>ctrl</kbd> +
+<kbd>shift</kbd> + <kbd>k</kbd> (windows) or <kbd>command</kbd> +
+<kbd>shift</kbd> + <kbd>k</kbd> (macOS). You'll have to enter your answers into
+this this document, but it might be easier to read the formatted version.
+
+In the tutorial you learned how to use `dplyr::summarise()` and
+`dplyr::group_by()`. We also learned how to the use the `%>%` from the
+`magrittr` packages. In the previous practical and tutorial we learned about
+`dplyr::select()`, `dplyr::filter()`, and `dplyr::mutate()`. This practical
+worksheet will give you a chance to put all of these skills in to practise.
+
+Some of the problems in this worksheet will be a repeat of last week's
+problems. However, in this worksheet you'll solve these problems using the pipe
+`%>%` operator. The idea is to give you a problem that you're familiar with
+while giving you the chance to solve it in a few way. 
+
+## Finding the shortest character (difficulty rating: Easy)
+
+You have some data about the characters in the Star Wars films stored in
+`starwars2`.
+
+```{r}
+starwars2
+```
+
+You'd like to know the name of the shortest Star Wars character. You know that
+there is only one character with a height less than 70. Can you find that
+character's name? (You should use the `%>%` in your solution)
+
+```{r}
+# Write answer here
+sc1_1 <- dplyr::filter(.data = starwars2, ) %>% dplyr::select(.data = .,  ) 
+sc1_1 
+```
+
+Your final output should look something like this:
+
+```
+# A tibble: 1 x 2
+  name  height
+  <chr>  <int>
+1 Yoda      66
+```
+
+Great job making it to the end of the first scenario!
+
+## Finding the conditions averages for the Stroop task (Difficulty rating: Medium)
+
+
+In this scenario you're working on some Stroop data just like the data we
+collected in an earlier practical. Run the chunk below to see the data
+
+```{r}
+stroop_data
+```
+
+You first task is to work out the average rt for each condition. Take note that
+the condition column is called `condition` and the rt column is called `rt`
+
+```{r}
+# Write answer here
+
+dplyr::group_by(.data = stroop_data, ) %>% dplyr::summarise(.data = ., )
+```
+
+Your end result should look something like this
+
+```
+# A tibble: 2 x 2
+  condition mean_rt
+  <chr>       <dbl>
+1 con          798.
+2 inc          896.
+```
+
+## Tidying the stroop data before summarising (Difficulty rating: Medium)
+
+You've just finished working out the averages for the two conditions, but now a research assistant had told you that they messed up the participants IDs. There's actually two participants that were given the code `sub01`!
+
+You'll need to work out the aveages again, but first remove `sub01` from the data set.
+
+```{r}
+# Write answer here
+
+dplyr::filter(.data = stroop_data, ) %>% dplyr::group_by() %>% dplyr::summarise()
+
+```
+
+When you're done you should have something that looks like this
+
+```
+# A tibble: 2 x 2  
+  condition mean_rt  
+  <chr>       <dbl>  
+1 con          798.  
+2 inc          896.  
+```
+
+## Find the heaviest penguin species (Difficulty rating: Medium)
+
+We're back to the penguins! We're going to be using the data in the `penguins` data
+
+```{r}
+penguins
+```
+
+You job is to calculate the average body mass for each penguins species. When you're done, your output should look like the following:
+
+```
+# A tibble: 3 x 2
+  species   average_body_mass
+  <fct>                 <dbl>
+1 Adelie                3701.
+2 Chinstrap             3733.
+3 Gentoo                5076.
+```
+
+Note! When you're using the mean function you might have to add na.rm = TRUE to the end of the function, because there are a few missing values is in the body_mass_g column
+
+```{r}
+# Write your answer here
+
+dplyr::group_by(.data = penguins, ) %>% summarise()
+```
+
+
+## Dealing with multiple grouping variables (Difficulty rating: Hard)
+
+So far you've kept things relatively simple when dealing with the Stroop data. You've just done a little tidying and then looked at the condition averages. But the Stroop data was actually a mixed design! You should calculate the condition averages for each of the two groups. Remember, you still need to remove `sub01` before working out your averages!
+
+Hint: You only need to add in one word to your previous answer. So feel free to cut and paste your previous answer to make your life easier!
+
+```{r}
+# Write answer here
+
+dplyr::filter(.data = stroop_data, ) %>% dplyr::group_by() %>% dplyr::summarise()
+
+```
+
+When you're done, you should have something like this
+
+```
+# A tibble: 4 x 3
+# Groups:   condition [2]
+  condition group mean_rt
+  <chr>     <chr>   <dbl>
+1 con       G1       795.
+2 con       G2       802.
+3 inc       G1       895.
+4 inc       G2       896.
+```
+
+Notice that the data above is still grouped! You can ungroup it by putting an `dplyr::ungroup()` at the end of you pipeline. Try editing your pipeline so that the output looks like this. 
+
+```
+# A tibble: 4 x 3  
+  condition group mean_rt  
+  <chr>     <chr>   <dbl>
+1 con       G1       795.
+2 con       G2       802.
+3 inc       G1       895.
+```
+
+---
+
+## Helping a researcher! (Difficulty rating: Hard!)
+
+This problem is very similar to last week's scenario but this time I'm going to make it ever harder! However, if you get stuck look at last week's solution for hits. 
+
+Again, you'll be working as a research assistant, and you'll be working with the `survey_data` data set.
+
+```{r}
+survey_data
+```
+
+This will take a few steps:
+
+1. First, the data set contains 10 different measures, but most of these aren't needed for research. You've been told to produce a data set that only has the following measures and variables
+
+- the participant ID code (`id_code`)
+- the participant gender (`gender`)
+- Maudsley Addiction Profile (`map`)
+- Leeds Dependence Questionnaire (`ldq`)
+
+2. Second, the researcher has said that they want to **exclude** any participants that have a score of the Maudsley Addiction Profile of 40 or higher.
+
+2. Third, the data set contains data from both male `M` and female `F` participants, and the research said they want the data from males and females processed separately. 
+
+3. Finally, once the data has been group according to gender, the research wants you to work out the average `map` value for males and females and the average `ldq` value for males and females
+
+
+When you're done the final result should look something like this:
+
+```
+# A tibble: 2 x 3
+  gender mean_map mean_ldq
+  <chr>     <dbl>    <dbl>
+1 F          20       24.7
+2 M          25.4     26.1
+```
+
+Try to solve the problem using `%>%`
+
+```{r}
+# Write your answer in here  
+  
+
+```
+
+## Highest rated movie in each genre (Difficulty rating: Very hard)
+
+You have the rating of various movies obtained from IMBD. This data is in `movie_data`
+
+```{r}
+movie_data
+```
+
+In addition to the rating, the data set also has the genre, the year the movie came out, and the country it was produced in. 
+
+Make a table that lists the highest rated movie in each genre. Your final output should look like the following:
+
+```
+# A tibble: 18 x 6
+# Groups:   genre [16]
+   title                                year rating genre   country   max_rating
+   <chr>                               <dbl>  <dbl> <chr>   <chr>          <dbl>
+ 1 "Beauty and the Beast"               2017    7.1 Family  USA              7.1
+ 2 "Coco"                               2017    8.4 Animat… USA              8.4
+ 3 "Escape from Pretoria"               2020    6.8 Thrill… UK               6.8
+ 4 "Get Out"                            2017    7.7 Horror  USA              7.7
+ 5 "Hamilton"                           2020    8.6 Biogra… USA              8.6
+ 6 "In Your Eyes"                       2014    7   Fantasy USA              7  
+ 7 "Inception"                          2010    8.8 Action  USA              8.8
+ 8 "Interstellar"                       2014    8.6 Advent… USA              8.6
+ 9 "Joker"                              2019    8.5 Crime   USA              8.5
+10 "Les Mis\xe9rables in Concert: The…  2010    8.8 Drama   UK               8.8
+11 "Limitless"                          2011    7.4 Sci-Fi  USA              7.4
+12 "Metallica Through the Never"        2013    7.2 Music   USA              7.2
+13 "Parasite"                           2019    8.6 Comedy  South Ko…        8.6
+14 "Shutter Island"                     2010    8.2 Mystery USA              8.2
+15 "Spider-Man: Into the Spider-Verse"  2018    8.4 Animat… USA              8.4
+16 "The Adjustment Bureau"              2011    7   Romance USA              7  
+17 "The Coldest Game"                   2019    6.1 History Poland           6.1
+18 "The Phantom of the Opera at the R…  2011    8.8 Drama   UK               8.8
+```
+```{r}
+# Write your answer here
+
+```
+
+## Highest rated genre (Difficulty rating: Hard)
+
+In the previous question you made a table of the highest rated movie in each genre. In this question instead of looking for the highest rated movie, you're going to look for the genre that had the highest average rating. 
+
+Your final output should look something like the following:
+
+```
+# A tibble: 1 x 3
+  genre mean_rating max_rating
+  <chr>       <dbl>      <dbl>
+1 Music         7.2        7.2>
+```
+
+```{r}
+# Write your answer here
+
+
+```
