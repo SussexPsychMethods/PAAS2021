@@ -6,6 +6,22 @@ require 'asciidoctor'
 
 weeks = [*1..11]
 
+
+lecture_links =
+{11 => "https://sussex.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=41353405-6da7-4130-8c69-adf9010793bb",
+ 9 => "https://sussex.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=8153bbfb-e5fd-486a-b70f-adeb0107dca0",
+ 8 => "https://sussex.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=896d6177-f7f4-4d69-9237-ade40107c7fe",
+ 7 => "https://sussex.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=c1bc339e-c286-4faf-94c2-addd0109c30e",
+ 6 => "https://sussex.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=91a3f770-54f1-49d8-913c-add600fcfb4a",
+ 5 => "https://sussex.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=7b70145a-58ae-4460-aecd-adcf00e65b20",
+ 4 => "https://sussex.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=d2b679d7-4e1b-4852-b999-adc800c77e94",
+ 3 => "https://sussex.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=84fbc924-90d0-45b5-9dcd-adc100f57e09",
+ 2 => "https://sussex.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=bebface4-c004-4498-8253-adba00f495e7",
+ 1 => "https://sussex.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=b2a0c475-184d-4e2f-91a4-adb300e673cd"}
+
+
+
+
 Materials = Struct.new(
   :type,
   :subtype,
@@ -80,6 +96,12 @@ def add_pdf_to_link(link_text, link, pdf)
   "link:#{link.trim}[Link to #{link_text}] (link:#{pdf.trim}[pdf])"
 end
 
+def add_solutions(link_text)
+  solution = link_text.gsub('index.html','index.html?solutions=true').gsub('Link to practical worksheet','Link to solution sheet')
+  return "#{link_text} (#{solution})"
+
+end
+
 def make_materials(week, week_int, type, subtype)
   link = list_html(type, week, subtype)
   pdf = list_pdf(type, week, subtype)
@@ -88,6 +110,10 @@ def make_materials(week, week_int, type, subtype)
 
   link_text = make_link_text(type, subtype)
   link_text = add_pdf_to_link(link_text, link, pdf)
+  if week_int >= 7 && subtype == "worksheet"
+    link_text = add_solutions(link_text) 
+  end
+
   Materials.new(type, subtype, "Week #{week}", link_text, week_int, desc)
 end
 
@@ -147,6 +173,7 @@ template = ERB.new(File.read('./src/index.md'))
 
 index_page = template.result_with_hash(lectureList: lecture_list,
                                        practicalList: practical_list,
-                                       tutorialList: tutorial_list)
+                                       tutorialList: tutorial_list,
+                                       videoList: lecture_links)
 File.write('./src/index.asc', index_page)
 Asciidoctor.render_file('./src/index.asc')
