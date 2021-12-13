@@ -17,8 +17,8 @@ link:archive/2020/index.html[this link].
 <%= item.week.h3 if item.subtype == "slides" %>
 <%= item.desc + "\n" if item.subtype == "slides" %>
 <%= item.link + "\n" %>
+<%= "link:#{videoList[item.week_int]}[Link to recording (requires login)]" if item.subtype == "slides"%>
 <% end %>
-
 == Practical classes
 
 <% practicalList.each do |item| %>
