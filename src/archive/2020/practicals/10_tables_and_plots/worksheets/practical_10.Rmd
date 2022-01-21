@@ -8,7 +8,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE, error = TRUE, warning = FALSE, message = FALSE)
 ```
 
-This document should be used in conjunction with the [Week 11 worksheet](https://paas.netlify.app/practicals/10_tables_and_plots/worksheet/).
+This document should be used in conjunction with the [Week 11 worksheet](https://paas.netlify.app/archive/2020/practicals/10_tables_and_plots/worksheet/).
 Feel free to add text to write little notes to your future self.
 
 You can knit this document whenever you want to see what the formatted HTML version looks like.

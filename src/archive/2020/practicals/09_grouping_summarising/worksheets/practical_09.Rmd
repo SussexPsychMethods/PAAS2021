@@ -17,8 +17,8 @@ library("magrittr")
 penguins <- palmerpenguins::penguins
 starwars2 <- paas::starwars2
 survey <- paas::survey_data
-stroop_data <- readr::read_csv("https://paas.netlify.app/practicals/09_grouping_summarising/worksheets/stroop_data.csv")
-movie_data <- readr::read_csv("https://paas.netlify.app/practicals/09_grouping_summarising/worksheets/movies_data.csv")
+stroop_data <- readr::read_csv("https://paas.netlify.app/archive/2020/practicals/09_grouping_summarising/worksheets/stroop_data.csv")
+movie_data <- readr::read_csv("https://paas.netlify.app/archive/2020/practicals/09_grouping_summarising/worksheets/movies_data.csv")
 
 ```
 

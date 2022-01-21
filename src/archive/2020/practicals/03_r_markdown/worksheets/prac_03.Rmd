@@ -40,7 +40,7 @@ If you haven't done so yet, create a new `R` project in your `paas` folder and c
 If you're useing [RStudio cloud](https://rstudio.cloud), create a new project there.
 Use RStudio's Files pane to create four folders in your project folder: `data`, `scripts`, `r_docs`, and `images`.
 
-If you need help on how to create R projects, [check out last week's practical work sheet](https://paas.netlify.app/practicals/02_project_files/worksheets/)
+If you need help on how to create R projects, [check out last week's practical work sheet](https://paas.netlify.app/archive/2020/practicals/02_project_files/worksheets/)
 
 ### Task 2
 
